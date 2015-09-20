@@ -57,23 +57,12 @@ CameraPosesPlugin::CameraPosesPlugin()
   // Position and resize this widget
   this->move(10, 10);
   this->resize(50, 30);
-
-  // Create a node for transportation
-//  this->node = transport::NodePtr(new transport::Node());
-//  this->node->Init();
-//  this->cameraPosesPub = this->node->Advertise<msgs::Pose>("~/camera_poses");
-
-
-//    this->updateConnection = event::Events::ConnectWorldUpdateBegin(
-//        boost::bind(&CameraPosesPlugin::OnUpdate, this));
-
-  gui::KeyEventHandler::Instance()->AddPressFilter("camera_poses_plugin",
-      boost::bind(&CameraPosesPlugin::OnKeyPress, this, _1));
 }
 
 /////////////////////////////////////////////////
 void CameraPosesPlugin::Load(sdf::ElementPtr _sdf)
 {
+  // Get input params from SDF
   if (!_sdf->HasElement("pose"))
     return;
 
@@ -94,6 +83,10 @@ void CameraPosesPlugin::Load(sdf::ElementPtr _sdf)
 
   this->SetCount(QString::number(this->currentIndex) + " / " +
                  QString::number(this->poses.size() - 1));
+
+  // Filter keyboard events
+  gui::KeyEventHandler::Instance()->AddPressFilter("camera_poses_plugin",
+      boost::bind(&CameraPosesPlugin::OnKeyPress, this, _1));
 }
 
 /////////////////////////////////////////////////

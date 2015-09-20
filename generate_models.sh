@@ -23,14 +23,66 @@ done
 <?xml version='1.0' ?>
 <sdf version='1.5'>
   <world name='default'>
+    <scene>
+      <grid>0</grid>
+      <origin_visual>0</origin_visual>
+      <sky>
+        <clouds>
+          <speed>20</speed>
+          <humidity>5</humidity>
+        </clouds>
+      </sky>
+    </scene>
+
     <!-- A global light source -->
     <include>
       <uri>model://sun</uri>
     </include>
+
     <!-- A ground plane -->
     <include>
       <uri>model://ground_plane</uri>
     </include>
+
+    <!-- Quadcopter -->
+    <model name='quadrotor'>
+      <link name='link'>
+	<pose>0 0 0.182466 0 0 0</pose>
+	<inertial>
+	  <mass>1.316</mass>
+	  <inertia>
+	    <ixx>0.0128</ixx>
+	    <ixy>0</ixy>
+	    <ixz>0</ixz>
+	    <iyy>0.0128</iyy>
+	    <iyz>0</iyz>
+	    <izz>0.0218</izz>
+	  </inertia>
+	</inertial>
+	<collision name='collision'>
+	  <geometry>
+	    <mesh>
+	      <uri>model://quadrotor/meshes/quadrotor_base.dae</uri>
+	    </mesh>
+	  </geometry>
+	</collision>
+	<visual name='visual'>
+	  <geometry>
+	    <mesh>
+	      <uri>model://quadrotor/meshes/quadrotor_base.dae</uri>
+	    </mesh>
+	  </geometry>
+	</visual>
+      </link>
+      <plugin name='animated_quad' filename='libanimated_quad.so'>
+        <pose>0 0 4.5 0 0 0</pose>
+        <pose>30 0 4.5 0 0 0</pose>
+        <pose>30 30 4.5 0 0 0</pose>
+        <pose>0 30 4.5 0 0 0</pose>
+        <pose>0 0 4.5 0 0 0</pose>
+      </plugin>
+    </model>
+
     " >> ../slides.world
 
 echo "Creating a model for each slide..."
@@ -38,7 +90,7 @@ mkdir ../models
 countX=0
 countY=0
 totalCount=0
-for image in *.png; do
+for image in `ls *.png | sort -V`; do
   # extract name
   filename=$(basename "$image")
   filename="${filename%.*}"
@@ -99,14 +151,14 @@ material Slides/"$filename"
       <collision name='collision'>
         <geometry>
           <box>
-            <size>3.0 1.0 3.0</size>
+            <size>4.0 1.0 3.0</size>
           </box>
         </geometry>
       </collision>
       <visual name='visual'>
         <geometry>
           <box>
-            <size>3.0 1.0 3.0</size>
+            <size>4.0 1.0 3.0</size>
           </box>
         </geometry>
         <material>
@@ -147,7 +199,7 @@ echo "
       <plugin name="camera_poses" filename="libcamera_poses_plugin.so">
   " >> ../slides.world
 
-countY=0
+countX=0
 countY=0
 counter=0
 while [ $counter -lt $totalCount ]; do
