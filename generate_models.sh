@@ -74,7 +74,7 @@ done
 	  </geometry>
 	</visual>
       </link>
-      <plugin name='animated_quad' filename='libanimated_quad.so'>
+      <plugin name='animate_model' filename='libanimate_model.so'>
         <pose>0 0 4.5 0 0 0</pose>
         <pose>30 0 4.5 0 0 0</pose>
         <pose>30 30 4.5 0 0 0</pose>
