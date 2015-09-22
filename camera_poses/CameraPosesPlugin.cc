@@ -84,6 +84,9 @@ void CameraPosesPlugin::Load(sdf::ElementPtr _sdf)
   this->SetCount(QString::number(this->currentIndex) + " / " +
                  QString::number(this->poses.size() - 1));
 
+  // Start with left pane closed
+  gui::Events::leftPaneVisibility(false);
+
   // Filter keyboard events
   gui::KeyEventHandler::Instance()->AddPressFilter("camera_poses_plugin",
       boost::bind(&CameraPosesPlugin::OnKeyPress, this, _1));
@@ -116,6 +119,11 @@ bool CameraPosesPlugin::OnKeyPress(const common::KeyEvent &_event)
   else if (_event.key == Qt::Key_F5)
   {
     this->currentIndex = 0;
+    this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
+  }
+  // Current
+  else if (_event.key == Qt::Key_F1)
+  {
     this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
   }
 
