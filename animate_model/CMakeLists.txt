@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-project(animated_quad)
+project(animate_model)
 
 # Find packages
 
@@ -14,5 +14,5 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 
 # Create libraries and executables
 
-add_library(animated_quad SHARED AnimatedQuad.cc)
-target_link_libraries(animated_quad ${GAZEBO_LIBRARIES})
+add_library(animate_model SHARED AnimateModel.cc)
+target_link_libraries(animate_model ${GAZEBO_LIBRARIES})

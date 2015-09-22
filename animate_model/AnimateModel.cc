@@ -23,7 +23,7 @@
 
 namespace gazebo
 {
-  class AnimatedQuad : public ModelPlugin
+  class AnimateModel : public ModelPlugin
   {
     public: void Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
     {
@@ -61,5 +61,5 @@ namespace gazebo
   };
 
   // Register this plugin with the simulator
-  GZ_REGISTER_MODEL_PLUGIN(AnimatedQuad)
+  GZ_REGISTER_MODEL_PLUGIN(AnimateModel)
 }
