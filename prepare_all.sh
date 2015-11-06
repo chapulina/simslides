@@ -20,5 +20,5 @@ make -j4
 export GAZEBO_PLUGIN_PATH=`pwd`:$GAZEBO_PLUGIN_PATH
 cd ../../
 
-echo "Generating slide world..."
-sh generate_models.sh
+# echo "Generating slide world..."
+# sh generate_models.sh
