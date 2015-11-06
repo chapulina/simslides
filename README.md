@@ -12,11 +12,11 @@ Checking out a couple other tutorials wouldn't hurt either.
 
     hg up CppCon2015
 
-Source setup (currently tailored for a specific machine, you'll need to edit the script with the path in your computer):
+1. Source setup (currently tailored for a specific machine, you'll need to edit the script with the path in your computer):
 
     . setup.sh
 
-Run the word, which has been manually modified:
+1. Run the word, which has been manually modified:
 
     gazebo final.world
 
@@ -26,11 +26,11 @@ Run the word, which has been manually modified:
 
     hg up BuenosAires_Nov2015
 
-Source setup (currently tailored for a specific machine, you'll need to edit the script with the path in your computer):
+1. Source setup (currently tailored for a specific machine, you'll need to edit the script with the path in your computer):
 
     . setup.sh
 
-Run the word, which has been manually modified:
+1. Run the word, which has been manually modified:
 
     gazebo final.world
 
@@ -48,13 +48,11 @@ Run the word, which has been manually modified:
 
     * Generates a simple world from a PDF file with a camera poses plugin
 
-# Update environment variables
-
-Source setup (currently tailored for a specific machine, you'll need to edit the script with the path in your computer):
+1. Update environment variables: source setup (currently tailored for a specific machine, you'll need to edit the script with the path in your computer):
 
     . setup.sh
 
-# Run word:
+1. Run word:
 
     gazebo worlds/slides.world
 
