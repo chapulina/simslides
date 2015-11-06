@@ -17,6 +17,8 @@
 #include <sstream>
 #include <gazebo/msgs/msgs.hh>
 #include <gazebo/rendering/UserCamera.hh>
+#include <gazebo/rendering/Scene.hh>
+#include <gazebo/rendering/Visual.hh>
 #include <gazebo/gui/KeyEventHandler.hh>
 
 #include "CameraPosesPlugin.hh"
@@ -102,7 +104,41 @@ bool CameraPosesPlugin::OnKeyPress(const common::KeyEvent &_event)
     if (this->currentIndex + 1 < this->poses.size())
     {
       this->currentIndex++;
-      this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
+      // Stacked slides (animation within slide)
+      if (this->currentIndex == 3 ||
+          this->currentIndex == 4 ||
+          this->currentIndex == 5 ||
+          this->currentIndex == 7 ||
+          this->currentIndex == 8 ||
+          this->currentIndex == 9 ||
+          this->currentIndex == 16 ||
+          this->currentIndex == 17 ||
+          this->currentIndex == 18 ||
+          this->currentIndex == 19 ||
+          this->currentIndex == 20 ||
+          this->currentIndex == 21 ||
+          this->currentIndex == 22 ||
+          this->currentIndex == 27 ||
+          this->currentIndex == 30
+         )
+      {
+        std::string visPrevName = "slides_" + std::to_string(this->currentIndex - 1);
+        std::string visName = "slides_" + std::to_string(this->currentIndex);
+        auto visPrev = this->camera->GetScene()->GetVisual(visPrevName);
+        auto vis = this->camera->GetScene()->GetVisual(visName);
+        if (vis && visPrev)
+        {
+          visPrev->SetPosition(visPrev->GetPosition() + math::Vector3(0, 0.1, 0));
+          vis->SetPosition(visPrev->GetPosition() + math::Vector3(0, -0.1, 0));
+        }
+        else
+          gzerr << "Visual [" << visPrevName << "] or [" << visName << "] not found" << std::endl;
+      }
+      // Normal slide
+      else
+      {
+        this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
+      }
     }
   }
   // Previous
@@ -112,7 +148,58 @@ bool CameraPosesPlugin::OnKeyPress(const common::KeyEvent &_event)
     if (this->currentIndex - 1 >= 0)
     {
       this->currentIndex--;
-      this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
+      // Stacked slides (animation within slide)
+      if (this->currentIndex == 2 ||
+          this->currentIndex == 3 ||
+          this->currentIndex == 4 ||
+          this->currentIndex == 6 ||
+          this->currentIndex == 7 ||
+          this->currentIndex == 8 ||
+          this->currentIndex == 15 ||
+          this->currentIndex == 16 ||
+          this->currentIndex == 17 ||
+          this->currentIndex == 18 ||
+          this->currentIndex == 19 ||
+          this->currentIndex == 20 ||
+          this->currentIndex == 21 ||
+          this->currentIndex == 26 ||
+          this->currentIndex == 29
+         )
+      {
+        std::string visNextName = "slides_" + std::to_string(this->currentIndex + 1);
+        std::string visName = "slides_" + std::to_string(this->currentIndex);
+        auto visNext = this->camera->GetScene()->GetVisual(visNextName);
+        auto vis = this->camera->GetScene()->GetVisual(visName);
+        if (vis && visNext)
+        {
+          visNext->SetPosition(visNext->GetPosition() + math::Vector3(0, 0.1, 0));
+          vis->SetPosition(visNext->GetPosition() + math::Vector3(0, -0.1, 0));
+        }
+        else
+          gzerr << "Visual [" << visNextName << "] or [" << visName << "] not found" << std::endl;
+      }
+      // This has been stacked
+      else if (this->currentIndex == 5)
+      {
+        this->camera->MoveToPosition(this->poses[2], 1);
+      }
+      else if (this->currentIndex == 9)
+      {
+        this->camera->MoveToPosition(this->poses[6], 1);
+      }
+      else if (this->currentIndex == 22)
+      {
+        this->camera->MoveToPosition(this->poses[15], 1);
+      }
+      else if (this->currentIndex == 30)
+      {
+        this->camera->MoveToPosition(this->poses[29], 1);
+      }
+      // Slide far away
+      else
+      {
+        this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
+      }
     }
   }
   // First
