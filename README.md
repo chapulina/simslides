@@ -56,7 +56,7 @@ Checking out a couple other tutorials wouldn't hurt either.
 
     gazebo worlds/slides.world
 
-# Manual tweaks
+## Manual tweaks
 
 1. Copy the auto generated world to the main folder
 
