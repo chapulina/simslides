@@ -34,9 +34,9 @@ namespace gazebo
       // create the animation
       gazebo::common::PoseAnimationPtr anim(
 	    // name the animation "test",
-	    // make it last 20 seconds,
+	    // make it last N seconds,
 	    // and set it on a repeat loop
-	    new gazebo::common::PoseAnimation("test", 75.0, true));
+	    new gazebo::common::PoseAnimation("test", 60.0, true));
 
       gazebo::common::PoseKeyFrame *key;
 

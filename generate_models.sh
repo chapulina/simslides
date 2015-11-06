@@ -9,7 +9,12 @@ cd world
 echo "Generating PNGs from slides..."
 # generate into temp folder
 mkdir temp
-convert ../slides/slides.pdf temp/slides.png
+convert           \
+   -density 150   \
+ ../slides/slides.pdf \
+   -quality 100   \
+   -sharpen 0x1.0 \
+ temp/slides.png
 
 # substitute dash with underscore
 cd temp
@@ -34,13 +39,24 @@ done
       </sky>
     </scene>
 
-    <!-- A global light source -->
-    <include>
-      <uri>model://sun</uri>
-    </include>
+    <!-- Light Source -->
+    <light type='directional' name='sun'>
+      <cast_shadows>true</cast_shadows>
+      <pose>20 40 10 0.4 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+	<range>1000</range>
+	<constant>0.9</constant>
+	<linear>0.01</linear>
+	<quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
 
     <!-- A ground plane -->
     <include>
+      <pose>20 40 0 0 0 0</pose>
       <uri>model://ground_plane</uri>
     </include>
 
