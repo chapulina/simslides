@@ -1,0 +1,408 @@
+
+<?xml version='1.0' ?>
+<sdf version='1.5'>
+  <world name='default'>
+    <scene>
+      <grid>0</grid>
+      <origin_visual>0</origin_visual>
+      <sky>
+        <clouds>
+          <speed>20</speed>
+          <humidity>5</humidity>
+        </clouds>
+      </sky>
+    </scene>
+
+    <!-- Light Source -->
+    <light type='directional' name='sun'>
+      <cast_shadows>true</cast_shadows>
+      <pose>20 40 10 0.4 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- A ground plane -->
+    <include>
+      <pose>20 40 0 0 0 0</pose>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Quadcopter -->
+    <model name='quadrotor'>
+      <link name='link'>
+        <pose>0 0 0.182466 0 0 0</pose>
+        <inertial>
+          <mass>1.316</mass>
+          <inertia>
+            <ixx>0.0128</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0128</iyy>
+            <iyz>0</iyz>
+            <izz>0.0218</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://quadrotor/meshes/quadrotor_base.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://quadrotor/meshes/quadrotor_base.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+      <plugin name='animate_model' filename='libanimate_model.so'>
+        <pose>0 0 4.5 0 0 0</pose>
+        <pose>30 0 4.5 0 0 0</pose>
+        <pose>30 30 4.5 0 0 0</pose>
+        <pose>0 30 4.5 0 0 0</pose>
+        <pose>0 0 4.5 0 0 0</pose>
+      </plugin>
+    </model>
+
+    
+
+    <include>
+      <name>slides_0</name>
+      <pose>0 0 0 0 0 0</pose>
+      <uri>model://slides_0</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_1</name>
+      <pose>10 0 0 0 0 0</pose>
+      <uri>model://slides_1</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_2</name>
+      <pose>20 0 0 0 0 0</pose>
+      <uri>model://slides_2</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_3</name>
+      <pose>30 0 0 0 0 0</pose>
+      <uri>model://slides_3</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_4</name>
+      <pose>40 0 0 0 0 0</pose>
+      <uri>model://slides_4</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_5</name>
+      <pose>0 10 0 0 0 0</pose>
+      <uri>model://slides_5</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_6</name>
+      <pose>10 10 0 0 0 0</pose>
+      <uri>model://slides_6</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_7</name>
+      <pose>20 10 0 0 0 0</pose>
+      <uri>model://slides_7</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_8</name>
+      <pose>30 10 0 0 0 0</pose>
+      <uri>model://slides_8</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_9</name>
+      <pose>40 10 0 0 0 0</pose>
+      <uri>model://slides_9</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_10</name>
+      <pose>0 20 0 0 0 0</pose>
+      <uri>model://slides_10</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_11</name>
+      <pose>10 20 0 0 0 0</pose>
+      <uri>model://slides_11</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_12</name>
+      <pose>20 20 0 0 0 0</pose>
+      <uri>model://slides_12</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_13</name>
+      <pose>30 20 0 0 0 0</pose>
+      <uri>model://slides_13</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_14</name>
+      <pose>40 20 0 0 0 0</pose>
+      <uri>model://slides_14</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_15</name>
+      <pose>0 30 0 0 0 0</pose>
+      <uri>model://slides_15</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_16</name>
+      <pose>10 30 0 0 0 0</pose>
+      <uri>model://slides_16</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_17</name>
+      <pose>20 30 0 0 0 0</pose>
+      <uri>model://slides_17</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_18</name>
+      <pose>30 30 0 0 0 0</pose>
+      <uri>model://slides_18</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_19</name>
+      <pose>40 30 0 0 0 0</pose>
+      <uri>model://slides_19</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_20</name>
+      <pose>0 40 0 0 0 0</pose>
+      <uri>model://slides_20</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_21</name>
+      <pose>10 40 0 0 0 0</pose>
+      <uri>model://slides_21</uri>
+    </include>
+    
+
+    <include>
+      <name>slides_22</name>
+      <pose>20 40 0 0 0 0</pose>
+      <uri>model://slides_22</uri>
+    </include>
+    
+
+    <gui>
+      <plugin name=camera_poses filename=libcamera_poses_plugin.so>
+  
+
+        <frame>
+      
+
+        <pose>0 -6 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>10 -6 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>20 -6 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>30 -6 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame stack="0">
+      
+
+        <pose>40 -6 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame stack="1">
+      
+
+        <pose>0 4 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame stack="1">
+      
+
+        <pose>10 4 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame stack="2">
+      
+
+        <pose>20 4 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>30 4 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>40 4 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>0 14 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>10 14 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>20 14 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>30 14 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>40 14 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>0 24 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>10 24 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>20 24 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>30 24 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>40 24 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>0 34 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>10 34 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+        <frame>
+      
+
+        <pose>20 34 3 0 0.25 1.57</pose>
+      </frame>
+    
+
+      </plugin>
+    </gui>
+  </world>
+</sdf>
+  
