@@ -6,42 +6,42 @@ Checking out a couple other tutorials wouldn't hurt either.
 
 # Running existing presentations
 
-## CppCon 2015
+## CppCon2015
 
 1. Go to the branch
 
-    hg up CppCon2015
+        hg up CppCon2015
 
 1. Source setup (currently tailored for a specific machine, you'll need to edit the script with the path in your computer):
 
-    . setup.sh
+        . setup.sh
 
 1. Run the word, which has been manually modified:
 
-    gazebo final.world
+        gazebo final.world
 
 ## BuenosAires_Nov2015
 
 1. Go to the branch
 
-    hg up BuenosAires_Nov2015
+        hg up BuenosAires_Nov2015
 
 1. Build plugins:
 
-    sh build_plugins.sh
+        sh build_plugins.sh
 
 1. Make sure you've loaded the quadrotor model
 
-  wget https://bitbucket.org/osrf/gazebo_models/raw/default/quadrotor/model.sdf ~/.gazebo/models/quadrotor/model.sdf
-  wget https://bitbucket.org/osrf/gazebo_models/raw/default/quadrotor/model.config ~/.gazebo/models/quadrotor/model.config
+          wget https://bitbucket.org/osrf/gazebo_models/raw/default/quadrotor/model.sdf ~/.gazebo/models/quadrotor/model.sdf
+          wget https://bitbucket.org/osrf/gazebo_models/raw/default/quadrotor/model.config ~/.gazebo/models/quadrotor/model.config
 
 1. Source setup:
 
-    . setup.sh
+        . setup.sh
 
 1. Run the word, which has been manually modified:
 
-    gazebo final.world
+        gazebo final.world
 
 # Make your own presentation
 
@@ -49,7 +49,7 @@ Checking out a couple other tutorials wouldn't hurt either.
 
 1. Run:
 
-    sh prepare_all.sh
+        sh prepare_all.sh
 
 1. The script:
 
@@ -59,16 +59,16 @@ Checking out a couple other tutorials wouldn't hurt either.
 
 1. Update environment variables: source setup (currently tailored for a specific machine, you'll need to edit the script with the path in your computer):
 
-    . setup.sh
+        . setup.sh
 
 1. Run word:
 
-    gazebo worlds/slides.world
+        gazebo worlds/slides.world
 
 ## Manual tweaks
 
 1. Copy the auto generated world to the main folder
 
-    cp worlds/slides.world final.world
+        cp worlds/slides.world final.world
 
 1. Modify final.world and run that
