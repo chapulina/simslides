@@ -32,8 +32,8 @@ Checking out a couple other tutorials wouldn't hurt either.
 
 1. Make sure you've loaded the quadrotor model
 
-          wget https://bitbucket.org/osrf/gazebo_models/raw/default/quadrotor/model.sdf ~/.gazebo/models/quadrotor/model.sdf
-          wget https://bitbucket.org/osrf/gazebo_models/raw/default/quadrotor/model.config ~/.gazebo/models/quadrotor/model.config
+        wget https://bitbucket.org/osrf/gazebo_models/raw/default/quadrotor/model.sdf ~/.gazebo/models/quadrotor/model.sdf
+        wget https://bitbucket.org/osrf/gazebo_models/raw/default/quadrotor/model.config ~/.gazebo/models/quadrotor/model.config
 
 1. Source setup:
 
@@ -45,7 +45,7 @@ Checking out a couple other tutorials wouldn't hurt either.
 
 # Make your own presentation
 
-1. Save your slides as "slides/slides.pdf"
+1. Save your slides as `slides/slides.pdf`
 
 1. Run:
 
