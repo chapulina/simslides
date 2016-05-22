@@ -104,6 +104,7 @@ bool CameraPosesPlugin::OnKeyPress(const common::KeyEvent &_event)
     if (this->currentIndex + 1 < this->poses.size())
     {
       this->currentIndex++;
+      // TODO: This is hard-coded for the BuenosAires slides, make it SDF param
       // Stacked slides (animation within slide)
       if (this->currentIndex == 3 ||
           this->currentIndex == 4 ||
@@ -148,6 +149,7 @@ bool CameraPosesPlugin::OnKeyPress(const common::KeyEvent &_event)
     if (this->currentIndex - 1 >= 0)
     {
       this->currentIndex--;
+      // TODO: hardcoded
       // Stacked slides (animation within slide)
       if (this->currentIndex == 2 ||
           this->currentIndex == 3 ||
