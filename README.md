@@ -28,9 +28,16 @@ You can generate your own presentation or run one of the existing ones.
 
             cp world/slides.world final.world
 
+    1. It's possible to "stack" slides to make more interesting transitions. Edit the `stack` file with
+       "<slide number> <stack level>" on each line. Stack levels:
+
+        * none: Slide not on stack
+        * o: Slide is the start of a stack
+        * 1: Slide is in the middle of a stack
+        * 2: Slide is the end of a stack
+
     1. Modify `final.world` using `gzclient` (move slides around, insert models, etc.) and save it.
 
-    1. TODO: need a good way to make "slide animation"
 
 ## Existing presentations
 
