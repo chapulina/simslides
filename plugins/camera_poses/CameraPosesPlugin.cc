@@ -65,15 +65,28 @@ CameraPosesPlugin::CameraPosesPlugin()
 void CameraPosesPlugin::Load(sdf::ElementPtr _sdf)
 {
   // Get input params from SDF
-  if (!_sdf->HasElement("pose"))
+  if (!_sdf->HasElement("frame"))
     return;
 
-  sdf::ElementPtr poseElem = _sdf->GetElement("pose");
+  sdf::ElementPtr frameElem = _sdf->GetElement("frame");
 
-  while (poseElem)
+  while (frameElem)
   {
-    this->poses.push_back(poseElem->Get<ignition::math::Pose3d>());
-    poseElem = poseElem->GetNextElement("pose");
+    Frame frame;
+    if (frameElem->HasElement("pose"))
+      frame.pose = frameElem->GetElement("pose")->Get<ignition::math::Pose3d>();
+    if (frameElem->HasAttribute("stack"))
+    {
+      frame.stack = frameElem->Get<int>("stack");
+      // Ignore pose and copy pose from slide before
+      if (frame.stack == 1 || frame.stack == 2)
+      {
+        frame.pose = this->frames[this->frames.size()-1].pose;
+      }
+    }
+
+    this->frames.push_back(frame);
+    frameElem = frameElem->GetNextElement("frame");
   }
 
   // Keep pointer to the user camera
@@ -81,10 +94,10 @@ void CameraPosesPlugin::Load(sdf::ElementPtr _sdf)
 
   // Start at pose 0
   this->currentIndex = 0;
-  this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
+  this->camera->MoveToPosition(this->frames[this->currentIndex].pose, 1);
 
   this->SetCount(QString::number(this->currentIndex) + " / " +
-                 QString::number(this->poses.size() - 1));
+                 QString::number(this->frames.size() - 1));
 
   // Start with left pane closed
   gui::Events::leftPaneVisibility(false);
@@ -101,27 +114,15 @@ bool CameraPosesPlugin::OnKeyPress(const common::KeyEvent &_event)
   if (_event.key == Qt::Key_Right ||
       _event.key == Qt::Key_Down)
   {
-    if (this->currentIndex + 1 < this->poses.size())
+    // If there is a next slide
+    if (this->currentIndex + 1 < this->frames.size())
     {
+      // Next slide
       this->currentIndex++;
-      // TODO: This is hard-coded for the BuenosAires slides, make it SDF param
-      // Stacked slides (animation within slide)
-      if (this->currentIndex == 3 ||
-          this->currentIndex == 4 ||
-          this->currentIndex == 5 ||
-          this->currentIndex == 7 ||
-          this->currentIndex == 8 ||
-          this->currentIndex == 9 ||
-          this->currentIndex == 16 ||
-          this->currentIndex == 17 ||
-          this->currentIndex == 18 ||
-          this->currentIndex == 19 ||
-          this->currentIndex == 20 ||
-          this->currentIndex == 21 ||
-          this->currentIndex == 22 ||
-          this->currentIndex == 27 ||
-          this->currentIndex == 30
-         )
+      auto frame = this->frames[this->currentIndex];
+
+      // Middle or end of stack
+      if (frame.stack == 1 || frame.stack == 2)
       {
         std::string visPrevName = "slides_" + std::to_string(this->currentIndex - 1);
         std::string visName = "slides_" + std::to_string(this->currentIndex);
@@ -135,10 +136,10 @@ bool CameraPosesPlugin::OnKeyPress(const common::KeyEvent &_event)
         else
           gzerr << "Visual [" << visPrevName << "] or [" << visName << "] not found" << std::endl;
       }
-      // Normal slide
+      // Unstacked or start of stack
       else
       {
-        this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
+        this->camera->MoveToPosition(this->frames[this->currentIndex].pose, 1);
       }
     }
   }
@@ -146,27 +147,15 @@ bool CameraPosesPlugin::OnKeyPress(const common::KeyEvent &_event)
   else if (_event.key == Qt::Key_Left ||
       _event.key == Qt::Key_Up)
   {
+    // If there is a previous slide
     if (this->currentIndex - 1 >= 0)
     {
+      // Previous slide
       this->currentIndex--;
-      // TODO: hardcoded
-      // Stacked slides (animation within slide)
-      if (this->currentIndex == 2 ||
-          this->currentIndex == 3 ||
-          this->currentIndex == 4 ||
-          this->currentIndex == 6 ||
-          this->currentIndex == 7 ||
-          this->currentIndex == 8 ||
-          this->currentIndex == 15 ||
-          this->currentIndex == 16 ||
-          this->currentIndex == 17 ||
-          this->currentIndex == 18 ||
-          this->currentIndex == 19 ||
-          this->currentIndex == 20 ||
-          this->currentIndex == 21 ||
-          this->currentIndex == 26 ||
-          this->currentIndex == 29
-         )
+      auto frame = this->frames[this->currentIndex];
+
+      // Beginning or middle of stack
+      if (frame.stack == 0 || frame.stack == 1)
       {
         std::string visNextName = "slides_" + std::to_string(this->currentIndex + 1);
         std::string visName = "slides_" + std::to_string(this->currentIndex);
@@ -180,27 +169,11 @@ bool CameraPosesPlugin::OnKeyPress(const common::KeyEvent &_event)
         else
           gzerr << "Visual [" << visNextName << "] or [" << visName << "] not found" << std::endl;
       }
-      // This has been stacked
-      else if (this->currentIndex == 5)
+
+      // Not on stack or end of stack
+      else if (frame.stack == -1 || frame.stack == 2)
       {
-        this->camera->MoveToPosition(this->poses[2], 1);
-      }
-      else if (this->currentIndex == 9)
-      {
-        this->camera->MoveToPosition(this->poses[6], 1);
-      }
-      else if (this->currentIndex == 22)
-      {
-        this->camera->MoveToPosition(this->poses[15], 1);
-      }
-      else if (this->currentIndex == 30)
-      {
-        this->camera->MoveToPosition(this->poses[29], 1);
-      }
-      // Slide far away
-      else
-      {
-        this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
+        this->camera->MoveToPosition(this->frames[this->currentIndex].pose, 1);
       }
     }
   }
@@ -208,14 +181,14 @@ bool CameraPosesPlugin::OnKeyPress(const common::KeyEvent &_event)
   else if (_event.key == Qt::Key_F5)
   {
     this->currentIndex = 0;
-    this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
+    this->camera->MoveToPosition(this->frames[this->currentIndex].pose, 1);
   }
   // Current
   else if (_event.key == Qt::Key_F1)
   {
-    this->camera->MoveToPosition(this->poses[this->currentIndex], 1);
+    this->camera->MoveToPosition(this->frames[this->currentIndex].pose, 1);
   }
 
   this->SetCount(QString::number(this->currentIndex) + " / " +
-                 QString::number(this->poses.size() - 1));
+                 QString::number(this->frames.size() - 1));
 }

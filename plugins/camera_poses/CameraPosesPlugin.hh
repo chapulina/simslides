@@ -26,6 +26,17 @@
 
 namespace gazebo
 {
+  struct Frame
+  {
+    ignition::math::Pose3d pose;
+
+    /// -1: not stack
+    ///  0: start stack
+    ///  1: mid stack
+    ///  2: end stack
+    int stack = -1;
+  };
+
     class GAZEBO_VISIBLE CameraPosesPlugin : public GUIPlugin
     {
       Q_OBJECT
@@ -49,7 +60,7 @@ namespace gazebo
       /// \brief Publisher of factory messages.
       private: transport::PublisherPtr cameraPosesPub;
 
-      private: std::vector<ignition::math::Pose3d> poses;
+      private: std::vector<Frame> frames;
 
       private: int currentIndex;
 
