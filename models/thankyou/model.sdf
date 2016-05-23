@@ -433,7 +433,7 @@
           <lighting>1</lighting>
           <script>
             <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Magenta</name>
+            <name>Gazebo/RedBright</name>
           </script>
         </material>
         <cast_shadows>1</cast_shadows>
