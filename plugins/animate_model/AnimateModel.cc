@@ -29,14 +29,14 @@ namespace gazebo
     {
       // Get input params from SDF
       if (!_sdf->HasElement("pose"))
-	return;
+        return;
 
       // create the animation
       gazebo::common::PoseAnimationPtr anim(
 	    // name the animation "test",
 	    // make it last N seconds,
 	    // and set it on a repeat loop
-	    new gazebo::common::PoseAnimation("test", 60.0, true));
+	    new gazebo::common::PoseAnimation("test", 25.0, true));
 
       gazebo::common::PoseKeyFrame *key;
 
@@ -44,15 +44,15 @@ namespace gazebo
       sdf::ElementPtr poseElem = _sdf->GetElement("pose");
       while (poseElem)
       {
-	ignition::math::Pose3d pose = poseElem->Get<ignition::math::Pose3d>();
+        ignition::math::Pose3d pose = poseElem->Get<ignition::math::Pose3d>();
 
         // Location after "time"
-	key = anim->CreateKeyFrame(time);
-	key->Translation(pose.Pos());
-	key->Rotation(pose.Rot());
+        key = anim->CreateKeyFrame(time);
+        key->Translation(pose.Pos());
+        key->Rotation(pose.Rot());
 
         time += 5;
-	poseElem = poseElem->GetNextElement("pose");
+        poseElem = poseElem->GetNextElement("pose");
       }
 
       // set the animation
