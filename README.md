@@ -28,21 +28,37 @@ You can generate your own presentation or run one of the existing ones.
 
             cp world/slides.world final.world
 
-    1. Modify `final.world` using `gzclient` (move slides around, insert models, etc.) and save it.
+    1. It's possible to "stack" slides to make more interesting transitions. Edit the `stack` file with
+       "<slide number> <stack level>" on each line. Stack levels:
 
-    1. TODO: need a good way to make "slide animation"
+        * none: Slide not on stack
+        * o: Slide is the start of a stack
+        * 1: Slide is in the middle of a stack
+        * 2: Slide is the end of a stack
+
+    1. Modify `final.world` using `gzclient` (move slides around, insert models, etc.) and save it.
+       (Make sure to edit the camera poses accordingly)
+
 
 ## Existing presentations
 
 1. Move to the presentation branch, available ones are:
 
-    * CppCon 2015
+    * CppCon, September 2015
 
             hg up CppCon2015
 
     * University of Buenos Aires, November 2015
 
             hg up BuenosAires_Nov2015
+
+    * Universidad de Chile, November 2015
+
+            hg up Chile_Nov2015
+
+    * IEEE Women in Engineering International Leadership Conference, May 2016
+
+            hg up IEEE_WiE_ILC_2016
 
 1. Build plugins:
 

@@ -46,10 +46,10 @@ done
       <diffuse>0.8 0.8 0.8 1</diffuse>
       <specular>0.2 0.2 0.2 1</specular>
       <attenuation>
-	<range>1000</range>
-	<constant>0.9</constant>
-	<linear>0.01</linear>
-	<quadratic>0.001</quadratic>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
       </attenuation>
       <direction>-0.5 0.1 -0.9</direction>
     </light>
@@ -63,32 +63,32 @@ done
     <!-- Quadcopter -->
     <model name='quadrotor'>
       <link name='link'>
-	<pose>0 0 0.182466 0 0 0</pose>
-	<inertial>
-	  <mass>1.316</mass>
-	  <inertia>
-	    <ixx>0.0128</ixx>
-	    <ixy>0</ixy>
-	    <ixz>0</ixz>
-	    <iyy>0.0128</iyy>
-	    <iyz>0</iyz>
-	    <izz>0.0218</izz>
-	  </inertia>
-	</inertial>
-	<collision name='collision'>
-	  <geometry>
-	    <mesh>
-	      <uri>model://quadrotor/meshes/quadrotor_base.dae</uri>
-	    </mesh>
-	  </geometry>
-	</collision>
-	<visual name='visual'>
-	  <geometry>
-	    <mesh>
-	      <uri>model://quadrotor/meshes/quadrotor_base.dae</uri>
-	    </mesh>
-	  </geometry>
-	</visual>
+        <pose>0 0 0.182466 0 0 0</pose>
+        <inertial>
+          <mass>1.316</mass>
+          <inertia>
+            <ixx>0.0128</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0128</iyy>
+            <iyz>0</iyz>
+            <izz>0.0218</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://quadrotor/meshes/quadrotor_base.dae</uri>
+            </mesh>
+          </geometry>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://quadrotor/meshes/quadrotor_base.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
       </link>
       <plugin name='animate_model' filename='libanimate_model.so'>
         <pose>0 0 4.5 0 0 0</pose>
@@ -132,9 +132,9 @@ material Slides/"$filename"
     {
       texture_unit
       {
-	texture "$image"
-	filtering anistropic
-	max_anisotropy 16
+        texture "$image"
+        filtering anistropic
+        max_anisotropy 16
       }
 
     }
@@ -210,6 +210,15 @@ material Slides/"$filename"
 done
 
 # add camera pose plugin with poses matching ones above
+
+# read from stacks file
+cp ../../stack .
+declare -A stacks
+while IFS=" " read -r slide stack
+do
+  stacks[${slide}]=${stack}
+done <"stack"
+
 echo "
     <gui>
       <plugin name="camera_poses" filename="libcamera_poses_plugin.so">
@@ -220,8 +229,19 @@ countY=0
 counter=0
 while [ $counter -lt $totalCount ]; do
 
+  if [ "${stacks[$counter]}" != "" ]; then
+    echo "
+        <frame stack=\"${stacks[$counter]}\">
+      " >> ../slides.world
+  else
+    echo "
+        <frame>
+      " >> ../slides.world
+  fi
+
   echo "
-      <pose>"$((countX))" "$((countY - 6))" 3 0 0.25 1.57</pose>
+        <pose>"$((countX))" "$((countY - 6))" 3 0 0.25 1.57</pose>
+      </frame>
     " >> ../slides.world
 
   if [ "$countX" -gt "30" ]; then
