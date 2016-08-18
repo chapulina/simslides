@@ -23,6 +23,10 @@ namespace simslides
 
     /// \brief Destructor.
     public: ~NewDialog();
+
+    /// \brief Qt callback when the file directory browse button is pressed.
+    private slots: void OnBrowse();
+
     /// \internal
     /// \brief Pointer to private data.
     private: NewDialogPrivate *dataPtr;
