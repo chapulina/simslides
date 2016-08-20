@@ -44,13 +44,45 @@ void NewDialog::OnBrowse()
   filters << "PDF files (*.pdf)";
   fileDialog.setNameFilters(filters);
 
-  if (fileDialog.exec() == QDialog::Accepted)
-  {
-    QStringList selected = fileDialog.selectedFiles();
-    if (selected.empty())
-      return;
+  if (fileDialog.exec() != QDialog::Accepted)
+    return;
 
-    gzdbg << selected[0].toStdString() << std::endl;
+  QStringList selected = fileDialog.selectedFiles();
+  if (selected.empty())
+    return;
+
+  // Create temp folder to hold images
+  QString tmpDir("/tmp/simslides_tmp");
+  {
+    QProcess p;
+    p.setProcessChannelMode(QProcess::ForwardedChannels);
+    p.start("mkdir", QStringList() << tmpDir);
+    p.waitForFinished();
   }
+
+  // Convert PDF to pngs
+  {
+    QProcess p;
+    p.setProcessChannelMode(QProcess::ForwardedChannels);
+    p.start("convert", QStringList() <<
+        "-density" << "150" <<
+        "-quality" << "100" <<
+        "-sharpen" << "0x1.0" <<
+        selected[0] <<
+        QString(tmpDir + "/slides.png"));
+    p.waitForFinished();
+  }
+
+/*
+    # substitute dash with underscore
+    cd temp
+    for i in `ls *-*`; do
+      NEW=`echo $i|tr '-' '_'`
+      mv $i $NEW
+    done");
+*/
+
 }
+
+
 
