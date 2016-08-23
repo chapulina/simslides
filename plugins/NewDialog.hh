@@ -1,6 +1,8 @@
 #ifndef SIMSLIDES_NEWDIALOG_HH_
 #define SIMSLIDES_NEWDIALOG_HH_
 
+#include <memory>
+
 #ifndef Q_MOC_RUN  // See: https://bugreports.qt-project.org/browse/QTBUG-22829
 # include <gazebo/gui/gui.hh>
 #endif
@@ -31,7 +33,7 @@ namespace simslides
 
     /// \internal
     /// \brief Pointer to private data.
-    private: NewDialogPrivate *dataPtr;
+    private: std::unique_ptr<NewDialogPrivate> dataPtr;
   };
   /// \}
 }

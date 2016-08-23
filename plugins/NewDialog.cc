@@ -4,6 +4,7 @@ using namespace simslides;
 
 class simslides::NewDialogPrivate
 {
+  public: QString tmpDir = "/tmp/simslides_tmp";
 };
 
 /////////////////////////////////////////////////
@@ -13,7 +14,6 @@ NewDialog::NewDialog(QWidget *_parent)
   this->setWindowTitle(tr("Create a new presentation"));
   this->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
       Qt::WindowStaysOnTopHint | Qt::CustomizeWindowHint);
-
 
   auto browseButton = new QPushButton(tr("Browse"));
   this->connect(browseButton, SIGNAL(clicked()), this, SLOT(OnBrowse()));
@@ -28,8 +28,6 @@ NewDialog::NewDialog(QWidget *_parent)
 /////////////////////////////////////////////////
 NewDialog::~NewDialog()
 {
-  delete this->dataPtr;
-  this->dataPtr = NULL;
 }
 
 /////////////////////////////////////////////////
@@ -52,11 +50,10 @@ void NewDialog::OnBrowse()
     return;
 
   // Create temp folder to hold images
-  QString tmpDir("/tmp/simslides_tmp");
   {
     QProcess p;
     p.setProcessChannelMode(QProcess::ForwardedChannels);
-    p.start("mkdir", QStringList() << tmpDir);
+    p.start("mkdir", QStringList() << this->dataPtr->tmpDir);
     p.waitForFinished();
   }
 
@@ -69,11 +66,130 @@ void NewDialog::OnBrowse()
         "-quality" << "100" <<
         "-sharpen" << "0x1.0" <<
         selected[0] <<
-        QString(tmpDir + "/slides.png"));
+        QString(this->dataPtr->tmpDir + "/slides.png"));
+    p.waitForFinished();
+  }
+
+  // Save models
+  std::string modelName("slides-0");
+  std::string modelsDir("/home/louise/code/simslides/models/");
+  auto saveDialog = new gazebo::gui::SaveEntityDialog(
+      gazebo::gui::SaveEntityDialog::MODEL);
+  saveDialog->SetModelName(modelName);
+  saveDialog->SetSaveLocation(modelsDir + modelName);
+  saveDialog->AddDirToModelPaths(modelsDir + modelName);
+
+  // Create dir
+  {
+    boost::filesystem::path path;
+    path = path / (modelsDir + modelName);
+
+    if (!boost::filesystem::create_directories(path))
+      gzerr << "Couldn't create folder [" << path << "]" << std::endl;
+  }
+
+  // Save model.config
+  saveDialog->GenerateConfig();
+  saveDialog->SaveToConfig();
+
+  // Save model.sdf
+  sdf::ElementPtr sdf(new sdf::Element());
+  sdf::initFile("model.sdf", sdf);
+
+  sdf::readString(
+      "<?xml version='1.0' ?>\
+      <sdf version='" SDF_VERSION "'>\
+        <model name='" + modelName + "'>\
+          <static>true</static>\
+          <link name='link'>\
+            <pose>0 0 1.5 0 0 0</pose>\
+            <collision name='collision'>\
+              <geometry>\
+                <box>\
+                  <size>4.0 1.0 3.0</size>\
+                </box>\
+              </geometry>\
+            </collision>\
+            <visual name='visual'>\
+              <geometry>\
+                <box>\
+                  <size>4.0 1.0 3.0</size>\
+                </box>\
+              </geometry>\
+              <material>\
+                <script>\
+                  <uri>model://" + modelName + "/materials/scripts</uri>\
+                  <uri>model://" + modelName + "/materials/textures</uri>\
+                  <name>Slides/slides_0</name>\
+                </script>\
+              </material>\
+            </visual>\
+          </link>\
+        </model>\
+      </sdf>", sdf);
+
+  sdf::SDFPtr modelSDF;
+  modelSDF.reset(new sdf::SDF);
+  modelSDF->Root(sdf);
+
+  saveDialog->SaveToSDF(modelSDF);
+
+  // Create materials dirs
+  {
+    boost::filesystem::path path;
+    path = path / (modelsDir + modelName + "/materials/scripts");
+
+    if (!boost::filesystem::create_directories(path))
+      gzerr << "Couldn't create folder [" << path << "]" << std::endl;
+  }
+  {
+    boost::filesystem::path path;
+    path = path / (modelsDir + modelName + "/materials/textures");
+
+    if (!boost::filesystem::create_directories(path))
+      gzerr << "Couldn't create folder [" << path << "]" << std::endl;
+  }
+
+  // Save material script
+  std::ofstream materialFile(modelsDir + modelName + "/materials/scripts/script.material");
+  if (materialFile.is_open())
+  {
+    materialFile <<
+      "material Slides/slides_0\n\
+      {\n\
+        receive_shadows off\n\
+        technique\n\
+        {\n\
+          pass\n\
+          {\n\
+            texture_unit\n\
+            {\n\
+              texture " + modelName + ".png\n\
+              filtering anistropic\n\
+              max_anisotropy 16\n\
+            }\n\
+          }\n\
+        }\n\
+      }";
+    materialFile.close();
+  }
+  else
+    gzerr << "Unable to open file" << std::endl;
+
+  // Move image to dir
+  {
+    QProcess p;
+    p.setProcessChannelMode(QProcess::ForwardedChannels);
+    p.start("mv", QStringList() <<
+        QString(this->dataPtr->tmpDir + "/slides-0.png") <<
+        QString::fromStdString(modelsDir + modelName +
+            "/materials/textures/slides-0.png")
+    );
     p.waitForFinished();
   }
 
 /*
+
     # substitute dash with underscore
     cd temp
     for i in `ls *-*`; do
