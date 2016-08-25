@@ -71,6 +71,17 @@ void NewDialog::OnBrowse()
   }
 
   // Save models
+
+  // Find number of images in temp path
+  boost::filesystem::path tmpPath(this->dataPtr->tmpDir.toStdString());
+  int count = std::count_if(
+      boost::filesystem::directory_iterator(tmpPath),
+      boost::filesystem::directory_iterator(),
+      boost::bind( static_cast<bool(*)(const boost::filesystem::path&)>(boost::filesystem::is_regular_file),
+        boost::bind( &boost::filesystem::directory_entry::path, _1 ) ) );
+
+gzdbg << count << std::endl;
+/*
   std::string modelName("slides-0");
   std::string modelsDir("/home/louise/code/simslides/models/");
   auto saveDialog = new gazebo::gui::SaveEntityDialog(
@@ -187,15 +198,6 @@ void NewDialog::OnBrowse()
     );
     p.waitForFinished();
   }
-
-/*
-
-    # substitute dash with underscore
-    cd temp
-    for i in `ls *-*`; do
-      NEW=`echo $i|tr '-' '_'`
-      mv $i $NEW
-    done");
 */
 
 }
