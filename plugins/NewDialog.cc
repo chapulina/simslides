@@ -61,6 +61,10 @@ NewDialog::~NewDialog()
 /////////////////////////////////////////////////
 void NewDialog::OnBrowse()
 {
+  for (int i = 0; i < this->dataPtr->steps.size(); ++i)
+    this->dataPtr->steps[i]->setVisible(false);
+  QCoreApplication::processEvents();
+
   QFileDialog fileDialog(this, tr("Choose PDF file"), QDir::homePath());
   fileDialog.setFileMode(QFileDialog::ExistingFile);
   fileDialog.setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
@@ -125,7 +129,7 @@ void NewDialog::OnBrowse()
   this->dataPtr->steps[2]->setVisible(true);
   QCoreApplication::processEvents();
 
-  std::string modelsDir("/home/louise/code/simslides/models/");
+  std::string modelsDir = gazebo::common::cwd() + "/models/";
   auto saveDialog = new gazebo::gui::SaveEntityDialog(
       gazebo::gui::SaveEntityDialog::MODEL);
   for (int i = 0; i < count - 1; ++i)
@@ -253,22 +257,23 @@ void NewDialog::OnBrowse()
     QCoreApplication::processEvents();
 
     // Move image to dir
-    {
-      QProcess p;
-      p.setProcessChannelMode(QProcess::ForwardedChannels);
-      p.start("mv", QStringList() <<
-          QString(this->dataPtr->tmpDir + "/" + QString::fromStdString(modelName) + ".png") <<
-          QString::fromStdString(modelsDir + modelName +
-              "/materials/textures/" + modelName + ".png")
-      );
-      p.waitForFinished();
-    }
+    gazebo::common::moveFile(
+      this->dataPtr->tmpDir.toStdString() + "/" + modelName + ".png",
+      modelsDir + modelName + "/materials/textures/" + modelName + ".png");
 
     this->dataPtr->steps[8]->setText(QString::number(i));
     this->dataPtr->steps[8]->setVisible(true);
     QCoreApplication::processEvents();
   }
   saveDialog->AddDirToModelPaths(modelsDir + "dummy");
+
+  // Clear temp path
+  {
+    QProcess p;
+    p.setProcessChannelMode(QProcess::ForwardedChannels);
+    p.start("rm", QStringList() << "-rf" << this->dataPtr->tmpDir);
+    p.waitForFinished();
+  }
 }
 
 
