@@ -5,6 +5,8 @@
     <gui>
       <plugin name="simslides" filename="libsimslides.so">
       </plugin>
+      <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
+      </plugin>
     </gui>
 
     <!-- A global light source -->

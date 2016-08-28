@@ -14,11 +14,13 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 set (client_src
   NewDialog.cc
+  PresentMode.cc
   Simslides.cc
 )
 
 set (qt_headers
   NewDialog.hh
+  PresentMode.hh
   Simslides.hh
 )
 

@@ -22,6 +22,7 @@
 #include <gazebo/gui/KeyEventHandler.hh>
 
 #include "NewDialog.hh"
+#include "PresentMode.hh"
 #include "Simslides.hh"
 
 using namespace simslides;
@@ -33,16 +34,24 @@ GZ_REGISTER_GUI_PLUGIN(Simslides)
 Simslides::Simslides()
   : gazebo::GUIPlugin()
 {
+  // Menu item
+  auto menu = new QMenu("Simslides");
+
   // New dialog
   auto newSlideDialog = new NewDialog();
 
-  // Menu item
-  auto menu = new QMenu("Simslides");
-  auto simslidesAct = new QAction(tr("New presentation"), menu);
-  this->connect(simslidesAct, SIGNAL(triggered()), newSlideDialog,
-      SLOT(open()));
-  menu->addAction(simslidesAct);
+  auto newAct = new QAction(tr("New presentation"), menu);
+  this->connect(newAct, SIGNAL(triggered()), newSlideDialog, SLOT(open()));
+  menu->addAction(newAct);
 
+  // Presentation mode
+  auto presentMode = new PresentMode();
+
+  auto presentAct = new QAction(tr("Presentation mode"), menu);
+  this->connect(presentAct, SIGNAL(triggered()), presentMode, SLOT(Start()));
+  menu->addAction(presentAct);
+
+  // Add to main window
   auto mainWindow = gazebo::gui::get_main_window();
   mainWindow->AddMenu(menu);
 
