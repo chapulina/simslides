@@ -1,4 +1,5 @@
 #include <gazebo/common/CommonIface.hh>
+#include <gazebo/transport/Node.hh>
 #include "NewDialog.hh"
 
 using namespace simslides;
@@ -7,6 +8,8 @@ class simslides::NewDialogPrivate
 {
   public: QString tmpDir = "/tmp/simslides_tmp";
   public: std::vector<QLabel *> steps;
+  public: gazebo::transport::NodePtr node;
+  public: gazebo::transport::PublisherPtr factoryPub;
 };
 
 /////////////////////////////////////////////////
@@ -51,6 +54,11 @@ NewDialog::NewDialog(QWidget *_parent)
   mainLayout->addWidget(new QLabel("Move image to texture folder"), 9, 1);
 
   this->setLayout(mainLayout);
+
+  this->dataPtr->node = gazebo::transport::NodePtr(new gazebo::transport::Node());
+  this->dataPtr->node->Init();
+  this->dataPtr->factoryPub =
+      this->dataPtr->node->Advertise<gazebo::msgs::Factory>("/gazebo/default/factory");
 }
 
 /////////////////////////////////////////////////
@@ -273,6 +281,32 @@ void NewDialog::OnBrowse()
     p.setProcessChannelMode(QProcess::ForwardedChannels);
     p.start("rm", QStringList() << "-rf" << this->dataPtr->tmpDir);
     p.waitForFinished();
+  }
+
+  // Insert models
+  int countX= 0;
+  int countY= 0;
+  for (int i = 0; i < count - 1; ++i)
+  {
+    gazebo::msgs::Factory msg;
+
+    std::string filename("model://slides-" + std::to_string(i));
+    msg.set_sdf_filename(filename);
+
+    gazebo::msgs::Set(msg.mutable_pose(),
+        ignition::math::Pose3d(countX, countY, 0, 0, 0, 0));
+
+    this->dataPtr->factoryPub->Publish(msg);
+
+    if (countX > 30)
+    {
+      countX = 0;
+      countY = countY + 10;
+    }
+    else
+    {
+      countX = countX + 10;
+    }
   }
 }
 
