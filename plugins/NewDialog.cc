@@ -11,6 +11,7 @@ class simslides::NewDialogPrivate
   public: gazebo::transport::PublisherPtr factoryPub;
   public: QLabel *pdfLabel;
   public: QLabel *waitLabel;
+  public: QLabel *doneLabel;
   public: QLineEdit *dirEdit;
   public: QPushButton *generateButton;
 };
@@ -45,6 +46,10 @@ NewDialog::NewDialog(QWidget *_parent)
   this->dataPtr->waitLabel = new QLabel("Generating, this may take a while...");
   this->dataPtr->waitLabel->setVisible(false);
 
+  // Done
+  this->dataPtr->doneLabel = new QLabel("Done! Press F5 to start presenting!");
+  this->dataPtr->doneLabel->setVisible(false);
+
   auto mainLayout = new QGridLayout();
 
   // PDF
@@ -62,6 +67,7 @@ NewDialog::NewDialog(QWidget *_parent)
 
   // Steps
   mainLayout->addWidget(this->dataPtr->waitLabel, 3, 0, 1, 3);
+  mainLayout->addWidget(this->dataPtr->doneLabel, 4, 0, 1, 3);
 
   this->setLayout(mainLayout);
 
@@ -80,6 +86,7 @@ NewDialog::~NewDialog()
 void NewDialog::OnBrowsePDF()
 {
   this->dataPtr->waitLabel->setVisible(false);
+  this->dataPtr->doneLabel->setVisible(false);
   this->dataPtr->generateButton->setEnabled(false);
   QCoreApplication::processEvents();
 
@@ -106,6 +113,7 @@ void NewDialog::OnBrowsePDF()
 void NewDialog::OnBrowseDir()
 {
   this->dataPtr->waitLabel->setVisible(false);
+  this->dataPtr->doneLabel->setVisible(false);
   this->dataPtr->generateButton->setEnabled(false);
   QCoreApplication::processEvents();
 
@@ -129,6 +137,7 @@ void NewDialog::OnBrowseDir()
 void NewDialog::OnGenerate()
 {
   this->dataPtr->waitLabel->setVisible(true);
+  this->dataPtr->doneLabel->setVisible(false);
   QCoreApplication::processEvents();
 
   // Create / clear temp folder to hold images
@@ -324,6 +333,7 @@ void NewDialog::OnGenerate()
       countX = countX + 10;
     }
   }
+  this->dataPtr->doneLabel->setVisible(true);
 }
 
 
