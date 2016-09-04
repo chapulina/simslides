@@ -32,6 +32,7 @@ namespace simslides
     private slots: void OnBrowsePDF();
     private slots: void OnBrowseDir();
     private slots: void OnGenerate();
+    private slots: void CheckReady(QString _str = QString());
 
     /// \internal
     /// \brief Pointer to private data.

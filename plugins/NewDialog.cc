@@ -13,6 +13,7 @@ class simslides::NewDialogPrivate
   public: QLabel *waitLabel;
   public: QLabel *doneLabel;
   public: QLineEdit *dirEdit;
+  public: QLineEdit *nameEdit;
   public: QPushButton *generateButton;
 };
 
@@ -35,6 +36,11 @@ NewDialog::NewDialog(QWidget *_parent)
 
   auto saveDirButton = new QPushButton(tr("Browse"));
   this->connect(saveDirButton, SIGNAL(clicked()), this, SLOT(OnBrowseDir()));
+
+  // Model names
+  this->dataPtr->nameEdit = new QLineEdit();
+  this->connect(this->dataPtr->nameEdit, SIGNAL(textChanged(QString)), this,
+      SLOT(CheckReady(QString)));
 
   // Generate
   this->dataPtr->generateButton = new QPushButton(tr("Generate"));
@@ -62,12 +68,16 @@ NewDialog::NewDialog(QWidget *_parent)
   mainLayout->addWidget(this->dataPtr->dirEdit, 1, 1);
   mainLayout->addWidget(saveDirButton, 1, 2);
 
+  // Model names
+  mainLayout->addWidget(new QLabel("Model name prefix:"), 2, 0);
+  mainLayout->addWidget(this->dataPtr->nameEdit, 2, 1);
+
   // Generate
-  mainLayout->addWidget(this->dataPtr->generateButton, 2, 1);
+  mainLayout->addWidget(this->dataPtr->generateButton, 3, 1);
 
   // Steps
-  mainLayout->addWidget(this->dataPtr->waitLabel, 3, 0, 1, 3);
-  mainLayout->addWidget(this->dataPtr->doneLabel, 4, 0, 1, 3);
+  mainLayout->addWidget(this->dataPtr->waitLabel, 4, 0, 1, 3);
+  mainLayout->addWidget(this->dataPtr->doneLabel, 5, 0, 1, 3);
 
   this->setLayout(mainLayout);
 
@@ -104,9 +114,7 @@ void NewDialog::OnBrowsePDF()
 
   this->dataPtr->pdfLabel->setText(fileDialog.selectedFiles()[0]);
 
-  this->dataPtr->generateButton->setEnabled(
-      !this->dataPtr->pdfLabel->text().isEmpty() &&
-      !this->dataPtr->dirEdit->text().isEmpty());
+  this->CheckReady();
 }
 
 /////////////////////////////////////////////////
@@ -128,8 +136,15 @@ void NewDialog::OnBrowseDir()
 
   this->dataPtr->dirEdit->setText(fileDialog.selectedFiles()[0]);
 
+  this->CheckReady();
+}
+
+/////////////////////////////////////////////////
+void NewDialog::CheckReady(QString)
+{
   this->dataPtr->generateButton->setEnabled(
       !this->dataPtr->pdfLabel->text().isEmpty() &&
+      !this->dataPtr->nameEdit->text().isEmpty() &&
       !this->dataPtr->dirEdit->text().isEmpty());
 }
 
@@ -168,7 +183,8 @@ void NewDialog::OnGenerate()
         "-quality" << "100" <<
         "-sharpen" << "0x1.0" <<
         this->dataPtr->pdfLabel->text() <<
-        QString(this->dataPtr->tmpDir + "/slides.png"));
+        QString(this->dataPtr->tmpDir + "/" + this->dataPtr->nameEdit->text() +
+            ".png"));
     p.waitForFinished();
   }
   QCoreApplication::processEvents();
@@ -185,19 +201,20 @@ void NewDialog::OnGenerate()
         boost::bind( &boost::filesystem::directory_entry::path, _1 ) ) );
   QCoreApplication::processEvents();
 
-  std::string modelsDir = this->dataPtr->dirEdit->text().toStdString() + "/";
+  std::string modelsDir = this->dataPtr->dirEdit->text().toStdString();
   auto saveDialog = new gazebo::gui::SaveEntityDialog(
       gazebo::gui::SaveEntityDialog::MODEL);
   for (int i = 0; i < count - 1; ++i)
   {
-    std::string modelName("slides-" + std::to_string(i));
+    std::string modelName(this->dataPtr->nameEdit->text().toStdString() + "-" +
+        std::to_string(i));
     saveDialog->SetModelName(modelName);
-    saveDialog->SetSaveLocation(modelsDir + modelName);
+    saveDialog->SetSaveLocation(modelsDir + "/" + modelName);
 
     // Create dir
     {
       boost::filesystem::path path;
-      path = path / (modelsDir + modelName);
+      path = path / (modelsDir + "/" + modelName);
 
       if (!boost::filesystem::create_directories(path))
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
@@ -235,7 +252,7 @@ void NewDialog::OnGenerate()
                   <script>\
                     <uri>model://" + modelName + "/materials/scripts</uri>\
                     <uri>model://" + modelName + "/materials/textures</uri>\
-                    <name>Slides/slides_" + std::to_string(i) + "</name>\
+                    <name>Slides/" + this->dataPtr->nameEdit->text().toStdString() + "_" + std::to_string(i) + "</name>\
                   </script>\
                 </material>\
               </visual>\
@@ -252,26 +269,26 @@ void NewDialog::OnGenerate()
     // Create materials dirs
     {
       boost::filesystem::path path;
-      path = path / (modelsDir + modelName + "/materials/scripts");
+      path = path / (modelsDir + "/" + modelName + "/materials/scripts");
 
       if (!boost::filesystem::create_directories(path))
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
     }
     {
       boost::filesystem::path path;
-      path = path / (modelsDir + modelName + "/materials/textures");
+      path = path / (modelsDir + "/" + modelName + "/materials/textures");
 
       if (!boost::filesystem::create_directories(path))
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
     }
 
     // Save material script
-    std::ofstream materialFile(modelsDir + modelName +
+    std::ofstream materialFile(modelsDir + "/" + modelName +
         "/materials/scripts/script.material");
     if (materialFile.is_open())
     {
       materialFile <<
-        "material Slides/slides_" << std::to_string(i) << "\n\
+        "material Slides/" + this->dataPtr->nameEdit->text().toStdString() + "_" << std::to_string(i) << "\n\
         {\n\
           receive_shadows off\n\
           technique\n\
@@ -295,10 +312,26 @@ void NewDialog::OnGenerate()
     // Move image to dir
     gazebo::common::moveFile(
       this->dataPtr->tmpDir.toStdString() + "/" + modelName + ".png",
-      modelsDir + modelName + "/materials/textures/" + modelName + ".png");
+      modelsDir + "/" + modelName + "/materials/textures/" + modelName + ".png");
 
   }
-  saveDialog->AddDirToModelPaths(modelsDir + "dummy");
+
+  // Add to path and wait to be added
+  saveDialog->AddDirToModelPaths(modelsDir + "/" + "dummy");
+  bool found = false;
+  while (!found)
+  {
+    auto modelPaths = gazebo::common::SystemPaths::Instance()->GetModelPaths();
+    for (auto it : modelPaths)
+    {
+      if (it.compare(modelsDir) == 0)
+      {
+        found = true;
+        break;
+      }
+    }
+    gazebo::common::Time::MSleep(100);
+  }
 
   // Clear temp path
   {
@@ -315,7 +348,8 @@ void NewDialog::OnGenerate()
   {
     gazebo::msgs::Factory msg;
 
-    std::string filename("model://slides-" + std::to_string(i));
+    std::string filename("file://" + modelsDir + "/" +
+        this->dataPtr->nameEdit->text().toStdString() + "-" + std::to_string(i));
     msg.set_sdf_filename(filename);
 
     gazebo::msgs::Set(msg.mutable_pose(),
@@ -333,6 +367,7 @@ void NewDialog::OnGenerate()
       countX = countX + 10;
     }
   }
+  this->dataPtr->waitLabel->setVisible(false);
   this->dataPtr->doneLabel->setVisible(true);
 }
 
