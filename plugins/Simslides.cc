@@ -41,6 +41,7 @@ Simslides::Simslides()
   auto newSlideDialog = new NewDialog();
 
   auto newAct = new QAction(tr("New presentation"), menu);
+  newAct->setShortcut(Qt::Key_F2);
   this->connect(newAct, SIGNAL(triggered()), newSlideDialog, SLOT(open()));
   menu->addAction(newAct);
 
@@ -48,6 +49,7 @@ Simslides::Simslides()
   auto presentMode = new PresentMode();
 
   auto presentAct = new QAction(tr("Presentation mode"), menu);
+  presentAct->setShortcut(Qt::Key_F5);
   this->connect(presentAct, SIGNAL(triggered()), presentMode, SLOT(Start()));
   menu->addAction(presentAct);
 

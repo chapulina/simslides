@@ -20,6 +20,8 @@ class simslides::PresentModePrivate
 PresentMode::PresentMode(QObject *_parent)
   : QObject(_parent), dataPtr(new PresentModePrivate)
 {
+  // Keep pointer to the user camera
+  this->dataPtr->camera = gazebo::gui::get_active_camera();
 }
 
 /////////////////////////////////////////////////
@@ -30,6 +32,12 @@ PresentMode::~PresentMode()
 /////////////////////////////////////////////////
 void PresentMode::Start()
 {
+  if (!this->dataPtr->camera->GetScene()->GetVisual("slides-0"))
+  {
+    gzerr << "No slides to present" << std::endl;
+    return;
+  }
+
   if (!this->dataPtr->node)
   {
     // Initialize transport
@@ -40,9 +48,6 @@ void PresentMode::Start()
     this->dataPtr->keyboardSub =
         this->dataPtr->node->Subscribe("/gazebo/default/keyboard/keypress",
         &PresentMode::OnKeyPress, this, true);
-
-    // Keep pointer to the user camera
-    this->dataPtr->camera = gazebo::gui::get_active_camera();
   }
 
   this->dataPtr->slideCount = 0;
