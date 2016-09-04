@@ -7,9 +7,12 @@ using namespace simslides;
 class simslides::NewDialogPrivate
 {
   public: QString tmpDir = "/tmp/simslides_tmp";
-  public: std::vector<QLabel *> steps;
   public: gazebo::transport::NodePtr node;
   public: gazebo::transport::PublisherPtr factoryPub;
+  public: QLabel *pdfLabel;
+  public: QLabel *waitLabel;
+  public: QLineEdit *dirEdit;
+  public: QPushButton *generateButton;
 };
 
 /////////////////////////////////////////////////
@@ -20,38 +23,45 @@ NewDialog::NewDialog(QWidget *_parent)
   this->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
       Qt::WindowStaysOnTopHint | Qt::CustomizeWindowHint);
 
-  auto browseButton = new QPushButton(tr("Browse"));
-  this->connect(browseButton, SIGNAL(clicked()), this, SLOT(OnBrowse()));
+  // PDF
+  this->dataPtr->pdfLabel = new QLabel();
 
-  // Steps
-  for (int i = 0; i < 9; ++i)
-  {
-    auto step = new QLabel("ok");
-    step->setVisible(false);
-    this->dataPtr->steps.push_back(step);
-  }
+  auto browseButton = new QPushButton(tr("Browse"));
+  this->connect(browseButton, SIGNAL(clicked()), this, SLOT(OnBrowsePDF()));
+
+  // Save dir
+  this->dataPtr->dirEdit = new QLineEdit();
+
+  auto saveDirButton = new QPushButton(tr("Browse"));
+  this->connect(saveDirButton, SIGNAL(clicked()), this, SLOT(OnBrowseDir()));
+
+  // Generate
+  this->dataPtr->generateButton = new QPushButton(tr("Generate"));
+  this->dataPtr->generateButton->setEnabled(false);
+  this->connect(this->dataPtr->generateButton, SIGNAL(clicked()), this,
+      SLOT(OnGenerate()));
+
+  // Wait
+  this->dataPtr->waitLabel = new QLabel("Generating, this may take a while...");
+  this->dataPtr->waitLabel->setVisible(false);
 
   auto mainLayout = new QGridLayout();
-  mainLayout->addWidget(new QLabel("Choose PDF:"), 0, 0);
-  mainLayout->addWidget(browseButton, 0, 1);
-  mainLayout->addWidget(this->dataPtr->steps[0], 1, 0);
-  mainLayout->addWidget(new QLabel("Create temp folder"), 1, 1);
-  mainLayout->addWidget(this->dataPtr->steps[1], 2, 0);
-  mainLayout->addWidget(new QLabel("Convert PDF to images"), 2, 1);
-  mainLayout->addWidget(this->dataPtr->steps[2], 3, 0);
-  mainLayout->addWidget(new QLabel("Find number of images in temp folder"), 3, 1);
-  mainLayout->addWidget(this->dataPtr->steps[3], 4, 0);
-  mainLayout->addWidget(new QLabel("Create model folder"), 4, 1);
-  mainLayout->addWidget(this->dataPtr->steps[4], 5, 0);
-  mainLayout->addWidget(new QLabel("Save model.config"), 5, 1);
-  mainLayout->addWidget(this->dataPtr->steps[5], 6, 0);
-  mainLayout->addWidget(new QLabel("Save model.sdf"), 6, 1);
-  mainLayout->addWidget(this->dataPtr->steps[6], 7, 0);
-  mainLayout->addWidget(new QLabel("Create materials folders"), 7, 1);
-  mainLayout->addWidget(this->dataPtr->steps[7], 8, 0);
-  mainLayout->addWidget(new QLabel("Save material script"), 8, 1);
-  mainLayout->addWidget(this->dataPtr->steps[8], 9, 0);
-  mainLayout->addWidget(new QLabel("Move image to texture folder"), 9, 1);
+
+  // PDF
+  mainLayout->addWidget(new QLabel("PDF file:"), 0, 0);
+  mainLayout->addWidget(this->dataPtr->pdfLabel, 0, 1);
+  mainLayout->addWidget(browseButton, 0, 2);
+
+  // Save dir
+  mainLayout->addWidget(new QLabel("Save models folder:"), 1, 0);
+  mainLayout->addWidget(this->dataPtr->dirEdit, 1, 1);
+  mainLayout->addWidget(saveDirButton, 1, 2);
+
+  // Generate
+  mainLayout->addWidget(this->dataPtr->generateButton, 2, 1);
+
+  // Steps
+  mainLayout->addWidget(this->dataPtr->waitLabel, 3, 0, 1, 3);
 
   this->setLayout(mainLayout);
 
@@ -67,10 +77,10 @@ NewDialog::~NewDialog()
 }
 
 /////////////////////////////////////////////////
-void NewDialog::OnBrowse()
+void NewDialog::OnBrowsePDF()
 {
-  for (int i = 0; i < this->dataPtr->steps.size(); ++i)
-    this->dataPtr->steps[i]->setVisible(false);
+  this->dataPtr->waitLabel->setVisible(false);
+  this->dataPtr->generateButton->setEnabled(false);
   QCoreApplication::processEvents();
 
   QFileDialog fileDialog(this, tr("Choose PDF file"), QDir::homePath());
@@ -85,11 +95,43 @@ void NewDialog::OnBrowse()
   if (fileDialog.exec() != QDialog::Accepted)
     return;
 
-  QStringList selected = fileDialog.selectedFiles();
-  if (selected.empty())
+  this->dataPtr->pdfLabel->setText(fileDialog.selectedFiles()[0]);
+
+  this->dataPtr->generateButton->setEnabled(
+      !this->dataPtr->pdfLabel->text().isEmpty() &&
+      !this->dataPtr->dirEdit->text().isEmpty());
+}
+
+/////////////////////////////////////////////////
+void NewDialog::OnBrowseDir()
+{
+  this->dataPtr->waitLabel->setVisible(false);
+  this->dataPtr->generateButton->setEnabled(false);
+  QCoreApplication::processEvents();
+
+  QFileDialog fileDialog(this, tr("Choose directory to save models"),
+      QDir::homePath());
+  fileDialog.setFileMode(QFileDialog::DirectoryOnly);
+  fileDialog.setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
+      Qt::WindowStaysOnTopHint | Qt::CustomizeWindowHint);
+
+  if (fileDialog.exec() != QDialog::Accepted)
     return;
 
-  // Create temp folder to hold images
+  this->dataPtr->dirEdit->setText(fileDialog.selectedFiles()[0]);
+
+  this->dataPtr->generateButton->setEnabled(
+      !this->dataPtr->pdfLabel->text().isEmpty() &&
+      !this->dataPtr->dirEdit->text().isEmpty());
+}
+
+/////////////////////////////////////////////////
+void NewDialog::OnGenerate()
+{
+  this->dataPtr->waitLabel->setVisible(true);
+  QCoreApplication::processEvents();
+
+  // Create / clear temp folder to hold images
   {
     if (!gazebo::common::exists(this->dataPtr->tmpDir.toStdString()))
     {
@@ -106,7 +148,6 @@ void NewDialog::OnBrowse()
       p.waitForFinished();
     }
   }
-  this->dataPtr->steps[0]->setVisible(true);
   QCoreApplication::processEvents();
 
   // Convert PDF to pngs
@@ -117,11 +158,10 @@ void NewDialog::OnBrowse()
         "-density" << "150" <<
         "-quality" << "100" <<
         "-sharpen" << "0x1.0" <<
-        selected[0] <<
+        this->dataPtr->pdfLabel->text() <<
         QString(this->dataPtr->tmpDir + "/slides.png"));
     p.waitForFinished();
   }
-  this->dataPtr->steps[1]->setVisible(true);
   QCoreApplication::processEvents();
 
   // Save models
@@ -134,10 +174,9 @@ void NewDialog::OnBrowse()
       boost::bind( static_cast<bool(*)(const boost::filesystem::path&)>(
       boost::filesystem::is_regular_file),
         boost::bind( &boost::filesystem::directory_entry::path, _1 ) ) );
-  this->dataPtr->steps[2]->setVisible(true);
   QCoreApplication::processEvents();
 
-  std::string modelsDir = gazebo::common::cwd() + "/models/";
+  std::string modelsDir = this->dataPtr->dirEdit->text().toStdString() + "/";
   auto saveDialog = new gazebo::gui::SaveEntityDialog(
       gazebo::gui::SaveEntityDialog::MODEL);
   for (int i = 0; i < count - 1; ++i)
@@ -155,17 +194,9 @@ void NewDialog::OnBrowse()
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
     }
 
-    this->dataPtr->steps[3]->setText(QString::number(i));
-    this->dataPtr->steps[3]->setVisible(true);
-    QCoreApplication::processEvents();
-
     // Save model.config
     saveDialog->GenerateConfig();
     saveDialog->SaveToConfig();
-
-    this->dataPtr->steps[4]->setText(QString::number(i));
-    this->dataPtr->steps[4]->setVisible(true);
-    QCoreApplication::processEvents();
 
     // Save model.sdf
     sdf::ElementPtr sdf(new sdf::Element());
@@ -209,10 +240,6 @@ void NewDialog::OnBrowse()
 
     saveDialog->SaveToSDF(modelSDF);
 
-    this->dataPtr->steps[5]->setText(QString::number(i));
-    this->dataPtr->steps[5]->setVisible(true);
-    QCoreApplication::processEvents();
-
     // Create materials dirs
     {
       boost::filesystem::path path;
@@ -228,10 +255,6 @@ void NewDialog::OnBrowse()
       if (!boost::filesystem::create_directories(path))
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
     }
-
-    this->dataPtr->steps[6]->setText(QString::number(i));
-    this->dataPtr->steps[6]->setVisible(true);
-    QCoreApplication::processEvents();
 
     // Save material script
     std::ofstream materialFile(modelsDir + modelName +
@@ -260,18 +283,11 @@ void NewDialog::OnBrowse()
     else
       gzerr << "Unable to open file" << std::endl;
 
-    this->dataPtr->steps[7]->setText(QString::number(i));
-    this->dataPtr->steps[7]->setVisible(true);
-    QCoreApplication::processEvents();
-
     // Move image to dir
     gazebo::common::moveFile(
       this->dataPtr->tmpDir.toStdString() + "/" + modelName + ".png",
       modelsDir + modelName + "/materials/textures/" + modelName + ".png");
 
-    this->dataPtr->steps[8]->setText(QString::number(i));
-    this->dataPtr->steps[8]->setVisible(true);
-    QCoreApplication::processEvents();
   }
   saveDialog->AddDirToModelPaths(modelsDir + "dummy");
 
