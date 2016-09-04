@@ -3,6 +3,8 @@
 
 #include <gazebo/transport/Node.hh>
 #include <gazebo/transport/Subscriber.hh>
+
+#include "Common.hh"
 #include "PresentMode.hh"
 
 using namespace simslides;
@@ -32,9 +34,10 @@ PresentMode::~PresentMode()
 /////////////////////////////////////////////////
 void PresentMode::Start()
 {
-  if (!this->dataPtr->camera->GetScene()->GetVisual("slides-0"))
+  if (!this->dataPtr->camera->GetScene()->GetVisual(simslides::slidePrefix + "-0"))
   {
-    gzerr << "No slides to present" << std::endl;
+    gzerr << "No slide models named [" << simslides::slidePrefix <<
+        "] to present." << std::endl;
     return;
   }
 
@@ -51,8 +54,8 @@ void PresentMode::Start()
   }
 
   this->dataPtr->slideCount = 0;
-  while (this->dataPtr->camera->GetScene()->GetVisual("slides-" +
-      std::to_string(this->dataPtr->slideCount)))
+  while (this->dataPtr->camera->GetScene()->GetVisual(simslides::slidePrefix +
+      "-" + std::to_string(this->dataPtr->slideCount)))
   {
     this->dataPtr->slideCount++;
   }
@@ -84,7 +87,7 @@ void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
   else
     return;
 
-  auto vis = this->dataPtr->camera->GetScene()->GetVisual("slides-" +
+  auto vis = this->dataPtr->camera->GetScene()->GetVisual(simslides::slidePrefix + "-" +
       std::to_string(this->dataPtr->currentIndex));
 
   auto target_world = ignition::math::Matrix4d(vis->GetWorldPose().Ign());

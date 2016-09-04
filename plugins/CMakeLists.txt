@@ -13,12 +13,14 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 set (client_src
+  Common.cc
   NewDialog.cc
   PresentMode.cc
   Simslides.cc
 )
 
 set (qt_headers
+  Common.hh
   NewDialog.hh
   PresentMode.hh
   Simslides.hh

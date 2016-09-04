@@ -1,5 +1,6 @@
 #include <gazebo/common/CommonIface.hh>
 #include <gazebo/transport/Node.hh>
+#include "Common.hh"
 #include "NewDialog.hh"
 
 using namespace simslides;
@@ -146,6 +147,8 @@ void NewDialog::CheckReady(QString)
       !this->dataPtr->pdfLabel->text().isEmpty() &&
       !this->dataPtr->nameEdit->text().isEmpty() &&
       !this->dataPtr->dirEdit->text().isEmpty());
+
+  simslides::slidePrefix = this->dataPtr->nameEdit->text().toStdString();
 }
 
 /////////////////////////////////////////////////
@@ -206,7 +209,7 @@ void NewDialog::OnGenerate()
       gazebo::gui::SaveEntityDialog::MODEL);
   for (int i = 0; i < count - 1; ++i)
   {
-    std::string modelName(this->dataPtr->nameEdit->text().toStdString() + "-" +
+    std::string modelName(simslides::slidePrefix + "-" +
         std::to_string(i));
     saveDialog->SetModelName(modelName);
     saveDialog->SetSaveLocation(modelsDir + "/" + modelName);
@@ -252,7 +255,7 @@ void NewDialog::OnGenerate()
                   <script>\
                     <uri>model://" + modelName + "/materials/scripts</uri>\
                     <uri>model://" + modelName + "/materials/textures</uri>\
-                    <name>Slides/" + this->dataPtr->nameEdit->text().toStdString() + "_" + std::to_string(i) + "</name>\
+                    <name>Slides/" + simslides::slidePrefix + "_" + std::to_string(i) + "</name>\
                   </script>\
                 </material>\
               </visual>\
@@ -288,7 +291,7 @@ void NewDialog::OnGenerate()
     if (materialFile.is_open())
     {
       materialFile <<
-        "material Slides/" + this->dataPtr->nameEdit->text().toStdString() + "_" << std::to_string(i) << "\n\
+        "material Slides/" + simslides::slidePrefix + "_" << std::to_string(i) << "\n\
         {\n\
           receive_shadows off\n\
           technique\n\
@@ -349,7 +352,7 @@ void NewDialog::OnGenerate()
     gazebo::msgs::Factory msg;
 
     std::string filename("file://" + modelsDir + "/" +
-        this->dataPtr->nameEdit->text().toStdString() + "-" + std::to_string(i));
+        simslides::slidePrefix + "-" + std::to_string(i));
     msg.set_sdf_filename(filename);
 
     gazebo::msgs::Set(msg.mutable_pose(),
