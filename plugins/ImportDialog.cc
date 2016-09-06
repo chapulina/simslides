@@ -1,15 +1,12 @@
 #include <gazebo/common/CommonIface.hh>
-#include <gazebo/transport/Node.hh>
 #include "Common.hh"
-#include "NewDialog.hh"
+#include "ImportDialog.hh"
 
 using namespace simslides;
 
-class simslides::NewDialogPrivate
+class simslides::ImportDialogPrivate
 {
   public: QString tmpDir = "/tmp/simslides_tmp";
-  public: gazebo::transport::NodePtr node;
-  public: gazebo::transport::PublisherPtr factoryPub;
   public: QLabel *pdfLabel;
   public: QLabel *waitLabel;
   public: QLabel *doneLabel;
@@ -19,8 +16,8 @@ class simslides::NewDialogPrivate
 };
 
 /////////////////////////////////////////////////
-NewDialog::NewDialog(QWidget *_parent)
-  : QDialog(_parent), dataPtr(new NewDialogPrivate)
+ImportDialog::ImportDialog(QWidget *_parent)
+  : QDialog(_parent), dataPtr(new ImportDialogPrivate)
 {
   this->setWindowTitle(tr("Create a new presentation"));
   this->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
@@ -81,20 +78,15 @@ NewDialog::NewDialog(QWidget *_parent)
   mainLayout->addWidget(this->dataPtr->doneLabel, 5, 0, 1, 3);
 
   this->setLayout(mainLayout);
-
-  this->dataPtr->node = gazebo::transport::NodePtr(new gazebo::transport::Node());
-  this->dataPtr->node->Init();
-  this->dataPtr->factoryPub =
-      this->dataPtr->node->Advertise<gazebo::msgs::Factory>("/gazebo/default/factory");
 }
 
 /////////////////////////////////////////////////
-NewDialog::~NewDialog()
+ImportDialog::~ImportDialog()
 {
 }
 
 /////////////////////////////////////////////////
-void NewDialog::OnBrowsePDF()
+void ImportDialog::OnBrowsePDF()
 {
   this->dataPtr->waitLabel->setVisible(false);
   this->dataPtr->doneLabel->setVisible(false);
@@ -119,7 +111,7 @@ void NewDialog::OnBrowsePDF()
 }
 
 /////////////////////////////////////////////////
-void NewDialog::OnBrowseDir()
+void ImportDialog::OnBrowseDir()
 {
   this->dataPtr->waitLabel->setVisible(false);
   this->dataPtr->doneLabel->setVisible(false);
@@ -141,7 +133,7 @@ void NewDialog::OnBrowseDir()
 }
 
 /////////////////////////////////////////////////
-void NewDialog::CheckReady(QString)
+void ImportDialog::CheckReady(QString)
 {
   this->dataPtr->generateButton->setEnabled(
       !this->dataPtr->pdfLabel->text().isEmpty() &&
@@ -152,7 +144,7 @@ void NewDialog::CheckReady(QString)
 }
 
 /////////////////////////////////////////////////
-void NewDialog::OnGenerate()
+void ImportDialog::OnGenerate()
 {
   this->dataPtr->waitLabel->setVisible(true);
   this->dataPtr->doneLabel->setVisible(false);
@@ -204,7 +196,7 @@ void NewDialog::OnGenerate()
         boost::bind( &boost::filesystem::directory_entry::path, _1 ) ) );
   QCoreApplication::processEvents();
 
-  std::string modelsDir = this->dataPtr->dirEdit->text().toStdString();
+  simslides::slidePath = this->dataPtr->dirEdit->text().toStdString();
   auto saveDialog = new gazebo::gui::SaveEntityDialog(
       gazebo::gui::SaveEntityDialog::MODEL);
   for (int i = 0; i < count - 1; ++i)
@@ -212,12 +204,12 @@ void NewDialog::OnGenerate()
     std::string modelName(simslides::slidePrefix + "-" +
         std::to_string(i));
     saveDialog->SetModelName(modelName);
-    saveDialog->SetSaveLocation(modelsDir + "/" + modelName);
+    saveDialog->SetSaveLocation(simslides::slidePath + "/" + modelName);
 
     // Create dir
     {
       boost::filesystem::path path;
-      path = path / (modelsDir + "/" + modelName);
+      path = path / (simslides::slidePath + "/" + modelName);
 
       if (!boost::filesystem::create_directories(path))
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
@@ -272,21 +264,21 @@ void NewDialog::OnGenerate()
     // Create materials dirs
     {
       boost::filesystem::path path;
-      path = path / (modelsDir + "/" + modelName + "/materials/scripts");
+      path = path / (simslides::slidePath + "/" + modelName + "/materials/scripts");
 
       if (!boost::filesystem::create_directories(path))
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
     }
     {
       boost::filesystem::path path;
-      path = path / (modelsDir + "/" + modelName + "/materials/textures");
+      path = path / (simslides::slidePath + "/" + modelName + "/materials/textures");
 
       if (!boost::filesystem::create_directories(path))
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
     }
 
     // Save material script
-    std::ofstream materialFile(modelsDir + "/" + modelName +
+    std::ofstream materialFile(simslides::slidePath + "/" + modelName +
         "/materials/scripts/script.material");
     if (materialFile.is_open())
     {
@@ -315,19 +307,19 @@ void NewDialog::OnGenerate()
     // Move image to dir
     gazebo::common::moveFile(
       this->dataPtr->tmpDir.toStdString() + "/" + modelName + ".png",
-      modelsDir + "/" + modelName + "/materials/textures/" + modelName + ".png");
+      simslides::slidePath + "/" + modelName + "/materials/textures/" + modelName + ".png");
 
   }
 
   // Add to path and wait to be added
-  saveDialog->AddDirToModelPaths(modelsDir + "/" + "dummy");
+  saveDialog->AddDirToModelPaths(simslides::slidePath + "/" + "dummy");
   bool found = false;
   while (!found)
   {
     auto modelPaths = gazebo::common::SystemPaths::Instance()->GetModelPaths();
     for (auto it : modelPaths)
     {
-      if (it.compare(modelsDir) == 0)
+      if (it.compare(simslides::slidePath) == 0)
       {
         found = true;
         break;
@@ -345,31 +337,8 @@ void NewDialog::OnGenerate()
   }
 
   // Insert models
-  int countX= 0;
-  int countY= 0;
-  for (int i = 0; i < count - 1; ++i)
-  {
-    gazebo::msgs::Factory msg;
+  simslides::LoadSlides();
 
-    std::string filename("file://" + modelsDir + "/" +
-        simslides::slidePrefix + "-" + std::to_string(i));
-    msg.set_sdf_filename(filename);
-
-    gazebo::msgs::Set(msg.mutable_pose(),
-        ignition::math::Pose3d(countX, countY, 0, 0, 0, 0));
-
-    this->dataPtr->factoryPub->Publish(msg);
-
-    if (countX > 30)
-    {
-      countX = 0;
-      countY = countY + 10;
-    }
-    else
-    {
-      countX = countX + 10;
-    }
-  }
   this->dataPtr->waitLabel->setVisible(false);
   this->dataPtr->doneLabel->setVisible(true);
 }

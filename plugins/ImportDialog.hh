@@ -1,5 +1,5 @@
-#ifndef SIMSLIDES_NEWDIALOG_HH_
-#define SIMSLIDES_NEWDIALOG_HH_
+#ifndef SIMSLIDES_IMPORTDIALOG_HH_
+#define SIMSLIDES_IMPORTDIALOG_HH_
 
 #include <memory>
 
@@ -9,24 +9,24 @@
 
 namespace simslides
 {
-  class NewDialogPrivate;
+  class ImportDialogPrivate;
 
   /// \addtogroup gazebo_gui
   /// \{
 
-  /// \class NewDialog NewDialog.hh gui/gui.hh
+  /// \class ImportDialog ImportDialog.hh gui/gui.hh
   /// \brief Dialog for creating a new presentation.
-  class NewDialog : public QDialog
+  class ImportDialog : public QDialog
   {
     Q_OBJECT
 
     /// \brief Constructor.
     /// \param[in] _mode Mode of the dialog.
     /// \param[in] _parent Parent QWidget.
-    public: NewDialog(QWidget *_parent = 0);
+    public: ImportDialog(QWidget *_parent = 0);
 
     /// \brief Destructor.
-    public: ~NewDialog();
+    public: ~ImportDialog();
 
     /// \brief Qt callback when the file directory browse button is pressed.
     private slots: void OnBrowsePDF();
@@ -36,7 +36,7 @@ namespace simslides
 
     /// \internal
     /// \brief Pointer to private data.
-    private: std::unique_ptr<NewDialogPrivate> dataPtr;
+    private: std::unique_ptr<ImportDialogPrivate> dataPtr;
   };
   /// \}
 }
