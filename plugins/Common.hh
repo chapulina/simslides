@@ -6,6 +6,9 @@
 namespace simslides
 {
   extern std::string slidePrefix;
+  extern std::string slidePath;
+
+  void LoadSlides();
 }
 
 #endif

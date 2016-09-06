@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2015 Open Source Robotics Foundation
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
-*/
 #include <sstream>
 #include <gazebo/msgs/msgs.hh>
 #include <gazebo/rendering/UserCamera.hh>
@@ -21,7 +5,8 @@
 #include <gazebo/rendering/Visual.hh>
 #include <gazebo/gui/KeyEventHandler.hh>
 
-#include "NewDialog.hh"
+#include "ImportDialog.hh"
+#include "LoadDialog.hh"
 #include "PresentMode.hh"
 #include "Simslides.hh"
 
@@ -37,13 +22,21 @@ Simslides::Simslides()
   // Menu item
   auto menu = new QMenu("Simslides");
 
-  // New dialog
-  auto newSlideDialog = new NewDialog();
+  // Import dialog
+  auto newSlideDialog = new ImportDialog();
 
-  auto newAct = new QAction(tr("New presentation"), menu);
+  auto newAct = new QAction(tr("Import PDF"), menu);
   newAct->setShortcut(Qt::Key_F2);
   this->connect(newAct, SIGNAL(triggered()), newSlideDialog, SLOT(open()));
   menu->addAction(newAct);
+
+  // Load slides
+  auto loadDialog = new LoadDialog();
+
+  auto loadAct = new QAction(tr("Load models"), menu);
+  loadAct->setShortcut(Qt::Key_F3);
+  this->connect(loadAct, SIGNAL(triggered()), loadDialog, SLOT(open()));
+  menu->addAction(loadAct);
 
   // Presentation mode
   auto presentMode = new PresentMode();
