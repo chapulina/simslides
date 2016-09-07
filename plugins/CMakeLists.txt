@@ -15,6 +15,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 set (client_src
   Common.cc
   ImportDialog.cc
+  InsertActorDialog.cc
   LoadDialog.cc
   PresentMode.cc
   Simslides.cc
@@ -23,6 +24,7 @@ set (client_src
 set (qt_headers
   Common.hh
   ImportDialog.hh
+  InsertActorDialog.hh
   LoadDialog.hh
   PresentMode.hh
   Simslides.hh
