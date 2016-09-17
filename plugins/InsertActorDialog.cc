@@ -76,7 +76,7 @@ InsertActorDialog::InsertActorDialog(QWidget *_parent)
   node->Init();
   auto factoryPub =
        node->Advertise<gazebo::msgs::Factory>("/gazebo/default/factory");
-
+/*
 
   std::string sdfStr(
       "<?xml version=\"1.0\" ?>\
@@ -122,6 +122,7 @@ InsertActorDialog::InsertActorDialog(QWidget *_parent)
   msg.set_sdf(sdfStr);
 
   factoryPub->Publish(msg);
+*/
 }
 
 /////////////////////////////////////////////////

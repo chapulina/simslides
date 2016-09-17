@@ -32,6 +32,15 @@ PresentMode::~PresentMode()
 }
 
 /////////////////////////////////////////////////
+void PresentMode::OnToggled(bool _checked)
+{
+  if (_checked)
+    this->Start();
+  else
+    this->Stop();
+}
+
+/////////////////////////////////////////////////
 void PresentMode::Start()
 {
   if (!this->dataPtr->camera->GetScene()->GetVisual(simslides::slidePrefix + "-0"))
@@ -59,41 +68,60 @@ void PresentMode::Start()
   {
     this->dataPtr->slideCount++;
   }
+
+  // Trigger first slide
+  this->ChangeSlide(-1);
+}
+
+/////////////////////////////////////////////////
+void PresentMode::Stop()
+{
+  this->dataPtr->slideCount = -1;
 }
 
 /////////////////////////////////////////////////
 void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
 {
+  if (this->dataPtr->slideCount < 0)
+    return;
+
+  this->ChangeSlide(_msg->int_value());
+}
+
+/////////////////////////////////////////////////
+void PresentMode::ChangeSlide(const int _key)
+{
   // Next
-  if (_msg->int_value() == 16777236 &&
+  if (_key == 16777236 &&
       this->dataPtr->currentIndex + 1 < this->dataPtr->slideCount)
   {
     this->dataPtr->currentIndex++;
   }
   // Previous
-  else if (_msg->int_value() == 16777234 && this->dataPtr->currentIndex >= 1)
+  else if (_key == 16777234 && this->dataPtr->currentIndex >= 1)
   {
     this->dataPtr->currentIndex--;
   }
   // First
-  else if (_msg->int_value() == 16777268)
+  else if (_key == -1)
   {
     this->dataPtr->currentIndex = 0;
   }
   // Current
-  else if (_msg->int_value() == 16777264)
+  else if (_key == 16777264)
   {
   }
   else
     return;
 
-  auto vis = this->dataPtr->camera->GetScene()->GetVisual(simslides::slidePrefix + "-" +
+  auto vis = this->dataPtr->camera->GetScene()->GetVisual(
+      simslides::slidePrefix + "-" +
       std::to_string(this->dataPtr->currentIndex));
 
   auto target_world = ignition::math::Matrix4d(vis->GetWorldPose().Ign());
 
   auto eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
-      0, -5.66, 2.83, 0, 0.26, IGN_PI_2));
+      0, -5.70, 2.9, 0, 0.25, IGN_PI_2));
 
   auto eye_world = target_world * eye_target;
 
@@ -101,6 +129,7 @@ void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
       target_world.Translation());
 
   this->dataPtr->camera->MoveToPosition(mat.Pose(), 1);
+  this->SlideChanged(this->dataPtr->currentIndex);
 }
 
 
