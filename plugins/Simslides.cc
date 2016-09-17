@@ -48,10 +48,15 @@ Simslides::Simslides()
 
   // Presentation mode
   auto presentMode = new PresentMode();
+  this->connect(presentMode, SIGNAL(SlideChanged(int)), this,
+      SLOT(OnSlideChanged(int)));
 
-  auto presentAct = new QAction(tr("Presentation mode"), menu);
+  auto presentAct = new QAction(QIcon(":/images/play.png"),
+      tr("Presentation mode"), menu);
   presentAct->setShortcut(Qt::Key_F5);
-  this->connect(presentAct, SIGNAL(triggered()), presentMode, SLOT(Start()));
+  presentAct->setCheckable(true);
+  this->connect(presentAct, SIGNAL(toggled(bool)), presentMode,
+      SLOT(OnToggled(bool)));
   menu->addAction(presentAct);
 
   // Add to main window
@@ -64,9 +69,20 @@ Simslides::Simslides()
   this->setStyleSheet(
       "QFrame { background-color : rgba(100, 100, 100, 255); color : white; }");
 
+  // Count
+  auto countLabel = new QLabel("0");
+  this->connect(this, SIGNAL(SetCount(QString)), countLabel,
+      SLOT(setText(QString)));
+
+  // Present
+  auto presentButton = new QToolButton();
+  presentButton->setDefaultAction(presentAct);
+  presentButton->setIconSize(QSize(100, 100));
+
   // Create the layout that sits inside the frame
-  QVBoxLayout *frameLayout = new QVBoxLayout();
-  frameLayout->setContentsMargins(0, 0, 0, 0);
+  auto frameLayout = new QHBoxLayout();
+  frameLayout->addWidget(countLabel);
+  frameLayout->addWidget(presentButton);
 
   // Create the frame to hold all the widgets
   QFrame *mainFrame = new QFrame();
@@ -80,10 +96,16 @@ Simslides::Simslides()
 
   // Position and resize this widget
   this->move(10, 10);
-  this->resize(50, 30);
+  this->resize(100, 50);
 }
 
 /////////////////////////////////////////////////
 void Simslides::Load(sdf::ElementPtr _sdf)
 {
+}
+
+/////////////////////////////////////////////////
+void Simslides::OnSlideChanged(int _slide)
+{
+  this->SetCount(QString::number(_slide));
 }

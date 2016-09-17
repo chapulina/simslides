@@ -33,6 +33,10 @@ namespace simslides
     public: Simslides();
 
     public: void Load(sdf::ElementPtr _sdf);
+
+    private slots: void OnSlideChanged(int _slide);
+
+    Q_SIGNALS: void SetCount(QString);
   };
 }
 #endif

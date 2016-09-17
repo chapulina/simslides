@@ -28,10 +28,14 @@ namespace simslides
     /// \brief Destructor.
     public: ~PresentMode();
 
-    /// \brief Qt callback when to start presenting.
-    private slots: void Start();
+    private slots: void OnToggled(bool _checked);
+    private: void Start();
+    private: void Stop();
 
     private: void OnKeyPress(ConstAnyPtr &_msg);
+    private: void ChangeSlide(const int _key);
+
+    Q_SIGNALS: void SlideChanged(int);
 
     /// \internal
     /// \brief Pointer to private data.

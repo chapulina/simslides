@@ -227,7 +227,6 @@ void ImportDialog::OnGenerate()
         "<?xml version='1.0' ?>\
         <sdf version='" SDF_VERSION "'>\
           <model name='" + modelName + "'>\
-            <static>true</static>\
             <link name='link'>\
               <pose>0 0 1.5 0 0 0</pose>\
               <collision name='collision'>\
