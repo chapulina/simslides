@@ -118,13 +118,35 @@ void PresentMode::ChangeSlide(const int _key)
       simslides::slidePrefix + "-" +
       std::to_string(this->dataPtr->currentIndex));
 
-  auto target_world = ignition::math::Matrix4d(vis->GetWorldPose().Ign());
+  // Target in world frame
+  auto origin = vis->GetWorldPose().Ign();
 
+  auto bb_pos = origin.Pos() +
+                vis->GetBoundingBox().Ign().Center();
+  auto target_world = ignition::math::Matrix4d(ignition::math::Pose3d(
+      bb_pos, origin.Rot()));
+
+  // Eye in world frame
   auto eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
-      0, -5.70, 2.9, 0, 0.25, IGN_PI_2));
+      0, -6.3, 1.8, 0, 0.04, IGN_PI_2));
 
   auto eye_world = target_world * eye_target;
 
+  // Up in world frame
+/*
+  auto rot = ignition::math::Matrix4d(ignition::math::Pose3d(
+      ignition::math::Vector3d::Zero, origin.Rot()));
+
+  auto up = rot * ignition::math::Vector3d::UnitZ;
+
+  up += eye_world.Translation();
+
+std::cout << "---------" << std::endl;
+std::cout << "Eye: " << eye_world.Translation() << std::endl;
+std::cout << "target: " << target_world.Translation() << std::endl;
+std::cout << "up: " << up << std::endl;
+*/
+  // Look At
   auto mat = ignition::math::Matrix4d::LookAt(eye_world.Translation(),
       target_world.Translation());
 
