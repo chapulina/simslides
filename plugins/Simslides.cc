@@ -102,6 +102,10 @@ Simslides::Simslides()
 /////////////////////////////////////////////////
 void Simslides::Load(sdf::ElementPtr _sdf)
 {
+  if (_sdf->HasElement("slide_prefix"))
+  {
+    simslides::slidePrefix = _sdf->Get<std::string>("slide_prefix");
+  }
 }
 
 /////////////////////////////////////////////////
