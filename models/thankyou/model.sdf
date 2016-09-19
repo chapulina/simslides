@@ -1,6 +1,7 @@
 <?xml version='1.0'?>
 <sdf version='1.6'>
   <model name='thankyou'>
+    <pose frame=''>0 0 1.5 0 1.5707 0</pose>
     <link name='link_0'>
       <pose frame=''>0.172078 -2.30314 -0 0 -0 0</pose>
       <inertial>
@@ -1153,5 +1154,8 @@
     </link>
     <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
+    <plugin name="reset" filename="libreset_model.so">
+      <key>116</key>
+    </plugin>
   </model>
 </sdf>
