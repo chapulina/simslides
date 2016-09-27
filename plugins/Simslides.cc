@@ -38,14 +38,14 @@ Simslides::Simslides()
   loadAct->setShortcut(Qt::Key_F3);
   this->connect(loadAct, SIGNAL(triggered()), loadDialog, SLOT(open()));
   menu->addAction(loadAct);
-
+/*
   // InsertActor slides
   auto importActorDialog = new InsertActorDialog();
 
   auto importActorAct = new QAction(tr("Insert actor"), menu);
   this->connect(importActorAct, SIGNAL(triggered()), importActorDialog, SLOT(open()));
   menu->addAction(importActorAct);
-
+*/
   // Presentation mode
   auto presentMode = new PresentMode();
   this->connect(presentMode, SIGNAL(SlideChanged(int)), this,

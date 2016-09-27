@@ -127,8 +127,18 @@ void PresentMode::ChangeSlide(const int _key)
       bb_pos, origin.Rot()));
 
   // Eye in world frame
-  auto eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
-      0, -6.3, 1.8, 0, 0.04, IGN_PI_2));
+  ignition::math::Matrix4d eye_target;
+
+  if (vis->GetName() != simslides::slidePrefix + "-12")
+  {
+    eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
+        0, -6.3, 1.8, 0, 0.04, IGN_PI_2));
+  }
+  else
+  {
+    eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
+        0, -3, 1.1, 0, 0.13, IGN_PI_2));
+  }
 
   auto eye_world = target_world * eye_target;
 
