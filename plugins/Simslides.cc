@@ -48,7 +48,9 @@ Simslides::Simslides()
 */
   // Presentation mode
   auto presentMode = new PresentMode();
-  this->connect(presentMode, SIGNAL(SlideChanged(int)), this,
+  this->connect(presentMode, SIGNAL(SlideChanged(int, int)), this,
+      SLOT(OnSlideChanged(int, int)));
+  this->connect(this, SIGNAL(CountChanged(int)), presentMode,
       SLOT(OnSlideChanged(int)));
 
   auto presentAct = new QAction(QIcon(":/images/play.png"),
@@ -70,8 +72,15 @@ Simslides::Simslides()
       "QFrame { background-color : rgba(100, 100, 100, 255); color : white; }");
 
   // Count
-  auto countLabel = new QLabel("0");
-  this->connect(this, SIGNAL(SetCount(QString)), countLabel,
+  auto countSpin = new QSpinBox(0);
+  this->connect(this, SIGNAL(SetCount(int)), countSpin,
+      SLOT(setValue(int)));
+  this->connect(countSpin, SIGNAL(valueChanged(int)), this,
+      SLOT(OnCountChanged(int)));
+
+  // Total
+  auto totalLabel = new QLabel("0");
+  this->connect(this, SIGNAL(SetTotal(QString)), totalLabel,
       SLOT(setText(QString)));
 
   // Present
@@ -81,7 +90,9 @@ Simslides::Simslides()
 
   // Create the layout that sits inside the frame
   auto frameLayout = new QHBoxLayout();
-  frameLayout->addWidget(countLabel);
+  frameLayout->addWidget(countSpin);
+  frameLayout->addWidget(new QLabel("/"));
+  frameLayout->addWidget(totalLabel);
   frameLayout->addWidget(presentButton);
 
   // Create the frame to hold all the widgets
@@ -94,9 +105,12 @@ Simslides::Simslides()
   mainLayout->addWidget(mainFrame);
   this->setLayout(mainLayout);
 
+  // Start with left pane closed
+  gazebo::gui::Events::leftPaneVisibility(false);
+
   // Position and resize this widget
   this->move(10, 10);
-  this->resize(100, 50);
+  this->resize(150, 50);
 }
 
 /////////////////////////////////////////////////
@@ -109,7 +123,14 @@ void Simslides::Load(sdf::ElementPtr _sdf)
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnSlideChanged(int _slide)
+void Simslides::OnSlideChanged(int _slide, int _total)
 {
-  this->SetCount(QString::number(_slide));
+  this->SetCount(_slide);
+  this->SetTotal(QString::number(_total));
+}
+
+/////////////////////////////////////////////////
+void Simslides::OnCountChanged(int _slide)
+{
+  this->CountChanged(_slide);
 }
