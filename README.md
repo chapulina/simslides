@@ -10,34 +10,42 @@ You can generate your own presentation or run one of the existing ones.
 
 ## Generate your own presentation
 
-1. From this directory, save your slides at `slides/slides.pdf`
+1. Run gazebo with the simslides plugin:
 
-1. Run:
+        . ./simslides.sh
 
-        sh prepare_all.sh
 
-    The script:
+1. Generate models for your slides
 
-        * Compiles all plugins (`build_plugins.sh`)
+    1. On the top menu, choose Simslides -> Import PDFi (or press F2)
 
-        * Generates a simple world from a PDF file with a camera poses plugin (`generate_models.sh`)
+    1. Choose a PDF file from your computer
 
-1. Manual tweaks
+    1. Choose the folder to save the generated models at
 
-    1. Copy the auto generated world to the main folder
+    1. Choose a prefix for your model names, they will be named "prefix-0", "prefix-1", ...
 
-            cp world/slides.world final.world
+    1. Click Generate. A model will be created for each page of your PDF. This
+       may take a while, the screen goes black... But it works in the end.
+       Sometimes it looks like not all pages of the PDF become models... That's
+       an open issue.
 
-    1. It's possible to "stack" slides to make more interesting transitions. Edit the `stack` file with
-       "<slide number> <stack level>" on each line. Stack levels:
+    1. When it's done, all slides will show up on the world in a grid.
 
-        * none: Slide not on stack
-        * o: Slide is the start of a stack
-        * 1: Slide is in the middle of a stack
-        * 2: Slide is the end of a stack
+1. Load existing slide models
 
-    1. Modify `final.world` using `gzclient` (move slides around, insert models, etc.) and save it.
-       (Make sure to edit the camera poses accordingly)
+    If you already generated slide models with the step above, and now just
+    want to spawn them into the world:
+
+    1. On the top menu, choose Simslides -> Load Models (or press F3)
+
+    1. Choose the path of the directory which includes all the slides
+
+    1. Type in the model name prefix
+
+    1. Load
+
+    1. When it's done, all slides will show up on the world in a grid.
 
 
 ## Existing presentations
@@ -66,16 +74,13 @@ You can generate your own presentation or run one of the existing ones.
 
 # Run presentation
 
-1. Make sure you've loaded the quadrotor model
+To run the roscon presentation:
 
-        wget https://bitbucket.org/osrf/gazebo_models/raw/default/quadrotor/model.sdf ~/.gazebo/models/quadrotor/model.sdf
-        wget https://bitbucket.org/osrf/gazebo_models/raw/default/quadrotor/model.config ~/.gazebo/models/quadrotor/model.config
+1. In one terminal, run:
 
-1. Source setup:
+    . ./roscon.sh
 
-        . setup.sh
+1. On another terminal, run:
 
-1. Run the final word:
-
-        gazebo final.world
+    . ./playback.sh
 
