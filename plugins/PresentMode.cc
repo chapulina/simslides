@@ -69,8 +69,12 @@ void PresentMode::Start()
     this->dataPtr->slideCount++;
   }
 
+  // One more for the final thank you
+  this->dataPtr->slideCount++;
+
   // Trigger first slide
-  this->ChangeSlide(-1);
+  this->dataPtr->currentIndex = 0;
+  this->ChangeSlide();
 }
 
 /////////////////////////////////////////////////
@@ -85,83 +89,105 @@ void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
   if (this->dataPtr->slideCount < 0)
     return;
 
-  this->ChangeSlide(_msg->int_value());
-}
-
-/////////////////////////////////////////////////
-void PresentMode::ChangeSlide(const int _key)
-{
   // Next
-  if (_key == 16777236 &&
+  if (_msg->int_value() == 16777236 &&
       this->dataPtr->currentIndex + 1 < this->dataPtr->slideCount)
   {
     this->dataPtr->currentIndex++;
   }
   // Previous
-  else if (_key == 16777234 && this->dataPtr->currentIndex >= 1)
+  else if (_msg->int_value() == 16777234 && this->dataPtr->currentIndex >= 1)
   {
     this->dataPtr->currentIndex--;
   }
-  // First
-  else if (_key == -1)
-  {
-    this->dataPtr->currentIndex = 0;
-  }
   // Current
-  else if (_key == 16777264)
+  else if (_msg->int_value() == 16777264)
   {
   }
   else
     return;
 
-  auto vis = this->dataPtr->camera->GetScene()->GetVisual(
-      simslides::slidePrefix + "-" +
-      std::to_string(this->dataPtr->currentIndex));
+  this->ChangeSlide();
+}
 
-  // Target in world frame
-  auto origin = vis->GetWorldPose().Ign();
+/////////////////////////////////////////////////
+void PresentMode::OnSlideChanged(int _slide)
+{
+  if (this->dataPtr->slideCount < 0)
+    return;
 
-  auto bb_pos = origin.Pos() +
-                vis->GetBoundingBox().Ign().Center();
-  auto target_world = ignition::math::Matrix4d(ignition::math::Pose3d(
-      bb_pos, origin.Rot()));
+  if (_slide > this->dataPtr->slideCount)
+    this->dataPtr->currentIndex = this->dataPtr->slideCount - 1;
 
-  // Eye in world frame
-  ignition::math::Matrix4d eye_target;
+  this->dataPtr->currentIndex = _slide;
 
-  if (vis->GetName() != simslides::slidePrefix + "-12")
+  this->ChangeSlide();
+}
+
+/////////////////////////////////////////////////
+void PresentMode::ChangeSlide()
+{
+  ignition::math::Pose3d camPose;
+
+  // Slides
+  if (this->dataPtr->currentIndex != this->dataPtr->slideCount - 1)
   {
-    eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
-        0, -6.3, 1.8, 0, 0.04, IGN_PI_2));
+    auto vis = this->dataPtr->camera->GetScene()->GetVisual(
+        simslides::slidePrefix + "-" +
+        std::to_string(this->dataPtr->currentIndex));
+
+    // Target in world frame
+    auto origin = vis->GetWorldPose().Ign();
+
+    auto bb_pos = origin.Pos() +
+                  vis->GetBoundingBox().Ign().Center();
+    auto target_world = ignition::math::Matrix4d(ignition::math::Pose3d(
+        bb_pos, origin.Rot()));
+
+    // Eye in world frame
+    ignition::math::Matrix4d eye_target;
+
+    if (vis->GetName() != simslides::slidePrefix + "-12")
+    {
+      eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
+          0, -6.3, 1.8, 0, 0.04, IGN_PI_2));
+    }
+    else
+    {
+      eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
+          0, -3, 1.1, 0, 0.13, IGN_PI_2));
+    }
+
+    auto eye_world = target_world * eye_target;
+
+    // Up in world frame
+  /*
+    auto rot = ignition::math::Matrix4d(ignition::math::Pose3d(
+        ignition::math::Vector3d::Zero, origin.Rot()));
+
+    auto up = rot * ignition::math::Vector3d::UnitZ;
+
+    up += eye_world.Translation();
+
+  std::cout << "---------" << std::endl;
+  std::cout << "Eye: " << eye_world.Translation() << std::endl;
+  std::cout << "target: " << target_world.Translation() << std::endl;
+  std::cout << "up: " << up << std::endl;
+  */
+    // Look At
+    auto mat = ignition::math::Matrix4d::LookAt(eye_world.Translation(),
+        target_world.Translation());
+
+    camPose = mat.Pose();
   }
+  // Fixed keyframes
   else
   {
-    eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
-        0, -3, 1.1, 0, 0.13, IGN_PI_2));
+    camPose.Set(204.53, 109.68, 1.3329, 0, 0.07, -2.708);
   }
 
-  auto eye_world = target_world * eye_target;
-
-  // Up in world frame
-/*
-  auto rot = ignition::math::Matrix4d(ignition::math::Pose3d(
-      ignition::math::Vector3d::Zero, origin.Rot()));
-
-  auto up = rot * ignition::math::Vector3d::UnitZ;
-
-  up += eye_world.Translation();
-
-std::cout << "---------" << std::endl;
-std::cout << "Eye: " << eye_world.Translation() << std::endl;
-std::cout << "target: " << target_world.Translation() << std::endl;
-std::cout << "up: " << up << std::endl;
-*/
-  // Look At
-  auto mat = ignition::math::Matrix4d::LookAt(eye_world.Translation(),
-      target_world.Translation());
-
-  this->dataPtr->camera->MoveToPosition(mat.Pose(), 1);
-  this->SlideChanged(this->dataPtr->currentIndex);
+  this->dataPtr->camera->MoveToPosition(camPose, 1);
+  this->SlideChanged(this->dataPtr->currentIndex, this->dataPtr->slideCount-1);
 }
 
 

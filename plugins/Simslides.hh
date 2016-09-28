@@ -34,9 +34,12 @@ namespace simslides
 
     public: void Load(sdf::ElementPtr _sdf);
 
-    private slots: void OnSlideChanged(int _slide);
+    private slots: void OnSlideChanged(int _slide, int _total);
+    private slots: void OnCountChanged(int _slide);
 
-    Q_SIGNALS: void SetCount(QString);
+    Q_SIGNALS: void SetCount(int);
+    Q_SIGNALS: void CountChanged(int);
+    Q_SIGNALS: void SetTotal(QString);
   };
 }
 #endif
