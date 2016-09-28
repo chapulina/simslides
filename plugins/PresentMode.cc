@@ -89,20 +89,25 @@ void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
   if (this->dataPtr->slideCount < 0)
     return;
 
-  // Next
+  // Next (right arrow)
   if (_msg->int_value() == 16777236 &&
       this->dataPtr->currentIndex + 1 < this->dataPtr->slideCount)
   {
     this->dataPtr->currentIndex++;
   }
-  // Previous
+  // Previous (left arrow)
   else if (_msg->int_value() == 16777234 && this->dataPtr->currentIndex >= 1)
   {
     this->dataPtr->currentIndex--;
   }
-  // Current
+  // Current (F1)
   else if (_msg->int_value() == 16777264)
   {
+  }
+  // Home (F6)
+  else if (_msg->int_value() == 16777269)
+  {
+    this->dataPtr->currentIndex = -1;
   }
   else
     return;
@@ -129,8 +134,17 @@ void PresentMode::ChangeSlide()
 {
   ignition::math::Pose3d camPose;
 
+  // Fixed keyframe (last)
+  if (this->dataPtr->currentIndex == this->dataPtr->slideCount - 1)
+  {
+    camPose.Set(204.53, 109.68, 1.3329, 0, 0.07, -2.708);
+  }
+  else if (this->dataPtr->currentIndex == -1)
+  {
+    camPose.Set(-9.13, 264.0, 136.73, 0, 0.466, -1.14);
+  }
   // Slides
-  if (this->dataPtr->currentIndex != this->dataPtr->slideCount - 1)
+  else
   {
     auto vis = this->dataPtr->camera->GetScene()->GetVisual(
         simslides::slidePrefix + "-" +
@@ -179,11 +193,6 @@ void PresentMode::ChangeSlide()
         target_world.Translation());
 
     camPose = mat.Pose();
-  }
-  // Fixed keyframes
-  else
-  {
-    camPose.Set(204.53, 109.68, 1.3329, 0, 0.07, -2.708);
   }
 
   this->dataPtr->camera->MoveToPosition(camPose, 1);

@@ -6,7 +6,7 @@
       </plugin>
       <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'/>
       <camera name='user_camera'>
-        <pose frame=''>46.6183 -19.4045 3.66993 0 0.3983 1.5388</pose>
+        <pose frame=''>-9.13 264.0 136.73 0 0.466 -1.14</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -1925,7 +1925,8 @@
           </trajectory>
         </script>
     </actor>
-    <model name='Thank_You_(Korean)'>
+
+    <model name='thankyou'>
       <pose>201.58 107.909 1.1125 0.203 -0.126 0.56</pose>
       <link name='link'>
         <inertial>
@@ -2619,5 +2620,70 @@
         <falloff>1</falloff>
       </spot>
     </light>
+
+    <actor name='actor'>
+      <skin>
+        <filename>walk.dae</filename>
+        <scale>1</scale>
+      </skin>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+      <animation name='walking'>
+        <filename>walk.dae</filename>
+        <scale>1</scale>
+        <interpolate_x>1</interpolate_x>
+      </animation>
+      <script>
+        <loop>1</loop>
+        <delay_start>0</delay_start>
+        <auto_start>1</auto_start>
+        <trajectory id='0' type='walking'>
+          <waypoint>
+            <time>0</time>
+            <pose>201.6 116.7 0 0 -0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>10</time>
+            <pose>145 110 0 0 -0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>20</time>
+            <pose>122 54 0 0 -0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>30</time>
+            <pose>75 31 0 0 -0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>40</time>
+            <pose>32 10 0 0 -0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>50</time>
+            <pose>-17 10 0 0 -0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>60</time>
+            <pose>32 10 0 0 -0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>70</time>
+            <pose>75 31 0 0 -0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>80</time>
+            <pose>122 54 0 0 -0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>90</time>
+            <pose>145 110 0 0 -0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>100</time>
+            <pose>201.6 116.7 0 0 -0 0</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
   </world>
 </sdf>
