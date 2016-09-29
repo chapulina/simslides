@@ -1820,6 +1820,17 @@
         </axis>
       </joint>
       <pose frame=''>-41.1674 -33.8332 0 0 -0 0</pose>
+      <plugin name='keystojoints' filename='libKeysToJointsPlugin.so'>
+        <map key='57' joint='arm_shoulder_pan_joint' scale='-0.1' type='position' kp='100' ki='0' kd='10'/>
+        <map key='48' joint='arm_shoulder_pan_joint' scale='0.1' type='position' kp='100' ki='0' kd='10'/>
+        <map key='111' joint='arm_elbow_pan_joint' scale='-0.1' type='position' kp='100' ki='0' kd='10'/>
+        <map key='112' joint='arm_elbow_pan_joint' scale='0.1' type='position' kp='100' ki='0' kd='10'/>
+        <map key='108' joint='arm_wrist_lift_joint' scale='-0.1' type='position' kp='100' ki='0' kd='10'/>
+        <map key='59' joint='arm_wrist_lift_joint' scale='0.1' type='position' kp='100' ki='0' kd='10'/>
+        <map key='46' joint='arm_wrist_roll_joint' scale='-0.1' type='position' kp='100' ki='0' kd='10'/>
+        <map key='47' joint='arm_wrist_roll_joint' scale='0.1' type='position' kp='100' ki='0' kd='10'/>
+      </plugin>
+
     </model>
     <model name='camera'>
       <pose frame=''>50.4261 13.4416 1.40943 -5.3e-05 -2.8e-05 1.96312</pose>
