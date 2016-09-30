@@ -1004,6 +1004,12 @@
               <name>Slides/slide_17</name>
             </script>
           </material>
+          <plugin name="blink" filename="libBlinkVisualPlugin.so">
+            <color_a>1 1 1 1</color_a>
+            <color_b>0.8 0.4 0.1 1</color_b>
+            <period>1</period>
+            <use_wall_time>true</use_wall_time>
+          </plugin>
         </visual>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
