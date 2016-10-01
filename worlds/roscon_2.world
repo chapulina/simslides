@@ -2587,17 +2587,30 @@
     </model>
 
     <population name="population">
-      <model name="beer">
-        <include>
-          <uri>model://beer</uri>
-        </include>
+      <model name="ROS_dot">
+        <static>true</static>
+        <link name="link">
+          <visual name="visual">
+            <geometry>
+              <sphere>
+                <radius>0.1</radius>
+              </sphere>
+            </geometry>
+            <material>
+              <ambient>0.192 0.203 0.301 1</ambient>
+              <diffuse>0.192 0.203 0.301 1</diffuse>
+              <specular>0.01 0.01 0.01 1</specular>
+              <emissive>0 0 0 1</emissive>
+            </material>
+          </visual>
+        </link>
       </model>
-      <pose>22.37 -35.56 0 0 0 1.57</pose>
+      <pose>22.043 -34.024 2.265 1.57 0 -2.02</pose>
       <distribution>
         <type>grid</type>
-        <rows>2</rows>
+        <rows>3</rows>
         <cols>3</cols>
-        <step>0.5 0.5 0</step>
+        <step>0.3 0.3 0</step>
       </distribution>
     </population>
 
