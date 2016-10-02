@@ -152,35 +152,35 @@ void ImportDialog::OnGenerate()
 
   // Create / clear temp folder to hold images
   {
-    if (!gazebo::common::exists(this->dataPtr->tmpDir.toStdString()))
-    {
-      QProcess p;
-      p.setProcessChannelMode(QProcess::ForwardedChannels);
-      p.start("mkdir", QStringList() << this->dataPtr->tmpDir);
-      p.waitForFinished();
-    }
-    else
-    {
-      QProcess p;
-      p.setProcessChannelMode(QProcess::ForwardedChannels);
-      p.start("rm", QStringList() << "-rf" << QString(this->dataPtr->tmpDir + "/*"));
-      p.waitForFinished();
-    }
+//    if (!gazebo::common::exists(this->dataPtr->tmpDir.toStdString()))
+//    {
+//      QProcess p;
+//      p.setProcessChannelMode(QProcess::ForwardedChannels);
+//      p.start("mkdir", QStringList() << this->dataPtr->tmpDir);
+//      p.waitForFinished();
+//    }
+//    else
+//    {
+//      QProcess p;
+//      p.setProcessChannelMode(QProcess::ForwardedChannels);
+//      p.start("rm", QStringList() << "-rf" << QString(this->dataPtr->tmpDir + "/*"));
+//      p.waitForFinished();
+//    }
   }
   QCoreApplication::processEvents();
 
   // Convert PDF to pngs
   {
-    QProcess p;
-    p.setProcessChannelMode(QProcess::ForwardedChannels);
-    p.start("convert", QStringList() <<
-        "-density" << "150" <<
-        "-quality" << "100" <<
-        "-sharpen" << "0x1.0" <<
-        this->dataPtr->pdfLabel->text() <<
-        QString(this->dataPtr->tmpDir + "/" + this->dataPtr->nameEdit->text() +
-            ".png"));
-    p.waitForFinished();
+//    QProcess p;
+//    p.setProcessChannelMode(QProcess::ForwardedChannels);
+//    p.start("convert", QStringList() <<
+//        "-density" << "150" <<
+//        "-quality" << "100" <<
+//        "-sharpen" << "0x1.0" <<
+//        this->dataPtr->pdfLabel->text() <<
+//        QString(this->dataPtr->tmpDir + "/" + this->dataPtr->nameEdit->text() +
+//            ".png"));
+//    p.waitForFinished();
   }
   QCoreApplication::processEvents();
 
