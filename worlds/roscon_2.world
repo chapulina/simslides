@@ -1004,16 +1004,22 @@
               <name>Slides/slide_17</name>
             </script>
           </material>
+        </visual>
+        <visual name='LED'>
+          <pose>1 -0.25 1.6 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.32</length>
+              <radius>0.14</radius>
+            </cylinder>
+          </geometry>
           <plugin name="blink" filename="libBlinkVisualPlugin.so">
-            <color_a>1 1 1 1</color_a>
+            <color_a>0 0 0 1</color_a>
             <color_b>0.8 0.4 0.1 1</color_b>
             <period>1</period>
             <use_wall_time>true</use_wall_time>
           </plugin>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
       <pose frame=''>20 30 0 0 -0 0</pose>
     </model>
