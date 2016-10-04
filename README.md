@@ -4,6 +4,8 @@ http://gazebosim.org/tutorials?cat=install
 
 Checking out a couple other tutorials wouldn't hurt either.
 
+* 2016/10/04: This currently needs specific Gazebo and ignition branches, see in the end.
+
 # Prepare presentation
 
 You can generate your own presentation or run one of the existing ones.
@@ -83,4 +85,54 @@ To run the roscon presentation:
 1. On another terminal, run:
 
     . ./playback.sh
+
+
+
+
+
+
+
+# 2016/10/04: Specific branches for dependencies
+
+    cd <path>
+
+    hg clone https://bitbucket.org/ignitionrobotics/ign-math
+    cd ign-math
+    hg up ign-math2
+    mkdir build
+    cd build
+    cmake ..
+    make install
+
+    hg clone https://bitbucket.org/osrf/sdformat
+    cd sdformat
+    hg up default
+    mkdir build
+    cd build
+    cmake ..
+    make install
+
+    hg clone https://bitbucket.org/ignitionrobotics/ign-msgs
+    cd ign-msgs
+    hg up default
+    mkdir build
+    cd build
+    cmake ..
+    make install
+
+    hg clone https://bitbucket.org/ignitionrobotics/ign-transport
+    cd ign-transport
+    hg up ign-transport2
+    mkdir build
+    cd build
+    cmake ..
+    make install
+
+    hg clone https://bitbucket.org/osrf/gazebo
+    cd gazebo
+    hg up simslides
+    mkdir build
+    cd build
+    cmake ..
+    make install
 
