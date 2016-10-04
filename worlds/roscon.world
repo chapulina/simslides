@@ -495,7 +495,7 @@
       <pose frame=''>10 10 0 0 -0 0</pose>
     </model>
     <model name='slide-7'>
-      <pose frame=''>69.6611 -23.5778 3.45748 0 0 -2.64713</pose>
+      <pose frame=''>47.3494 -14.0536 0.00585 0 -0 0</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -533,14 +533,11 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
-      <pose frame=''>20 10 0 0 -0 0</pose>
+      <pose frame=''>30 10 0 0 -0 0</pose>
     </model>
     <model name='slide-8'>
-      <pose frame=''>47.3494 -14.0536 0.00585 0 -0 0</pose>
+      <pose frame=''>20.98 -35.68 0 0 0 1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -578,15 +575,12 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
-      <pose frame=''>30 10 0 0 -0 0</pose>
+      <pose frame=''>40 10 0 0 -0 0</pose>
     </model>
     <model name='slide-9'>
-      <pose frame=''>20.98 -35.68 0 0 0 1.57</pose>
-      <static>1</static>
+      <pose frame=''>-19.7419 -31.4928 2.88518 0 -0 0.001077</pose>
+      <static>0</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
         <collision name='collision'>
@@ -623,15 +617,23 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
       </link>
-      <pose frame=''>40 10 0 0 -0 0</pose>
+      <pose frame=''>0 20 0 0 -0 0</pose>
     </model>
     <model name='slide-10'>
-      <pose frame=''>-19.7419 -31.4928 2.88518 0 -0 0.001077</pose>
-      <static>0</static>
+      <pose frame=''>-41.6676 -31.0104 0 0 -0 1.42292</pose>
+      <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
         <collision name='collision'>
@@ -668,69 +670,10 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-        <inertial>
-          <inertia>
-            <ixx>1</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>1</iyy>
-            <iyz>0</iyz>
-            <izz>1</izz>
-          </inertia>
-          <mass>1</mass>
-        </inertial>
-      </link>
-      <pose frame=''>0 20 0 0 -0 0</pose>
-    </model>
-    <model name='slide-11'>
-      <pose frame=''>-41.6676 -31.0104 0 0 -0 1.42292</pose>
-      <static>1</static>
-      <link name='link'>
-        <pose frame=''>0 0 1.5 0 -0 0</pose>
-        <collision name='collision'>
-          <geometry>
-            <box>
-              <size>4 1 3</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <box>
-              <size>4 1 3</size>
-            </box>
-          </geometry>
-          <material>
-            <script>
-              <uri>model://slide-11/materials/scripts</uri>
-              <uri>model://slide-11/materials/textures</uri>
-              <name>Slides/slide_11</name>
-            </script>
-          </material>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
       <pose frame=''>10 20 0 0 -0 0</pose>
     </model>
-    <model name='slide-12'>
+    <model name='slide-11'>
       <pose frame=''>-0.164518 -3.39832 0 0 0 -2.19897</pose>
       <static>1</static>
       <link name='link'>
@@ -763,21 +706,71 @@
           </geometry>
           <material>
             <script>
+              <uri>model://slide-11/materials/scripts</uri>
+              <uri>model://slide-11/materials/textures</uri>
+              <name>Slides/slide_11</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+      <pose frame=''>20 20 0 0 -0 0</pose>
+    </model>
+    <model name='slide-12'>
+      <pose frame=''>-26.5565 18.5444 -9e-06 0 -4e-06 9e-05</pose>
+      <static>0</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>4 1 3</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>4 1 3</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
               <uri>model://slide-12/materials/scripts</uri>
               <uri>model://slide-12/materials/textures</uri>
               <name>Slides/slide_12</name>
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
+        <inertial>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+          <mass>1</mass>
+        </inertial>
       </link>
-      <pose frame=''>20 20 0 0 -0 0</pose>
+      <pose frame=''>30 20 0 0 -0 0</pose>
     </model>
     <model name='slide-13'>
-      <pose frame=''>-26.5565 18.5444 -9e-06 0 -4e-06 9e-05</pose>
-      <static>0</static>
+      <pose frame=''>-20.1177 18.7612 0 0 -0 0</pose>
+      <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
         <collision name='collision'>
@@ -814,25 +807,11 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-        <inertial>
-          <inertia>
-            <ixx>1</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>1</iyy>
-            <iyz>0</iyz>
-            <izz>1</izz>
-          </inertia>
-          <mass>1</mass>
-        </inertial>
       </link>
-      <pose frame=''>30 20 0 0 -0 0</pose>
+      <pose frame=''>40 20 0 0 -0 0</pose>
     </model>
     <model name='slide-14'>
-      <pose frame=''>-20.1177 18.7612 0 0 -0 0</pose>
+      <pose frame=''>48.7002 17.5657 0 0 -0 0</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -870,14 +849,11 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
-      <pose frame=''>40 20 0 0 -0 0</pose>
+      <pose frame=''>0 30 0 0 -0 0</pose>
     </model>
     <model name='slide-15'>
-      <pose frame=''>48.7002 17.5657 0 0 -0 0</pose>
+      <pose frame=''>61.836 82.467 0 0 -0 0</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -915,14 +891,11 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
-      <pose frame=''>0 30 0 0 -0 0</pose>
+      <pose frame=''>10 30 0 0 -0 0</pose>
     </model>
     <model name='slide-16'>
-      <pose frame=''>61.836 82.467 0 0 -0 0</pose>
+      <pose frame=''>114.989 32.1942 0 0 -0 0.185374</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -960,14 +933,26 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
+        <visual name='LED'>
+          <pose>1 -0.25 1.6 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.32</length>
+              <radius>0.14</radius>
+            </cylinder>
+          </geometry>
+          <plugin name="blink" filename="libBlinkVisualPlugin.so">
+            <color_a>0 0 0 1</color_a>
+            <color_b>0.8 0.4 0.1 1</color_b>
+            <period>0.5</period>
+            <use_wall_time>true</use_wall_time>
+          </plugin>
+        </visual>
       </link>
-      <pose frame=''>10 30 0 0 -0 0</pose>
+      <pose frame=''>20 30 0 0 -0 0</pose>
     </model>
     <model name='slide-17'>
-      <pose frame=''>114.989 32.1942 0 0 -0 0.185374</pose>
+      <pose frame=''>119.786 53.2551 76.2597 0 -0 0.5979</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -1005,26 +990,11 @@
             </script>
           </material>
         </visual>
-        <visual name='LED'>
-          <pose>1 -0.25 1.6 0 0 0</pose>
-          <geometry>
-            <cylinder>
-              <length>0.32</length>
-              <radius>0.14</radius>
-            </cylinder>
-          </geometry>
-          <plugin name="blink" filename="libBlinkVisualPlugin.so">
-            <color_a>0 0 0 1</color_a>
-            <color_b>0.8 0.4 0.1 1</color_b>
-            <period>1</period>
-            <use_wall_time>true</use_wall_time>
-          </plugin>
-        </visual>
       </link>
-      <pose frame=''>20 30 0 0 -0 0</pose>
+      <pose frame=''>30 30 0 0 -0 0</pose>
     </model>
     <model name='slide-18'>
-      <pose frame=''>119.786 53.2551 76.2597 0 -0 0.5979</pose>
+      <pose frame=''>126.732 66.2608 0 0 -0 0</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -1062,14 +1032,11 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
-      <pose frame=''>30 30 0 0 -0 0</pose>
+      <pose frame=''>40 30 0 0 -0 0</pose>
     </model>
     <model name='slide-19'>
-      <pose frame=''>126.732 66.2608 0 0 -0 0</pose>
+      <pose frame=''>136.972 101.929 0 0 -0 0</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -1107,14 +1074,11 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
-      <pose frame=''>40 30 0 0 -0 0</pose>
+      <pose frame=''>0 40 0 0 -0 0</pose>
     </model>
     <model name='slide-20'>
-      <pose frame=''>136.972 101.929 0 0 -0 0</pose>
+      <pose frame=''>168.817 118.755 0 0 -0 0</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -1152,54 +1116,6 @@
             </script>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <pose frame=''>0 40 0 0 -0 0</pose>
-    </model>
-    <model name='slide-21'>
-      <pose frame=''>168.817 118.755 0 0 -0 0</pose>
-      <static>1</static>
-      <link name='link'>
-        <pose frame=''>0 0 1.5 0 -0 0</pose>
-        <collision name='collision'>
-          <geometry>
-            <box>
-              <size>4 1 3</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='visual'>
-          <geometry>
-            <box>
-              <size>4 1 3</size>
-            </box>
-          </geometry>
-          <material>
-            <script>
-              <uri>model://slide-21/materials/scripts</uri>
-              <uri>model://slide-21/materials/textures</uri>
-              <name>Slides/slide_21</name>
-            </script>
-          </material>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
       <pose frame=''>10 40 0 0 -0 0</pose>
     </model>
@@ -1241,14 +1157,8 @@
               <uri>model://house_1/materials/textures</uri>
               <name>House_1/Diffuse</name>
             </script>
-            <shader type='normal_map_object_space'>
-              <normal_map>House_1_Normal.png</normal_map>
-            </shader>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
       <pose frame=''>40.6948 -0.414565 0 0 -0 0</pose>
     </model>
@@ -1291,14 +1201,8 @@
               <uri>model://gas_station/materials/textures</uri>
               <name>GasStation/Diffuse</name>
             </script>
-            <shader type='normal_map_object_space'>
-              <normal_map>GasStation_Normal.png</normal_map>
-            </shader>
           </material>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
       <pose frame=''>-2.43266 5.93676 0 0 -0 0</pose>
     </model>
@@ -1335,9 +1239,6 @@
             </mesh>
           </geometry>
         </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
       </link>
       <pose frame=''>154.995 93.3162 0 0 -0 0</pose>
     </model>
