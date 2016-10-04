@@ -632,7 +632,7 @@
       <pose frame=''>0 20 0 0 -0 0</pose>
     </model>
     <model name='slide-10'>
-      <pose frame=''>-41.6676 -31.0104 0 0 -0 1.42292</pose>
+      <pose frame=''>-41.6676 -31.0104 0 0 -0 1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -1246,7 +1246,7 @@
 
 
     <model name='ur10'>
-      <pose frame=''>-40.935 -29.478 2.711617 0 1.57 0</pose>
+      <pose frame=''>-41.11 -29.478 2.711617 0 1.57 0</pose>
       <link name='base'>
         <inertial>
           <mass>4</mass>
@@ -1639,18 +1639,6 @@
             </cylinder>
           </geometry>
           <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
         </collision>
         <visual name='visual'>
           <geometry>
