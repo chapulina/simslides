@@ -161,7 +161,7 @@ void PresentMode::ChangeSlide()
     // Eye in world frame
     ignition::math::Matrix4d eye_target;
 
-    if (vis->GetName() != simslides::slidePrefix + "-12")
+    if (vis->GetName() != simslides::slidePrefix + "-11")
     {
       eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
           0, -6.3, 1.8, 0, 0.04, IGN_PI_2));

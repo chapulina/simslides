@@ -4,4 +4,4 @@ source setup.sh
 
 export IGN_PARTITION=roscon
 
-gazebo --verbose worlds/roscon_2.world
+gazebo --verbose worlds/roscon.world
