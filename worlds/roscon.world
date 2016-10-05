@@ -225,7 +225,7 @@
       <pose frame=''>0 0 0 0 -0 0</pose>
     </model>
     <model name='slide-1'>
-      <pose frame=''>184.056 83.2378 0 0 0 -2.60997</pose>
+      <pose frame=''>184.056 83.2378 0 0 0 2.13</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -270,7 +270,7 @@
       <pose frame=''>10 0 0 0 -0 0</pose>
     </model>
     <model name='slide-2'>
-      <pose frame=''>151.592 65.596 0 0 -0 0</pose>
+      <pose frame=''>151.592 65.596 0 0 -0 1.46</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -315,7 +315,7 @@
       <pose frame=''>20 0 0 0 -0 0</pose>
     </model>
     <model name='slide-3'>
-      <pose frame=''>215.991 -9.32021 49.0697 0 0 -2.2423</pose>
+      <pose frame=''>219.179 -10.63 51.36 0 0 2.62</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -360,7 +360,7 @@
       <pose frame=''>30 0 0 0 -0 0</pose>
     </model>
     <model name='slide-4'>
-      <pose frame=''>171.242 -14.9014 28.1493 0 -0 0.96198</pose>
+      <pose frame=''>171.242 -14.9014 28.1493 0 -0 1.3039</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -405,7 +405,7 @@
       <pose frame=''>40 0 0 0 -0 0</pose>
     </model>
     <model name='slide-5'>
-      <pose frame=''>102.789 -0.962097 0 0 0 -2.60227</pose>
+      <pose frame=''>102.789 -0.962097 0 0 0 2.035</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -450,7 +450,7 @@
       <pose frame=''>0 10 0 0 -0 0</pose>
     </model>
     <model name='slide-6'>
-      <pose frame=''>82.9207 2.16237 0 0 -0 0</pose>
+      <pose frame=''>82.9207 2.16237 0 0 -0 2.23</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -495,7 +495,7 @@
       <pose frame=''>10 10 0 0 -0 0</pose>
     </model>
     <model name='slide-7'>
-      <pose frame=''>47.3494 -14.0536 0.00585 0 -0 0</pose>
+      <pose frame=''>58.03 -5.46 0.005 0 0 1.42</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -674,7 +674,7 @@
       <pose frame=''>10 20 0 0 -0 0</pose>
     </model>
     <model name='slide-11'>
-      <pose frame=''>-0.164518 -3.39832 0 0 0 -2.19897</pose>
+      <pose frame=''>-0.2186 -4.160 0 0 0 -3.02</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.75 0 -0 0</pose>
@@ -716,7 +716,7 @@
       <pose frame=''>20 20 0 0 -0 0</pose>
     </model>
     <model name='slide-12'>
-      <pose frame=''>-26.5565 18.5444 -9e-06 0 -4e-06 9e-05</pose>
+      <pose frame=''>-17.599 15.75 0 0 0 -3.14</pose>
       <static>0</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -769,7 +769,7 @@
       <pose frame=''>30 20 0 0 -0 0</pose>
     </model>
     <model name='slide-13'>
-      <pose frame=''>-20.1177 18.7612 0 0 -0 0</pose>
+      <pose frame=''>-23.468 20.91 0 0 0 3.14</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -811,7 +811,7 @@
       <pose frame=''>40 20 0 0 -0 0</pose>
     </model>
     <model name='slide-14'>
-      <pose frame=''>48.7002 17.5657 0 0 -0 0</pose>
+      <pose frame=''>48.70 17.56 0 0 0 3.06</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -853,7 +853,7 @@
       <pose frame=''>0 30 0 0 -0 0</pose>
     </model>
     <model name='slide-15'>
-      <pose frame=''>61.836 82.467 0 0 -0 0</pose>
+      <pose frame=''>61.836 82.467 0 0 -0 3.14</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -895,7 +895,7 @@
       <pose frame=''>10 30 0 0 -0 0</pose>
     </model>
     <model name='slide-16'>
-      <pose frame=''>114.989 32.1942 0 0 -0 0.185374</pose>
+      <pose frame=''>114.989 32.1942 0 0 -0 -2.956</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -952,7 +952,7 @@
       <pose frame=''>20 30 0 0 -0 0</pose>
     </model>
     <model name='slide-17'>
-      <pose frame=''>119.786 53.2551 76.2597 0 -0 0.5979</pose>
+      <pose frame=''>119.786 53.2551 76.2597 0 -0 1.6198</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -994,7 +994,7 @@
       <pose frame=''>30 30 0 0 -0 0</pose>
     </model>
     <model name='slide-18'>
-      <pose frame=''>126.732 66.2608 0 0 -0 0</pose>
+      <pose frame=''>126.732 66.2608 0 0 -0 1.672</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -1036,7 +1036,7 @@
       <pose frame=''>40 30 0 0 -0 0</pose>
     </model>
     <model name='slide-19'>
-      <pose frame=''>136.972 101.929 0 0 -0 0</pose>
+      <pose frame=''>136.972 101.929 0 0 -0 -2.9</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -1078,7 +1078,7 @@
       <pose frame=''>0 40 0 0 -0 0</pose>
     </model>
     <model name='slide-20'>
-      <pose frame=''>168.817 118.755 0 0 -0 0</pose>
+      <pose frame=''>168.817 118.755 0 0 -0 2.388</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 1.5 0 -0 0</pose>
@@ -1807,7 +1807,7 @@
 
 
     <model name='camera'>
-      <pose frame=''>50.4261 13.4416 1.40943 -5.3e-05 -2.8e-05 1.96312</pose>
+      <pose frame=''>46.82 19.78 1.4 0.013 -0.04 -2.195</pose>
       <static>1</static>
       <pose frame=''>49.0069 14.5993 0.05 0 -0 0</pose>
       <link name='link'>
@@ -1889,23 +1889,23 @@
           <trajectory id="0" type="square">
              <waypoint>
                 <time>0.0</time>
-                <pose>45.089 -16.367 2.609 -0.198 0 0</pose>
+                <pose>55.90 -7.69 2.609 -0.198 0 0</pose>
              </waypoint>
              <waypoint>
                 <time>1.0</time>
-                <pose>44.357 -12.38 2.609 -0.018 0.3799 0</pose>
+                <pose>56.52 -2.24 2.609 -0.018 0.3799 0</pose>
              </waypoint>
              <waypoint>
                 <time>2.0</time>
-                <pose>50.31789 -12.424 2.609 0.2457 0.045 0</pose>
+                <pose>60.06 -2.83 2.609 0.2457 0.045 0</pose>
              </waypoint>
              <waypoint>
                 <time>3.0</time>
-                <pose>50.579 -15.628 2.609 0.1274 -0.332 0.04</pose>
+                <pose>59.20 -8.7 2.609 0.1274 -0.332 0.04</pose>
              </waypoint>
              <waypoint>
                 <time>4.0</time>
-                <pose>45.089 -16.367 2.609 -0.198 0 0</pose>
+                <pose>55.90 -7.69 2.609 -0.198 0 0</pose>
              </waypoint>
           </trajectory>
         </script>
