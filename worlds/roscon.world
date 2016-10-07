@@ -727,18 +727,6 @@
             </box>
           </geometry>
           <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
         </collision>
         <visual name='visual'>
           <geometry>
@@ -763,7 +751,7 @@
             <iyz>0</iyz>
             <izz>1</izz>
           </inertia>
-          <mass>1</mass>
+          <mass>100</mass>
         </inertial>
       </link>
       <pose frame=''>30 20 0 0 -0 0</pose>
