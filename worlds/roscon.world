@@ -744,12 +744,12 @@
         </visual>
         <inertial>
           <inertia>
-            <ixx>1</ixx>
+            <ixx>83.3</ixx>
             <ixy>0</ixy>
             <ixz>0</ixz>
-            <iyy>1</iyy>
+            <iyy>208.3</iyy>
             <iyz>0</iyz>
-            <izz>1</izz>
+            <izz>141.6</izz>
           </inertia>
           <mass>100</mass>
         </inertial>
@@ -1888,7 +1888,7 @@
     </actor>
 
     <model name='thankyou'>
-      <pose>201.58 107.909 1.1125 0.203 -0.126 0.56</pose>
+      <pose>168.52 120.158 4.02 0.2 -0.126 0.56</pose>
       <link name='link'>
         <inertial>
           <mass>1</mass>
@@ -1902,7 +1902,7 @@
           </inertia>
           <pose frame=''>0 0 0 0 -0 0</pose>
         </inertial>
-        <pose frame=''>0 0 -0 3.14159 1.57079 3.14159</pose>
+        <pose frame=''>0 0 -0.05 3.14159 1.57079 3.14159</pose>
         <visual name='visual'>
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
@@ -2529,6 +2529,1182 @@
         <key>116</key>
       </plugin>
     </model>
+
+
+
+
+
+
+
+
+    <model name='thankyou_0'>
+      <pose frame=''>169.125 119.46 0.840841 -0.818144 1.5707 -0.000367</pose>
+      <link name='link_0'>
+        <pose frame=''>0.172078 -2.30314 -0 0 -0 0</pose>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>1</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.273712 -0.0554821</point>
+              <point>0.273712 0.0540026</point>
+              <point>-0.182721 0.0540026</point>
+              <point>-0.182721 0.209353</point>
+              <point>-0.273712 0.209353</point>
+              <point>-0.273712 -0.209353</point>
+              <point>-0.182721 -0.209353</point>
+              <point>-0.182721 -0.0554821</point>
+              <point>0.273712 -0.0554821</point>
+            </polyline>
+          </geometry>
+          <material>
+            <lighting>1</lighting>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.273712 -0.0554821</point>
+              <point>0.273712 0.0540026</point>
+              <point>-0.182721 0.0540026</point>
+              <point>-0.182721 0.209353</point>
+              <point>-0.273712 0.209353</point>
+              <point>-0.273712 -0.209353</point>
+              <point>-0.182721 -0.209353</point>
+              <point>-0.182721 -0.0554821</point>
+              <point>0.273712 -0.0554821</point>
+            </polyline>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+        <enable_wind>0</enable_wind>
+      </link>
+      <link name='link_1'>
+        <pose frame=''>0.139903 -1.75593 -0 0 -0 0</pose>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>1</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.295165 -0.180872</point>
+              <point>0.295165 -0.0728665</point>
+              <point>0.0103567 -0.0728665</point>
+              <point>-0.0243197 -0.0307001</point>
+              <point>-0.0362483 0.0136856</point>
+              <point>-0.0168296 0.0581638</point>
+              <point>0.0503038 0.0721268</point>
+              <point>0.295165 0.0721268</point>
+              <point>0.295165 0.180872</point>
+              <point>0.0369881 0.180872</point>
+              <point>-0.08535 0.150449</point>
+              <point>-0.129458 0.052893</point>
+              <point>-0.110779 -0.0208058</point>
+              <point>-0.0687978 -0.0773051</point>
+              <point>-0.146473 -0.0728665</point>
+              <point>-0.295165 -0.0728665</point>
+              <point>-0.295165 -0.180872</point>
+              <point>0.295165 -0.180872</point>
+            </polyline>
+          </geometry>
+          <material>
+            <lighting>1</lighting>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Blue</name>
+            </script>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.295165 -0.180872</point>
+              <point>0.295165 -0.0728665</point>
+              <point>0.0103567 -0.0728665</point>
+              <point>-0.0243197 -0.0307001</point>
+              <point>-0.0362483 0.0136856</point>
+              <point>-0.0168296 0.0581638</point>
+              <point>0.0503038 0.0721268</point>
+              <point>0.295165 0.0721268</point>
+              <point>0.295165 0.180872</point>
+              <point>0.0369881 0.180872</point>
+              <point>-0.08535 0.150449</point>
+              <point>-0.129458 0.052893</point>
+              <point>-0.110779 -0.0208058</point>
+              <point>-0.0687978 -0.0773051</point>
+              <point>-0.146473 -0.0728665</point>
+              <point>-0.295165 -0.0728665</point>
+              <point>-0.295165 -0.180872</point>
+              <point>0.295165 -0.180872</point>
+            </polyline>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+        <enable_wind>0</enable_wind>
+      </link>
+      <link name='link_2'>
+        <pose frame=''>0.29096 -1.28055 0 0 -0 0</pose>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>1</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.21749 -0.0506737</point>
+              <point>0.20177 0.0159974</point>
+              <point>0.162748 0.0743461</point>
+              <point>0.162748 0.0765654</point>
+              <point>0.207133 0.0847027</point>
+              <point>0.207133 0.173474</point>
+              <point>-0.0347688 0.173474</point>
+              <point>-0.17107 0.133342</point>
+              <point>-0.21749 0.0144254</point>
+              <point>-0.201493 -0.0782298</point>
+              <point>-0.162748 -0.158679</point>
+              <point>-0.0909907 -0.119472</point>
+              <point>-0.118917 -0.0625099</point>
+              <point>-0.130198 -0.0055482</point>
+              <point>-0.109577 0.048177</point>
+              <point>-0.0584412 0.0647292</point>
+              <point>-0.00850725 -0.11679</point>
+              <point>0.0946895 -0.173474</point>
+              <point>0.182444 -0.139815</point>
+              <point>0.21749 -0.0506737</point>
+            </polyline>
+            <polyline>
+              <height>0.1</height>
+              <point>0.132417 -0.0151651</point>
+              <point>0.121321 -0.054465</point>
+              <point>0.0858124 -0.0699075</point>
+              <point>0.0380977 -0.040317</point>
+              <point>0.00813739 0.0647292</point>
+              <point>0.0917305 0.0647292</point>
+              <point>0.121783 0.0267239</point>
+              <point>0.132417 -0.0151651</point>
+            </polyline>
+          </geometry>
+          <material>
+            <lighting>1</lighting>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Yellow</name>
+            </script>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.21749 -0.0506737</point>
+              <point>0.20177 0.0159974</point>
+              <point>0.162748 0.0743461</point>
+              <point>0.162748 0.0765654</point>
+              <point>0.207133 0.0847027</point>
+              <point>0.207133 0.173474</point>
+              <point>-0.0347688 0.173474</point>
+              <point>-0.17107 0.133342</point>
+              <point>-0.21749 0.0144254</point>
+              <point>-0.201493 -0.0782298</point>
+              <point>-0.162748 -0.158679</point>
+              <point>-0.0909907 -0.119472</point>
+              <point>-0.118917 -0.0625099</point>
+              <point>-0.130198 -0.0055482</point>
+              <point>-0.109577 0.048177</point>
+              <point>-0.0584412 0.0647292</point>
+              <point>-0.00850725 -0.11679</point>
+              <point>0.0946895 -0.173474</point>
+              <point>0.182444 -0.139815</point>
+              <point>0.21749 -0.0506737</point>
+            </polyline>
+            <polyline>
+              <height>0.1</height>
+              <point>0.132417 -0.0151651</point>
+              <point>0.121321 -0.054465</point>
+              <point>0.0858124 -0.0699075</point>
+              <point>0.0380977 -0.040317</point>
+              <point>0.00813739 0.0647292</point>
+              <point>0.0917305 0.0647292</point>
+              <point>0.121783 0.0267239</point>
+              <point>0.132417 -0.0151651</point>
+            </polyline>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+        <enable_wind>0</enable_wind>
+      </link>
+      <link name='link_3'>
+        <pose frame=''>0.215721 -0.770171 0 0 -0 0</pose>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>1</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.212312 -0.180872</point>
+              <point>0.212312 -0.0728665</point>
+              <point>-0.0724967 -0.0728665</point>
+              <point>-0.107173 -0.0307001</point>
+              <point>-0.119102 0.0136856</point>
+              <point>-0.0996829 0.0581638</point>
+              <point>-0.0325495 0.0721268</point>
+              <point>0.212312 0.0721268</point>
+              <point>0.212312 0.180872</point>
+              <point>-0.0458652 0.180872</point>
+              <point>-0.168203 0.150449</point>
+              <point>-0.212312 0.052893</point>
+              <point>-0.193078 -0.0219154</point>
+              <point>-0.147213 -0.0817437</point>
+              <point>-0.147213 -0.0847027</point>
+              <point>-0.201955 -0.0921004</point>
+              <point>-0.201955 -0.180872</point>
+              <point>0.212312 -0.180872</point>
+            </polyline>
+          </geometry>
+          <material>
+            <lighting>1</lighting>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/RedBright</name>
+            </script>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.212312 -0.180872</point>
+              <point>0.212312 -0.0728665</point>
+              <point>-0.0724967 -0.0728665</point>
+              <point>-0.107173 -0.0307001</point>
+              <point>-0.119102 0.0136856</point>
+              <point>-0.0996829 0.0581638</point>
+              <point>-0.0325495 0.0721268</point>
+              <point>0.212312 0.0721268</point>
+              <point>0.212312 0.180872</point>
+              <point>-0.0458652 0.180872</point>
+              <point>-0.168203 0.150449</point>
+              <point>-0.212312 0.052893</point>
+              <point>-0.193078 -0.0219154</point>
+              <point>-0.147213 -0.0817437</point>
+              <point>-0.147213 -0.0847027</point>
+              <point>-0.201955 -0.0921004</point>
+              <point>-0.201955 -0.180872</point>
+              <point>0.212312 -0.180872</point>
+            </polyline>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+        <enable_wind>0</enable_wind>
+      </link>
+      <link name='link_4'>
+        <pose frame=''>0.211725 -0.222773 -0 0 -0 0</pose>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>1</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.295165 -0.191968</point>
+              <point>0.295165 -0.0861823</point>
+              <point>0.191598 -0.0861823</point>
+              <point>0.12354 -0.0262615</point>
+              <point>0.295165 0.0743461</point>
+              <point>0.295165 0.191968</point>
+              <point>0.0503038 0.0351387</point>
+              <point>-0.119102 0.178652</point>
+              <point>-0.119102 0.0602906</point>
+              <point>0.0599207 -0.0832232</point>
+              <point>0.0599207 -0.0861823</point>
+              <point>-0.295165 -0.0861823</point>
+              <point>-0.295165 -0.191968</point>
+              <point>0.295165 -0.191968</point>
+            </polyline>
+          </geometry>
+          <material>
+            <lighting>1</lighting>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/White</name>
+            </script>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.295165 -0.191968</point>
+              <point>0.295165 -0.0861823</point>
+              <point>0.191598 -0.0861823</point>
+              <point>0.12354 -0.0262615</point>
+              <point>0.295165 0.0743461</point>
+              <point>0.295165 0.191968</point>
+              <point>0.0503038 0.0351387</point>
+              <point>-0.119102 0.178652</point>
+              <point>-0.119102 0.0602906</point>
+              <point>0.0599207 -0.0832232</point>
+              <point>0.0599207 -0.0861823</point>
+              <point>-0.295165 -0.0861823</point>
+              <point>-0.295165 -0.191968</point>
+              <point>0.295165 -0.191968</point>
+            </polyline>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+        <enable_wind>0</enable_wind>
+      </link>
+      <link name='link_5'>
+        <pose frame=''>0.430778 0.732546 0 0 -0 0</pose>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>1</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.290357 -0.117992</point>
+              <point>0.25004 -0.0103567</point>
+              <point>0.136486 0.0551122</point>
+              <point>-0.290357 0.202325</point>
+              <point>-0.290357 0.0980184</point>
+              <point>-0.0980184 0.0410568</point>
+              <point>-0.0395773 0.0262615</point>
+              <point>0.0188639 0.0114663</point>
+              <point>0.0188639 0.00776749</point>
+              <point>-0.0406869 -0.00933951</point>
+              <point>-0.0980184 -0.0270013</point>
+              <point>-0.290357 -0.0928401</point>
+              <point>-0.290357 -0.202325</point>
+              <point>0.116512 -0.0410568</point>
+              <point>0.140925 -0.0484544</point>
+              <point>0.185958 -0.0759181</point>
+              <point>0.203804 -0.126129</point>
+              <point>0.202047 -0.141387</point>
+              <point>0.198626 -0.15498</point>
+              <point>0.282219 -0.174954</point>
+              <point>0.28823 -0.149524</point>
+              <point>0.290357 -0.117992</point>
+            </polyline>
+          </geometry>
+          <material>
+            <lighting>1</lighting>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Green</name>
+            </script>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.290357 -0.117992</point>
+              <point>0.25004 -0.0103567</point>
+              <point>0.136486 0.0551122</point>
+              <point>-0.290357 0.202325</point>
+              <point>-0.290357 0.0980184</point>
+              <point>-0.0980184 0.0410568</point>
+              <point>-0.0395773 0.0262615</point>
+              <point>0.0188639 0.0114663</point>
+              <point>0.0188639 0.00776749</point>
+              <point>-0.0406869 -0.00933951</point>
+              <point>-0.0980184 -0.0270013</point>
+              <point>-0.290357 -0.0928401</point>
+              <point>-0.290357 -0.202325</point>
+              <point>0.116512 -0.0410568</point>
+              <point>0.140925 -0.0484544</point>
+              <point>0.185958 -0.0759181</point>
+              <point>0.203804 -0.126129</point>
+              <point>0.202047 -0.141387</point>
+              <point>0.198626 -0.15498</point>
+              <point>0.282219 -0.174954</point>
+              <point>0.28823 -0.149524</point>
+              <point>0.290357 -0.117992</point>
+            </polyline>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+        <enable_wind>0</enable_wind>
+      </link>
+      <link name='link_6'>
+        <pose frame=''>0.361012 1.21645 -0 0 -0 0</pose>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>1</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.21749 1.41111e-07</point>
+              <point>0.160436 0.138336</point>
+              <point>0.000739769 0.198996</point>
+              <point>-0.160251 0.138336</point>
+              <point>-0.21749 1.41111e-07</point>
+              <point>-0.160251 -0.138335</point>
+              <point>0.000739769 -0.198996</point>
+              <point>0.160436 -0.138335</point>
+              <point>0.21749 1.41111e-07</point>
+            </polyline>
+            <polyline>
+              <height>0.1</height>
+              <point>0.128719 1.41111e-07</point>
+              <point>0.0938573 -0.065099</point>
+              <point>0.000739769 -0.0880316</point>
+              <point>-0.0933949 -0.065099</point>
+              <point>-0.128719 1.41111e-07</point>
+              <point>-0.0933949 0.0650991</point>
+              <point>0.000739769 0.0880316</point>
+              <point>0.0938573 0.0650991</point>
+              <point>0.128719 1.41111e-07</point>
+            </polyline>
+          </geometry>
+          <material>
+            <lighting>1</lighting>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Black</name>
+            </script>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.21749 1.41111e-07</point>
+              <point>0.160436 0.138336</point>
+              <point>0.000739769 0.198996</point>
+              <point>-0.160251 0.138336</point>
+              <point>-0.21749 1.41111e-07</point>
+              <point>-0.160251 -0.138335</point>
+              <point>0.000739769 -0.198996</point>
+              <point>0.160436 -0.138335</point>
+              <point>0.21749 1.41111e-07</point>
+            </polyline>
+            <polyline>
+              <height>0.1</height>
+              <point>0.128719 1.41111e-07</point>
+              <point>0.0938573 -0.065099</point>
+              <point>0.000739769 -0.0880316</point>
+              <point>-0.0933949 -0.065099</point>
+              <point>-0.128719 1.41111e-07</point>
+              <point>-0.0933949 0.0650991</point>
+              <point>0.000739769 0.0880316</point>
+              <point>0.0938573 0.0650991</point>
+              <point>0.128719 1.41111e-07</point>
+            </polyline>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+        <enable_wind>0</enable_wind>
+      </link>
+      <link name='link_7'>
+        <pose frame=''>0.392072 1.68257 0 0 -0 0</pose>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>1</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.212312 -0.0525229</point>
+              <point>0.193355 0.0217305</point>
+              <point>0.142774 0.0798943</point>
+              <point>0.142774 0.0828534</point>
+              <point>0.201955 0.0909907</point>
+              <point>0.201955 0.179762</point>
+              <point>-0.212312 0.179762</point>
+              <point>-0.212312 0.0710173</point>
+              <point>0.0673183 0.0710173</point>
+              <point>0.107081 0.03107</point>
+              <point>0.119102 -0.0133157</point>
+              <point>0.0999603 -0.0571466</point>
+              <point>0.0325495 -0.071017</point>
+              <point>-0.212312 -0.071017</point>
+              <point>-0.212312 -0.179762</point>
+              <point>0.046605 -0.179762</point>
+              <point>0.168296 -0.149432</point>
+              <point>0.212312 -0.0525229</point>
+            </polyline>
+          </geometry>
+          <material>
+            <lighting>1</lighting>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Orange</name>
+            </script>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.212312 -0.0525229</point>
+              <point>0.193355 0.0217305</point>
+              <point>0.142774 0.0798943</point>
+              <point>0.142774 0.0828534</point>
+              <point>0.201955 0.0909907</point>
+              <point>0.201955 0.179762</point>
+              <point>-0.212312 0.179762</point>
+              <point>-0.212312 0.0710173</point>
+              <point>0.0673183 0.0710173</point>
+              <point>0.107081 0.03107</point>
+              <point>0.119102 -0.0133157</point>
+              <point>0.0999603 -0.0571466</point>
+              <point>0.0325495 -0.071017</point>
+              <point>-0.212312 -0.071017</point>
+              <point>-0.212312 -0.179762</point>
+              <point>0.046605 -0.179762</point>
+              <point>0.168296 -0.149432</point>
+              <point>0.212312 -0.0525229</point>
+            </polyline>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+        <enable_wind>0</enable_wind>
+      </link>
+      <link name='link_8'>
+        <pose frame=''>0.308043 2.15119 -0 0 -0 0</pose>
+        <inertial>
+          <mass>1</mass>
+          <inertia>
+            <ixx>0.166667</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.166667</iyy>
+            <iyz>0</iyz>
+            <izz>0.166667</izz>
+          </inertia>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+        </inertial>
+        <self_collide>1</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.0895112 -0.0358784</point>
+              <point>0.0895112 0.0351387</point>
+              <point>-0.183461 0.0506737</point>
+              <point>-0.286288 0.0543725</point>
+              <point>-0.286288 -0.0551122</point>
+              <point>-0.183461 -0.0514134</point>
+              <point>0.0895112 -0.0358784</point>
+            </polyline>
+            <polyline>
+              <height>0.1</height>
+              <point>0.286288 -0.000369994</point>
+              <point>0.265759 0.0480846</point>
+              <point>0.215271 0.0676883</point>
+              <point>0.164782 0.0480846</point>
+              <point>0.144254 -0.000369994</point>
+              <point>0.164782 -0.0484545</point>
+              <point>0.215271 -0.0676883</point>
+              <point>0.265759 -0.0484545</point>
+              <point>0.286288 -0.000369994</point>
+            </polyline>
+          </geometry>
+          <material>
+            <lighting>1</lighting>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+          <cast_shadows>1</cast_shadows>
+          <transparency>0</transparency>
+        </visual>
+        <collision name='collision'>
+          <laser_retro>0</laser_retro>
+          <max_contacts>10</max_contacts>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <polyline>
+              <height>0.1</height>
+              <point>0.0895112 -0.0358784</point>
+              <point>0.0895112 0.0351387</point>
+              <point>-0.183461 0.0506737</point>
+              <point>-0.286288 0.0543725</point>
+              <point>-0.286288 -0.0551122</point>
+              <point>-0.183461 -0.0514134</point>
+              <point>0.0895112 -0.0358784</point>
+            </polyline>
+            <polyline>
+              <height>0.1</height>
+              <point>0.286288 -0.000369994</point>
+              <point>0.265759 0.0480846</point>
+              <point>0.215271 0.0676883</point>
+              <point>0.164782 0.0480846</point>
+              <point>0.144254 -0.000369994</point>
+              <point>0.164782 -0.0484545</point>
+              <point>0.215271 -0.0676883</point>
+              <point>0.265759 -0.0484545</point>
+              <point>0.286288 -0.000369994</point>
+            </polyline>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>1</mu>
+                <mu2>1</mu2>
+                <fdir1>0 0 0</fdir1>
+                <slip1>0</slip1>
+                <slip2>0</slip2>
+              </ode>
+              <torsional>
+                <coefficient>1</coefficient>
+                <patch_radius>0</patch_radius>
+                <surface_radius>0</surface_radius>
+                <use_patch_radius>1</use_patch_radius>
+                <ode>
+                  <slip>0</slip>
+                </ode>
+              </torsional>
+            </friction>
+            <bounce>
+              <restitution_coefficient>0</restitution_coefficient>
+              <threshold>1e+06</threshold>
+            </bounce>
+            <contact>
+              <collide_without_contact>0</collide_without_contact>
+              <collide_without_contact_bitmask>1</collide_without_contact_bitmask>
+              <collide_bitmask>1</collide_bitmask>
+              <ode>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+                <max_vel>0.01</max_vel>
+                <min_depth>0</min_depth>
+              </ode>
+              <bullet>
+                <split_impulse>1</split_impulse>
+                <split_impulse_penetration_threshold>-0.01</split_impulse_penetration_threshold>
+                <soft_cfm>0</soft_cfm>
+                <soft_erp>0.2</soft_erp>
+                <kp>1e+13</kp>
+                <kd>1</kd>
+              </bullet>
+            </contact>
+          </surface>
+        </collision>
+        <enable_wind>0</enable_wind>
+      </link>
+      <static>0</static>
+      <allow_auto_disable>1</allow_auto_disable>
+    </model>
+
+
+
+
 
     <population name="population">
       <model name="ROS_dot">

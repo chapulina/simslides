@@ -69,9 +69,6 @@ void PresentMode::Start()
     this->dataPtr->slideCount++;
   }
 
-  // One more for the final thank you
-  this->dataPtr->slideCount++;
-
   // Trigger first slide
   this->dataPtr->currentIndex = 0;
   this->ChangeSlide();
@@ -134,12 +131,8 @@ void PresentMode::ChangeSlide()
 {
   ignition::math::Pose3d camPose;
 
-  // Fixed keyframe (last)
-  if (this->dataPtr->currentIndex == this->dataPtr->slideCount - 1)
-  {
-    camPose.Set(204.53, 109.68, 1.3329, 0, 0.07, -2.708);
-  }
-  else if (this->dataPtr->currentIndex == -1)
+  // Fixed keyframe (home)
+  if (this->dataPtr->currentIndex == -1)
   {
     camPose.Set(-9.13, 264.0, 136.73, 0, 0.466, -1.14);
   }
