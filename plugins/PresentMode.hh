@@ -33,7 +33,7 @@ namespace simslides
     private: void Stop();
 
     private: void OnKeyPress(ConstAnyPtr &_msg);
-    private: void ChangeSlide();
+    private: void ChangeSlide(bool _next);
     private slots: void OnSlideChanged(int);
 
     Q_SIGNALS: void SlideChanged(int, int);

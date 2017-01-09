@@ -71,7 +71,7 @@ void PresentMode::Start()
 
   // Trigger first slide
   this->dataPtr->currentIndex = 0;
-  this->ChangeSlide();
+  this->ChangeSlide(true);
 }
 
 /////////////////////////////////////////////////
@@ -86,11 +86,14 @@ void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
   if (this->dataPtr->slideCount < 0)
     return;
 
+  bool next = false;
+
   // Next (right arrow)
   if (_msg->int_value() == 16777236 &&
       this->dataPtr->currentIndex + 1 < this->dataPtr->slideCount)
   {
     this->dataPtr->currentIndex++;
+    next = true;
   }
   // Previous (left arrow)
   else if (_msg->int_value() == 16777234 && this->dataPtr->currentIndex >= 1)
@@ -109,7 +112,9 @@ void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
   else
     return;
 
-  this->ChangeSlide();
+  gzdbg << this->dataPtr->currentIndex << std::endl;
+
+  this->ChangeSlide(next);
 }
 
 /////////////////////////////////////////////////
@@ -121,27 +126,74 @@ void PresentMode::OnSlideChanged(int _slide)
   if (_slide > this->dataPtr->slideCount)
     this->dataPtr->currentIndex = this->dataPtr->slideCount - 1;
 
+  // TODO: skipping slides doesn't work well with stacks
+  bool next = _slide > this->dataPtr->currentIndex;
+
   this->dataPtr->currentIndex = _slide;
 
-  this->ChangeSlide();
+  this->ChangeSlide(next);
 }
 
 /////////////////////////////////////////////////
-void PresentMode::ChangeSlide()
+void PresentMode::ChangeSlide(bool _next)
 {
   ignition::math::Pose3d camPose;
+  std::string toLookAt;
 
   // Fixed keyframe (home)
   if (this->dataPtr->currentIndex == -1)
   {
     camPose.Set(-9.13, 264.0, 136.73, 0, 0.466, -1.14);
   }
-  // Slides
-  else
+  // "Look at" Slides
+  else if (this->dataPtr->currentIndex == 0 ||
+        this->dataPtr->currentIndex == 1 ||
+        this->dataPtr->currentIndex == 8 ||
+        this->dataPtr->currentIndex == 9 ||
+        this->dataPtr->currentIndex == 10)
   {
-    auto vis = this->dataPtr->camera->GetScene()->GetVisual(
-        simslides::slidePrefix + "-" +
-        std::to_string(this->dataPtr->currentIndex));
+    toLookAt = simslides::slidePrefix + "-" +
+        std::to_string(this->dataPtr->currentIndex);
+  }
+  // "stack" slides
+  else if (this->dataPtr->currentIndex > 1 &&
+        this->dataPtr->currentIndex < 8)
+  {
+//    toLookAt = simslides::slidePrefix + "-" + std::to_string(2);
+
+    std::string toHide;
+    if (_next)
+    {
+      toHide = simslides::slidePrefix + "-" + std::to_string(this->dataPtr->currentIndex - 1);
+    }
+    else
+    {
+      toHide = simslides::slidePrefix + "-" + std::to_string(this->dataPtr->currentIndex + 1);
+    }
+
+    std::string toShow = simslides::slidePrefix + "-" + std::to_string(this->dataPtr->currentIndex);
+
+    auto visToHide = this->dataPtr->camera->GetScene()->GetVisual(toHide);
+    auto visToShow = this->dataPtr->camera->GetScene()->GetVisual(toShow);
+    if (visToHide && visToShow)
+    {
+      visToHide->SetPosition(visToHide->GetPosition() + ignition::math::Vector3d(0, 0.1, 0));
+      visToShow->SetPosition(visToShow->GetPosition() + ignition::math::Vector3d(0, -0.1, 0));
+    }
+    else
+      gzerr << "Visual [" << toHide << "] or [" << toShow << "] not found" << std::endl;
+
+    camPose.Set(1.6, 3.922, 1.621, 0, -0.14, -1.88);
+  }
+
+  if (!toLookAt.empty())
+  {
+    auto vis = this->dataPtr->camera->GetScene()->GetVisual(toLookAt);
+    if (!vis)
+    {
+      gzerr << "Visual [" << toLookAt << "] not found" << std::endl;
+      return;
+    }
 
     // Target in world frame
     auto origin = vis->GetWorldPose().Ign();
@@ -167,20 +219,6 @@ void PresentMode::ChangeSlide()
 
     auto eye_world = target_world * eye_target;
 
-    // Up in world frame
-  /*
-    auto rot = ignition::math::Matrix4d(ignition::math::Pose3d(
-        ignition::math::Vector3d::Zero, origin.Rot()));
-
-    auto up = rot * ignition::math::Vector3d::UnitZ;
-
-    up += eye_world.Translation();
-
-  std::cout << "---------" << std::endl;
-  std::cout << "Eye: " << eye_world.Translation() << std::endl;
-  std::cout << "target: " << target_world.Translation() << std::endl;
-  std::cout << "up: " << up << std::endl;
-  */
     // Look At
     auto mat = ignition::math::Matrix4d::LookAt(eye_world.Translation(),
         target_world.Translation());
