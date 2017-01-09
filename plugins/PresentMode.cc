@@ -140,6 +140,8 @@ void PresentMode::ChangeSlide(bool _next)
   ignition::math::Pose3d camPose;
   std::string toLookAt;
 
+  ignition::math::Pose3d stackView(0.762, 3.988, 1.89, 0, -0.08, -1.927);
+
   // Fixed keyframe (home)
   if (this->dataPtr->currentIndex == -1)
   {
@@ -180,7 +182,7 @@ void PresentMode::ChangeSlide(bool _next)
         vis->SetPosition(ignition::math::Vector3d(-2.07, -3.969, 2.61));
     }
 
-    camPose.Set(1.6, 3.922, 1.621, 0, -0.14, -1.88);
+    camPose.Set(stackView);
   }
 
   if (!toLookAt.empty())
