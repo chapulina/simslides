@@ -4,7 +4,13 @@ http://gazebosim.org/tutorials?cat=install
 
 Checking out a couple other tutorials wouldn't hurt either.
 
-* 2016/10/04: This currently needs specific Gazebo and ignition branches, see in the end.
+* Currently requiring Gazebo 8.
+
+# Build plugins
+
+From the project's root directory, run:
+
+        bash build_plugins.sh
 
 # Prepare presentation
 
@@ -12,14 +18,13 @@ You can generate your own presentation or run one of the existing ones.
 
 ## Generate your own presentation
 
-1. Run gazebo with the simslides plugin:
+1. Run gazebo with the simslides plugin (note the dot):
 
         . ./simslides.sh
 
-
 1. Generate models for your slides
 
-    1. On the top menu, choose Simslides -> Import PDFi (or press F2)
+    1. On the top menu, choose Simslides -> Import PDF (or press F2)
 
     1. Choose a PDF file from your computer
 
