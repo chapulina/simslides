@@ -41,6 +41,12 @@
       <uri>model://workcell</uri>
     </include>
 
+    <!-- robot table -->
+    <include>
+      <pose>0.123 -0.268 0.2 0 0 0</pose>
+      <uri>model://cafe_table</uri>
+    </include>
+
     <!-- person -->
     <actor name='actor'>
       <skin>
@@ -121,7 +127,28 @@
 
     <!-- UR10 -->
     <model name='ur10'>
-      <pose frame=''>0.11 -0.38 0.78 0 0 0</pose>
+      <pose frame=''>0.11 -0.38 1.0 0 0 -1.57</pose>
+      <link name='weight'>
+        <pose frame=''>0.279011 -0.081138 -0.9 -2e-06 -2e-06 1.57</pose>
+        <inertial>
+          <mass>965.011</mass>
+          <inertia>
+            <ixx>387.745</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>166.896</iyy>
+            <iyz>0</iyz>
+            <izz>550.837</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>1.43238 2.19043 0.153785</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
       <link name='base'>
         <inertial>
           <mass>4</mass>
@@ -527,9 +554,9 @@
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
-      <joint name='base_world' type='fixed'>
+      <joint name='base_weight' type='fixed'>
         <child>base</child>
-        <parent>world</parent>
+        <parent>weight</parent>
       </joint>
       <joint name='shoulder_pan' type='revolute'>
         <child>shoulder</child>
