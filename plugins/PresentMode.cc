@@ -112,14 +112,13 @@ void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
   else
     return;
 
-  gzdbg << this->dataPtr->currentIndex << std::endl;
-
   this->ChangeSlide(next);
 }
 
 /////////////////////////////////////////////////
 void PresentMode::OnSlideChanged(int _slide)
 {
+/*
   if (this->dataPtr->slideCount < 0)
     return;
 
@@ -132,6 +131,7 @@ void PresentMode::OnSlideChanged(int _slide)
   this->dataPtr->currentIndex = _slide;
 
   this->ChangeSlide(next);
+*/
 }
 
 /////////////////////////////////////////////////
@@ -159,29 +159,26 @@ void PresentMode::ChangeSlide(bool _next)
   else if (this->dataPtr->currentIndex > 1 &&
         this->dataPtr->currentIndex < 8)
   {
-//    toLookAt = simslides::slidePrefix + "-" + std::to_string(2);
-
-    std::string toHide;
-    if (_next)
+    // Go through all slides in the stack, and move all to the back except the
+    // one we want to show
+    for (int i = 2; i < 8; ++i)
     {
-      toHide = simslides::slidePrefix + "-" + std::to_string(this->dataPtr->currentIndex - 1);
-    }
-    else
-    {
-      toHide = simslides::slidePrefix + "-" + std::to_string(this->dataPtr->currentIndex + 1);
-    }
+      auto name = simslides::slidePrefix + "-" + std::to_string(i);
 
-    std::string toShow = simslides::slidePrefix + "-" + std::to_string(this->dataPtr->currentIndex);
+      auto vis = this->dataPtr->camera->GetScene()->GetVisual(name);
 
-    auto visToHide = this->dataPtr->camera->GetScene()->GetVisual(toHide);
-    auto visToShow = this->dataPtr->camera->GetScene()->GetVisual(toShow);
-    if (visToHide && visToShow)
-    {
-      visToHide->SetPosition(visToHide->GetPosition() + ignition::math::Vector3d(0, 0.1, 0));
-      visToShow->SetPosition(visToShow->GetPosition() + ignition::math::Vector3d(0, -0.1, 0));
+      if (!vis)
+      {
+        gzerr << "Couldn't find visual [" << name << "]" << std::endl;
+        continue;
+      }
+
+      // show
+      if (i == this->dataPtr->currentIndex)
+        vis->SetPosition(ignition::math::Vector3d(-2.07, -3.869, 2.61));
+      else
+        vis->SetPosition(ignition::math::Vector3d(-2.07, -3.969, 2.61));
     }
-    else
-      gzerr << "Visual [" << toHide << "] or [" << toShow << "] not found" << std::endl;
 
     camPose.Set(1.6, 3.922, 1.621, 0, -0.14, -1.88);
   }
