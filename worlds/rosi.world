@@ -47,6 +47,73 @@
       <uri>model://cafe_table</uri>
     </include>
 
+    <!-- Conveyor belt -->
+    <model name='conveyor'>
+      <pose>-3.89 -1.222 0.8 0 0 0</pose>
+      <link name='link'>
+        <inertial>
+          <mass>128</mass>
+          <inertia>
+            <ixx>6.86</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>10.30792668</iyy>
+            <iyz>0</iyz>
+            <izz>10.20223110</izz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>10.0 0.757098 0.226295</size>
+            </box>
+          </geometry>
+        </collision>
+      </link>
+
+      <joint name='to_world' type='prismatic'>
+        <child>link</child>
+        <parent>world</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+        </axis>
+      </joint>
+
+      <plugin name='keystojoints' filename='libKeysToJointsPlugin.so'>
+
+        <!-- c -->
+        <map key='99' joint='to_world' scale='0.2' type='velocity' kp='300' ki='0' kd='10'/>
+
+        <!-- v -->
+        <map key='118' joint='to_world' scale='0' type='velocity' kp='300' ki='0' kd='10'/>
+
+        <!-- b -->
+        <map key='98' joint='to_world' scale='-0.2' type='velocity' kp='300' ki='0' kd='10'/>
+
+      </plugin>
+    </model>
+
+    <!-- objects -->
+    <include>
+      <pose>-5.17 -0.97 1 1.57 0 0</pose>
+      <uri>model://u_joint_part</uri>
+    </include>
+
+    <include>
+      <pose>-1.77 -1.18 1 0 0 0</pose>
+      <uri>model://gear_part</uri>
+    </include>
+
+    <include>
+      <pose>-3.85 -1.235 1 0 0 0</pose>
+      <uri>model://pulley_part</uri>
+    </include>
+
+    <include>
+      <pose>-0.57 -1.24 1 0 0 0</pose>
+      <uri>model://gasket_part</uri>
+    </include>
+
     <!-- person -->
     <actor name='actor'>
       <skin>
@@ -672,8 +739,8 @@
         <map key='121' joint='shoulder_pan' scale='-0.1' type='position' kp='1000' ki='0' kd='10'/>
         <map key='104' joint='shoulder_pan' scale='0.1' type='position' kp='1000' ki='0' kd='10'/>
 
-        <map key='117' joint='shoulder_lift' scale='-0.1' type='position' kp='1000' ki='0' kd='10'/>
-        <map key='106' joint='shoulder_lift' scale='0.1' type='position' kp='1000' ki='0' kd='10'/>
+        <map key='117' joint='shoulder_lift' scale='-0.1' type='position' kp='5000' ki='0' kd='10'/>
+        <map key='106' joint='shoulder_lift' scale='0.1' type='position' kp='5000' ki='0' kd='10'/>
 
         <map key='105' joint='elbow' scale='-0.1' type='position' kp='1000' ki='0' kd='10'/>
         <map key='107' joint='elbow' scale='0.1' type='position' kp='1000' ki='0' kd='10'/>
@@ -686,6 +753,18 @@
 
         <map key='91' joint='wrist_3' scale='-1' type='position' kp='100' ki='0' kd='10'/>
         <map key='39' joint='wrist_3' scale='1' type='position' kp='100' ki='0' kd='10'/>
+
+      </plugin>
+
+      <plugin name='3dplot' filename='libLinkPlot3DPlugin.so'>
+
+        <!-- Update at 10 Hz -->
+        <frequency>10</frequency>
+
+        <plot>
+          <link>wrist_3</link>
+          <material>Gazebo/Blue</material>
+        </plot>
 
       </plugin>
 

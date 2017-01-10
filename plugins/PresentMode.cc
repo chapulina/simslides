@@ -182,7 +182,7 @@ void PresentMode::ChangeSlide(bool _next)
         vis->SetPosition(ignition::math::Vector3d(-2.07, -3.969, 2.61));
     }
 
-    camPose.Set(stackView);
+    camPose = stackView;
   }
 
   if (!toLookAt.empty())
