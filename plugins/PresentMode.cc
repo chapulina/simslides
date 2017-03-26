@@ -151,17 +151,17 @@ void PresentMode::ChangeSlide()
         std::to_string(this->dataPtr->currentIndex));
 
     // Target in world frame
-    auto origin = vis->GetWorldPose().Ign();
+    auto origin = vis->WorldPose();
 
     auto bb_pos = origin.Pos() +
-                  vis->GetBoundingBox().Ign().Center();
+                  vis->BoundingBox().Center();
     auto target_world = ignition::math::Matrix4d(ignition::math::Pose3d(
         bb_pos, origin.Rot()));
 
     // Eye in world frame
     ignition::math::Matrix4d eye_target;
 
-    if (vis->GetName() != simslides::slidePrefix + "-11")
+    if (vis->Name() != simslides::slidePrefix + "-11")
     {
       eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
           0, -6.3, 1.8, 0, 0.04, IGN_PI_2));
