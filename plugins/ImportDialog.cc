@@ -13,6 +13,9 @@ class simslides::ImportDialogPrivate
   public: QLineEdit *dirEdit;
   public: QLineEdit *nameEdit;
   public: QPushButton *generateButton;
+  public: QDoubleSpinBox *scaleXSpin;
+  public: QDoubleSpinBox *scaleYSpin;
+  public: QDoubleSpinBox *scaleZSpin;
 };
 
 /////////////////////////////////////////////////
@@ -38,6 +41,22 @@ ImportDialog::ImportDialog(QWidget *_parent)
   // Model names
   this->dataPtr->nameEdit = new QLineEdit();
   this->connect(this->dataPtr->nameEdit, SIGNAL(textChanged(QString)), this,
+      SLOT(CheckReady(QString)));
+
+  // Scale
+  this->dataPtr->scaleXSpin = new QDoubleSpinBox();
+  this->dataPtr->scaleXSpin->setValue(4.0);
+  this->connect(this->dataPtr->scaleXSpin, SIGNAL(valueChanged(QString)), this,
+      SLOT(CheckReady(QString)));
+
+  this->dataPtr->scaleYSpin = new QDoubleSpinBox();
+  this->dataPtr->scaleYSpin->setValue(1.0);
+  this->connect(this->dataPtr->scaleYSpin, SIGNAL(valueChanged(QString)), this,
+      SLOT(CheckReady(QString)));
+
+  this->dataPtr->scaleZSpin = new QDoubleSpinBox();
+  this->dataPtr->scaleZSpin->setValue(3.0);
+  this->connect(this->dataPtr->scaleZSpin, SIGNAL(valueChanged(QString)), this,
       SLOT(CheckReady(QString)));
 
   // Generate
@@ -70,12 +89,18 @@ ImportDialog::ImportDialog(QWidget *_parent)
   mainLayout->addWidget(new QLabel("Model name prefix:"), 2, 0);
   mainLayout->addWidget(this->dataPtr->nameEdit, 2, 1);
 
+  // Scale
+  mainLayout->addWidget(new QLabel("Scale:"), 3, 0);
+  mainLayout->addWidget(this->dataPtr->scaleXSpin, 3, 1);
+  mainLayout->addWidget(this->dataPtr->scaleYSpin, 4, 1);
+  mainLayout->addWidget(this->dataPtr->scaleZSpin, 5, 1);
+
   // Generate
-  mainLayout->addWidget(this->dataPtr->generateButton, 3, 1);
+  mainLayout->addWidget(this->dataPtr->generateButton, 6, 1);
 
   // Steps
-  mainLayout->addWidget(this->dataPtr->waitLabel, 4, 0, 1, 3);
-  mainLayout->addWidget(this->dataPtr->doneLabel, 5, 0, 1, 3);
+  mainLayout->addWidget(this->dataPtr->waitLabel, 7, 0, 1, 3);
+  mainLayout->addWidget(this->dataPtr->doneLabel, 8, 0, 1, 3);
 
   this->setLayout(mainLayout);
 }
@@ -138,6 +163,9 @@ void ImportDialog::CheckReady(QString)
   this->dataPtr->generateButton->setEnabled(
       !this->dataPtr->pdfLabel->text().isEmpty() &&
       !this->dataPtr->nameEdit->text().isEmpty() &&
+      this->dataPtr->scaleXSpin->value() != 0 &&
+      this->dataPtr->scaleYSpin->value() != 0 &&
+      this->dataPtr->scaleZSpin->value() != 0 &&
       !this->dataPtr->dirEdit->text().isEmpty());
 
   simslides::slidePrefix = this->dataPtr->nameEdit->text().toStdString();
@@ -183,6 +211,11 @@ void ImportDialog::OnGenerate()
     p.waitForFinished();
   }
   QCoreApplication::processEvents();
+
+  // Scale
+  auto scaleX = std::to_string(this->dataPtr->scaleXSpin->value());
+  auto scaleY = std::to_string(this->dataPtr->scaleYSpin->value());
+  auto scaleZ = std::to_string(this->dataPtr->scaleZSpin->value());
 
   // Save models
 
@@ -233,14 +266,14 @@ void ImportDialog::OnGenerate()
               <collision name='collision'>\
                 <geometry>\
                   <box>\
-                    <size>4.0 1.0 3.0</size>\
+                    <size>" + scaleX + " " + scaleY + " " + scaleZ + "</size>\
                   </box>\
                 </geometry>\
               </collision>\
               <visual name='visual'>\
                 <geometry>\
                   <box>\
-                    <size>4.0 1.0 3.0</size>\
+                    <size>" + scaleX + " " + scaleY + " " + scaleZ + "</size>\
                   </box>\
                 </geometry>\
                 <material>\
