@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+
+    <scene>
+      <sky>
+        <clouds>
+          <speed>12</speed>
+        </clouds>
+      </sky>
+      <grid>false</grid>
+      <origin_visual>false</origin_visual>
+    </scene>
+
+    <gui>
+      <camera name="user_camera">
+        <pose>18.4 -29.2 5.9 0 0.06 2.06</pose>
+      </camera>
+      <plugin name="simslides" filename="libsimslides.so">
+      </plugin>
+      <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
+      </plugin>
+    </gui>
+
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <!-- OSRF -->
+    <include>
+      <uri>model://osrf_elevator</uri>
+    </include>
+
+
+
+  </world>
+</sdf>
