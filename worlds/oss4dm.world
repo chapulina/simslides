@@ -17,6 +17,7 @@
         <pose>18.4 -29.2 5.9 0 0.06 2.06</pose>
       </camera>
       <plugin name="simslides" filename="libsimslides.so">
+        <slide_prefix>slide</slide_prefix>
       </plugin>
       <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
       </plugin>
@@ -32,6 +33,509 @@
       <uri>model://osrf_elevator</uri>
     </include>
 
+    <model name='slide-0'>
+      <pose>-4.6 -9.09 0 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-0/materials/scripts</uri>
+              <uri>model://slide-0/materials/textures</uri>
+              <name>Slides/slide_0</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+    <model name='slide-1'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-1/materials/scripts</uri>
+              <uri>model://slide-1/materials/textures</uri>
+              <name>Slides/slide_1</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-7.03 -7.02 0 0 -0 1.57</pose>
+    </model>
+    <model name='slide-2'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-2/materials/scripts</uri>
+              <uri>model://slide-2/materials/textures</uri>
+              <name>Slides/slide_2</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-4.35 -5.02 0 0 -0 0</pose>
+    </model>
+    <model name='slide-5'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-5/materials/scripts</uri>
+              <uri>model://slide-5/materials/textures</uri>
+              <name>Slides/slide_5</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-7.03 1.28 -0.497 0 0 1.57</pose>
+    </model>
+    <model name='slide-4'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-4/materials/scripts</uri>
+              <uri>model://slide-4/materials/textures</uri>
+              <name>Slides/slide_4</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>0.774 -1.402 4.223 0 0 0</pose>
+    </model>
+    <model name='slide-3'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-3/materials/scripts</uri>
+              <uri>model://slide-3/materials/textures</uri>
+              <name>Slides/slide_3</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-7.065 -3.26 0 0 -0 1.57</pose>
+    </model>
+    <model name='slide-7'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-7/materials/scripts</uri>
+              <uri>model://slide-7/materials/textures</uri>
+              <name>Slides/slide_7</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>8.37 -11.05 8.108 0 0 0.6466</pose>
+    </model>
+    <model name='slide-8'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-8/materials/scripts</uri>
+              <uri>model://slide-8/materials/textures</uri>
+              <name>Slides/slide_8</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-0.80 17.93 0 0 -0 0</pose>
+    </model>
+    <model name='slide-9'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-9/materials/scripts</uri>
+              <uri>model://slide-9/materials/textures</uri>
+              <name>Slides/slide_9</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>4.28 8.78 1.88 0 -0 0</pose>
+    </model>
+    <model name='slide-6'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-6/materials/scripts</uri>
+              <uri>model://slide-6/materials/textures</uri>
+              <name>Slides/slide_6</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>-0.535 8.64 -0.51 0 0 0</pose>
+    </model>
+    <model name='slide-10'>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 1.5 0 -0 0</pose>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>2 0.01 1.5</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://slide-10/materials/scripts</uri>
+              <uri>model://slide-10/materials/textures</uri>
+              <name>Slides/slide_10</name>
+            </script>
+          </material>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <pose frame=''>6.09 2.32 -0.488 0 0 -2.22</pose>
+    </model>
+
+    <light name='spot_light_slide-10' type='spot'>
+      <pose frame=''>3.61 4.54 3.02 -0.707 -0.75 0.207</pose>
+      <diffuse>0.5 0.5 0.5 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <direction>0 0 -1</direction>
+      <attenuation>
+        <range>20</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <cast_shadows>0</cast_shadows>
+      <spot>
+        <inner_angle>0.6</inner_angle>
+        <outer_angle>1</outer_angle>
+        <falloff>1</falloff>
+      </spot>
+    </light>
 
 
   </world>

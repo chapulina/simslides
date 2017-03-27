@@ -1,0 +1,16 @@
+material Slides/slide_7
+        {
+          receive_shadows off
+          technique
+          {
+            pass
+            {
+              texture_unit
+              {
+                texture slide-7.png
+                filtering anistropic
+                max_anisotropy 16
+              }
+            }
+          }
+        }

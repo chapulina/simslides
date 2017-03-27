@@ -1,0 +1,30 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+<model name='slide-6'>
+  <static>1</static>
+  <link name='link'>
+    <pose frame=''>0 0 1.5 0 -0 0</pose>
+    <collision name='collision'>
+      <geometry>
+        <box>
+          <size>2 0.5 1.5</size>
+        </box>
+      </geometry>
+    </collision>
+    <visual name='visual'>
+      <geometry>
+        <box>
+          <size>2 0.5 1.5</size>
+        </box>
+      </geometry>
+      <material>
+        <script>
+          <uri>model://slide-6/materials/scripts</uri>
+          <uri>model://slide-6/materials/textures</uri>
+          <name>Slides/slide_6</name>
+        </script>
+      </material>
+    </visual>
+  </link>
+</model>
+</sdf>
