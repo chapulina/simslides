@@ -713,5 +713,10 @@
       </link>
     </model>
 
+    <include>
+      <pose>-1.56 8.1 0.16 0 0 0</pose>
+      <uri>model://turtlebot</uri>
+    </include>
+
   </world>
 </sdf>
