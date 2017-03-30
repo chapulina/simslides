@@ -86,14 +86,15 @@ void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
   if (this->dataPtr->slideCount < 0)
     return;
 
-  // Next (right arrow)
-  if (_msg->int_value() == 16777236 &&
+  // Next (right arrow on keyboard or presenter)
+  if ((_msg->int_value() == 16777236 || _msg->int_value() == 16777239) &&
       this->dataPtr->currentIndex + 1 < this->dataPtr->slideCount)
   {
     this->dataPtr->currentIndex++;
   }
-  // Previous (left arrow)
-  else if (_msg->int_value() == 16777234 && this->dataPtr->currentIndex >= 1)
+  // Previous (left arrow on keyboard or presenter)
+  else if ((_msg->int_value() == 16777234 || _msg->int_value() == 16777238) &&
+      this->dataPtr->currentIndex >= 1)
   {
     this->dataPtr->currentIndex--;
   }
