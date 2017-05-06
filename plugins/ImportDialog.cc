@@ -49,15 +49,30 @@ ImportDialog::ImportDialog(QWidget *_parent)
   this->connect(this->dataPtr->scaleXSpin, SIGNAL(valueChanged(QString)), this,
       SLOT(CheckReady(QString)));
 
+  auto scaleXLayout = new QHBoxLayout();
+  scaleXLayout->addWidget(new QLabel("X"));
+  scaleXLayout->addWidget(this->dataPtr->scaleXSpin);
+  scaleXLayout->addWidget(new QLabel("m"));
+
   this->dataPtr->scaleYSpin = new QDoubleSpinBox();
   this->dataPtr->scaleYSpin->setValue(1.0);
   this->connect(this->dataPtr->scaleYSpin, SIGNAL(valueChanged(QString)), this,
       SLOT(CheckReady(QString)));
 
+  auto scaleYLayout = new QHBoxLayout();
+  scaleYLayout->addWidget(new QLabel("Y"));
+  scaleYLayout->addWidget(this->dataPtr->scaleYSpin);
+  scaleYLayout->addWidget(new QLabel("m"));
+
   this->dataPtr->scaleZSpin = new QDoubleSpinBox();
   this->dataPtr->scaleZSpin->setValue(3.0);
   this->connect(this->dataPtr->scaleZSpin, SIGNAL(valueChanged(QString)), this,
       SLOT(CheckReady(QString)));
+
+  auto scaleZLayout = new QHBoxLayout();
+  scaleZLayout->addWidget(new QLabel("Z"));
+  scaleZLayout->addWidget(this->dataPtr->scaleZSpin);
+  scaleZLayout->addWidget(new QLabel("m"));
 
   // Generate
   this->dataPtr->generateButton = new QPushButton(tr("Generate"));
@@ -91,9 +106,9 @@ ImportDialog::ImportDialog(QWidget *_parent)
 
   // Scale
   mainLayout->addWidget(new QLabel("Scale:"), 3, 0);
-  mainLayout->addWidget(this->dataPtr->scaleXSpin, 3, 1);
-  mainLayout->addWidget(this->dataPtr->scaleYSpin, 4, 1);
-  mainLayout->addWidget(this->dataPtr->scaleZSpin, 5, 1);
+  mainLayout->addLayout(scaleXLayout, 3, 1);
+  mainLayout->addLayout(scaleYLayout, 4, 1);
+  mainLayout->addLayout(scaleZLayout, 5, 1);
 
   // Generate
   mainLayout->addWidget(this->dataPtr->generateButton, 6, 1);
@@ -216,6 +231,7 @@ void ImportDialog::OnGenerate()
   auto scaleX = std::to_string(this->dataPtr->scaleXSpin->value());
   auto scaleY = std::to_string(this->dataPtr->scaleYSpin->value());
   auto scaleZ = std::to_string(this->dataPtr->scaleZSpin->value());
+  auto height = std::to_string(this->dataPtr->scaleZSpin->value() * 0.5);
 
   // Save models
 
@@ -262,7 +278,7 @@ void ImportDialog::OnGenerate()
           <model name='" + modelName + "'>\
             <static>true</static>\
             <link name='link'>\
-              <pose>0 0 1.5 0 0 0</pose>\
+              <pose>0 0 " + height + " 0 0 0</pose>\
               <collision name='collision'>\
                 <geometry>\
                   <box>\
