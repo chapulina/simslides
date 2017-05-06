@@ -69,9 +69,6 @@ void PresentMode::Start()
     this->dataPtr->slideCount++;
   }
 
-  // One more for the final thank you
-  this->dataPtr->slideCount++;
-
   // Trigger first slide
   this->dataPtr->currentIndex = 0;
   this->ChangeSlide();
@@ -89,14 +86,15 @@ void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
   if (this->dataPtr->slideCount < 0)
     return;
 
-  // Next (right arrow)
-  if (_msg->int_value() == 16777236 &&
+  // Next (right arrow on keyboard or presenter)
+  if ((_msg->int_value() == 16777236 || _msg->int_value() == 16777239) &&
       this->dataPtr->currentIndex + 1 < this->dataPtr->slideCount)
   {
     this->dataPtr->currentIndex++;
   }
-  // Previous (left arrow)
-  else if (_msg->int_value() == 16777234 && this->dataPtr->currentIndex >= 1)
+  // Previous (left arrow on keyboard or presenter)
+  else if ((_msg->int_value() == 16777234 || _msg->int_value() == 16777238) &&
+      this->dataPtr->currentIndex >= 1)
   {
     this->dataPtr->currentIndex--;
   }
@@ -134,14 +132,9 @@ void PresentMode::ChangeSlide()
 {
   ignition::math::Pose3d camPose;
 
-  // Fixed keyframe (last)
-  if (this->dataPtr->currentIndex == this->dataPtr->slideCount - 1)
+  if (this->dataPtr->currentIndex == -1)
   {
-    camPose.Set(204.53, 109.68, 1.3329, 0, 0.07, -2.708);
-  }
-  else if (this->dataPtr->currentIndex == -1)
-  {
-    camPose.Set(-9.13, 264.0, 136.73, 0, 0.466, -1.14);
+    camPose = this->dataPtr->camera->InitialPose();
   }
   // Slides
   else
@@ -162,11 +155,6 @@ void PresentMode::ChangeSlide()
     ignition::math::Matrix4d eye_target;
 
     if (vis->Name() != simslides::slidePrefix + "-11")
-    {
-      eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
-          0, -6.3, 1.8, 0, 0.04, IGN_PI_2));
-    }
-    else
     {
       eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
           0, -3, 1.1, 0, 0.13, IGN_PI_2));
@@ -198,6 +186,4 @@ void PresentMode::ChangeSlide()
   this->dataPtr->camera->MoveToPosition(camPose, 1);
   this->SlideChanged(this->dataPtr->currentIndex, this->dataPtr->slideCount-1);
 }
-
-
 
