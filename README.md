@@ -12,6 +12,10 @@ You can generate your own presentation or run one of the existing ones.
 
 ## Generate your own presentation
 
+1. Build plugins:
+
+        sh build_plugins.sh
+
 1. Run gazebo with the simslides plugin:
 
         . ./simslides.sh
@@ -19,7 +23,7 @@ You can generate your own presentation or run one of the existing ones.
 
 1. Generate models for your slides
 
-    1. On the top menu, choose Simslides -> Import PDFi (or press F2)
+    1. On the top menu, choose Simslides -> Import PDF (or press F2)
 
     1. Choose a PDF file from your computer
 
@@ -69,21 +73,5 @@ You can generate your own presentation or run one of the existing ones.
     * IEEE Women in Engineering International Leadership Conference, May 2016
 
             hg up IEEE_WiE_ILC_2016
-
-1. Build plugins:
-
-        sh build_plugins.sh
-
-# Run presentation
-
-To run the roscon presentation:
-
-1. In one terminal, run:
-
-    . ./roscon.sh
-
-1. On another terminal, run:
-
-    . ./playback.sh
 
 
