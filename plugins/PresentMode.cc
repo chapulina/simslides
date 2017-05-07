@@ -16,6 +16,13 @@ class simslides::PresentModePrivate
   public: gazebo::rendering::UserCameraPtr camera;
   public: int currentIndex = -1;
   public: int slideCount = 0;
+
+  public: double eyeOffsetX = 0;
+  public: double eyeOffsetY = -3.0;
+  public: double eyeOffsetZ = 1.1;
+  public: double eyeOffsetRoll = 0;
+  public: double eyeOffsetPitch = 0.13;
+  public: double eyeOffsetYaw = IGN_PI_2;
 };
 
 /////////////////////////////////////////////////
@@ -139,9 +146,18 @@ void PresentMode::ChangeSlide()
   // Slides
   else
   {
-    auto vis = this->dataPtr->camera->GetScene()->GetVisual(
+    std::string visName(
         simslides::slidePrefix + "-" +
-        std::to_string(this->dataPtr->currentIndex));
+        std::to_string(this->dataPtr->currentIndex) + "::link::visual");
+
+    auto vis = this->dataPtr->camera->GetScene()->GetVisual(visName);
+    if (!vis)
+    {
+      gzerr << "Failed to find visual [" << visName << "]" << std::endl;
+      return;
+    }
+
+    auto size = vis->GetGeometrySize();
 
     // Target in world frame
     auto origin = vis->WorldPose();
@@ -151,15 +167,17 @@ void PresentMode::ChangeSlide()
     auto target_world = ignition::math::Matrix4d(ignition::math::Pose3d(
         bb_pos, origin.Rot()));
 
+    // Eye in target frame
+    ignition::math::Matrix4d eye_target =
+        ignition::math::Matrix4d(ignition::math::Pose3d(
+            this->dataPtr->eyeOffsetX,
+            -size.Z(),
+            this->dataPtr->eyeOffsetZ,
+            this->dataPtr->eyeOffsetRoll,
+            this->dataPtr->eyeOffsetPitch,
+            this->dataPtr->eyeOffsetYaw));
+
     // Eye in world frame
-    ignition::math::Matrix4d eye_target;
-
-    if (vis->Name() != simslides::slidePrefix + "-11")
-    {
-      eye_target = ignition::math::Matrix4d(ignition::math::Pose3d(
-          0, -3, 1.1, 0, 0.13, IGN_PI_2));
-    }
-
     auto eye_world = target_world * eye_target;
 
     // Up in world frame
