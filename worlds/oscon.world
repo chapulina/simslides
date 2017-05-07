@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <scene>
+      <sky>
+        <clouds>
+          <speed>12</speed>
+        </clouds>
+      </sky>
+<!--
+      <fog>
+        <color>0.1 0.2 0.3 1.0</color>
+        <type>linear</type>
+        <density>0.001</density>
+        <start>10</start>
+        <end>200</end>
+      </fog>
+-->
+    </scene>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://beach_terrain</uri>
+    </include>
+    <include>
+      <pose>0 -4 0.3 0 0 0</pose>
+      <uri>model://ocean</uri>
+    </include>
+  </world>
+</sdf>
