@@ -4,7 +4,7 @@
 
     <gui>
       <camera name="user_camera">
-        <pose>51.13 -71.76 19.4 0 0.16 2.15</pose>
+        <pose>40.14 -76.08 13.08 0 0.04 2.01</pose>
       </camera>
       <plugin name="simslides" filename="libsimslides.so">
         <slide_prefix>slide</slide_prefix>
@@ -666,7 +666,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -688,7 +688,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -709,7 +709,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -730,7 +730,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -751,7 +751,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>0.373 0.01 0.28</size>
+              <size>0.373 0.001 0.28</size>
             </box>
           </geometry>
           <material>
@@ -772,7 +772,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -793,7 +793,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -814,7 +814,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -835,7 +835,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>0.4 0.01 0.3</size>
+              <size>0.4 0.001 0.3</size>
             </box>
           </geometry>
           <material>
@@ -856,7 +856,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>0.4 0.01 0.3</size>
+              <size>0.4 0.001 0.3</size>
             </box>
           </geometry>
           <material>
@@ -877,7 +877,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>0.4 0.01 0.3</size>
+              <size>0.4 0.001 0.3</size>
             </box>
           </geometry>
           <material>
@@ -898,7 +898,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>0.4 0.01 0.3</size>
+              <size>0.4 0.001 0.3</size>
             </box>
           </geometry>
           <material>
@@ -923,7 +923,7 @@
           <pose frame=''>0 -0.06 0.04 0 0 0</pose>
           <geometry>
             <box>
-              <size>1 0.01 0.75</size>
+              <size>1 0.001 0.75</size>
             </box>
           </geometry>
           <material>
@@ -985,7 +985,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -1006,7 +1006,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -1027,7 +1027,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -1048,7 +1048,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -1069,7 +1069,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -1079,6 +1079,28 @@
               <name>Slides/slide_17</name>
             </script>
           </material>
+        </visual>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>2 0.001 1.5</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name='LED'>
+          <pose>0.5 0 0.8 0 0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.16</length>
+              <radius>0.07</radius>
+            </cylinder>
+          </geometry>
+          <plugin name="blink" filename="libBlinkVisualPlugin.so">
+            <color_a>0 0 0 1</color_a>
+            <color_b>0.8 0.4 0.1 1</color_b>
+            <period>0.5</period>
+            <use_wall_time>true</use_wall_time>
+          </plugin>
         </visual>
       </link>
       <pose frame=''>2.899 32.986 1.25 0 0 0.739</pose>
@@ -1090,7 +1112,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -1111,7 +1133,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -1132,7 +1154,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -1153,7 +1175,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -1174,7 +1196,7 @@
         <visual name='visual'>
           <geometry>
             <box>
-              <size>2 0.01 1.5</size>
+              <size>2 0.001 1.5</size>
             </box>
           </geometry>
           <material>
@@ -1210,6 +1232,47 @@
             </script>
           </material>
         </visual>
+      </link>
+    </model>
+
+    <model name='hokuyo'>
+      <static>true</static>
+      <pose frame=''>3.95 34.32 1.33 0 0 2.58</pose>
+      <link name='link'>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://hokuyo/meshes/hokuyo.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <sensor name='laser' type='ray'>
+          <pose frame=''>0.01 0 0.0175 0 -0 0</pose>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>30</samples>
+                <resolution>1</resolution>
+                <min_angle>-0.8</min_angle>
+                <max_angle>1.5</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>1</samples>
+                <min_angle>0</min_angle>
+                <max_angle>0</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>0.08</min>
+              <max>5</max>
+              <resolution>0.01</resolution>
+            </range>
+          </ray>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>1</visualize>
+        </sensor>
       </link>
     </model>
 
