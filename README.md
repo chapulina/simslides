@@ -100,3 +100,15 @@ Once you have the slides loaded into the world, present as follows:
 branch's README to run the presentation.
 
 
+
+
+
+
+# OSCON tips:
+
+Add the following to `~/.gazebo/gui.ini`:
+
+~~~
+[heightmap]
+lod=10
+~~~

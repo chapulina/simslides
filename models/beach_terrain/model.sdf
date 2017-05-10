@@ -6,7 +6,7 @@
       <collision name="collision">
         <geometry>
           <heightmap>
-            <uri>model://beach_terrain/materials/textures/marssmall.jpg</uri>
+            <uri>model://beach_terrain/materials/textures/zonasul4.jpg</uri>
             <size>100 100 15</size>
             <pos>0 -4 0</pos>
           </heightmap>

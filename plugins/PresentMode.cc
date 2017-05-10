@@ -19,9 +19,9 @@ class simslides::PresentModePrivate
 
   public: double eyeOffsetX = 0;
   public: double eyeOffsetY = -3.0;
-  public: double eyeOffsetZ = 1.1;
+  public: double eyeOffsetZ = 0;
   public: double eyeOffsetRoll = 0;
-  public: double eyeOffsetPitch = 0.13;
+  public: double eyeOffsetPitch = 0.0;
   public: double eyeOffsetYaw = IGN_PI_2;
 };
 
@@ -171,7 +171,7 @@ void PresentMode::ChangeSlide()
     ignition::math::Matrix4d eye_target =
         ignition::math::Matrix4d(ignition::math::Pose3d(
             this->dataPtr->eyeOffsetX,
-            -size.Z(),
+            -size.Z()*2,
             this->dataPtr->eyeOffsetZ,
             this->dataPtr->eyeOffsetRoll,
             this->dataPtr->eyeOffsetPitch,
