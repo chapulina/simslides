@@ -2,6 +2,10 @@
 <sdf version="1.6">
   <world name="default">
 
+    <plugin name="skyTimer" filename="libsky_timer.so">
+      <total_minutes>35</total_minutes>
+    </plugin>
+
     <gui>
       <camera name="user_camera">
         <pose>40.14 -76.08 13.08 0 0.04 2.01</pose>
@@ -15,16 +19,24 @@
 
     <scene>
       <sky>
+        <time>8</time>
+        <sunrise>8</sunrise>
+        <sunset>18</sunset>
         <clouds>
           <speed>12</speed>
         </clouds>
       </sky>
       <grid>false</grid>
       <origin_visual>false</origin_visual>
+      <shadows>false</shadows>
     </scene>
 
+    <physics type="ode">
+      <real_time_update_rate>500.0</real_time_update_rate>
+      <max_step_size>0.002</max_step_size>
+    </physics>
+
     <light name='sun' type='directional'>
-      <cast_shadows>1</cast_shadows>
       <pose>0 0 -100 0 0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
       <specular>0.1 0.1 0.1 1</specular>
@@ -1042,7 +1054,6 @@
       <pose frame=''>18.86 41.64 1.36 0 -0 1.56</pose>
     </model>
     <model name='slide-16'>
-      <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.75 0 -0 0</pose>
         <visual name='visual'>
@@ -1059,6 +1070,14 @@
             </script>
           </material>
         </visual>
+        <collision name='collision_0'>
+          <pose frame=''>0 0 -0.25 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>2 1 1</size>
+            </box>
+          </geometry>
+        </collision>
       </link>
       <pose frame=''>6.76 36.64 1.173 0 0 -0.071</pose>
     </model>
@@ -1275,6 +1294,47 @@
         </sensor>
       </link>
     </model>
+
+    <actor name='quadrotor'>
+      <pose frame=''>40.42 -69.6 13.97 0.13 -0.33 0.038</pose>
+      <link name='link'>
+        <pose frame=''>0 0 0.182466 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://quadrotor/meshes/quadrotor_base.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+      </link>
+        <script>
+          <loop>true</loop>
+          <auto_start>true</auto_start>
+          <trajectory id="0" type="square">
+             <waypoint>
+                <time>0.0</time>
+                <pose>40.42 -69.6 13.97 0.13 -0.33 0.038</pose>
+             </waypoint>
+             <waypoint>
+                <time>1.0</time>
+                <pose>37.67 -70.969 13.979 -0.36 0.111 0.528</pose>
+             </waypoint>
+             <waypoint>
+                <time>2.0</time>
+                <pose>36.61 -69.82 13.979 0.050 0.5959 0.55</pose>
+             </waypoint>
+             <waypoint>
+                <time>3.0</time>
+                <pose>39.495 -68.12 13.982 0.369 -0.0188 0.523</pose>
+             </waypoint>
+             <waypoint>
+                <time>4.0</time>
+                <pose>40.42 -69.6 13.97 0.13 -0.33 0.038</pose>
+             </waypoint>
+          </trajectory>
+        </script>
+    </actor>
 
   </world>
 </sdf>

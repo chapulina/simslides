@@ -3,6 +3,7 @@
   <model name="beach_terrain">
     <static>true</static>
     <link name="link">
+<!--
       <collision name="collision">
         <geometry>
           <heightmap>
@@ -12,6 +13,7 @@
           </heightmap>
         </geometry>
       </collision>
+-->
       <visual name="visual">
         <geometry>
           <heightmap>
