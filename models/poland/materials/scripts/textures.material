@@ -1,0 +1,14 @@
+material Text/Poland
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture polandtext.png
+      }
+    }
+  }
+}
+

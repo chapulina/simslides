@@ -1,0 +1,14 @@
+material Text/France
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture francetext.png
+      }
+    }
+  }
+}
+

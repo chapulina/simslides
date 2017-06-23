@@ -1,0 +1,14 @@
+material Text/Japan
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture japantext.png
+      }
+    }
+  }
+}
+

@@ -1,0 +1,14 @@
+material Text/Brazil
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture braziltext.png
+      }
+    }
+  }
+}
+
