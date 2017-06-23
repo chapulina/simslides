@@ -1,0 +1,14 @@
+material Photo/PC
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture photopc.png
+      }
+    }
+  }
+}
+
