@@ -1,0 +1,14 @@
+material Map
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture map.png
+      }
+    }
+  }
+}
+

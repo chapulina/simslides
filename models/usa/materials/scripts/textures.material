@@ -1,0 +1,14 @@
+material Text/USA
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture usatext.png
+      }
+    }
+  }
+}
+

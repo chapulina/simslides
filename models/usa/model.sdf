@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="USA">
+    <link name="link">
+      <pose>0 0 10 0 1 0</pose>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>2 6 2</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>2 6 2</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://usa/materials/scripts</uri>
+            <uri>model://usa/materials/textures</uri>
+            <name>Text/USA</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
