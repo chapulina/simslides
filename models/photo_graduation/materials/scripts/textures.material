@@ -1,0 +1,14 @@
+material Photo/Graduation
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture photograduation.png
+      }
+    }
+  }
+}
+

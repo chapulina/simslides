@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="Photo PC">
+    <link name="link">
+      <pose>0 0 10 0 1 0</pose>
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>1 1 1</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://photo_pc/materials/scripts</uri>
+            <uri>model://photo_pc/materials/textures</uri>
+            <name>Photo/PC</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
