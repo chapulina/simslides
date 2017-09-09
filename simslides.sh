@@ -1,4 +1,7 @@
+#!/bin/bash
 
-source setup.sh
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-gazebo --verbose worlds/simslides.world
+source $DIR/setup.sh
+
+gazebo --verbose $DIR/worlds/simslides.world

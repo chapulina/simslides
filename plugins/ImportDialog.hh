@@ -31,6 +31,8 @@ namespace simslides
     /// \brief Qt callback when the file directory browse button is pressed.
     private slots: void OnBrowsePDF();
     private slots: void OnBrowseDir();
+    private slots: void OnLoadPDF();
+    private slots: void OnNext2();
     private slots: void OnGenerate();
     private slots: void CheckReady(QString _str = QString());
 
