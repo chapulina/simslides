@@ -33,6 +33,7 @@ class simslides::ImportDialogPrivate
   public: QDoubleSpinBox *scaleZSpin;
 
   public: QStackedLayout *stackedStepLayout;
+  public: std::vector<QButtonGroup *> buttonGroups;
 
   public: int count;
 };
@@ -273,7 +274,7 @@ void ImportDialog::OnLoadPDF()
   QCoreApplication::processEvents();
 
   auto slidesLayout = new QVBoxLayout();
-  for (int i = 0; i < this->dataPtr->count - 1; ++i)
+  for (int i = 0; i < this->dataPtr->count; ++i)
   {
     auto number = new QLabel(QVariant(i).toString());
 
@@ -284,10 +285,11 @@ void ImportDialog::OnLoadPDF()
     auto stackBack = new QRadioButton("Stack back");
 
     auto group = new QButtonGroup();
-    group->addButton(lookat);
-    group->addButton(stackFront);
-    group->addButton(stackMiddle);
-    group->addButton(stackBack);
+    group->addButton(lookat, 0);
+    group->addButton(stackFront, 1);
+    group->addButton(stackMiddle, 2);
+    group->addButton(stackBack, 3);
+    this->dataPtr->buttonGroups.push_back(group);
 
     auto slideLayout = new QHBoxLayout();
     slideLayout->addWidget(number);
@@ -342,7 +344,34 @@ void ImportDialog::OnGenerate()
     <world name='default'>\n\
     <gui>\n\
       <plugin name='simslides' filename='libsimslides.so'>\n\
-      </plugin>\n\
+        <slide_prefix>" + simslides::slidePrefix + "</slide_prefix>\n";
+
+  // Generate plugin
+  if (this->dataPtr->buttonGroups.size() != this->dataPtr->count)
+  {
+    gzerr << "Number of slides [" << this->dataPtr->count <<
+         "] doesn't match number of button groups [" <<
+         this->dataPtr->buttonGroups.size() << "]" << std::endl;
+    return;
+  }
+
+  for (int i = 0; i < this->dataPtr->count; ++i)
+  {
+    if (this->dataPtr->buttonGroups[i]->checkedId() == 0)
+      worldSdf += "        <keyframe type='lookat' number='" + std::to_string(i) + "'/>\n";
+    else if (this->dataPtr->buttonGroups[i]->checkedId() == 1)
+      worldSdf += "        <keyframe type='stack_front' number='" + std::to_string(i) + "'/>\n";
+    else if (this->dataPtr->buttonGroups[i]->checkedId() == 2)
+      worldSdf += "        <keyframe type='stack_middle' number='" + std::to_string(i) + "'/>\n";
+    else if (this->dataPtr->buttonGroups[i]->checkedId() == 3)
+      worldSdf += "        <keyframe type='stack_back' number='" + std::to_string(i) + "'/>\n";
+    else
+      gzerr << "Invalid button [" << i << "]" << std::endl;
+  }
+
+  // Continue world
+  worldSdf += "\
+    </plugin>\n\
       <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'>\n\
       </plugin>\n\
     </gui>\n\
@@ -357,7 +386,7 @@ void ImportDialog::OnGenerate()
   simslides::slidePath = this->dataPtr->dirEdit->text().toStdString();
   auto saveDialog = new gazebo::gui::SaveEntityDialog(
       gazebo::gui::SaveEntityDialog::MODEL);
-  for (int i = 0; i < this->dataPtr->count - 1; ++i)
+  for (int i = 0; i < this->dataPtr->count; ++i)
   {
     std::string modelName(simslides::slidePrefix + "-" +
         std::to_string(i));
