@@ -24,6 +24,9 @@ class simslides::ImportDialogPrivate
   /// \brief Model name prefix
   public: QLineEdit *nameEdit;
 
+  /// \brief Next button #1
+  public: QPushButton *next1Button;
+
   /// \brief Button to generate slides
   public: QPushButton *generateButton;
 
@@ -32,9 +35,13 @@ class simslides::ImportDialogPrivate
   public: QDoubleSpinBox *scaleYSpin;
   public: QDoubleSpinBox *scaleZSpin;
 
+  /// \brief Stacked layout to hold steps
   public: QStackedLayout *stackedStepLayout;
+
+  /// \brief Vector holding one button group per slide
   public: std::vector<QButtonGroup *> buttonGroups;
 
+  /// \brief Total number of slides
   public: int count;
 };
 
@@ -47,29 +54,30 @@ ImportDialog::ImportDialog(QWidget *_parent)
       Qt::WindowStaysOnTopHint | Qt::CustomizeWindowHint);
 
   // Step 1
-  QLabel *step1Label = new QLabel(tr(
-      "<b>Step 1: Load a PDF file</b>"));
+  auto step1Label = new QLabel(tr("<b>Step 1: Load a PDF file</b>"));
+  step1Label->setMaximumHeight(50);
 
   // PDF
   this->dataPtr->pdfLabel = new QLabel();
+  this->dataPtr->pdfLabel->setMinimumWidth(300);
 
   auto browseButton = new QPushButton(tr("Browse"));
   this->connect(browseButton, SIGNAL(clicked()), this, SLOT(OnBrowsePDF()));
 
   // Next 1
-  auto next1Button = new QPushButton(tr("Next"));
-  //next1Button->setEnabled(false);
-  this->connect(next1Button, SIGNAL(clicked()), this, SLOT(OnLoadPDF()));
+  this->dataPtr->next1Button = new QPushButton(tr("Next"));
+  this->dataPtr->next1Button->setEnabled(false);
+  this->connect(this->dataPtr->next1Button, SIGNAL(clicked()), this,
+      SLOT(OnLoadPDF()));
 
   // Step 1 layout
-  auto step1Layout = new QVBoxLayout;
+  auto step1Layout = new QGridLayout;
   step1Layout->setSpacing(0);
-  step1Layout->addWidget(step1Label);
-  step1Layout->addWidget(new QLabel("Choose a PDF file"));
-  step1Layout->addWidget(new QLabel("PDF file:"));
-  step1Layout->addWidget(this->dataPtr->pdfLabel);
-  step1Layout->addWidget(browseButton);
-  step1Layout->addWidget(next1Button);
+  step1Layout->addWidget(step1Label, 0, 0, 1, 3);
+  step1Layout->addWidget(new QLabel("PDF file:"), 1, 0);
+  step1Layout->addWidget(this->dataPtr->pdfLabel, 1, 1);
+  step1Layout->addWidget(browseButton, 1, 2);
+  step1Layout->addWidget(this->dataPtr->next1Button, 2, 0, 1, 3);
 
   auto step1Widget = new QWidget();
   step1Widget->setLayout(step1Layout);
@@ -77,7 +85,7 @@ ImportDialog::ImportDialog(QWidget *_parent)
   // Step 2 layout (created and inserted later)
 
   // Step 3
-  QLabel *step3Label = new QLabel(tr("<b>Step 3: Generate world and models</b>"));
+  auto step3Label = new QLabel(tr("<b>Step 3: Generate world and models</b>"));
 
   // Save dir
   this->dataPtr->dirEdit = new QLineEdit();
@@ -123,33 +131,36 @@ ImportDialog::ImportDialog(QWidget *_parent)
 
   // Generate
   this->dataPtr->generateButton = new QPushButton(tr("Generate"));
-  //this->dataPtr->generateButton->setEnabled(false);
+  this->dataPtr->generateButton->setEnabled(false);
   this->connect(this->dataPtr->generateButton, SIGNAL(clicked()), this,
       SLOT(OnGenerate()));
 
   // Step 3 layout
-  auto step3Layout = new QVBoxLayout;
+  auto step3Layout = new QGridLayout;
   step3Layout->setSpacing(0);
-  step3Layout->addWidget(step3Label);
-  step3Layout->addWidget(new QLabel("Save folder:"));
-  step3Layout->addWidget(this->dataPtr->dirEdit);
-  step3Layout->addWidget(saveDirButton);
-  step3Layout->addWidget(new QLabel("Prefix:"));
-  step3Layout->addWidget(this->dataPtr->nameEdit);
-  step3Layout->addWidget(new QLabel("Model scale:"));
-  step3Layout->addLayout(scaleXLayout);
-  step3Layout->addLayout(scaleYLayout);
-  step3Layout->addLayout(scaleZLayout);
-  step3Layout->addWidget(this->dataPtr->generateButton);
+  step3Layout->addWidget(step3Label, 0, 0, 1, 3);
+  step3Layout->addWidget(new QLabel("Save folder:"), 1, 0);
+  step3Layout->addWidget(this->dataPtr->dirEdit, 1, 1);
+  step3Layout->addWidget(saveDirButton, 1, 2);
+  step3Layout->addWidget(new QLabel("Prefix:"), 2, 0);
+  step3Layout->addWidget(this->dataPtr->nameEdit, 2, 1, 1, 2);
+  step3Layout->addWidget(new QLabel("Model scale:"), 3, 0);
+  step3Layout->addLayout(scaleXLayout, 3, 1, 1, 2);
+  step3Layout->addLayout(scaleYLayout, 4, 1, 1, 2);
+  step3Layout->addLayout(scaleZLayout, 5, 1, 1, 2);
+  step3Layout->addWidget(this->dataPtr->generateButton, 6, 0, 1, 3);
 
   auto step3Widget = new QWidget();
   step3Widget->setLayout(step3Layout);
 
   // Wait
-  this->dataPtr->waitLabel = new QLabel("Generating, this may take a while...");
+  this->dataPtr->waitLabel = new QLabel(
+      "   Transforming PDF into PNG,\n" +
+      "   this may take a while...\n" +
+      "   Believe me, just wait.");
 
   // Done
-  this->dataPtr->doneLabel = new QLabel("Done! Press F5 to start presenting!");
+  this->dataPtr->doneLabel = new QLabel("Done! F5 is not immediately available now, you must load the saved world...");
 
   // Stacked layout
   this->dataPtr->stackedStepLayout = new QStackedLayout;
@@ -169,7 +180,6 @@ ImportDialog::~ImportDialog()
 /////////////////////////////////////////////////
 void ImportDialog::OnBrowsePDF()
 {
-  this->dataPtr->generateButton->setEnabled(false);
   QCoreApplication::processEvents();
 
   QFileDialog fileDialog(this, tr("Choose PDF file"), QDir::homePath());
@@ -186,7 +196,7 @@ void ImportDialog::OnBrowsePDF()
 
   this->dataPtr->pdfLabel->setText(fileDialog.selectedFiles()[0]);
 
-  this->CheckReady();
+  this->dataPtr->next1Button->setEnabled(true);
 }
 
 /////////////////////////////////////////////////
@@ -276,39 +286,30 @@ void ImportDialog::OnLoadPDF()
   auto slidesLayout = new QVBoxLayout();
   for (int i = 0; i < this->dataPtr->count; ++i)
   {
-    auto number = new QLabel(QVariant(i).toString());
+    auto number = new QLabel("Slide " + QVariant(i).toString());
 
     auto lookat = new QRadioButton("Look at");
     lookat->setChecked(true);
-    auto stackFront = new QRadioButton("Stack front");
-    auto stackMiddle = new QRadioButton("Stack middler");
-    auto stackBack = new QRadioButton("Stack back");
+    auto stack = new QRadioButton("Stack");
 
     auto group = new QButtonGroup();
     group->addButton(lookat, 0);
-    group->addButton(stackFront, 1);
-    group->addButton(stackMiddle, 2);
-    group->addButton(stackBack, 3);
+    group->addButton(stack, 1);
     this->dataPtr->buttonGroups.push_back(group);
 
     auto slideLayout = new QHBoxLayout();
     slideLayout->addWidget(number);
     slideLayout->addWidget(lookat);
-    slideLayout->addWidget(stackFront);
-    slideLayout->addWidget(stackMiddle);
-    slideLayout->addWidget(stackBack);
+    slideLayout->addWidget(stack);
 
     slidesLayout->addLayout(slideLayout);
   }
 
-
-  QLabel *step2Label = new QLabel(tr("<b>Step 2: Keyframes</b>"));
+  auto step2Label = new QLabel(tr("<b>Step 2: Keyframes</b>"));
 
   // Next 2
   auto next2Button = new QPushButton(tr("Next"));
-  //next2Button->setEnabled(false);
   this->connect(next2Button, SIGNAL(clicked()), this, SLOT(OnNext2()));
-
 
   auto step2Layout = new QVBoxLayout;
   step2Layout->setSpacing(0);
@@ -361,10 +362,6 @@ void ImportDialog::OnGenerate()
       worldSdf += "        <keyframe type='lookat' number='" + std::to_string(i) + "'/>\n";
     else if (this->dataPtr->buttonGroups[i]->checkedId() == 1)
       worldSdf += "        <keyframe type='stack' number='" + std::to_string(i) + "'/>\n";
-    else if (this->dataPtr->buttonGroups[i]->checkedId() == 2)
-      worldSdf += "        <keyframe type='stack' number='" + std::to_string(i) + "'/>\n";
-    else if (this->dataPtr->buttonGroups[i]->checkedId() == 3)
-      worldSdf += "        <keyframe type='stac' number='" + std::to_string(i) + "'/>\n";
     else
       gzerr << "Invalid button [" << i << "]" << std::endl;
   }
@@ -549,8 +546,8 @@ void ImportDialog::OnGenerate()
 
   // Insert models
   simslides::LoadSlides();
-  this->dataPtr->stackedStepLayout->setCurrentIndex(4);
+  this->dataPtr->stackedStepLayout->removeItem(
+      this->dataPtr->stackedStepLayout->itemAt(2));
+  this->dataPtr->stackedStepLayout->setCurrentIndex(3);
 }
-
-
 
