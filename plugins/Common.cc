@@ -1,10 +1,12 @@
 #include <boost/filesystem.hpp>
 #include <gazebo/common/Console.hh>
 #include <gazebo/transport/Node.hh>
+
 #include "Common.hh"
 
 std::string simslides::slidePrefix;
 std::string simslides::slidePath;
+std::vector<simslides::Keyframe *> simslides::keyframes;
 
 /////////////////////////////////////////////////
 void simslides::LoadSlides()

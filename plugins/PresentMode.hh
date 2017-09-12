@@ -12,10 +12,6 @@ namespace simslides
 {
   class PresentModePrivate;
 
-  /// \addtogroup gazebo_gui
-  /// \{
-
-  /// \class PresentMode PresentMode.hh gui/gui.hh
   /// \brief Dialog for creating a new presentation.
   class PresentMode : public QObject
   {
