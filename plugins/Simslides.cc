@@ -7,6 +7,7 @@
 
 #include "ImportDialog.hh"
 #include "InsertActorDialog.hh"
+#include "Keyframe.hh"
 #include "LoadDialog.hh"
 #include "PresentMode.hh"
 #include "Simslides.hh"
@@ -121,7 +122,15 @@ void Simslides::Load(sdf::ElementPtr _sdf)
     simslides::slidePrefix = _sdf->Get<std::string>("slide_prefix");
   }
 
-
+  if (_sdf->HasElement("keyframe"))
+  {
+    auto keyframeElem = _sdf->GetElement("keyframe");
+    while (keyframeElem)
+    {
+      simslides::keyframes.push_back(new Keyframe(keyframeElem));
+      keyframeElem = keyframeElem->GetNextElement("keyframe");
+    }
+  }
 }
 
 /////////////////////////////////////////////////

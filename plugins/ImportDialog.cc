@@ -360,11 +360,11 @@ void ImportDialog::OnGenerate()
     if (this->dataPtr->buttonGroups[i]->checkedId() == 0)
       worldSdf += "        <keyframe type='lookat' number='" + std::to_string(i) + "'/>\n";
     else if (this->dataPtr->buttonGroups[i]->checkedId() == 1)
-      worldSdf += "        <keyframe type='stack_front' number='" + std::to_string(i) + "'/>\n";
+      worldSdf += "        <keyframe type='stack' number='" + std::to_string(i) + "'/>\n";
     else if (this->dataPtr->buttonGroups[i]->checkedId() == 2)
-      worldSdf += "        <keyframe type='stack_middle' number='" + std::to_string(i) + "'/>\n";
+      worldSdf += "        <keyframe type='stack' number='" + std::to_string(i) + "'/>\n";
     else if (this->dataPtr->buttonGroups[i]->checkedId() == 3)
-      worldSdf += "        <keyframe type='stack_back' number='" + std::to_string(i) + "'/>\n";
+      worldSdf += "        <keyframe type='stac' number='" + std::to_string(i) + "'/>\n";
     else
       gzerr << "Invalid button [" << i << "]" << std::endl;
   }
@@ -499,7 +499,7 @@ void ImportDialog::OnGenerate()
     // Add model to world
     worldSdf+=
       "<include>\n\
-        <name>'" + modelName + "'</name>\n\
+        <name>" + modelName + "</name>\n\
         <pose>" + std::to_string(i) + "0 0 0 0 0 0</pose>\n\
         <uri>model://" + modelName + "</uri>\n\
       </include>";

@@ -3,10 +3,13 @@
 
 #include <string>
 
+#include "Keyframe.hh"
+
 namespace simslides
 {
   extern std::string slidePrefix;
   extern std::string slidePath;
+  extern std::vector<Keyframe *> keyframes;
 
   void LoadSlides();
 }
