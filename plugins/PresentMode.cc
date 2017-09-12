@@ -199,16 +199,16 @@ void PresentMode::ChangeSlide()
       avgPose.Pos() = avgPose.Pos() / (back-front+1);
       avgPose.Rot() = stackVis[0]->WorldPose().Rot();
 
-      // Go through all slides in the stack, and move all to the back except the
-      // one we want to show
+      // Make all other slides on the stack thinner
       for (int i = 0; i < stackVis.size(); ++i)
       {
         auto vis = stackVis[i];
+        vis->SetPosition(avgPose.Pos());
 
-        if (i == this->dataPtr->currentIndex)
-          vis->SetPosition(avgPose.Pos() + ignition::math::Vector3d(0, 0.1, 0));
+        if (front + i == this->dataPtr->currentIndex)
+          vis->SetScale(ignition::math::Vector3d(1, 1, 1));
         else
-          vis->SetPosition(avgPose.Pos() + ignition::math::Vector3d(0, -0.1, 0));
+          vis->SetScale(ignition::math::Vector3d(0.5, 0.5, 0.5));
       }
     }
   }
@@ -227,10 +227,9 @@ void PresentMode::ChangeSlide()
     auto size = vis->GetGeometrySize();
 
     // Target in world frame
-    auto origin = vis->WorldPose();
+    auto origin = vis->GetParent()->GetParent()->WorldPose();
 
-    auto bb_pos = origin.Pos() +
-                  vis->BoundingBox().Center();
+    auto bb_pos = origin.Pos() + ignition::math::Vector3d(0, 0, size.Z()*0.5);
     auto target_world = ignition::math::Matrix4d(ignition::math::Pose3d(
         bb_pos, origin.Rot()));
 
@@ -254,7 +253,11 @@ void PresentMode::ChangeSlide()
     camPose = mat.Pose();
   }
 
-  this->dataPtr->camera->MoveToPosition(camPose, 1);
+  if ((this->dataPtr->camera->WorldPose().Pos() - camPose.Pos()).Length() > 0.001)
+//      && (this->dataPtr->camera->WorldPose().Rot() - camPose.Rot()).Euler().Length() > 0.001)
+  {
+    this->dataPtr->camera->MoveToPosition(camPose, 1);
+  }
   this->SlideChanged(this->dataPtr->currentIndex, this->dataPtr->slideCount-1);
 }
 
