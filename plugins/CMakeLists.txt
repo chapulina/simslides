@@ -19,6 +19,7 @@ set (client_src
   Common.cc
   ImportDialog.cc
   InsertActorDialog.cc
+  Keyframe.cc
   LoadDialog.cc
   PresentMode.cc
   Simslides.cc
@@ -28,6 +29,7 @@ set (qt_headers
   Common.hh
   ImportDialog.hh
   InsertActorDialog.hh
+  Keyframe.hh
   LoadDialog.hh
   PresentMode.hh
   Simslides.hh

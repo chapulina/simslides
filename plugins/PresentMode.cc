@@ -19,9 +19,9 @@ class simslides::PresentModePrivate
 
   public: double eyeOffsetX = 0;
   public: double eyeOffsetY = -3.0;
-  public: double eyeOffsetZ = 1.1;
+  public: double eyeOffsetZ = 0;
   public: double eyeOffsetRoll = 0;
-  public: double eyeOffsetPitch = 0.13;
+  public: double eyeOffsetPitch = 0;
   public: double eyeOffsetYaw = IGN_PI_2;
 };
 
@@ -50,10 +50,17 @@ void PresentMode::OnToggled(bool _checked)
 /////////////////////////////////////////////////
 void PresentMode::Start()
 {
-  if (!this->dataPtr->camera->GetScene()->GetVisual(simslides::slidePrefix + "-0"))
+  if (!this->dataPtr->camera->GetScene()->GetVisual(
+      simslides::slidePrefix + "-0::link::visual"))
   {
     gzerr << "No slide models named [" << simslides::slidePrefix <<
         "] to present." << std::endl;
+    return;
+  }
+
+  if (simslides::keyframes.size() == 0)
+  {
+    gzerr << "No keyframes were loaded." << std::endl;
     return;
   }
 
@@ -69,12 +76,9 @@ void PresentMode::Start()
         &PresentMode::OnKeyPress, this, true);
   }
 
-  this->dataPtr->slideCount = 0;
-  while (this->dataPtr->camera->GetScene()->GetVisual(simslides::slidePrefix +
-      "-" + std::to_string(this->dataPtr->slideCount)))
-  {
-    this->dataPtr->slideCount++;
-  }
+  this->dataPtr->slideCount = simslides::keyframes.size();
+
+  gzmsg << "Start presentation" << std::endl;
 
   // Trigger first slide
   this->dataPtr->currentIndex = 0;
@@ -137,8 +141,12 @@ void PresentMode::OnSlideChanged(int _slide)
 /////////////////////////////////////////////////
 void PresentMode::ChangeSlide()
 {
-  ignition::math::Pose3d camPose;
+  gzmsg << "Change Slide: " << this->dataPtr->currentIndex << std::endl;
 
+  ignition::math::Pose3d camPose;
+  std::string toLookAt;
+
+  // Reset presentation
   if (this->dataPtr->currentIndex == -1)
   {
     camPose = this->dataPtr->camera->InitialPose();
@@ -146,9 +154,68 @@ void PresentMode::ChangeSlide()
   // Slides
   else
   {
-    std::string visName(
-        simslides::slidePrefix + "-" +
-        std::to_string(this->dataPtr->currentIndex) + "::link::visual");
+    auto keyframe = simslides::keyframes[this->dataPtr->currentIndex];
+
+    if (keyframe->HasType(KeyframeType::LOOKAT))
+    {
+      toLookAt = simslides::slidePrefix + "-" +
+          std::to_string(this->dataPtr->currentIndex);
+    }
+
+    if (keyframe->HasType(KeyframeType::STACK))
+    {
+      // Find stack front
+      auto front = this->dataPtr->currentIndex;
+      while (front > 0 && simslides::keyframes[front-1]->HasType(KeyframeType::STACK))
+        front--;
+
+      // Find stack back
+      auto back = this->dataPtr->currentIndex;
+      while (back+1 < simslides::keyframes.size() &&
+          simslides::keyframes[back+1]->HasType(KeyframeType::STACK))
+      {
+        back++;
+      }
+
+      // Get average position of all slides in stack
+      ignition::math::Pose3d avgPose;
+      std::vector<gazebo::rendering::VisualPtr> stackVis;
+      for (int i = front; i <= back; ++i)
+      {
+        auto name = simslides::slidePrefix + "-" + std::to_string(i);
+
+        auto vis = this->dataPtr->camera->GetScene()->GetVisual(name);
+
+        if (!vis)
+        {
+          gzerr << "Couldn't find visual [" << name << "]" << std::endl;
+          continue;
+        }
+
+        stackVis.push_back(vis);
+
+        avgPose+= vis->WorldPose();
+      }
+      avgPose.Pos() = avgPose.Pos() / (back-front+1);
+      avgPose.Rot() = stackVis[0]->WorldPose().Rot();
+
+      // Make all other slides on the stack thinner
+      for (int i = 0; i < stackVis.size(); ++i)
+      {
+        auto vis = stackVis[i];
+        vis->SetPosition(avgPose.Pos());
+
+        if (front + i == this->dataPtr->currentIndex)
+          vis->SetScale(ignition::math::Vector3d(1, 1, 1));
+        else
+          vis->SetScale(ignition::math::Vector3d(0.5, 0.5, 0.5));
+      }
+    }
+  }
+
+  if (!toLookAt.empty())
+  {
+    std::string visName(toLookAt + "::link::visual");
 
     auto vis = this->dataPtr->camera->GetScene()->GetVisual(visName);
     if (!vis)
@@ -160,10 +227,9 @@ void PresentMode::ChangeSlide()
     auto size = vis->GetGeometrySize();
 
     // Target in world frame
-    auto origin = vis->WorldPose();
+    auto origin = vis->GetParent()->GetParent()->WorldPose();
 
-    auto bb_pos = origin.Pos() +
-                  vis->BoundingBox().Center();
+    auto bb_pos = origin.Pos() + ignition::math::Vector3d(0, 0, size.Z()*0.5);
     auto target_world = ignition::math::Matrix4d(ignition::math::Pose3d(
         bb_pos, origin.Rot()));
 
@@ -171,7 +237,7 @@ void PresentMode::ChangeSlide()
     ignition::math::Matrix4d eye_target =
         ignition::math::Matrix4d(ignition::math::Pose3d(
             this->dataPtr->eyeOffsetX,
-            -size.Z(),
+            -size.Z()*2,
             this->dataPtr->eyeOffsetZ,
             this->dataPtr->eyeOffsetRoll,
             this->dataPtr->eyeOffsetPitch,
@@ -180,20 +246,6 @@ void PresentMode::ChangeSlide()
     // Eye in world frame
     auto eye_world = target_world * eye_target;
 
-    // Up in world frame
-  /*
-    auto rot = ignition::math::Matrix4d(ignition::math::Pose3d(
-        ignition::math::Vector3d::Zero, origin.Rot()));
-
-    auto up = rot * ignition::math::Vector3d::UnitZ;
-
-    up += eye_world.Translation();
-
-  std::cout << "---------" << std::endl;
-  std::cout << "Eye: " << eye_world.Translation() << std::endl;
-  std::cout << "target: " << target_world.Translation() << std::endl;
-  std::cout << "up: " << up << std::endl;
-  */
     // Look At
     auto mat = ignition::math::Matrix4d::LookAt(eye_world.Translation(),
         target_world.Translation());
@@ -201,7 +253,11 @@ void PresentMode::ChangeSlide()
     camPose = mat.Pose();
   }
 
-  this->dataPtr->camera->MoveToPosition(camPose, 1);
+  if ((this->dataPtr->camera->WorldPose().Pos() - camPose.Pos()).Length() > 0.001)
+//      && (this->dataPtr->camera->WorldPose().Rot() - camPose.Rot()).Euler().Length() > 0.001)
+  {
+    this->dataPtr->camera->MoveToPosition(camPose, 1);
+  }
   this->SlideChanged(this->dataPtr->currentIndex, this->dataPtr->slideCount-1);
 }
 

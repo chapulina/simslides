@@ -6,16 +6,43 @@ using namespace simslides;
 
 class simslides::ImportDialogPrivate
 {
+  /// \brief Temp folder to keep slides while models are being generated
   public: QString tmpDir = "/tmp/simslides_tmp";
+
+  /// \brief Holds the path to the PDF file
   public: QLabel *pdfLabel;
+
+  /// \brief Wait message
   public: QLabel *waitLabel;
+
+  /// \brief Done message
   public: QLabel *doneLabel;
+
+  /// \brief Directory to save models
   public: QLineEdit *dirEdit;
+
+  /// \brief Model name prefix
   public: QLineEdit *nameEdit;
+
+  /// \brief Next button #1
+  public: QPushButton *next1Button;
+
+  /// \brief Button to generate slides
   public: QPushButton *generateButton;
+
+  /// \brief Sping boxes for slide size
   public: QDoubleSpinBox *scaleXSpin;
   public: QDoubleSpinBox *scaleYSpin;
   public: QDoubleSpinBox *scaleZSpin;
+
+  /// \brief Stacked layout to hold steps
+  public: QStackedLayout *stackedStepLayout;
+
+  /// \brief Vector holding one button group per slide
+  public: std::vector<QButtonGroup *> buttonGroups;
+
+  /// \brief Total number of slides
+  public: int count;
 };
 
 /////////////////////////////////////////////////
@@ -26,11 +53,39 @@ ImportDialog::ImportDialog(QWidget *_parent)
   this->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
       Qt::WindowStaysOnTopHint | Qt::CustomizeWindowHint);
 
+  // Step 1
+  auto step1Label = new QLabel(tr("<b>Step 1: Load a PDF file</b>"));
+  step1Label->setMaximumHeight(50);
+
   // PDF
   this->dataPtr->pdfLabel = new QLabel();
+  this->dataPtr->pdfLabel->setMinimumWidth(300);
 
   auto browseButton = new QPushButton(tr("Browse"));
   this->connect(browseButton, SIGNAL(clicked()), this, SLOT(OnBrowsePDF()));
+
+  // Next 1
+  this->dataPtr->next1Button = new QPushButton(tr("Next"));
+  this->dataPtr->next1Button->setEnabled(false);
+  this->connect(this->dataPtr->next1Button, SIGNAL(clicked()), this,
+      SLOT(OnLoadPDF()));
+
+  // Step 1 layout
+  auto step1Layout = new QGridLayout;
+  step1Layout->setSpacing(0);
+  step1Layout->addWidget(step1Label, 0, 0, 1, 3);
+  step1Layout->addWidget(new QLabel("PDF file:"), 1, 0);
+  step1Layout->addWidget(this->dataPtr->pdfLabel, 1, 1);
+  step1Layout->addWidget(browseButton, 1, 2);
+  step1Layout->addWidget(this->dataPtr->next1Button, 2, 0, 1, 3);
+
+  auto step1Widget = new QWidget();
+  step1Widget->setLayout(step1Layout);
+
+  // Step 2 layout (created and inserted later)
+
+  // Step 3
+  auto step3Label = new QLabel(tr("<b>Step 3: Generate world and models</b>"));
 
   // Save dir
   this->dataPtr->dirEdit = new QLineEdit();
@@ -80,44 +135,41 @@ ImportDialog::ImportDialog(QWidget *_parent)
   this->connect(this->dataPtr->generateButton, SIGNAL(clicked()), this,
       SLOT(OnGenerate()));
 
+  // Step 3 layout
+  auto step3Layout = new QGridLayout;
+  step3Layout->setSpacing(0);
+  step3Layout->addWidget(step3Label, 0, 0, 1, 3);
+  step3Layout->addWidget(new QLabel("Save folder:"), 1, 0);
+  step3Layout->addWidget(this->dataPtr->dirEdit, 1, 1);
+  step3Layout->addWidget(saveDirButton, 1, 2);
+  step3Layout->addWidget(new QLabel("Prefix:"), 2, 0);
+  step3Layout->addWidget(this->dataPtr->nameEdit, 2, 1, 1, 2);
+  step3Layout->addWidget(new QLabel("Model scale:"), 3, 0);
+  step3Layout->addLayout(scaleXLayout, 3, 1, 1, 2);
+  step3Layout->addLayout(scaleYLayout, 4, 1, 1, 2);
+  step3Layout->addLayout(scaleZLayout, 5, 1, 1, 2);
+  step3Layout->addWidget(this->dataPtr->generateButton, 6, 0, 1, 3);
+
+  auto step3Widget = new QWidget();
+  step3Widget->setLayout(step3Layout);
+
   // Wait
-  this->dataPtr->waitLabel = new QLabel("Generating, this may take a while...");
-  this->dataPtr->waitLabel->setVisible(false);
+  this->dataPtr->waitLabel = new QLabel(
+      "   Transforming PDF into PNG,\n" +
+      "   this may take a while...\n" +
+      "   Believe me, just wait.");
 
   // Done
-  this->dataPtr->doneLabel = new QLabel("Done! Press F5 to start presenting!");
-  this->dataPtr->doneLabel->setVisible(false);
+  this->dataPtr->doneLabel = new QLabel("Done! F5 is not immediately available now, you must load the saved world...");
 
-  auto mainLayout = new QGridLayout();
+  // Stacked layout
+  this->dataPtr->stackedStepLayout = new QStackedLayout;
+  this->dataPtr->stackedStepLayout->addWidget(step1Widget);
+  this->dataPtr->stackedStepLayout->addWidget(this->dataPtr->waitLabel);
+  this->dataPtr->stackedStepLayout->addWidget(step3Widget);
+  this->dataPtr->stackedStepLayout->addWidget(this->dataPtr->doneLabel);
 
-  // PDF
-  mainLayout->addWidget(new QLabel("PDF file:"), 0, 0);
-  mainLayout->addWidget(this->dataPtr->pdfLabel, 0, 1);
-  mainLayout->addWidget(browseButton, 0, 2);
-
-  // Save dir
-  mainLayout->addWidget(new QLabel("Save models folder:"), 1, 0);
-  mainLayout->addWidget(this->dataPtr->dirEdit, 1, 1);
-  mainLayout->addWidget(saveDirButton, 1, 2);
-
-  // Model names
-  mainLayout->addWidget(new QLabel("Model name prefix:"), 2, 0);
-  mainLayout->addWidget(this->dataPtr->nameEdit, 2, 1);
-
-  // Scale
-  mainLayout->addWidget(new QLabel("Scale:"), 3, 0);
-  mainLayout->addLayout(scaleXLayout, 3, 1);
-  mainLayout->addLayout(scaleYLayout, 4, 1);
-  mainLayout->addLayout(scaleZLayout, 5, 1);
-
-  // Generate
-  mainLayout->addWidget(this->dataPtr->generateButton, 6, 1);
-
-  // Steps
-  mainLayout->addWidget(this->dataPtr->waitLabel, 7, 0, 1, 3);
-  mainLayout->addWidget(this->dataPtr->doneLabel, 8, 0, 1, 3);
-
-  this->setLayout(mainLayout);
+  this->setLayout(this->dataPtr->stackedStepLayout);
 }
 
 /////////////////////////////////////////////////
@@ -128,9 +180,6 @@ ImportDialog::~ImportDialog()
 /////////////////////////////////////////////////
 void ImportDialog::OnBrowsePDF()
 {
-  this->dataPtr->waitLabel->setVisible(false);
-  this->dataPtr->doneLabel->setVisible(false);
-  this->dataPtr->generateButton->setEnabled(false);
   QCoreApplication::processEvents();
 
   QFileDialog fileDialog(this, tr("Choose PDF file"), QDir::homePath());
@@ -147,14 +196,12 @@ void ImportDialog::OnBrowsePDF()
 
   this->dataPtr->pdfLabel->setText(fileDialog.selectedFiles()[0]);
 
-  this->CheckReady();
+  this->dataPtr->next1Button->setEnabled(true);
 }
 
 /////////////////////////////////////////////////
 void ImportDialog::OnBrowseDir()
 {
-  this->dataPtr->waitLabel->setVisible(false);
-  this->dataPtr->doneLabel->setVisible(false);
   this->dataPtr->generateButton->setEnabled(false);
   QCoreApplication::processEvents();
 
@@ -187,10 +234,9 @@ void ImportDialog::CheckReady(QString)
 }
 
 /////////////////////////////////////////////////
-void ImportDialog::OnGenerate()
+void ImportDialog::OnLoadPDF()
 {
-  this->dataPtr->waitLabel->setVisible(true);
-  this->dataPtr->doneLabel->setVisible(false);
+  this->dataPtr->stackedStepLayout->setCurrentIndex(1);
   QCoreApplication::processEvents();
 
   // Create / clear temp folder to hold images
@@ -221,23 +267,15 @@ void ImportDialog::OnGenerate()
         "-quality" << "100" <<
         "-sharpen" << "0x1.0" <<
         this->dataPtr->pdfLabel->text() <<
-        QString(this->dataPtr->tmpDir + "/" + this->dataPtr->nameEdit->text() +
-            ".png"));
+        QString(this->dataPtr->tmpDir + "/tmpPng.png"));
     p.waitForFinished();
   }
-  QCoreApplication::processEvents();
 
-  // Scale
-  auto scaleX = std::to_string(this->dataPtr->scaleXSpin->value());
-  auto scaleY = std::to_string(this->dataPtr->scaleYSpin->value());
-  auto scaleZ = std::to_string(this->dataPtr->scaleZSpin->value());
-  auto height = std::to_string(this->dataPtr->scaleZSpin->value() * 0.5);
-
-  // Save models
+  // Generate step 2 widgets
 
   // Find number of images in temp path
   boost::filesystem::path tmpPath(this->dataPtr->tmpDir.toStdString());
-  int count = std::count_if(
+  this->dataPtr->count = std::count_if(
       boost::filesystem::directory_iterator(tmpPath),
       boost::filesystem::directory_iterator(),
       boost::bind( static_cast<bool(*)(const boost::filesystem::path&)>(
@@ -245,10 +283,107 @@ void ImportDialog::OnGenerate()
         boost::bind( &boost::filesystem::directory_entry::path, _1 ) ) );
   QCoreApplication::processEvents();
 
+  auto slidesLayout = new QVBoxLayout();
+  for (int i = 0; i < this->dataPtr->count; ++i)
+  {
+    auto number = new QLabel("Slide " + QVariant(i).toString());
+
+    auto lookat = new QRadioButton("Look at");
+    lookat->setChecked(true);
+    auto stack = new QRadioButton("Stack");
+
+    auto group = new QButtonGroup();
+    group->addButton(lookat, 0);
+    group->addButton(stack, 1);
+    this->dataPtr->buttonGroups.push_back(group);
+
+    auto slideLayout = new QHBoxLayout();
+    slideLayout->addWidget(number);
+    slideLayout->addWidget(lookat);
+    slideLayout->addWidget(stack);
+
+    slidesLayout->addLayout(slideLayout);
+  }
+
+  auto step2Label = new QLabel(tr("<b>Step 2: Keyframes</b>"));
+
+  // Next 2
+  auto next2Button = new QPushButton(tr("Next"));
+  this->connect(next2Button, SIGNAL(clicked()), this, SLOT(OnNext2()));
+
+  auto step2Layout = new QVBoxLayout;
+  step2Layout->setSpacing(0);
+  step2Layout->addWidget(step2Label);
+  step2Layout->addLayout(slidesLayout);
+  step2Layout->addWidget(next2Button);
+
+  auto step2Widget = new QWidget();
+  step2Widget->setLayout(step2Layout);
+
+  this->dataPtr->stackedStepLayout->insertWidget(2, step2Widget);
+  this->dataPtr->stackedStepLayout->setCurrentIndex(2);
+}
+
+/////////////////////////////////////////////////
+void ImportDialog::OnNext2()
+{
+  this->dataPtr->stackedStepLayout->setCurrentIndex(3);
+}
+
+/////////////////////////////////////////////////
+void ImportDialog::OnGenerate()
+{
+  // Scale
+  auto scaleX = std::to_string(this->dataPtr->scaleXSpin->value());
+  auto scaleY = std::to_string(this->dataPtr->scaleYSpin->value());
+  auto scaleZ = std::to_string(this->dataPtr->scaleZSpin->value());
+  auto height = std::to_string(this->dataPtr->scaleZSpin->value() * 0.5);
+
+  // Start world
+  std::string worldSdf = "<?xml version='1.0' ?>\n\
+    <sdf version='1.5'>\n\
+    <world name='default'>\n\
+    <gui>\n\
+      <plugin name='simslides' filename='libsimslides.so'>\n\
+        <slide_prefix>" + simslides::slidePrefix + "</slide_prefix>\n";
+
+  // Generate plugin
+  if (this->dataPtr->buttonGroups.size() != this->dataPtr->count)
+  {
+    gzerr << "Number of slides [" << this->dataPtr->count <<
+         "] doesn't match number of button groups [" <<
+         this->dataPtr->buttonGroups.size() << "]" << std::endl;
+    return;
+  }
+
+  for (int i = 0; i < this->dataPtr->count; ++i)
+  {
+    if (this->dataPtr->buttonGroups[i]->checkedId() == 0)
+      worldSdf += "        <keyframe type='lookat' number='" + std::to_string(i) + "'/>\n";
+    else if (this->dataPtr->buttonGroups[i]->checkedId() == 1)
+      worldSdf += "        <keyframe type='stack' number='" + std::to_string(i) + "'/>\n";
+    else
+      gzerr << "Invalid button [" << i << "]" << std::endl;
+  }
+
+  // Continue world
+  worldSdf += "\
+    </plugin>\n\
+      <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'>\n\
+      </plugin>\n\
+    </gui>\n\
+    <include>\n\
+      <uri>model://sun</uri>\n\
+    </include>\n\
+    <include>\n\
+      <uri>model://ground_plane</uri>\n\
+    </include>";
+
+  // Save each model and add it to the world
   simslides::slidePath = this->dataPtr->dirEdit->text().toStdString();
   auto saveDialog = new gazebo::gui::SaveEntityDialog(
       gazebo::gui::SaveEntityDialog::MODEL);
-  for (int i = 0; i < count - 1; ++i)
+  for (int i = 0; i < this->dataPtr->count; ++i)
   {
     std::string modelName(simslides::slidePrefix + "-" +
         std::to_string(i));
@@ -355,10 +490,34 @@ void ImportDialog::OnGenerate()
 
     // Move image to dir
     gazebo::common::moveFile(
-      this->dataPtr->tmpDir.toStdString() + "/" + modelName + ".png",
+      this->dataPtr->tmpDir.toStdString() + "/tmpPng-" + std::to_string(i) + ".png",
       simslides::slidePath + "/" + modelName + "/materials/textures/" + modelName + ".png");
 
+    // Add model to world
+    worldSdf+=
+      "<include>\n\
+        <name>" + modelName + "</name>\n\
+        <pose>" + std::to_string(i) + "0 0 0 0 0 0</pose>\n\
+        <uri>model://" + modelName + "</uri>\n\
+      </include>";
   }
+
+  // Save world
+  worldSdf+= "</world>\n\
+    </sdf>";
+  std::string worldFile = simslides::slidePath + "/" + simslides::slidePrefix + ".world";
+  std::ofstream saveWorld(worldFile, std::ios::out);
+  if (!saveWorld)
+  {
+    QMessageBox msgBox;
+    std::string str = "Unable to open file: " + worldFile;
+    str += ".\nCheck file permissions.";
+    msgBox.setText(str.c_str());
+    msgBox.exec();
+  }
+  else
+    saveWorld << worldSdf;
+  saveWorld.close();
 
   // Add to path and wait to be added
   saveDialog->AddDirToModelPaths(simslides::slidePath + "/" + "dummy");
@@ -387,10 +546,8 @@ void ImportDialog::OnGenerate()
 
   // Insert models
   simslides::LoadSlides();
-
-  this->dataPtr->waitLabel->setVisible(false);
-  this->dataPtr->doneLabel->setVisible(true);
+  this->dataPtr->stackedStepLayout->removeItem(
+      this->dataPtr->stackedStepLayout->itemAt(2));
+  this->dataPtr->stackedStepLayout->setCurrentIndex(3);
 }
-
-
 
