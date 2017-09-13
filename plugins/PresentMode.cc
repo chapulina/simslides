@@ -72,13 +72,14 @@ void PresentMode::Start()
     this->dataPtr->node->Init();
 
     this->dataPtr->keyboardSub =
-        this->dataPtr->node->Subscribe("/gazebo/default/keyboard/keypress",
+        this->dataPtr->node->Subscribe("~/keyboard/keypress",
         &PresentMode::OnKeyPress, this, true);
   }
 
   this->dataPtr->slideCount = simslides::keyframes.size();
 
-  gzmsg << "Start presentation" << std::endl;
+  gzmsg << "Start presentation. Total of [" << this->dataPtr->slideCount
+        << "] slides" << std::endl;
 
   // Trigger first slide
   this->dataPtr->currentIndex = 0;
