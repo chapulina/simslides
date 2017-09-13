@@ -1,3 +1,37 @@
+# ROSCon 2017
+
+Using Gazebo 8
+
+Tentative instructions:
+
+~~~
+cd ~/roscon2017
+hg clone http://bitbucket.org/chapulina/simslides -b ROSCon_Sep2017
+hg clone http://bitbucket.org/osrf/srcsim -b default
+hg clone http://bitbucket.org/frank_b_mathis/val_gazebo_models/ -b default
+cd simslides
+sh build_plugins.sh
+. ./roscon2017.sh
+~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+
 # Make sure you've installed Gazebo
 
 http://gazebosim.org/tutorials?cat=install
