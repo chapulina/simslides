@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <sdf/sdf.hh>
+#include <ignition/math/Pose3.hh>
 
 #include <gazebo/gui/gui.hh>
 
@@ -15,6 +16,7 @@ namespace simslides
   {
     LOOKAT            = 0x00000001,
     STACK             = 0x00000002,
+    CAM_POSE          = 0x00000004,
   };
 
   class Keyframe
@@ -44,6 +46,10 @@ namespace simslides
     /// \brief
     /// \return
     public: unsigned int SlideNumber() const;
+
+    /// \brief
+    /// \return
+    public: ignition::math::Pose3d CamPose() const;
 
     /// \internal
     /// \brief Pointer to private data.

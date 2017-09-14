@@ -212,6 +212,12 @@ void PresentMode::ChangeSlide()
           vis->SetScale(ignition::math::Vector3d(0.5, 0.5, 0.5));
       }
     }
+
+    if (keyframe->HasType(KeyframeType::CAM_POSE))
+
+    {
+      camPose = keyframe->CamPose();
+    }
   }
 
   if (!toLookAt.empty())
