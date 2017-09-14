@@ -9,7 +9,7 @@ class simslides::KeyframePrivate
 {
   public: unsigned int type;
   public: unsigned int slideNumber;
-
+  public: ignition::math::Pose3d camPose;
 };
 
 /////////////////////////////////////////////////
@@ -19,10 +19,21 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
     return;
 
   auto type = _sdf->Get<std::string>("type");
-  this->AddType(KeyframeType::LOOKAT);
   if (type == "stack")
+  {
+    this->AddType(KeyframeType::LOOKAT);
     this->AddType(KeyframeType::STACK);
-  else if (type != "lookat")
+  }
+  else if (type == "lookat")
+  {
+    this->AddType(KeyframeType::LOOKAT);
+  }
+  else if (type == "campose")
+  {
+    this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("pose");
+    this->AddType(KeyframeType::CAM_POSE);
+  }
+  else
     gzerr << "Unsupported type [" << type << "]" << std::endl;
 
   this->dataPtr->slideNumber = _sdf->Get<int>("number");
@@ -58,5 +69,11 @@ unsigned int Keyframe::GetType() const
 unsigned int Keyframe::SlideNumber() const
 {
   return this->dataPtr->slideNumber;
+}
+
+//////////////////////////////////////////////////
+ignition::math::Pose3d Keyframe::CamPose() const
+{
+  return this->dataPtr->camPose;
 }
 

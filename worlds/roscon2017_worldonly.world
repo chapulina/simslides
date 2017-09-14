@@ -26,6 +26,9 @@
       <slide_prefix>slide</slide_prefix>
       <keyframe type='lookat' number='0'/>
       <keyframe type='lookat' number='1'/>
+      <keyframe type='campose'>
+        <pose>10 10 10 0 0 0</pose>
+      </keyframe>
       <keyframe type='lookat' number='2'/>
       <keyframe type='lookat' number='3'/>
       <keyframe type='lookat' number='4'/>
