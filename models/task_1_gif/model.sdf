@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <model name="task_1_gif">
+    <static>true</static>
+    <pose> 0 0 0.5 0 0 0 </pose>
+    <link name="link">
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>1.007 0.01 0.725</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>model://task_1_gif/materials/scripts</uri>
+            <uri>model://task_1_gif/materials/textures</uri>
+            <name>Task_1_gif/Tex</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

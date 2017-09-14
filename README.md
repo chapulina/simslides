@@ -14,6 +14,13 @@ sh build_plugins.sh
 . ./roscon2017.sh
 ~~~
 
+During development, use `worldonly` for convenience:
+
+~~~
+. ./roscon2017_worldonly.sh
+gedit worlds/roscon2017_worldonly.world
+~~~
+
 
 
 

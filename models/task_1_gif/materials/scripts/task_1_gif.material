@@ -1,0 +1,15 @@
+material Task_1_gif/Tex
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        /* anim_texutre <base_name> <num_frames> <duration> */
+        anim_texture t1.png 19 5
+        filtering none
+      }
+    }
+  }
+}
