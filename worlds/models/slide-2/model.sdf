@@ -3,18 +3,18 @@
 <model name='slide-2'>
   <static>1</static>
   <link name='link'>
-    <pose frame=''>0 0 0.75 0 -0 0</pose>
+    <pose frame=''>0 0 0.28125 0 -0 0</pose>
     <collision name='collision'>
       <geometry>
         <box>
-          <size>2 0.01 1.5</size>
+          <size>1 0.01 0.5625</size>
         </box>
       </geometry>
     </collision>
     <visual name='visual'>
       <geometry>
         <box>
-          <size>2 0.01 1.5</size>
+          <size>1 0.01 0.5625</size>
         </box>
       </geometry>
       <material>
