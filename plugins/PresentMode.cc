@@ -1,6 +1,8 @@
 #include <gazebo/rendering/UserCamera.hh>
 #include <gazebo/rendering/Scene.hh>
 
+#include <gazebo/gui/GuiEvents.hh>
+#include <gazebo/msgs/msgs.hh>
 #include <gazebo/transport/Node.hh>
 #include <gazebo/transport/Subscriber.hh>
 
@@ -11,7 +13,9 @@ using namespace simslides;
 
 class simslides::PresentModePrivate
 {
+  /// \brief Node used for communication.
   public: gazebo::transport::NodePtr node;
+
   public: gazebo::transport::SubscriberPtr keyboardSub;
   public: gazebo::rendering::UserCameraPtr camera;
   public: int currentIndex = -1;
@@ -23,6 +27,14 @@ class simslides::PresentModePrivate
   public: double eyeOffsetRoll = 0;
   public: double eyeOffsetPitch = 0;
   public: double eyeOffsetYaw = IGN_PI_2;
+
+  /// \brief Used to start, stop, and step simulation.
+  public: gazebo::transport::PublisherPtr logPlaybackControlPub;
+
+  /// \brief Event based connections.
+  public: std::vector<gazebo::event::ConnectionPtr> connections;
+
+  public: std::string windowMode = "simulation";
 };
 
 /////////////////////////////////////////////////
@@ -31,11 +43,22 @@ PresentMode::PresentMode(QObject *_parent)
 {
   // Keep pointer to the user camera
   this->dataPtr->camera = gazebo::gui::get_active_camera();
+
+  // Connections
+  this->dataPtr->connections.push_back(
+      gazebo::gui::Events::ConnectWindowMode(
+      std::bind(&PresentMode::OnWindowMode, this, std::placeholders::_1)));
 }
 
 /////////////////////////////////////////////////
 PresentMode::~PresentMode()
 {
+}
+
+/////////////////////////////////////////////////
+void PresentMode::OnWindowMode(const std::string &_mode)
+{
+  this->dataPtr->windowMode = _mode;
 }
 
 /////////////////////////////////////////////////
@@ -74,6 +97,13 @@ void PresentMode::Start()
     this->dataPtr->keyboardSub =
         this->dataPtr->node->Subscribe("~/keyboard/keypress",
         &PresentMode::OnKeyPress, this, true);
+
+    // FIXME: Only advertize this if we have a LOG_SEEK frame
+    if (this->dataPtr->windowMode == "LogPlayback")
+    {
+      this->dataPtr->logPlaybackControlPub = this->dataPtr->node->
+          Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
+    }
   }
 
   this->dataPtr->slideCount = simslides::keyframes.size();
@@ -213,10 +243,18 @@ void PresentMode::ChangeSlide()
       }
     }
 
-    if (keyframe->HasType(KeyframeType::CAM_POSE))
-
+    if (keyframe->HasType(KeyframeType::LOG_SEEK))
     {
       camPose = keyframe->CamPose();
+
+      if (this->dataPtr->logPlaybackControlPub)
+      {
+        auto logSeek = keyframe->LogSeek();
+        gazebo::msgs::LogPlaybackControl msg;
+        gazebo::msgs::Set(msg.mutable_seek(), logSeek);
+        msg.set_pause(false);
+        this->dataPtr->logPlaybackControlPub->Publish(msg);
+      }
     }
   }
 

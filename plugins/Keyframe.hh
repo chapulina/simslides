@@ -16,7 +16,7 @@ namespace simslides
   {
     LOOKAT            = 0x00000001,
     STACK             = 0x00000002,
-    CAM_POSE          = 0x00000004,
+    LOG_SEEK          = 0x00000004,
   };
 
   class Keyframe
@@ -50,6 +50,10 @@ namespace simslides
     /// \brief
     /// \return
     public: ignition::math::Pose3d CamPose() const;
+
+    /// \brief
+    /// \return
+    public: gazebo::common::Time LogSeek() const;
 
     /// \internal
     /// \brief Pointer to private data.

@@ -1,45 +1,57 @@
 <?xml version='1.0'?>
 <sdf version ='1.6'>
 <world name='SRC_finals'>
-  <physics name='default_physics' default='0' type='ode'>
-    <real_time_update_rate>1000</real_time_update_rate>
-    <max_step_size>0.001</max_step_size>
-    <real_time_factor>1</real_time_factor>
-    <ode>
-      <solver>
-        <type>quick</type>
-        <iters>150</iters>
-        <precon_iters>0</precon_iters>
-        <sor>1.4</sor>
-        <use_dynamic_moi_rescaling>1</use_dynamic_moi_rescaling>
-      </solver>
-      <constraints>
-        <cfm>0</cfm>
-        <erp>0.8</erp>
-        <contact_max_correcting_vel>2000</contact_max_correcting_vel>
-        <contact_surface_layer>0.01</contact_surface_layer>
-      </constraints>
-    </ode>
-  </physics>
   <gui fullscreen='0'>
     <plugin name="simslides" filename="libsimslides.so">
       <slide_prefix>slide</slide_prefix>
       <keyframe type='lookat' number='0'/>
       <keyframe type='lookat' number='1'/>
-      <keyframe type='campose'>
-        <pose>-0.6521 1.129 4.2048 0 0.79 0.028</pose>
+      <!-- satellite -->
+      <keyframe type='log_seek'>
+        <cam_pose>-0.6521 1.129 4.2048 0 0.79 0.028</cam_pose>
+        <time>156 0</time>
       </keyframe>
       <keyframe type='lookat' number='2'/>
       <keyframe type='lookat' number='3'/>
       <keyframe type='lookat' number='4'/>
+      <!-- cable -->
+      <keyframe type='log_seek'>
+        <cam_pose>13.965 3.633 2.765 0 0.698 2.796</cam_pose>
+        <time>427 0</time>
+      </keyframe>
       <keyframe type='lookat' number='5'/>
       <keyframe type='lookat' number='6'/>
       <keyframe type='lookat' number='7'/>
       <keyframe type='lookat' number='8'/>
+      <!-- stairs -->
+      <keyframe type='log_seek'>
+        <cam_pose>15.918 8.55 3.927 0 0.473 -0.579</cam_pose>
+        <time>660 0</time>
+      </keyframe>
       <keyframe type='lookat' number='9'/>
       <keyframe type='lookat' number='10'/>
+      <!-- pick up leak detector -->
+      <keyframe type='log_seek'>
+        <cam_pose>29.146 0.99 4.05 0 0.542 2.0928</cam_pose>
+        <time>1005 0</time>
+      </keyframe>
+      <!-- looking for leak -->
+      <keyframe type='log_seek'>
+        <cam_pose>26.538 4.236 4.697 0 0.41 1.08</cam_pose>
+        <time>1575 0</time>
+      </keyframe>
+      <!-- fix leak -->
+      <keyframe type='log_seek'>
+        <cam_pose>29.855 8.537 3.292 0 0.1577 2.944</cam_pose>
+        <time>2138 0</time>
+      </keyframe>
       <keyframe type='lookat' number='11'/>
       <keyframe type='lookat' number='12'/>
+      <!-- walk to finish box -->
+      <keyframe type='log_seek'>
+        <cam_pose>36.8 -4.237 2.888 0 0.1337 2.34</cam_pose>
+        <time>2430 0</time>
+      </keyframe>
       <keyframe type='lookat' number='13'/>
     </plugin>
     <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
@@ -133,6 +145,18 @@
   <include>
     <pose frame=''>20.6127 -7.635 0.45 0 0 -0.37</pose>
     <uri>model://task_2_gif</uri>
+  </include>
+  <include>
+    <pose frame=''>29.193 2.59 2.43 0.568 0 0.909</pose>
+    <uri>model://banner-0</uri>
+  </include>
+  <include>
+    <pose frame=''>9.80 5.42 0.0246 -0.27 0 1.25</pose>
+    <uri>model://banner-1</uri>
+  </include>
+  <include>
+    <pose frame=''>19.1266 7.259 1.69 0.3 0 1.2233</pose>
+    <uri>model://banner-4</uri>
   </include>
   <model name='heightmap_mars'>
     <static>1</static>

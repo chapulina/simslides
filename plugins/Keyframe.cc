@@ -10,6 +10,7 @@ class simslides::KeyframePrivate
   public: unsigned int type;
   public: unsigned int slideNumber;
   public: ignition::math::Pose3d camPose;
+  public: gazebo::common::Time logSeek;
 };
 
 /////////////////////////////////////////////////
@@ -28,15 +29,17 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
   {
     this->AddType(KeyframeType::LOOKAT);
   }
-  else if (type == "campose")
+  else if (type == "log_seek")
   {
-    this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("pose");
-    this->AddType(KeyframeType::CAM_POSE);
+    this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("cam_pose");
+    this->dataPtr->logSeek = _sdf->Get<gazebo::common::Time>("time");
+    this->AddType(KeyframeType::LOG_SEEK);
   }
   else
     gzerr << "Unsupported type [" << type << "]" << std::endl;
 
-  this->dataPtr->slideNumber = _sdf->Get<int>("number");
+  if (_sdf->HasAttribute("number"))
+    this->dataPtr->slideNumber = _sdf->Get<int>("number");
 
   gzmsg << "Loading keyframe [" << this->dataPtr->slideNumber << "]"
         << std::endl;
@@ -75,5 +78,11 @@ unsigned int Keyframe::SlideNumber() const
 ignition::math::Pose3d Keyframe::CamPose() const
 {
   return this->dataPtr->camPose;
+}
+
+//////////////////////////////////////////////////
+gazebo::common::Time Keyframe::LogSeek() const
+{
+  return this->dataPtr->logSeek;
 }
 
