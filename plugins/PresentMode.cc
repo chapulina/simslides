@@ -160,7 +160,7 @@ void PresentMode::ChangeSlide()
     if (keyframe->HasType(KeyframeType::LOOKAT))
     {
       toLookAt = simslides::slidePrefix + "-" +
-          std::to_string(this->dataPtr->currentIndex);
+          std::to_string(keyframe->SlideNumber());
     }
 
     if (keyframe->HasType(KeyframeType::STACK))

@@ -5,6 +5,7 @@ material Slides/slide_10
           {
             pass
             {
+              lighting off
               texture_unit
               {
                 texture slide-10.png

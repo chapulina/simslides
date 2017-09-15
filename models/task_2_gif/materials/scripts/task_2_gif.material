@@ -4,6 +4,7 @@ material Task_2_gif/Tex
   {
     pass
     {
+      lighting off
       texture_unit
       {
         /* anim_texutre <base_name> <num_frames> <duration> */
