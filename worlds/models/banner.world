@@ -1,0 +1,42 @@
+<?xml version='1.0' ?>
+    <sdf version='1.5'>
+    <world name='default'>
+    <gui>
+      <plugin name='simslides' filename='libsimslides.so'>
+        <slide_prefix>banner</slide_prefix>
+        <keyframe type='lookat' number='0'/>
+        <keyframe type='lookat' number='1'/>
+        <keyframe type='lookat' number='2'/>
+        <keyframe type='lookat' number='3'/>
+        <keyframe type='lookat' number='4'/>
+    </plugin>
+      <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'>
+      </plugin>
+    </gui>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include><include>
+        <name>banner-0</name>
+        <pose>00 0 0 0 0 0</pose>
+        <uri>model://banner-0</uri>
+      </include><include>
+        <name>banner-1</name>
+        <pose>10 0 0 0 0 0</pose>
+        <uri>model://banner-1</uri>
+      </include><include>
+        <name>banner-2</name>
+        <pose>20 0 0 0 0 0</pose>
+        <uri>model://banner-2</uri>
+      </include><include>
+        <name>banner-3</name>
+        <pose>30 0 0 0 0 0</pose>
+        <uri>model://banner-3</uri>
+      </include><include>
+        <name>banner-4</name>
+        <pose>40 0 0 0 0 0</pose>
+        <uri>model://banner-4</uri>
+      </include></world>
+    </sdf>

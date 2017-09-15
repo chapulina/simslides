@@ -1,0 +1,17 @@
+material Slides/banner_2
+        {
+          receive_shadows off
+          technique
+          {
+            pass
+            {
+              lighting off
+              texture_unit
+              {
+                texture banner-2.png
+                filtering anistropic
+                max_anisotropy 16
+              }
+            }
+          }
+        }
