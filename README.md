@@ -1,14 +1,15 @@
 # ROSCon 2017
 
-Using Gazebo 8
+Using Gazebo 8.1.1
 
 Tentative instructions:
 
 ~~~
+sudo apt install cmake mercurial
+mkdir ~/roscon2017
 cd ~/roscon2017
 hg clone http://bitbucket.org/chapulina/simslides -b ROSCon_Sep2017
-hg clone http://bitbucket.org/osrf/srcsim -b default
-hg clone http://bitbucket.org/frank_b_mathis/val_gazebo_models/ -b default
+hg clone http://bitbucket.org/osrf/srcsim -b default #for models, no need to install
 cd simslides
 sh build_plugins.sh
 . ./roscon2017.sh
@@ -21,6 +22,11 @@ During development, use `worldonly` for convenience:
 gedit worlds/roscon2017_worldonly.world
 ~~~
 
+For presentation, use huge log file:
+
+~~~
+. ./roscon2017.sh
+~~~
 
 
 
