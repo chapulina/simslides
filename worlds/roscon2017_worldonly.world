@@ -4,55 +4,99 @@
   <gui fullscreen='0'>
     <plugin name="simslides" filename="libsimslides.so">
       <slide_prefix>slide</slide_prefix>
+
+      <!-- 0 -->
       <keyframe type='lookat' number='0'/>
+
+      <!-- 1 -->
       <keyframe type='lookat' number='1'/>
+
+      <!-- 2 -->
       <!-- satellite -->
       <keyframe type='log_seek'>
         <cam_pose>-0.6521 1.129 4.2048 0 0.79 0.028</cam_pose>
         <time>156 0</time>
       </keyframe>
+
+      <!-- 3 -->
       <keyframe type='lookat' number='2'/>
+
+      <!-- 4 -->
       <keyframe type='lookat' number='3'/>
+
+      <!-- 5 -->
       <!-- cable -->
       <keyframe type='log_seek'>
         <cam_pose>13.965 3.633 2.765 0 0.698 2.796</cam_pose>
         <time>427 0</time>
       </keyframe>
+
+      <!-- 6 -->
       <keyframe type='stack' number='4'/>
+
+      <!-- 7 -->
       <keyframe type='stack' number='5'/>
+
+      <!-- 8 -->
       <keyframe type='stack' number='6'/>
+
+      <!-- 9 -->
       <keyframe type='stack' number='7'/>
+
+      <!-- 10 -->
       <keyframe type='stack' number='8'/>
+
+      <!-- 11 -->
       <!-- stairs -->
       <keyframe type='log_seek'>
         <cam_pose>15.918 8.55 3.927 0 0.473 -0.579</cam_pose>
         <time>660 0</time>
       </keyframe>
+
+      <!-- 12 -->
       <keyframe type='lookat' number='9'/>
+
+      <!-- 13 -->
       <keyframe type='lookat' number='10'/>
+
+      <!-- 14 -->
       <!-- pick up leak detector -->
       <keyframe type='log_seek'>
         <cam_pose>29.146 0.99 4.05 0 0.542 2.0928</cam_pose>
         <time>1005 0</time>
       </keyframe>
+
+      <!-- 15 -->
       <!-- looking for leak -->
       <keyframe type='log_seek'>
         <cam_pose>26.538 4.236 4.697 0 0.41 1.08</cam_pose>
         <time>1575 0</time>
       </keyframe>
+
+      <!-- 16 -->
       <!-- fix leak -->
       <keyframe type='log_seek'>
         <cam_pose>29.855 8.537 3.292 0 0.1577 2.944</cam_pose>
         <time>2138 0</time>
       </keyframe>
+
+      <!-- 17 -->
       <keyframe type='lookat' number='11'/>
+
+      <!-- 18 -->
       <keyframe type='lookat' number='12'/>
+
+      <!-- 19 -->
       <!-- walk to finish box -->
       <keyframe type='log_seek'>
         <cam_pose>36.8 -4.237 2.888 0 0.1337 2.34</cam_pose>
         <time>2430 0</time>
       </keyframe>
+
+      <!-- 20 -->
       <keyframe type='lookat' number='13'/>
+
+      <!-- 21 -->
       <keyframe type='lookat' number='14'/>
     </plugin>
     <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
