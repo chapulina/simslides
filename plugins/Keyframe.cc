@@ -8,7 +8,7 @@ using namespace simslides;
 class simslides::KeyframePrivate
 {
   public: unsigned int type;
-  public: unsigned int slideNumber;
+  public: int slideNumber = -1;
   public: ignition::math::Pose3d camPose;
   public: gazebo::common::Time logSeek;
 };
@@ -41,8 +41,15 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
   if (_sdf->HasAttribute("number"))
     this->dataPtr->slideNumber = _sdf->Get<int>("number");
 
-  gzmsg << "Loading keyframe [" << this->dataPtr->slideNumber << "]"
-        << std::endl;
+  if (this->dataPtr->slideNumber >= 0)
+  {
+    gzmsg << "Loading [" << type << "] keyframe tied to slide ["
+          << this->dataPtr->slideNumber << "]" << std::endl;
+  }
+  else
+  {
+    gzmsg << "Loading [" << type << "] keyframe" << std::endl;
+  }
 }
 
 /////////////////////////////////////////////////
