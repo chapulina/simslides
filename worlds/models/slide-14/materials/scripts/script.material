@@ -1,0 +1,17 @@
+material Slides/slide_14
+        {
+          receive_shadows off
+          technique
+          {
+            pass
+            {
+              lighting off
+              texture_unit
+              {
+                texture slide-14.png
+                filtering anistropic
+                max_anisotropy 16
+              }
+            }
+          }
+        }

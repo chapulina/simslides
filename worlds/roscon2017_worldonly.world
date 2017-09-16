@@ -13,16 +13,16 @@
       </keyframe>
       <keyframe type='lookat' number='2'/>
       <keyframe type='lookat' number='3'/>
-      <keyframe type='lookat' number='4'/>
       <!-- cable -->
       <keyframe type='log_seek'>
         <cam_pose>13.965 3.633 2.765 0 0.698 2.796</cam_pose>
         <time>427 0</time>
       </keyframe>
-      <keyframe type='lookat' number='5'/>
-      <keyframe type='lookat' number='6'/>
-      <keyframe type='lookat' number='7'/>
-      <keyframe type='lookat' number='8'/>
+      <keyframe type='stack' number='4'/>
+      <keyframe type='stack' number='5'/>
+      <keyframe type='stack' number='6'/>
+      <keyframe type='stack' number='7'/>
+      <keyframe type='stack' number='8'/>
       <!-- stairs -->
       <keyframe type='log_seek'>
         <cam_pose>15.918 8.55 3.927 0 0.473 -0.579</cam_pose>
@@ -53,11 +53,12 @@
         <time>2430 0</time>
       </keyframe>
       <keyframe type='lookat' number='13'/>
+      <keyframe type='lookat' number='14'/>
     </plugin>
     <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
     </plugin>
     <camera name='user_camera'>
-      <pose frame=''>-4.1 -0.2 3.3 0 0.37 0</pose>
+      <pose frame=''>9.59 -24.785 8.7266 0 0.116 1.5227</pose>
     </camera>
   </gui>
   <scene>
@@ -91,67 +92,78 @@
     <uri>model://slide-1</uri>
   </include><include>
     <name>slide-2</name>
-    <pose frame=''>8.38097 -8.68284 0 0 -0 0</pose>
+    <pose frame=''>2.381 -4.329 1.221 0 0 0</pose>
     <uri>model://slide-2</uri>
   </include><include>
     <name>slide-3</name>
-    <pose frame=''>13.7429 -11.6928 3.32965 0 -0 0</pose>
+    <pose frame=''>6.03 -7.62 3.32 0 0 0</pose>
     <uri>model://slide-3</uri>
-  </include><include>
+  </include>
+
+  <!-- stack -->
+  <include>
     <name>slide-4</name>
-    <pose frame=''>6.22063 8.07441 0 0 -0 0</pose>
+    <pose>11.797 -3.05 2.26 0 0 0.169</pose>
     <uri>model://slide-4</uri>
   </include><include>
     <name>slide-5</name>
-    <pose frame=''>12.7687 13.1035 0 0 -0 0</pose>
+    <pose>11.797 -3.05 2.26 0 0 0.169</pose>
     <uri>model://slide-5</uri>
   </include><include>
     <name>slide-6</name>
-    <pose frame=''>19.7591 -7.42928 0 0 -0 0</pose>
+    <pose>11.797 -3.05 2.26 0 0 0.169</pose>
     <uri>model://slide-6</uri>
   </include><include>
     <name>slide-7</name>
-    <pose frame=''>6.67029 15.4656 0 0 -0 0</pose>
+    <pose>11.797 -3.05 2.26 0 0 0.169</pose>
     <uri>model://slide-7</uri>
   </include><include>
     <name>slide-8</name>
-    <pose frame=''>24.8807 -12.2774 0 0 -0 0</pose>
+    <pose>11.797 -3.05 2.26 0 0 0.169</pose>
     <uri>model://slide-8</uri>
-  </include><include>
+  </include>
+  <!-- /stack -->
+
+  <include>
     <name>slide-9</name>
-    <pose frame=''>15.0628 -17.7661 0 0 -0 0</pose>
+    <pose frame=''>12.69 6.61 1.877 0 0 2.749</pose>
     <uri>model://slide-9</uri>
   </include><include>
     <name>slide-10</name>
-    <pose frame=''>-2.33861 18.4726 0 0 -0 0</pose>
+    <pose frame=''>26.6921 -1.537 2.365 0 0 -0.227</pose>
     <uri>model://slide-10</uri>
   </include><include>
     <name>slide-11</name>
-    <pose frame=''>21.4456 -16.6824 0 0 -0 0</pose>
+    <pose frame=''>25.685 1.97 2.72 0 0 -0.836</pose>
     <uri>model://slide-11</uri>
   </include><include>
     <name>slide-12</name>
-    <pose frame=''>8.07412 -19.1312 0 0 -0 0</pose>
+    <pose frame=''>17.078 24.095 5.43 0 0 -1.6885</pose>
     <uri>model://slide-12</uri>
   </include><include>
     <name>slide-13</name>
-    <pose frame=''>8.44454 -13.5918 0 0 -0 0</pose>
+    <pose frame=''>35.708 -3.676 3.28 0 0 1.0205</pose>
     <uri>model://slide-13</uri>
   </include>
   <include>
-    <pose frame=''>18.7259 -7.579 0.429 0 -0 0.2158</pose>
+    <name>slide-14</name>
+    <pose frame=''>36.635 -25.26 6.274 0 0 1.295</pose>
+    <uri>model://slide-14</uri>
+  </include>
+  <include>
+    <pose frame=''>26.328 -1.55 2.63 0 0 0.0966</pose>
     <uri>model://task_1_gif</uri>
   </include>
   <include>
-    <pose frame=''>20.6127 -7.635 0.45 0 0 -0.37</pose>
+    <pose frame=''>27.032 -1.65 2.60 0 0 -0.37</pose>
     <uri>model://task_2_gif</uri>
   </include>
   <include>
-    <pose frame=''>29.193 2.59 2.43 0.568 0 0.909</pose>
+    <pose frame=''>29.149 2.717 2.463 -0.521 0 0.909</pose>
     <uri>model://banner-0</uri>
   </include>
   <include>
-    <pose frame=''>9.80 5.42 0.0246 -0.27 0 1.25</pose>
+    <pose frame=''>9.68 5.468 0.58 -0.27 0 1.25</pose>
     <uri>model://banner-1</uri>
   </include>
   <include>
