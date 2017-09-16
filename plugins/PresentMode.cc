@@ -196,22 +196,24 @@ void PresentMode::ChangeSlide()
     if (keyframe->HasType(KeyframeType::STACK))
     {
       // Find stack front
-      auto front = this->dataPtr->currentIndex;
-      while (front > 0 && simslides::keyframes[front-1]->HasType(KeyframeType::STACK))
-        front--;
+      auto frontKeyframe = this->dataPtr->currentIndex;
+      while (frontKeyframe > 0 && simslides::keyframes[frontKeyframe-1]->HasType(KeyframeType::STACK))
+        frontKeyframe--;
+      auto frontVisNumber = simslides::keyframes[frontKeyframe]->SlideNumber();
 
       // Find stack back
-      auto back = this->dataPtr->currentIndex;
-      while (back+1 < simslides::keyframes.size() &&
-          simslides::keyframes[back+1]->HasType(KeyframeType::STACK))
+      auto backKeyframe = this->dataPtr->currentIndex;
+      while (backKeyframe+1 < simslides::keyframes.size() &&
+          simslides::keyframes[backKeyframe+1]->HasType(KeyframeType::STACK))
       {
-        back++;
+        backKeyframe++;
       }
+      auto backVisNumber = simslides::keyframes[backKeyframe]->SlideNumber();
 
       // Get average position of all slides in stack
-      ignition::math::Pose3d avgPose;
+//      ignition::math::Pose3d avgPose;
       std::vector<gazebo::rendering::VisualPtr> stackVis;
-      for (int i = front; i <= back; ++i)
+      for (int i = frontVisNumber; i <= backVisNumber; ++i)
       {
         auto name = simslides::slidePrefix + "-" + std::to_string(i);
 
@@ -225,18 +227,18 @@ void PresentMode::ChangeSlide()
 
         stackVis.push_back(vis);
 
-        avgPose+= vis->WorldPose();
+//        avgPose+= vis->WorldPose();
       }
-      avgPose.Pos() = avgPose.Pos() / (back-front+1);
-      avgPose.Rot() = stackVis[0]->WorldPose().Rot();
+//      avgPose.Pos() = avgPose.Pos() / (backVisNumber-frontVisNumber+1);
+//      avgPose.Rot() = stackVis[0]->WorldPose().Rot();
 
       // Make all other slides on the stack thinner
       for (int i = 0; i < stackVis.size(); ++i)
       {
         auto vis = stackVis[i];
-        vis->SetPosition(avgPose.Pos());
+//        vis->SetPosition(avgPose.Pos());
 
-        if (front + i == this->dataPtr->currentIndex)
+        if (frontVisNumber + i == keyframe->SlideNumber())
           vis->SetScale(ignition::math::Vector3d(1, 1, 1));
         else
           vis->SetScale(ignition::math::Vector3d(0.5, 0.5, 0.5));
