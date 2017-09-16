@@ -8495,7 +8495,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/pelvis/pelvis.dae</uri>
+            <uri>model://valkyrie/meshes/pelvis/pelvis.dae</uri>
           </mesh>
         </geometry>
         <surface>
@@ -8517,7 +8517,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/pelvis/pelvis.dae</uri>
+            <uri>model://valkyrie/meshes/pelvis/pelvis.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -8669,7 +8669,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj1_left.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj1_left.dae</uri>
           </mesh>
         </geometry>
         <surface>
@@ -8691,7 +8691,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj1_left.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj1_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -8806,7 +8806,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj3_left.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj3_left.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -8828,7 +8828,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj3_left.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj3_left.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -8886,7 +8886,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj4_left.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj4_left.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -8908,7 +8908,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj4_left.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj4_left.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -8966,7 +8966,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj5.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj5.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -8988,7 +8988,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj5.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj5.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -9076,7 +9076,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/foot.dae</uri>
+            <uri>model://valkyrie/meshes/legs/foot.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -9151,7 +9151,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj1_right.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj1_right.dae</uri>
           </mesh>
         </geometry>
         <surface>
@@ -9173,7 +9173,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj1_right.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj1_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -9288,7 +9288,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj3_right.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj3_right.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -9310,7 +9310,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj3_right.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj3_right.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -9368,7 +9368,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj4_right.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj4_right.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -9390,7 +9390,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj4_right.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj4_right.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -9448,7 +9448,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj5.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj5.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -9470,7 +9470,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/lj5.dae</uri>
+            <uri>model://valkyrie/meshes/legs/lj5.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -9558,7 +9558,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/legs/foot.dae</uri>
+            <uri>model://valkyrie/meshes/legs/foot.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -9633,7 +9633,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/torso/torsoyaw.dae</uri>
+            <uri>model://valkyrie/meshes/torso/torsoyaw.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -9655,7 +9655,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/torso/torsoyaw.dae</uri>
+            <uri>model://valkyrie/meshes/torso/torsoyaw.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -9713,7 +9713,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/torso/torsopitch.dae</uri>
+            <uri>model://valkyrie/meshes/torso/torsopitch.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -9735,7 +9735,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/torso/torsopitch.dae</uri>
+            <uri>model://valkyrie/meshes/torso/torsopitch.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -9793,7 +9793,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/torso/torso.dae</uri>
+            <uri>model://valkyrie/meshes/torso/torso.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -9815,7 +9815,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/torso/torso.dae</uri>
+            <uri>model://valkyrie/meshes/torso/torso.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -9967,7 +9967,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj1_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj1_left.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -9989,7 +9989,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj1_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj1_left.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -10047,7 +10047,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj2_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj2_left.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -10069,7 +10069,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj2_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj2_left.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -10127,7 +10127,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj3_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj3_left.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -10149,7 +10149,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj3_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj3_left.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -10207,7 +10207,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj4_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj4_left.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -10229,7 +10229,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj4_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj4_left.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -10287,7 +10287,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj5_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj5_left.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -10309,7 +10309,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj5_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj5_left.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -10367,7 +10367,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj6_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj6_left.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -10389,7 +10389,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj6_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj6_left.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -10525,7 +10525,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/palm_left.dae</uri>
+            <uri>model://valkyrie/meshes/arms/palm_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -10617,7 +10617,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/indexj1_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/indexj1_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -10709,7 +10709,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/indexj2_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/indexj2_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -10801,7 +10801,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/indexj3_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/indexj3_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -10893,7 +10893,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/middlej1_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/middlej1_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -10985,7 +10985,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/middlej2_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/middlej2_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -11077,7 +11077,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/middlej3_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/middlej3_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -11169,7 +11169,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/pinkyj1_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/pinkyj1_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -11261,7 +11261,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/pinkyj2_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/pinkyj2_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -11353,7 +11353,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/pinkyj3_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/pinkyj3_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -11445,7 +11445,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/thumbj1_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/thumbj1_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -11537,7 +11537,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/thumbj2_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/thumbj2_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -11629,7 +11629,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/thumbj3_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/thumbj3_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -11721,7 +11721,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/thumbj4_left.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/thumbj4_left.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -11787,7 +11787,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/head/neckj1.dae</uri>
+            <uri>model://valkyrie/meshes/head/neckj1.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -11809,7 +11809,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/head/neckj1.dae</uri>
+            <uri>model://valkyrie/meshes/head/neckj1.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -11867,7 +11867,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/head/neckj2.dae</uri>
+            <uri>model://valkyrie/meshes/head/neckj2.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -11889,7 +11889,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/head/neckj2.dae</uri>
+            <uri>model://valkyrie/meshes/head/neckj2.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -11947,7 +11947,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/head/head_multisense_no_visor.dae</uri>
+            <uri>model://valkyrie/meshes/head/head_multisense_no_visor.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -12017,7 +12017,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/head/head_multisense_no_visor.dae</uri>
+            <uri>model://valkyrie/meshes/head/head_multisense_no_visor.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -12240,7 +12240,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/multisense/head_camera.dae</uri>
+            <uri>model://valkyrie/meshes/multisense/head_camera.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -12328,7 +12328,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj1_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj1_right.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -12350,7 +12350,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj1_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj1_right.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -12408,7 +12408,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj2_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj2_right.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -12430,7 +12430,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj2_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj2_right.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -12488,7 +12488,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj3_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj3_right.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -12510,7 +12510,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj3_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj3_right.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -12568,7 +12568,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj4_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj4_right.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -12590,7 +12590,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj4_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj4_right.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -12648,7 +12648,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj5_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj5_right.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -12670,7 +12670,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj5_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj5_right.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -12728,7 +12728,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj6_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj6_right.dae</uri>
           </mesh>
         </geometry>
         <max_contacts>10</max_contacts>
@@ -12750,7 +12750,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/aj6_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/aj6_right.dae</uri>
           </mesh>
         </geometry>
       </visual>
@@ -12886,7 +12886,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/arms/palm_right.dae</uri>
+            <uri>model://valkyrie/meshes/arms/palm_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -12978,7 +12978,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/indexj1_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/indexj1_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13070,7 +13070,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/indexj2_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/indexj2_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13162,7 +13162,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/indexj3_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/indexj3_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13254,7 +13254,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/middlej1_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/middlej1_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13346,7 +13346,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/middlej2_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/middlej2_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13438,7 +13438,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/middlej3_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/middlej3_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13530,7 +13530,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/pinkyj1_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/pinkyj1_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13622,7 +13622,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/pinkyj2_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/pinkyj2_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13714,7 +13714,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/pinkyj3_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/pinkyj3_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13806,7 +13806,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/thumbj1_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/thumbj1_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13898,7 +13898,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/thumbj2_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/thumbj2_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -13990,7 +13990,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/thumbj3_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/thumbj3_right.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -14082,7 +14082,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>/opt/nasa/indigo/share/val_description/model/meshes/fingers/thumbj4_right.dae</uri>
+            <uri>model://valkyrie/meshes/fingers/thumbj4_right.dae</uri>
           </mesh>
         </geometry>
         <material>
