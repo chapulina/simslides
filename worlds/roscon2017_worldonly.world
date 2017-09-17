@@ -5,99 +5,85 @@
     <plugin name="simslides" filename="libsimslides.so">
       <slide_prefix>slide</slide_prefix>
 
-      <!-- 0 -->
+      <!-- title -->
       <keyframe type='lookat' number='0'/>
 
-      <!-- 1 -->
+      <!-- SRC intro -->
       <keyframe type='lookat' number='1'/>
 
-      <!-- 2 -->
       <!-- satellite -->
       <keyframe type='log_seek'>
         <cam_pose>-0.6521 1.129 4.2048 0 0.79 0.028</cam_pose>
         <time>156 0</time>
       </keyframe>
 
-      <!-- 3 -->
+      <!-- cloudsim summary -->
       <keyframe type='lookat' number='2'/>
 
-      <!-- 4 -->
+      <!-- cloudsim schematics -->
       <keyframe type='lookat' number='3'/>
 
-      <!-- 5 -->
+      <!-- SRC stack -->
+      <keyframe type='stack' number='4'/>
+      <keyframe type='stack' number='5'/>
+      <keyframe type='stack' number='6'/>
+      <keyframe type='stack' number='7'/>
+      <keyframe type='stack' number='8'/>
+
+      <!-- SRCSim interface -->
+      <keyframe type='lookat' number='9'/>
+
+      <!-- world generator -->
+      <keyframe type='lookat' number='10'/>
+
       <!-- cable -->
       <keyframe type='log_seek'>
-        <cam_pose>13.965 3.633 2.765 0 0.698 2.796</cam_pose>
+        <cam_pose>13.621 3.8628 3.1718 0 0.81 2.828</cam_pose>
         <time>427 0</time>
       </keyframe>
 
-      <!-- 6 -->
-      <keyframe type='stack' number='4'/>
-
-      <!-- 7 -->
-      <keyframe type='stack' number='5'/>
-
-      <!-- 8 -->
-      <keyframe type='stack' number='6'/>
-
-      <!-- 9 -->
-      <keyframe type='stack' number='7'/>
-
-      <!-- 10 -->
-      <keyframe type='stack' number='8'/>
-
-      <!-- 11 -->
-      <!-- stairs -->
-      <keyframe type='log_seek'>
-        <cam_pose>15.918 8.55 3.927 0 0.473 -0.579</cam_pose>
-        <time>660 0</time>
-      </keyframe>
-
-      <!-- 12 -->
-      <keyframe type='lookat' number='9'/>
-
-      <!-- 13 -->
-      <keyframe type='lookat' number='10'/>
-
-      <!-- 14 -->
       <!-- pick up leak detector -->
       <keyframe type='log_seek'>
         <cam_pose>29.146 0.99 4.05 0 0.542 2.0928</cam_pose>
         <time>1005 0</time>
       </keyframe>
 
-      <!-- 15 -->
+      <!-- stairs -->
+      <keyframe type='log_seek'>
+        <cam_pose>15.918 8.55 3.927 0 0.473 -0.579</cam_pose>
+        <time>660 0</time>
+      </keyframe>
+
       <!-- looking for leak -->
       <keyframe type='log_seek'>
         <cam_pose>26.538 4.236 4.697 0 0.41 1.08</cam_pose>
         <time>1575 0</time>
       </keyframe>
 
-      <!-- 16 -->
       <!-- fix leak -->
       <keyframe type='log_seek'>
         <cam_pose>29.855 8.537 3.292 0 0.1577 2.944</cam_pose>
         <time>2138 0</time>
       </keyframe>
 
-      <!-- 17 -->
+      <!-- challenges 1 -->
       <keyframe type='lookat' number='11'/>
 
-      <!-- 18 -->
+      <!-- challenges cont. -->
       <keyframe type='lookat' number='12'/>
 
-      <!-- 19 -->
       <!-- walk to finish box -->
       <keyframe type='log_seek'>
         <cam_pose>36.8 -4.237 2.888 0 0.1337 2.34</cam_pose>
         <time>2430 0</time>
       </keyframe>
 
-      <!-- 20 -->
+      <!-- ack -->
       <keyframe type='lookat' number='13'/>
 
-      <!-- 21 -->
+      <!-- thank you -->
       <keyframe type='lookat' number='14'/>
+
     </plugin>
     <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
     </plugin>
@@ -207,12 +193,8 @@
     <uri>model://banner-0</uri>
   </include>
   <include>
-    <pose frame=''>9.68 5.468 0.58 -0.27 0 1.25</pose>
+    <pose frame=''>9.98 4.95 0.285 -0.558 0.05 1.388</pose>
     <uri>model://banner-1</uri>
-  </include>
-  <include>
-    <pose frame=''>19.1266 7.259 1.69 0.3 0 1.2233</pose>
-    <uri>model://banner-4</uri>
   </include>
   <model name='heightmap_mars'>
     <static>1</static>
