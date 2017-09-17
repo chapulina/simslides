@@ -109,6 +109,9 @@ Simslides::Simslides()
   // Start with left pane closed
   gazebo::gui::Events::leftPaneVisibility(false);
 
+  // Hide toolbars
+  gazebo::gui::Events::showToolbars(false);
+
   // Position and resize this widget
   this->move(10, 10);
   this->resize(150, 50);
