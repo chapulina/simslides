@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <sdf version ='1.6'>
-<world name='SRC_finals'>
+<world name='default'>
   <gui fullscreen='0'>
     <plugin name="simslides" filename="libsimslides.so">
       <slide_prefix>slide</slide_prefix>
