@@ -14,9 +14,9 @@ namespace simslides
   /// \brief Keyframe types
   enum KeyframeType
   {
-    LOOKAT            = 0x00000001,
-    STACK             = 0x00000002,
-    LOG_SEEK          = 0x00000004,
+    LOOKAT,
+    STACK,
+    LOG_SEEK
   };
 
   class Keyframe
@@ -28,20 +28,9 @@ namespace simslides
     /// \brief Destructor.
     public: ~Keyframe();
 
-    /// \brief Add a type specifier.
-    /// \param[in] _type New type to append to this keyframes type
-    /// definition.
-    public: void AddType(KeyframeType _type);
-
-    /// \brief Returns true if this keyframe's type definition has the
-    /// given type.
-    /// \param[in] _t Type to check.
-    /// \return True if this keyframe's type definition has the.
-    public: bool HasType(const KeyframeType &_t) const;
-
     /// \brief Get the full type definition.
     /// \return The full type definition.
-    public: unsigned int GetType() const;
+    public: KeyframeType GetType() const;
 
     /// \brief
     /// \return
