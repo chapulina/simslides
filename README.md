@@ -17,6 +17,8 @@ sh build_plugins.sh
 
 During development, use `worldonly` for convenience:
 
+> caveat: Gazebo issue #2350 - comment out logPlaybackControlPub->Publish
+
 ~~~
 . ./roscon2017_worldonly.sh
 gedit worlds/roscon2017_worldonly.world
