@@ -36,10 +36,10 @@
       <!-- world generator -->
       <keyframe type='lookat' number='10'/>
 
-      <!-- cable -->
+      <!-- stairs -->
       <keyframe type='log_seek'>
-        <cam_pose>13.621 3.8628 3.1718 0 0.81 2.828</cam_pose>
-        <time>427 0</time>
+        <cam_pose>15.918 8.55 3.927 0 0.473 -0.579</cam_pose>
+        <time>698 0</time>
       </keyframe>
 
       <!-- pick up leak detector -->
@@ -48,15 +48,9 @@
         <time>1005 0</time>
       </keyframe>
 
-      <!-- stairs -->
-      <keyframe type='log_seek'>
-        <cam_pose>15.918 8.55 3.927 0 0.473 -0.579</cam_pose>
-        <time>660 0</time>
-      </keyframe>
-
       <!-- looking for leak -->
       <keyframe type='log_seek'>
-        <cam_pose>26.538 4.236 4.697 0 0.41 1.08</cam_pose>
+        <cam_pose>25.249 4.42 3.79 0 0.166 1.048</cam_pose>
         <time>1575 0</time>
       </keyframe>
 
@@ -69,8 +63,11 @@
       <!-- challenges 1 -->
       <keyframe type='lookat' number='11'/>
 
-      <!-- challenges cont. -->
-      <keyframe type='lookat' number='12'/>
+      <!-- cable -->
+      <keyframe type='log_seek'>
+        <cam_pose>13.621 3.8628 3.1718 0 0.81 2.828</cam_pose>
+        <time>427 0</time>
+      </keyframe>
 
       <!-- walk to finish box -->
       <keyframe type='log_seek'>
@@ -164,21 +161,17 @@
     <uri>model://slide-10</uri>
   </include><include>
     <name>slide-11</name>
-    <pose frame=''>25.685 1.97 2.72 0 0 -0.836</pose>
+    <pose frame=''>17.078 24.095 5.43 0 0 -1.6885</pose>
     <uri>model://slide-11</uri>
   </include><include>
     <name>slide-12</name>
-    <pose frame=''>17.078 24.095 5.43 0 0 -1.6885</pose>
-    <uri>model://slide-12</uri>
-  </include><include>
-    <name>slide-13</name>
     <pose frame=''>35.708 -3.676 3.28 0 0 1.0205</pose>
-    <uri>model://slide-13</uri>
+    <uri>model://slide-12</uri>
   </include>
   <include>
-    <name>slide-14</name>
+    <name>slide-13</name>
     <pose frame=''>36.635 -25.26 6.274 0 0 1.295</pose>
-    <uri>model://slide-14</uri>
+    <uri>model://slide-13</uri>
   </include>
   <include>
     <pose frame=''>26.328 -1.55 2.63 0 0 0.0966</pose>
@@ -193,8 +186,12 @@
     <uri>model://banner-0</uri>
   </include>
   <include>
-    <pose frame=''>9.98 4.95 0.285 -0.558 0.05 1.388</pose>
+    <pose frame=''>25.993 8.023 2.915 -0.05 0 0.1389</pose>
     <uri>model://banner-1</uri>
+  </include>
+  <include>
+    <pose frame=''>10 10 2 0 0 0</pose>
+    <uri>model://banner-2</uri>
   </include>
   <model name='heightmap_mars'>
     <static>1</static>
