@@ -70,10 +70,21 @@ Simslides::Simslides()
 
   // Set the frame background and foreground colors
   this->setStyleSheet(
-      "QFrame { background-color : rgba(100, 100, 100, 255); color : white; }");
+      "QFrame {\
+         background-color : rgba(230, 230, 230, 255);\
+         color : rgba(30, 30, 30, 255);\
+         font-size : 50 px;\
+       }"\
+      "QSpinBox {\
+         background-color : rgba(230, 230, 230, 255);\
+         color : rgba(30, 30, 30, 255);\
+         font-size : 50 px;\
+       }");
 
   // Count
   auto countSpin = new QSpinBox(0);
+  countSpin->setAlignment(Qt::AlignRight);
+  countSpin->setMaximumWidth(60);
   this->connect(this, SIGNAL(SetCount(int)), countSpin,
       SLOT(setValue(int)));
   this->connect(countSpin, SIGNAL(valueChanged(int)), this,
