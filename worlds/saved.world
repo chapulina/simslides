@@ -10,6 +10,7 @@
     <gui fullscreen='0'>
       <plugin name='simslides' filename='libsimslides.so'>
         <slide_prefix>slide</slide_prefix>
+
         <keyframe type='lookat' number='0'/>
 
         <keyframe type='lookat' number='1'/>
@@ -18,13 +19,11 @@
 
         <keyframe type='lookat' number='3'/>
 
-        <keyframe type='lookat' number='4'/>
-
-        <keyframe type='lookat' number='5'/>
-
-        <keyframe type='lookat' number='6'/>
-
-        <keyframe type='lookat' number='7'/>
+        <!-- our approach -->
+        <keyframe type='stack' number='4'/>
+        <keyframe type='stack' number='5'/>
+        <keyframe type='stack' number='6'/>
+        <keyframe type='stack' number='7'/>
 
         <keyframe type='lookat' number='8'/>
 
@@ -20331,7 +20330,7 @@
 
 
     <model name='slide-3'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-5.53 0.01 1.34 0 0 3.14</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20354,7 +20353,7 @@
 
 
     <model name='slide-4'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20377,7 +20376,7 @@
 
 
     <model name='slide-5'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20400,7 +20399,7 @@
 
 
     <model name='slide-6'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20423,7 +20422,7 @@
 
 
     <model name='slide-7'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20446,7 +20445,7 @@
 
 
     <model name='slide-8'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>5.189 -2.18 7.5088 0 0 0</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20469,7 +20468,7 @@
 
 
     <model name='slide-9'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>10.311 1.124 1.24 0 0 -1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20492,7 +20491,7 @@
 
 
     <model name='slide-10'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>13.7 2.25 1.46 0 0 1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20515,7 +20514,7 @@
 
 
     <model name='slide-11'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>17.619 0.0019 1.463 0 0 3.14</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20538,7 +20537,7 @@
 
 
     <model name='slide-12'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>21.15 5.54 1.21 0 0 -1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20561,7 +20560,7 @@
 
 
     <model name='slide-13'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20584,7 +20583,7 @@
 
 
     <model name='slide-14'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20607,7 +20606,7 @@
 
 
     <model name='slide-15'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20630,7 +20629,7 @@
 
 
     <model name='slide-16'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20653,7 +20652,7 @@
 
 
     <model name='slide-17'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20676,7 +20675,7 @@
 
 
     <model name='slide-18'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20699,7 +20698,7 @@
 
 
     <model name='slide-19'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20722,7 +20721,7 @@
 
 
     <model name='slide-20'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20745,7 +20744,7 @@
 
 
     <model name='slide-21'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20768,7 +20767,7 @@
 
 
     <model name='slide-22'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20791,7 +20790,7 @@
 
 
     <model name='slide-23'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
@@ -20814,7 +20813,7 @@
 
 
     <model name='slide-24'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>16.795 10.66 1.453 0 0 3.14</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
