@@ -2,7 +2,7 @@
   <world name='default'>
     <scene>
       <ambient>0.8 0.8 0.8 1</ambient>
-      <background>0.66 0.77 0.84 1</background>
+      <background>0.57 0.73 0.85 1</background>
       <grid>0</grid>
       <origin_visual>0</origin_visual>
       <shadows>1</shadows>
@@ -36,24 +36,16 @@
 
         <keyframe type='lookat' number='12'/>
 
-        <keyframe type='lookat' number='13'/>
-
+        <!-- PR2 -->
+        <keyframe type='stack' number='13'/>
         <keyframe type='stack' number='14'/>
-
         <keyframe type='stack' number='15'/>
-
         <keyframe type='stack' number='16'/>
-
         <keyframe type='stack' number='17'/>
-
         <keyframe type='stack' number='18'/>
-
         <keyframe type='stack' number='19'/>
-
         <keyframe type='stack' number='20'/>
-
         <keyframe type='stack' number='21'/>
-
         <keyframe type='stack' number='22'/>
 
         <keyframe type='lookat' number='23'/>
@@ -20569,7 +20561,7 @@
 
 
     <model name='slide-13'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.375 0 -0 0</pose>
