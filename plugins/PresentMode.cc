@@ -133,9 +133,12 @@ void PresentMode::OnSlideChanged(int _slide)
   if (_slide > this->dataPtr->slideCount)
     this->dataPtr->currentIndex = this->dataPtr->slideCount - 1;
 
-  this->dataPtr->currentIndex = _slide;
+  if (this->dataPtr->currentIndex != _slide)
+  {
+    this->dataPtr->currentIndex = _slide;
 
-  this->ChangeSlide();
+    this->ChangeSlide();
+  }
 }
 
 /////////////////////////////////////////////////
@@ -178,7 +181,7 @@ void PresentMode::ChangeSlide()
       }
 
       // Get average position of all slides in stack
-      ignition::math::Pose3d avgPose;
+      ignition::math::Vector3d avgPos;
       std::vector<gazebo::rendering::VisualPtr> stackVis;
       for (int i = front; i <= back; ++i)
       {
@@ -194,16 +197,15 @@ void PresentMode::ChangeSlide()
 
         stackVis.push_back(vis);
 
-        avgPose+= vis->WorldPose();
+        avgPos += vis->WorldPose().Pos();
       }
-      avgPose.Pos() = avgPose.Pos() / (back-front+1);
-      avgPose.Rot() = stackVis[0]->WorldPose().Rot();
+      avgPos = avgPos / (back-front+1);
 
       // Make all other slides on the stack thinner
       for (int i = 0; i < stackVis.size(); ++i)
       {
         auto vis = stackVis[i];
-        vis->SetPosition(avgPose.Pos());
+        vis->SetPosition(avgPos);
 
         if (front + i == this->dataPtr->currentIndex)
           vis->SetScale(ignition::math::Vector3d(1, 1, 1));
