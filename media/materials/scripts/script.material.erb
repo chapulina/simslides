@@ -1,0 +1,20 @@
+<%
+  for i in (0..42)
+%>
+material Slides/slide_<%= i %>
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-<%= i %>.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+<% end %>

@@ -1,0 +1,27 @@
+
+<%
+  for i in (0..42)
+%>
+    <model name='slide-<%= i %>'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_<%= i %></name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+<% end %>

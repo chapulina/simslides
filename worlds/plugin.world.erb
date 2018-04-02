@@ -1,0 +1,10 @@
+
+      <plugin name='simslides' filename='libsimslides.so'>
+        <slide_prefix>slide</slide_prefix>
+
+<%
+  for i in (0..42)
+%>
+        <keyframe type='lookat' number='<%= i %>'/>
+<% end %>
+      </plugin>

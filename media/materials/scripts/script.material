@@ -1,0 +1,732 @@
+
+material Slides/slide_0
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-0.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_1
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-1.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_2
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-2.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_3
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-3.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_4
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-4.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_5
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-5.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_6
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-6.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_7
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-7.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_8
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-8.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_9
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-9.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_10
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-10.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_11
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-11.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_12
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-12.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_13
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-13.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_14
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-14.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_15
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-15.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_16
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-16.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_17
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-17.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_18
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-18.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_19
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-19.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_20
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-20.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_21
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-21.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_22
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-22.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_23
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-23.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_24
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-24.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_25
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-25.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_26
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-26.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_27
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-27.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_28
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-28.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_29
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-29.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_30
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-30.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_31
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-31.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_32
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-32.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_33
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-33.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_34
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-34.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_35
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-35.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_36
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-36.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_37
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-37.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_38
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-38.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_39
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-39.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_40
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-40.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_41
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-41.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_42
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-42.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
