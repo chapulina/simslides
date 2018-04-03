@@ -989,3 +989,233 @@
     </model>
 
 
+    <model name='slide-43'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_43</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-44'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_44</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-45'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_45</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-46'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_46</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-47'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_47</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-48'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_48</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-49'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_49</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-50'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_50</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-51'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_51</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-52'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1 0.05 0.75</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_52</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+

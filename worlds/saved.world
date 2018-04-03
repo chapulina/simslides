@@ -25,29 +25,31 @@
         <keyframe type='stack' number='6'/>
         <keyframe type='stack' number='7'/>
 
+        <!-- ROS -->
         <keyframe type='lookat' number='8'/>
 
-        <keyframe type='lookat' number='9'/>
-
-        <keyframe type='lookat' number='10'/>
-
-        <keyframe type='lookat' number='11'/>
-
-        <keyframe type='lookat' number='12'/>
-
         <!-- PR2 -->
+        <keyframe type='stack' number='9'/>
+        <keyframe type='stack' number='10'/>
+        <keyframe type='stack' number='11'/>
+        <keyframe type='stack' number='12'/>
         <keyframe type='stack' number='13'/>
         <keyframe type='stack' number='14'/>
         <keyframe type='stack' number='15'/>
         <keyframe type='stack' number='16'/>
         <keyframe type='stack' number='17'/>
         <keyframe type='stack' number='18'/>
-        <keyframe type='stack' number='19'/>
-        <keyframe type='stack' number='20'/>
+
+        <!-- ROS = -->
+        <keyframe type='lookat' number='19'/>
+
+        <!-- Terminology: nodes -->
+        <keyframe type='lookat' number='20'/>
+
+        <!-- Terminology: pub/sub -->
         <keyframe type='stack' number='21'/>
         <keyframe type='stack' number='22'/>
-
-        <keyframe type='lookat' number='23'/>
+        <keyframe type='stack' number='23'/>
 
         <keyframe type='lookat' number='24'/>
 
@@ -61,9 +63,9 @@
 
         <keyframe type='lookat' number='29'/>
 
-        <keyframe type='lookat' number='30'/>
-
-        <keyframe type='lookat' number='31'/>
+        <!-- Terminology: master -->
+        <keyframe type='stack' number='30'/>
+        <keyframe type='stack' number='31'/>
 
         <keyframe type='lookat' number='32'/>
 
@@ -86,6 +88,26 @@
         <keyframe type='lookat' number='41'/>
 
         <keyframe type='lookat' number='42'/>
+
+        <keyframe type='lookat' number='43'/>
+
+        <keyframe type='lookat' number='44'/>
+
+        <keyframe type='lookat' number='45'/>
+
+        <keyframe type='lookat' number='46'/>
+
+        <keyframe type='lookat' number='47'/>
+
+        <keyframe type='lookat' number='48'/>
+
+        <keyframe type='lookat' number='49'/>
+
+        <keyframe type='lookat' number='50'/>
+
+        <keyframe type='lookat' number='51'/>
+
+        <keyframe type='lookat' number='52'/>
       </plugin>
       <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'/>
       <camera name='user_camera'>
@@ -20264,11 +20286,11 @@
         <pose frame=''>-1.72076 4.38422 1.31893 0 -0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20287,11 +20309,11 @@
         <pose frame=''>-7.17951 4.58217 1.57931 0 -0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20310,11 +20332,11 @@
         <pose frame=''>-8.84423 3.66479 1.425 0 -0 1.5708</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20333,11 +20355,11 @@
       <pose>-5.53 0.01 1.34 0 0 3.14</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20353,14 +20375,14 @@
 
 
     <model name='slide-4'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>3.2438 1.11 1.23456 0 0 1.570796</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20376,14 +20398,14 @@
 
 
     <model name='slide-5'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>3.2438 1.11 1.23456 0 0 1.570796</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20399,14 +20421,14 @@
 
 
     <model name='slide-6'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>3.2438 1.11 1.23456 0 0 1.570796</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20422,14 +20444,14 @@
 
 
     <model name='slide-7'>
-      <pose>3.25 1.11 1.26 0 0 1.570796</pose>
+      <pose>3.2438 1.11 1.23456 0 0 1.570796</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20445,14 +20467,14 @@
 
 
     <model name='slide-8'>
-      <pose>5.189 -2.18 7.5088 0 0 0</pose>
+      <pose>7.38 1.47 1.8 0 0 -1.57</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20468,14 +20490,14 @@
 
 
     <model name='slide-9'>
-      <pose>10.311 1.124 1.24 0 0 -1.57</pose>
+      <pose>14.8733 9.34 1.2345 0 0 0.7858</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20491,14 +20513,14 @@
 
 
     <model name='slide-10'>
-      <pose>13.7 2.25 1.46 0 0 1.57</pose>
+      <pose>14.8733 9.34 1.2345 0 0 0.7858</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20514,14 +20536,14 @@
 
 
     <model name='slide-11'>
-      <pose>17.619 0.0019 1.463 0 0 3.14</pose>
+      <pose>14.8733 9.34 1.2345 0 0 0.7858</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20537,14 +20559,14 @@
 
 
     <model name='slide-12'>
-      <pose>21.15 5.54 1.21 0 0 -1.57</pose>
+      <pose>14.8733 9.34 1.2345 0 0 0.7858</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20560,14 +20582,14 @@
 
 
     <model name='slide-13'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>14.8733 9.34 1.2345 0 0 0.7858</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20583,14 +20605,14 @@
 
 
     <model name='slide-14'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>14.8733 9.34 1.2345 0 0 0.7858</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20606,14 +20628,14 @@
 
 
     <model name='slide-15'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>14.8733 9.34 1.2345 0 0 0.7858</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20629,14 +20651,14 @@
 
 
     <model name='slide-16'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>14.8733 9.34 1.2345 0 0 0.7858</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20652,14 +20674,14 @@
 
 
     <model name='slide-17'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>14.8733 9.34 1.2345 0 0 0.7858</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20675,14 +20697,14 @@
 
 
     <model name='slide-18'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>14.8733 9.34 1.2345 0 0 0.7858</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.405 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.44 0.005 0.81</size>
             </box>
           </geometry>
           <material>
@@ -20698,14 +20720,14 @@
 
 
     <model name='slide-19'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>10.311 0.952 0.97 0 0 -1.57</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20721,14 +20743,14 @@
 
 
     <model name='slide-20'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>13.7 2.25 1.46 0 0 1.57</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20744,14 +20766,14 @@
 
 
     <model name='slide-21'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>17.619 0.0019 1.463 0 0 3.14</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20767,14 +20789,14 @@
 
 
     <model name='slide-22'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>17.619 0.0019 1.463 0 0 3.14</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20790,14 +20812,14 @@
 
 
     <model name='slide-23'>
-      <pose>14.8939 9.356 1.26 0 0 0.78</pose>
+      <pose>17.619 0.0019 1.463 0 0 3.14</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20813,14 +20835,14 @@
 
 
     <model name='slide-24'>
-      <pose>16.795 10.66 1.453 0 0 3.14</pose>
+      <pose>21.15 5.54 1.21 0 0 -1.57</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20836,14 +20858,14 @@
 
 
     <model name='slide-25'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>16.795 10.66 1.453 0 0 3.14</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20859,14 +20881,14 @@
 
 
     <model name='slide-26'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>15.95 11.82 0.919 0 0 1.57</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.15 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>0.53 0.005 0.3</size>
             </box>
           </geometry>
           <material>
@@ -20882,14 +20904,14 @@
 
 
     <model name='slide-27'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>17.806 11.82 0.919 0 0 1.57</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.15 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>0.53 0.005 0.3</size>
             </box>
           </geometry>
           <material>
@@ -20905,14 +20927,14 @@
 
 
     <model name='slide-28'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>19.408 21.057 1.035 0 0 -0.7482</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20928,14 +20950,14 @@
 
 
     <model name='slide-29'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>13.72 22.48 1.03 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20954,11 +20976,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -20977,11 +20999,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21000,11 +21022,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21023,11 +21045,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21046,11 +21068,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21069,11 +21091,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21092,11 +21114,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21115,11 +21137,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21138,11 +21160,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21161,11 +21183,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21184,11 +21206,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21207,11 +21229,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21230,11 +21252,11 @@
       <pose>-10 -10 0 0 0 0</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.375 0 -0 0</pose>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1 0.005 0.75</size>
+              <size>1.6 0.005 0.9</size>
             </box>
           </geometry>
           <material>
@@ -21247,6 +21269,236 @@
         </visual>
       </link>
     </model>
+
+    <model name='slide-43'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1.6 0.005 0.9</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_43</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-44'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1.6 0.005 0.9</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_44</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-45'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1.6 0.005 0.9</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_45</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-46'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1.6 0.005 0.9</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_46</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-47'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1.6 0.005 0.9</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_47</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-48'>
+      <pose>5.189 -2.18 7.5088 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1.6 0.005 0.9</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_48</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-49'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1.6 0.005 0.9</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_49</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-50'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1.6 0.005 0.9</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_50</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-51'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1.6 0.005 0.9</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_51</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <model name='slide-52'>
+      <pose>-10 -10 0 0 0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <visual name='visual'>
+          <geometry>
+            <box>
+              <size>1.6 0.005 0.9</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/</uri>
+              <uri>file://media/materials/textures/</uri>
+              <name>Slides/slide_52</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+
 
 
   </world>
