@@ -1,6 +1,8 @@
 #include <gazebo/rendering/UserCamera.hh>
 #include <gazebo/rendering/Scene.hh>
 
+#include <gazebo/gui/GuiEvents.hh>
+#include <gazebo/msgs/msgs.hh>
 #include <gazebo/transport/Node.hh>
 #include <gazebo/transport/Subscriber.hh>
 
@@ -11,7 +13,9 @@ using namespace simslides;
 
 class simslides::PresentModePrivate
 {
+  /// \brief Node used for communication.
   public: gazebo::transport::NodePtr node;
+
   public: gazebo::transport::SubscriberPtr keyboardSub;
   public: gazebo::rendering::UserCameraPtr camera;
   public: int currentIndex = -1;
@@ -23,6 +27,14 @@ class simslides::PresentModePrivate
   public: double eyeOffsetRoll = 0;
   public: double eyeOffsetPitch = 0;
   public: double eyeOffsetYaw = IGN_PI_2;
+
+  /// \brief Used to start, stop, and step simulation.
+  public: gazebo::transport::PublisherPtr logPlaybackControlPub;
+
+  /// \brief Event based connections.
+  public: std::vector<gazebo::event::ConnectionPtr> connections;
+
+  public: std::string windowMode = "simulation";
 };
 
 /////////////////////////////////////////////////
@@ -31,11 +43,22 @@ PresentMode::PresentMode(QObject *_parent)
 {
   // Keep pointer to the user camera
   this->dataPtr->camera = gazebo::gui::get_active_camera();
+
+  // Connections
+  this->dataPtr->connections.push_back(
+      gazebo::gui::Events::ConnectWindowMode(
+      std::bind(&PresentMode::OnWindowMode, this, std::placeholders::_1)));
 }
 
 /////////////////////////////////////////////////
 PresentMode::~PresentMode()
 {
+}
+
+/////////////////////////////////////////////////
+void PresentMode::OnWindowMode(const std::string &_mode)
+{
+  this->dataPtr->windowMode = _mode;
 }
 
 /////////////////////////////////////////////////
@@ -72,13 +95,24 @@ void PresentMode::Start()
     this->dataPtr->node->Init();
 
     this->dataPtr->keyboardSub =
-        this->dataPtr->node->Subscribe("/gazebo/default/keyboard/keypress",
+        this->dataPtr->node->Subscribe("~/keyboard/keypress",
         &PresentMode::OnKeyPress, this, true);
+
+    // TODO: Only advertize this if we have at least one LOG_SEEK frame
+    // FIXME: This may fail if we connect after the event is fired, so for now
+    // commenting this out, which means Gazebo will crash if a log control
+    // msg is published during simulation mode (issue #2350)
+//    if (this->dataPtr->windowMode == "LogPlayback")
+//    {
+//      this->dataPtr->logPlaybackControlPub = this->dataPtr->node->
+//          Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
+//    }
   }
 
   this->dataPtr->slideCount = simslides::keyframes.size();
 
-  gzmsg << "Start presentation" << std::endl;
+  gzmsg << "Start presentation. Total of [" << this->dataPtr->slideCount
+        << "] slides" << std::endl;
 
   // Trigger first slide
   this->dataPtr->currentIndex = 0;
@@ -156,31 +190,42 @@ void PresentMode::ChangeSlide()
   {
     auto keyframe = simslides::keyframes[this->dataPtr->currentIndex];
 
-    if (keyframe->HasType(KeyframeType::LOOKAT))
+    if (keyframe->GetType() == KeyframeType::LOOKAT ||
+        keyframe->GetType() == KeyframeType::STACK)
     {
       toLookAt = simslides::slidePrefix + "-" +
-          std::to_string(this->dataPtr->currentIndex);
+          std::to_string(keyframe->SlideNumber());
     }
 
-    if (keyframe->HasType(KeyframeType::STACK))
+    if (keyframe->GetType() == KeyframeType::STACK)
     {
       // Find stack front
-      auto front = this->dataPtr->currentIndex;
-      while (front > 0 && simslides::keyframes[front-1]->HasType(KeyframeType::STACK))
-        front--;
+      auto frontKeyframe = this->dataPtr->currentIndex;
+      while (frontKeyframe > 0 && 
+          simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
+      {
+        frontKeyframe--;
+      }
+      auto frontVisNumber = simslides::keyframes[frontKeyframe]->SlideNumber();
 
       // Find stack back
-      auto back = this->dataPtr->currentIndex;
-      while (back+1 < simslides::keyframes.size() &&
-          simslides::keyframes[back+1]->HasType(KeyframeType::STACK))
+      auto backKeyframe = this->dataPtr->currentIndex;
+      while (backKeyframe+1 < simslides::keyframes.size() &&
+          simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK)
       {
-        back++;
+        backKeyframe++;
+      }
+      auto backVisNumber = simslides::keyframes[backKeyframe]->SlideNumber();
+
+      if (backVisNumber > simslides::keyframes.size())
+      {
+        gzerr << "Dafuq! " << backVisNumber << std::endl;
+        return;
       }
 
       // Get average position of all slides in stack
-      ignition::math::Pose3d avgPose;
       std::vector<gazebo::rendering::VisualPtr> stackVis;
-      for (int i = front; i <= back; ++i)
+      for (int i = frontVisNumber; i <= backVisNumber; ++i)
       {
         auto name = simslides::slidePrefix + "-" + std::to_string(i);
 
@@ -192,23 +237,32 @@ void PresentMode::ChangeSlide()
           continue;
         }
 
-        stackVis.push_back(vis);
-
-        avgPose+= vis->WorldPose();
-      }
-      avgPose.Pos() = avgPose.Pos() / (back-front+1);
-      avgPose.Rot() = stackVis[0]->WorldPose().Rot();
-
-      // Make all other slides on the stack thinner
-      for (int i = 0; i < stackVis.size(); ++i)
-      {
-        auto vis = stackVis[i];
-        vis->SetPosition(avgPose.Pos());
-
-        if (front + i == this->dataPtr->currentIndex)
+        if (i == keyframe->SlideNumber())
           vis->SetScale(ignition::math::Vector3d(1, 1, 1));
         else
           vis->SetScale(ignition::math::Vector3d(0.5, 0.5, 0.5));
+      }
+    }
+
+    if (keyframe->GetType() == KeyframeType::LOG_SEEK)
+    {
+      camPose = keyframe->CamPose();
+
+      // New chance to advertise
+      if (!this->dataPtr->logPlaybackControlPub &&
+          this->dataPtr->windowMode == "LogPlayback")
+      {
+        this->dataPtr->logPlaybackControlPub = this->dataPtr->node->
+            Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
+      }
+
+      if (this->dataPtr->logPlaybackControlPub)
+      {
+        auto logSeek = keyframe->LogSeek();
+        gazebo::msgs::LogPlaybackControl msg;
+        gazebo::msgs::Set(msg.mutable_seek(), logSeek);
+        msg.set_pause(false);
+        this->dataPtr->logPlaybackControlPub->Publish(msg);
       }
     }
   }

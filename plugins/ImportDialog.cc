@@ -155,9 +155,7 @@ ImportDialog::ImportDialog(QWidget *_parent)
 
   // Wait
   this->dataPtr->waitLabel = new QLabel(
-      "   Transforming PDF into PNG,\n" +
-      "   this may take a while...\n" +
-      "   Believe me, just wait.");
+      "   Transforming PDF into PNG, this may take a while... Believe me, just wait.");
 
   // Done
   this->dataPtr->doneLabel = new QLabel("Done! F5 is not immediately available now, you must load the saved world...");
