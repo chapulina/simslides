@@ -83,13 +83,11 @@
 
         <keyframe type='lookat' number='39'/>
 
-        <keyframe type='lookat' number='40'/>
-
-        <keyframe type='lookat' number='41'/>
-
-        <keyframe type='lookat' number='42'/>
-
-        <keyframe type='lookat' number='43'/>
+        <!-- Robot -->
+        <keyframe type='stack' number='40'/>
+        <keyframe type='stack' number='41'/>
+        <keyframe type='stack' number='42'/>
+        <keyframe type='stack' number='43'/>
 
         <keyframe type='lookat' number='44'/>
 
@@ -20904,7 +20902,7 @@
 
 
     <model name='slide-27'>
-      <pose>17.806 11.82 0.919 0 0 1.57</pose>
+      <pose>17.847 11.82 0.919 0 0 1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.15 0 -0 0</pose>
@@ -20973,7 +20971,7 @@
 
 
     <model name='slide-30'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>16.496 19.36 1.03 0 0 1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -20996,7 +20994,7 @@
 
 
     <model name='slide-31'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>16.496 19.36 1.03 0 0 1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21019,7 +21017,7 @@
 
 
     <model name='slide-32'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>9.54 12.33 0.99 0 0 1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21042,7 +21040,7 @@
 
 
     <model name='slide-33'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>12.44 14.42 3.00 -0.32 0 2.31</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21065,7 +21063,7 @@
 
 
     <model name='slide-34'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>0.895 20.51 0.99 -0.25 0 0</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21088,7 +21086,7 @@
 
 
     <model name='slide-35'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>0.978 17.519 1.09 -0.25 0 -2.63</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21111,7 +21109,7 @@
 
 
     <model name='slide-36'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-1.02 17.387 1.098 -0.257 0 2.51</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21134,7 +21132,7 @@
 
 
     <model name='slide-37'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-5.6 12.866 2.69 -0.25 0 1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21157,7 +21155,7 @@
 
 
     <model name='slide-38'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-7.79 7.47 1.536 -0.55 0 1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21180,7 +21178,7 @@
 
 
     <model name='slide-39'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-9.29 8.86 0.08 0 0 3.14</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21203,7 +21201,7 @@
 
 
     <model name='slide-40'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-23.76 8.29 1.33 0 0 2.55</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21226,7 +21224,7 @@
 
 
     <model name='slide-41'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-23.76 8.29 1.33 0 0 2.55</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21249,7 +21247,7 @@
 
 
     <model name='slide-42'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-23.76 8.29 1.33 0 0 2.55</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21271,7 +21269,7 @@
     </model>
 
     <model name='slide-43'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-23.76 8.29 1.33 0 0 2.55</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21294,7 +21292,7 @@
 
 
     <model name='slide-44'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-26.94 12.32 1.2 0 0 1.57</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21317,7 +21315,7 @@
 
 
     <model name='slide-45'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>24.03 -31.2 38.27 -0.35 0 0.61</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21340,7 +21338,7 @@
 
 
     <model name='slide-46'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-25.33 19.81 2.38 -0.51 0 -3.14</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21363,7 +21361,7 @@
 
 
     <model name='slide-47'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-25.266 16.29 5.26 0.685 0 -3.14</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21409,7 +21407,7 @@
 
 
     <model name='slide-49'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-0.95 5.62 1.029 0 0 -2.045</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21432,7 +21430,7 @@
 
 
     <model name='slide-50'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-2.319 10.04 1.02 0 0 0</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>
@@ -21455,14 +21453,14 @@
 
 
     <model name='slide-51'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>-4.233 7.47 1.029 0 0 0.97</pose>
       <static>1</static>
       <link name='link'>
-        <pose frame=''>0 0 0.45 0 -0 0</pose>
+        <pose frame=''>0 0 0.15 0 -0 0</pose>
         <visual name='visual'>
           <geometry>
             <box>
-              <size>1.6 0.005 0.9</size>
+              <size>0.53 0.005 0.3</size>
             </box>
           </geometry>
           <material>
@@ -21478,7 +21476,7 @@
 
 
     <model name='slide-52'>
-      <pose>-10 -10 0 0 0 0</pose>
+      <pose>0.71 -18.945 17.958 -0.31 0 0</pose>
       <static>1</static>
       <link name='link'>
         <pose frame=''>0 0 0.45 0 -0 0</pose>

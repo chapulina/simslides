@@ -730,3 +730,173 @@ material Slides/slide_42
   }
 }
 
+material Slides/slide_43
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-43.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_44
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-44.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_45
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-45.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_46
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-46.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_47
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-47.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_48
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-48.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_49
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-49.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_50
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-50.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_51
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-51.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+
+material Slides/slide_52
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture slide-52.png
+        filtering anistropic
+        max_anisotropy 16
+      }
+    }
+  }
+}
+

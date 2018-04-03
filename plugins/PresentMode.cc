@@ -226,7 +226,7 @@ void PresentMode::ChangeSlide()
         return;
       }
 
-      // Get average position of all slides in stack
+      // Resize slides in stack so only current is visible
       std::vector<gazebo::rendering::VisualPtr> stackVis;
       for (int i = frontVisNumber; i <= backVisNumber; ++i)
       {
