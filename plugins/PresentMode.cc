@@ -22,7 +22,7 @@ class simslides::PresentModePrivate
   public: int slideCount = 0;
 
   public: double eyeOffsetX = 0;
-  public: double eyeOffsetY = -3.0;
+  public: double eyeOffsetY = -3.5;
   public: double eyeOffsetZ = 0;
   public: double eyeOffsetRoll = 0;
   public: double eyeOffsetPitch = 0;
@@ -167,9 +167,12 @@ void PresentMode::OnSlideChanged(int _slide)
   if (_slide > this->dataPtr->slideCount)
     this->dataPtr->currentIndex = this->dataPtr->slideCount - 1;
 
-  this->dataPtr->currentIndex = _slide;
+  if (this->dataPtr->currentIndex != _slide)
+  {
+    this->dataPtr->currentIndex = _slide;
 
-  this->ChangeSlide();
+    this->ChangeSlide();
+  }
 }
 
 /////////////////////////////////////////////////
@@ -201,7 +204,7 @@ void PresentMode::ChangeSlide()
     {
       // Find stack front
       auto frontKeyframe = this->dataPtr->currentIndex;
-      while (frontKeyframe > 0 && 
+      while (frontKeyframe > 0 &&
           simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
       {
         frontKeyframe--;
