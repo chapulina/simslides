@@ -1,0 +1,112 @@
+
+      <plugin name='simslides' filename='libsimslides.so'>
+        <slide_prefix>slide</slide_prefix>
+
+
+        <keyframe type='lookat' number='0'/>
+
+        <keyframe type='lookat' number='1'/>
+
+        <keyframe type='lookat' number='2'/>
+
+        <keyframe type='lookat' number='3'/>
+
+        <keyframe type='lookat' number='4'/>
+
+        <keyframe type='lookat' number='5'/>
+
+        <keyframe type='lookat' number='6'/>
+
+        <keyframe type='lookat' number='7'/>
+
+        <keyframe type='lookat' number='8'/>
+
+        <keyframe type='lookat' number='9'/>
+
+        <keyframe type='lookat' number='10'/>
+
+        <keyframe type='lookat' number='11'/>
+
+        <keyframe type='lookat' number='12'/>
+
+        <keyframe type='lookat' number='13'/>
+
+        <keyframe type='lookat' number='14'/>
+
+        <keyframe type='lookat' number='15'/>
+
+        <keyframe type='lookat' number='16'/>
+
+        <keyframe type='lookat' number='17'/>
+
+        <keyframe type='lookat' number='18'/>
+
+        <keyframe type='lookat' number='19'/>
+
+        <keyframe type='lookat' number='20'/>
+
+        <keyframe type='lookat' number='21'/>
+
+        <keyframe type='lookat' number='22'/>
+
+        <keyframe type='lookat' number='23'/>
+
+        <keyframe type='lookat' number='24'/>
+
+        <keyframe type='lookat' number='25'/>
+
+        <keyframe type='lookat' number='26'/>
+
+        <keyframe type='lookat' number='27'/>
+
+        <keyframe type='lookat' number='28'/>
+
+        <keyframe type='lookat' number='29'/>
+
+        <keyframe type='lookat' number='30'/>
+
+        <keyframe type='lookat' number='31'/>
+
+        <keyframe type='lookat' number='32'/>
+
+        <keyframe type='lookat' number='33'/>
+
+        <keyframe type='lookat' number='34'/>
+
+        <keyframe type='lookat' number='35'/>
+
+        <keyframe type='lookat' number='36'/>
+
+        <keyframe type='lookat' number='37'/>
+
+        <keyframe type='lookat' number='38'/>
+
+        <keyframe type='lookat' number='39'/>
+
+        <keyframe type='lookat' number='40'/>
+
+        <keyframe type='lookat' number='41'/>
+
+        <keyframe type='lookat' number='42'/>
+
+        <keyframe type='lookat' number='43'/>
+
+        <keyframe type='lookat' number='44'/>
+
+        <keyframe type='lookat' number='45'/>
+
+        <keyframe type='lookat' number='46'/>
+
+        <keyframe type='lookat' number='47'/>
+
+        <keyframe type='lookat' number='48'/>
+
+        <keyframe type='lookat' number='49'/>
+
+        <keyframe type='lookat' number='50'/>
+
+        <keyframe type='lookat' number='51'/>
+
+        <keyframe type='lookat' number='52'/>
+
+      </plugin>
