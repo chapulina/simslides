@@ -7,9 +7,10 @@ using namespace simslides;
 
 class simslides::KeyframePrivate
 {
-  public: unsigned int type;
-  public: unsigned int slideNumber;
-
+  public: KeyframeType type;
+  public: int slideNumber = -1;
+  public: ignition::math::Pose3d camPose;
+  public: gazebo::common::Time logSeek;
 };
 
 /////////////////////////////////////////////////
@@ -19,16 +20,34 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
     return;
 
   auto type = _sdf->Get<std::string>("type");
-  this->AddType(KeyframeType::LOOKAT);
   if (type == "stack")
-    this->AddType(KeyframeType::STACK);
-  else if (type != "lookat")
+  {
+    this->dataPtr->type = KeyframeType::STACK;
+    this->dataPtr->slideNumber = _sdf->Get<int>("number");
+  }
+  else if (type == "lookat")
+  {
+    this->dataPtr->type = KeyframeType::LOOKAT;
+    this->dataPtr->slideNumber = _sdf->Get<int>("number");
+  }
+  else if (type == "log_seek")
+  {
+    this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("cam_pose");
+    this->dataPtr->logSeek = _sdf->Get<gazebo::common::Time>("time");
+    this->dataPtr->type = KeyframeType::LOG_SEEK;
+  }
+  else
     gzerr << "Unsupported type [" << type << "]" << std::endl;
 
-  this->dataPtr->slideNumber = _sdf->Get<int>("number");
-
-  gzmsg << "Loading keyframe [" << this->dataPtr->slideNumber << "]"
-        << std::endl;
+  if (this->dataPtr->slideNumber >= 0)
+  {
+    gzmsg << "Loading [" << type << "] keyframe tied to slide ["
+          << this->dataPtr->slideNumber << "]" << std::endl;
+  }
+  else
+  {
+    gzmsg << "Loading [" << type << "] keyframe" << std::endl;
+  }
 }
 
 /////////////////////////////////////////////////
@@ -37,19 +56,7 @@ Keyframe::~Keyframe()
 }
 
 //////////////////////////////////////////////////
-void Keyframe::AddType(KeyframeType _t)
-{
-  this->dataPtr->type = this->dataPtr->type | (unsigned int)_t;
-}
-
-//////////////////////////////////////////////////
-bool Keyframe::HasType(const KeyframeType &_t) const
-{
-  return ((unsigned int)(_t & this->dataPtr->type) == (unsigned int)_t);
-}
-
-//////////////////////////////////////////////////
-unsigned int Keyframe::GetType() const
+KeyframeType Keyframe::GetType() const
 {
   return this->dataPtr->type;
 }
@@ -58,5 +65,17 @@ unsigned int Keyframe::GetType() const
 unsigned int Keyframe::SlideNumber() const
 {
   return this->dataPtr->slideNumber;
+}
+
+//////////////////////////////////////////////////
+ignition::math::Pose3d Keyframe::CamPose() const
+{
+  return this->dataPtr->camPose;
+}
+
+//////////////////////////////////////////////////
+gazebo::common::Time Keyframe::LogSeek() const
+{
+  return this->dataPtr->logSeek;
 }
 

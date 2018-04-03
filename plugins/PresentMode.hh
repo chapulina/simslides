@@ -32,6 +32,8 @@ namespace simslides
     private: void ChangeSlide();
     private slots: void OnSlideChanged(int);
 
+    private: void OnWindowMode(const std::string &_mode);
+
     Q_SIGNALS: void SlideChanged(int, int);
 
     /// \internal
