@@ -181,6 +181,7 @@ void PresentMode::ChangeSlide()
   gzmsg << "Change Slide: " << this->dataPtr->currentIndex << std::endl;
 
   ignition::math::Pose3d camPose;
+  ignition::math::Pose3d eyeOff;
   std::string toLookAt;
 
   // Reset presentation
@@ -198,6 +199,7 @@ void PresentMode::ChangeSlide()
     {
       toLookAt = simslides::slidePrefix + "-" +
           std::to_string(keyframe->SlideNumber());
+      eyeOff = keyframe->EyeOffset();
     }
 
     if (keyframe->GetType() == KeyframeType::STACK)
@@ -291,19 +293,16 @@ void PresentMode::ChangeSlide()
         bb_pos, origin.Rot()));
 
     // Eye in target frame
-    ignition::math::Pose3d eyeOff(
-            this->dataPtr->eyeOffsetX,
-            -size.Z()*2,
-            this->dataPtr->eyeOffsetZ,
-            this->dataPtr->eyeOffsetRoll,
-            this->dataPtr->eyeOffsetPitch,
-            this->dataPtr->eyeOffsetYaw);
-
-    if (keyframe->EyeOffset() != ignition::math::Pose3d::Zero)
+    if (eyeOff == ignition::math::Pose3d::Zero)
     {
-      eyeOff = keyFrame->EyeOffset();
+      eyeOff = ignition::math::Pose3d(
+              this->dataPtr->eyeOffsetX,
+              -size.Z()*2,
+              this->dataPtr->eyeOffsetZ,
+              this->dataPtr->eyeOffsetRoll,
+              this->dataPtr->eyeOffsetPitch,
+              this->dataPtr->eyeOffsetYaw);
     }
-
     ignition::math::Matrix4d eye_target(eyeOff);
 
     // Eye in world frame

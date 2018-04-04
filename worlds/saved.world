@@ -84,10 +84,10 @@
         <keyframe type='lookat' number='39'/>
 
         <!-- Robot -->
-        <keyframe type='stack' number='40'/>
-        <keyframe type='stack' number='41'/>
-        <keyframe type='stack' number='42'/>
-        <keyframe type='stack' number='43'/>
+        <keyframe type='stack' number='40' eye_offset="-1 -4 1 0 0 1.57"/>
+        <keyframe type='stack' number='41' eye_offset="-1 -4 1 0 0 1.57"/>
+        <keyframe type='stack' number='42' eye_offset="-1 -4 1 0 0 1.57"/>
+        <keyframe type='stack' number='43' eye_offset="-1 -4 1 0 0 1.57"/>
 
         <keyframe type='lookat' number='44'/>
 
