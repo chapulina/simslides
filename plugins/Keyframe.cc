@@ -21,6 +21,7 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
     return;
 
   auto type = _sdf->Get<std::string>("type");
+  this->dataPtr->eyeOffset = _sdf->Get<ignition::math::Pose3d>("eye_offset");
   if (type == "stack")
   {
     this->dataPtr->type = KeyframeType::STACK;
@@ -30,7 +31,6 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
   {
     this->dataPtr->type = KeyframeType::LOOKAT;
     this->dataPtr->slideNumber = _sdf->Get<int>("number");
-    this->dataPtr->eyeOffset = _sdf->Get<ignition::math::Pose3d>("eye_offset");
   }
   else if (type == "log_seek")
   {
