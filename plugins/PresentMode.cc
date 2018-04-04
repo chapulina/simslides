@@ -291,14 +291,20 @@ void PresentMode::ChangeSlide()
         bb_pos, origin.Rot()));
 
     // Eye in target frame
-    ignition::math::Matrix4d eye_target =
-        ignition::math::Matrix4d(ignition::math::Pose3d(
+    ignition::math::Pose3d eyeOff(
             this->dataPtr->eyeOffsetX,
             -size.Z()*2,
             this->dataPtr->eyeOffsetZ,
             this->dataPtr->eyeOffsetRoll,
             this->dataPtr->eyeOffsetPitch,
-            this->dataPtr->eyeOffsetYaw));
+            this->dataPtr->eyeOffsetYaw);
+
+    if (keyframe->EyeOffset() != ignition::math::Pose3d::Zero)
+    {
+      eyeOff = keyFrame->EyeOffset();
+    }
+
+    ignition::math::Matrix4d eye_target(eyeOff);
 
     // Eye in world frame
     auto eye_world = target_world * eye_target;
