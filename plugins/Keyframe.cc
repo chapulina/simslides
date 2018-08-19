@@ -9,7 +9,6 @@ class simslides::KeyframePrivate
 {
   public: KeyframeType type;
   public: int slideNumber = -1;
-  public: ignition::math::Pose3d eyeOffset;
   public: ignition::math::Pose3d camPose;
   public: gazebo::common::Time logSeek;
 };
@@ -21,8 +20,6 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
     return;
 
   auto type = _sdf->Get<std::string>("type");
-  if (_sdf->HasAttribute("eye_offset"))
-    this->dataPtr->eyeOffset = _sdf->Get<ignition::math::Pose3d>("eye_offset");
   if (type == "stack")
   {
     this->dataPtr->type = KeyframeType::STACK;
@@ -74,12 +71,6 @@ unsigned int Keyframe::SlideNumber() const
 ignition::math::Pose3d Keyframe::CamPose() const
 {
   return this->dataPtr->camPose;
-}
-
-//////////////////////////////////////////////////
-ignition::math::Pose3d Keyframe::EyeOffset() const
-{
-  return this->dataPtr->eyeOffset;
 }
 
 //////////////////////////////////////////////////
