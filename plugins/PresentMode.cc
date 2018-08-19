@@ -22,7 +22,7 @@ class simslides::PresentModePrivate
   public: int slideCount = 0;
 
   public: double eyeOffsetX = 0;
-  public: double eyeOffsetY = -3.5;
+  public: double eyeOffsetY = -3.0;
   public: double eyeOffsetZ = 0;
   public: double eyeOffsetRoll = 0;
   public: double eyeOffsetPitch = 0;
@@ -167,12 +167,9 @@ void PresentMode::OnSlideChanged(int _slide)
   if (_slide > this->dataPtr->slideCount)
     this->dataPtr->currentIndex = this->dataPtr->slideCount - 1;
 
-  if (this->dataPtr->currentIndex != _slide)
-  {
-    this->dataPtr->currentIndex = _slide;
+  this->dataPtr->currentIndex = _slide;
 
-    this->ChangeSlide();
-  }
+  this->ChangeSlide();
 }
 
 /////////////////////////////////////////////////
@@ -181,7 +178,6 @@ void PresentMode::ChangeSlide()
   gzmsg << "Change Slide: " << this->dataPtr->currentIndex << std::endl;
 
   ignition::math::Pose3d camPose;
-  ignition::math::Pose3d eyeOff;
   std::string toLookAt;
 
   // Reset presentation
@@ -199,14 +195,13 @@ void PresentMode::ChangeSlide()
     {
       toLookAt = simslides::slidePrefix + "-" +
           std::to_string(keyframe->SlideNumber());
-      eyeOff = keyframe->EyeOffset();
     }
 
     if (keyframe->GetType() == KeyframeType::STACK)
     {
       // Find stack front
       auto frontKeyframe = this->dataPtr->currentIndex;
-      while (frontKeyframe > 0 &&
+      while (frontKeyframe > 0 && 
           simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
       {
         frontKeyframe--;
@@ -228,7 +223,7 @@ void PresentMode::ChangeSlide()
         return;
       }
 
-      // Resize slides in stack so only current is visible
+      // Get average position of all slides in stack
       std::vector<gazebo::rendering::VisualPtr> stackVis;
       for (int i = frontVisNumber; i <= backVisNumber; ++i)
       {
@@ -293,17 +288,14 @@ void PresentMode::ChangeSlide()
         bb_pos, origin.Rot()));
 
     // Eye in target frame
-    if (eyeOff == ignition::math::Pose3d::Zero)
-    {
-      eyeOff = ignition::math::Pose3d(
-              this->dataPtr->eyeOffsetX,
-              -size.Z()*2,
-              this->dataPtr->eyeOffsetZ,
-              this->dataPtr->eyeOffsetRoll,
-              this->dataPtr->eyeOffsetPitch,
-              this->dataPtr->eyeOffsetYaw);
-    }
-    ignition::math::Matrix4d eye_target(eyeOff);
+    ignition::math::Matrix4d eye_target =
+        ignition::math::Matrix4d(ignition::math::Pose3d(
+            this->dataPtr->eyeOffsetX,
+            -size.Z()*2,
+            this->dataPtr->eyeOffsetZ,
+            this->dataPtr->eyeOffsetRoll,
+            this->dataPtr->eyeOffsetPitch,
+            this->dataPtr->eyeOffsetYaw));
 
     // Eye in world frame
     auto eye_world = target_world * eye_target;
