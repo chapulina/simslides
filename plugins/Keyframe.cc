@@ -33,7 +33,9 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
   else if (type == "log_seek")
   {
     this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("cam_pose");
-    this->dataPtr->logSeek = _sdf->Get<gazebo::common::Time>("time");
+    auto logSeek = _sdf->Get<sdf::Time>("time");
+    this->dataPtr->logSeek.sec = logSeek.sec;
+    this->dataPtr->logSeek.nsec = logSeek.nsec;
     this->dataPtr->type = KeyframeType::LOG_SEEK;
   }
   else
