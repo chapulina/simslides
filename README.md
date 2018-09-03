@@ -4,15 +4,16 @@ http://gazebosim.org/tutorials?cat=install
 
 Checking out a couple other tutorials wouldn't hurt either.
 
-# Build and run SimSlides
+# Build
 
-1. If you have Gazebo 8 installed, run the following script to build simslides:
+    mkdir build
+    cd build
+    cmake ..
+    make
 
-        sh build_plugins.sh
+# Run SimSlides
 
-1. Run gazebo with the simslides plugin:
-
-        . ./simslides.sh
+    . ./simslides.sh
 
 # Your own presentation
 
@@ -20,7 +21,7 @@ You can generate your own presentation as follows:
 
 ## Generate a new presentation
 
-1. On the top menu, choose Simslides -> Import PDF (or press F2)
+1. On the top menu, choose `Simslides -> Import` PDF (or press `F2`)
 
 1. Choose a PDF file from your computer
 
@@ -40,7 +41,7 @@ You can generate your own presentation as follows:
 If you already generated slide models with the step above, and now just
 want to spawn them into the world:
 
-1. On the top menu, choose Simslides -> Load Models (or press F3)
+1. On the top menu, choose `Simslides -> Load Models` (or press `F3`)
 
 1. Choose the path of the directory which includes all the slides
 
@@ -50,19 +51,19 @@ want to spawn them into the world:
 
 1. When it's done, all slides will show up on the world in a grid.
 
-## Presentation model
+## Presentation mode
 
 Once you have the slides loaded into the world, present as follows:
 
 1. Press F5 or the play button on the top left to start presentation mode
 
-1. Press the arrow keys to go abck and forth on the slides
+1. Press the arrow keys to go back and forth on the slides
 
 1. You're free to use the rest of Gazebo's interface while presenting,
-   if you've navigated far away from the current slide, you can press F1
+   if you've navigated far away from the current slide, you can press `F1`
    to return to it.
 
-1. At any moment, you can press F6 to return to the initial camera pose.
+1. At any moment, you can press `F6` to return to the initial camera pose.
 
 # Existing presentations
 
