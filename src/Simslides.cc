@@ -15,12 +15,8 @@
  *
 */
 #include <sstream>
-#include <gazebo/msgs/msgs.hh>
-#include <gazebo/rendering/UserCamera.hh>
-#include <gazebo/rendering/Scene.hh>
-#include <gazebo/rendering/Visual.hh>
-#include <gazebo/gui/KeyEventHandler.hh>
 
+#include "Common.hh"
 #include "ImportDialog.hh"
 #include "InsertActorDialog.hh"
 #include "Keyframe.hh"
@@ -67,7 +63,7 @@ Simslides::Simslides()
   auto presentMode = new PresentMode();
   this->connect(presentMode, SIGNAL(SlideChanged(int, int)), this,
       SLOT(OnSlideChanged(int, int)));
-  this->connect(this, SIGNAL(CountChanged(int)), presentMode,
+  this->connect(this, SIGNAL(CurrentChanged(int)), presentMode,
       SLOT(OnSlideChanged(int)));
 
   auto presentAct = new QAction(QIcon(":/images/play.png"),
@@ -97,19 +93,19 @@ Simslides::Simslides()
          font-size : 50 px;\
        }");
 
-  // Count
-  auto countSpin = new QSpinBox(0);
-  countSpin->setAlignment(Qt::AlignRight);
-  countSpin->setMaximumWidth(60);
-  this->connect(this, SIGNAL(SetCount(int)), countSpin,
-      SLOT(setValue(int)));
-  this->connect(countSpin, SIGNAL(valueChanged(int)), this,
-      SLOT(OnCountChanged(int)));
+  // Current
+  auto currentSpin = new QSpinBox(0);
+  currentSpin->setAlignment(Qt::AlignRight);
+  currentSpin->setMaximumWidth(60);
+  this->connect(this, SIGNAL(SetCurrent(const int)), currentSpin,
+      SLOT(setValue(const int)));
+  this->connect(currentSpin, SIGNAL(valueChanged(const int)), this,
+      SLOT(OnCurrentChanged(const int)));
 
   // Total
   auto totalLabel = new QLabel("0");
-  this->connect(this, SIGNAL(SetTotal(QString)), totalLabel,
-      SLOT(setText(QString)));
+  this->connect(this, SIGNAL(SetTotal(const QString)), totalLabel,
+      SLOT(setText(const QString)));
 
   // Present
   auto presentButton = new QToolButton();
@@ -118,17 +114,17 @@ Simslides::Simslides()
 
   // Create the layout that sits inside the frame
   auto frameLayout = new QHBoxLayout();
-  frameLayout->addWidget(countSpin);
+  frameLayout->addWidget(currentSpin);
   frameLayout->addWidget(new QLabel("/"));
   frameLayout->addWidget(totalLabel);
   frameLayout->addWidget(presentButton);
 
   // Create the frame to hold all the widgets
-  QFrame *mainFrame = new QFrame();
+  auto mainFrame = new QFrame();
   mainFrame->setLayout(frameLayout);
 
   // Main layout
-  QHBoxLayout *mainLayout = new QHBoxLayout;
+  auto mainLayout = new QHBoxLayout;
   mainLayout->setContentsMargins(0, 0, 0, 0);
   mainLayout->addWidget(mainFrame);
   this->setLayout(mainLayout);
@@ -145,7 +141,7 @@ Simslides::Simslides()
 }
 
 /////////////////////////////////////////////////
-void Simslides::Load(sdf::ElementPtr _sdf)
+void Simslides::Load(const sdf::ElementPtr _sdf)
 {
   if (_sdf->HasElement("slide_prefix"))
   {
@@ -164,14 +160,15 @@ void Simslides::Load(sdf::ElementPtr _sdf)
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnSlideChanged(int _slide, int _total)
+void Simslides::OnSlideChanged(const int _slide, const int _total)
 {
-  this->SetCount(_slide);
+  this->SetCurrent(_slide);
   this->SetTotal(QString::number(_total));
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnCountChanged(int _slide)
+void Simslides::OnCurrentChanged(const int _slide)
 {
-  this->CountChanged(_slide);
+  this->CurrentChanged(_slide);
 }
+

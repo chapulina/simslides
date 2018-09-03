@@ -25,33 +25,33 @@ class simslides::ImportDialogPrivate
   public: QString tmpDir = "/tmp/simslides_tmp";
 
   /// \brief Holds the path to the PDF file
-  public: QLabel *pdfLabel;
+  public: QLabel * pdfLabel;
 
   /// \brief Wait message
-  public: QLabel *waitLabel;
+  public: QLabel * waitLabel;
 
   /// \brief Done message
-  public: QLabel *doneLabel;
+  public: QLabel * doneLabel;
 
   /// \brief Directory to save models
-  public: QLineEdit *dirEdit;
+  public: QLineEdit * dirEdit;
 
   /// \brief Model name prefix
-  public: QLineEdit *nameEdit;
+  public: QLineEdit * nameEdit;
 
   /// \brief Next button #1
-  public: QPushButton *next1Button;
+  public: QPushButton * next1Button;
 
   /// \brief Button to generate slides
-  public: QPushButton *generateButton;
+  public: QPushButton * generateButton;
 
   /// \brief Sping boxes for slide size
-  public: QDoubleSpinBox *scaleXSpin;
-  public: QDoubleSpinBox *scaleYSpin;
-  public: QDoubleSpinBox *scaleZSpin;
+  public: QDoubleSpinBox * scaleXSpin;
+  public: QDoubleSpinBox * scaleYSpin;
+  public: QDoubleSpinBox * scaleZSpin;
 
   /// \brief Stacked layout to hold steps
-  public: QStackedLayout *stackedStepLayout;
+  public: QStackedLayout * stackedStepLayout;
 
   /// \brief Vector holding one button group per slide
   public: std::vector<QButtonGroup *> buttonGroups;
@@ -61,14 +61,16 @@ class simslides::ImportDialogPrivate
 };
 
 /////////////////////////////////////////////////
-ImportDialog::ImportDialog(QWidget *_parent)
-  : QDialog(_parent), dataPtr(new ImportDialogPrivate)
+ImportDialog::ImportDialog()
+  : dataPtr(new ImportDialogPrivate)
 {
   this->setWindowTitle(tr("Create a new presentation"));
   this->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
       Qt::WindowStaysOnTopHint | Qt::CustomizeWindowHint);
 
-  // Step 1
+  ////////////
+  // Step 1 //
+  ////////////
   auto step1Label = new QLabel(tr("<b>Step 1: Load a PDF file</b>"));
   step1Label->setMaximumHeight(50);
 
@@ -97,9 +99,15 @@ ImportDialog::ImportDialog(QWidget *_parent)
   auto step1Widget = new QWidget();
   step1Widget->setLayout(step1Layout);
 
+  ////////////
+  // Step 2 //
+  ////////////
+
   // Step 2 layout (created and inserted later)
 
-  // Step 3
+  ////////////
+  // Step 3 //
+  ////////////
   auto step3Label = new QLabel(tr("<b>Step 3: Generate world and models</b>"));
 
   // Save dir
@@ -151,6 +159,8 @@ ImportDialog::ImportDialog(QWidget *_parent)
       SLOT(OnGenerate()));
 
   // Step 3 layout
+  // TODO(louise): Add tooltips and consider renaming fields to be more user friendly
+  // (not clear what's prefix)
   auto step3Layout = new QGridLayout;
   step3Layout->setSpacing(0);
   step3Layout->addWidget(step3Label, 0, 0, 1, 3);
@@ -169,11 +179,18 @@ ImportDialog::ImportDialog(QWidget *_parent)
   step3Widget->setLayout(step3Layout);
 
   // Wait
+  // TODO(louise): Don't block GUI while loading, and show a progress bar
   this->dataPtr->waitLabel = new QLabel(
       "   Transforming PDF into PNG, this may take a while... Believe me, just wait.");
 
   // Done
-  this->dataPtr->doneLabel = new QLabel("Done! F5 is not immediately available now, you must load the saved world...");
+  // TODO(louise): Close dialog when done.
+  this->dataPtr->doneLabel =
+      new QLabel("Done! F5 is not immediately available now, you must load the saved world...");
+
+  //////////
+  // Main //
+  //////////
 
   // Stacked layout
   this->dataPtr->stackedStepLayout = new QStackedLayout;

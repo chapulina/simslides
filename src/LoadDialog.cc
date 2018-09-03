@@ -20,14 +20,19 @@ using namespace simslides;
 
 class simslides::LoadDialogPrivate
 {
-  public: QLabel *pathLabel;
-  public: QLineEdit *nameEdit;
-  public: QPushButton *loadButton;
+  /// \brief Label holding path.
+  public: QLabel * pathLabel;
+
+  /// \brief Holds name prefix for models.
+  public: QLineEdit * nameEdit;
+
+  /// \brief Load button.
+  public: QPushButton * loadButton;
 };
 
 /////////////////////////////////////////////////
-LoadDialog::LoadDialog(QWidget *_parent)
-  : QDialog(_parent), dataPtr(new LoadDialogPrivate)
+LoadDialog::LoadDialog()
+  : dataPtr(new LoadDialogPrivate)
 {
   this->setWindowTitle(tr("Load an existing presentation"));
   this->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
@@ -50,6 +55,7 @@ LoadDialog::LoadDialog(QWidget *_parent)
   this->connect(this->dataPtr->loadButton, SIGNAL(clicked()), this,
       SLOT(Load()));
 
+  // Layout
   auto mainLayout = new QGridLayout();
 
   // Path
@@ -113,7 +119,7 @@ void LoadDialog::Load()
   simslides::slidePath = this->dataPtr->pathLabel->text().toStdString();
 
   simslides::LoadSlides();
+
+  // TODO(louise): close dialog
 }
-
-
 
