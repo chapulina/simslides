@@ -18,16 +18,11 @@
 
 #include <memory>
 
-#ifndef Q_MOC_RUN  // See: https://bugreports.qt-project.org/browse/QTBUG-22829
-# include <gazebo/gui/gui.hh>
-#endif
+#include <gazebo/gui/qt.h>
 
 namespace simslides
 {
   class ImportDialogPrivate;
-
-  /// \addtogroup gazebo_gui
-  /// \{
 
   /// \class ImportDialog ImportDialog.hh gui/gui.hh
   /// \brief Dialog for creating a new presentation.
@@ -36,26 +31,33 @@ namespace simslides
     Q_OBJECT
 
     /// \brief Constructor.
-    /// \param[in] _mode Mode of the dialog.
-    /// \param[in] _parent Parent QWidget.
-    public: ImportDialog(QWidget *_parent = 0);
+    public: ImportDialog();
 
     /// \brief Destructor.
     public: ~ImportDialog();
 
-    /// \brief Qt callback when the file directory browse button is pressed.
+    /// \brief Callback to choose PDF file to be loaded.
     private slots: void OnBrowsePDF();
+
+    /// \brief Callback to choose directory to save models.
     private slots: void OnBrowseDir();
+
+    /// \brief Callback to load chosen PDF file.
     private slots: void OnLoadPDF();
+
+    /// \brief Callback to go to next step after step 2.
     private slots: void OnNext2();
+
+    /// \brief Callback to generate models.
     private slots: void OnGenerate();
+
+    /// \brief Check if buttons should be enabled.
     private slots: void CheckReady(QString _str = QString());
 
     /// \internal
     /// \brief Pointer to private data.
     private: std::unique_ptr<ImportDialogPrivate> dataPtr;
   };
-  /// \}
 }
 
 #endif
