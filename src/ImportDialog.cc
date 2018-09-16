@@ -14,6 +14,7 @@
  * limitations under the License.
 */
 #include <gazebo/common/CommonIface.hh>
+#include <gazebo/common/Console.hh>
 #include "Common.hh"
 #include "ImportDialog.hh"
 
@@ -58,6 +59,9 @@ class simslides::ImportDialogPrivate
 
   /// \brief Total number of slides
   public: int count;
+
+  /// \brief External process to convert PDF into images
+  public: QProcess * convertProcess{nullptr};
 };
 
 /////////////////////////////////////////////////
@@ -159,7 +163,8 @@ ImportDialog::ImportDialog()
       SLOT(OnGenerate()));
 
   // Step 3 layout
-  // TODO(louise): Add tooltips and consider renaming fields to be more user friendly
+  // TODO(louise): Add tooltips and consider renaming fields to be more user
+  // friendly
   // (not clear what's prefix)
   auto step3Layout = new QGridLayout;
   step3Layout->setSpacing(0);
@@ -179,14 +184,18 @@ ImportDialog::ImportDialog()
   step3Widget->setLayout(step3Layout);
 
   // Wait
-  // TODO(louise): Don't block GUI while loading, and show a progress bar
+  // TODO(louise): Show progress gif while loading
   this->dataPtr->waitLabel = new QLabel(
-      "   Transforming PDF into PNG, this may take a while... Believe me, just wait.");
+      "   Transforming PDF into PNG, this may take a while...\n\
+           Believe me, just wait.");
 
   // Done
+  // TODO(louise): Present immediately after importing
   // TODO(louise): Close dialog when done.
   this->dataPtr->doneLabel =
       new QLabel("Done! F5 is not immediately available now, you must load the saved world...");
+
+  // TODO(louise): Handle importing a new PDF better.
 
   //////////
   // Main //
@@ -273,6 +282,8 @@ void ImportDialog::OnLoadPDF()
   {
     if (!gazebo::common::exists(this->dataPtr->tmpDir.toStdString()))
     {
+      gzmsg << "Creating temp dir [" << this->dataPtr->tmpDir.toStdString()
+            << "]" << std::endl;
       QProcess p;
       p.setProcessChannelMode(QProcess::ForwardedChannels);
       p.start("mkdir", QStringList() << this->dataPtr->tmpDir);
@@ -280,9 +291,12 @@ void ImportDialog::OnLoadPDF()
     }
     else
     {
+      gzmsg << "Cleaning temp dir [" << this->dataPtr->tmpDir.toStdString()
+            << "]" << std::endl;
       QProcess p;
       p.setProcessChannelMode(QProcess::ForwardedChannels);
-      p.start("rm", QStringList() << "-rf" << QString(this->dataPtr->tmpDir + "/*"));
+      p.start("rm", QStringList() << "-rf" << QString(
+          this->dataPtr->tmpDir + "/*"));
       p.waitForFinished();
     }
   }
@@ -290,29 +304,73 @@ void ImportDialog::OnLoadPDF()
 
   // Convert PDF to pngs
   {
-    QProcess p;
-    p.setProcessChannelMode(QProcess::ForwardedChannels);
-    p.start("convert", QStringList() <<
+    if (!this->dataPtr->convertProcess)
+    {
+      this->dataPtr->convertProcess = new QProcess();
+
+      this->dataPtr->convertProcess->setProcessChannelMode(
+          QProcess::ForwardedChannels);
+
+      this->connect(this->dataPtr->convertProcess,
+          SIGNAL(finished(int, QProcess::ExitStatus)),
+          this, SLOT(OnConversionFinished(int, QProcess::ExitStatus)));
+    }
+
+    gzmsg << "Converting PDF [" << this->dataPtr->pdfLabel->text().toStdString()
+          << "] to images" << std::endl;
+    this->dataPtr->convertProcess->start("convert", QStringList() <<
         "-density" << "150" <<
         "-quality" << "100" <<
         "-sharpen" << "0x1.0" <<
         this->dataPtr->pdfLabel->text() <<
         QString(this->dataPtr->tmpDir + "/tmpPng.png"));
-    p.waitForFinished();
+
+    this->dataPtr->convertProcess->waitForStarted(1000);
+
+    if (this->dataPtr->convertProcess->error() == QProcess::FailedToStart)
+    {
+      std::string error{
+          "Failed to convert PDF. Have you installed ImageMagick?\n\
+           sudo apt-get install imagemagick"};
+
+      this->dataPtr->waitLabel->setText(QString::fromStdString(error));
+      gzerr << error << std::endl;
+
+      return;
+    }
+  }
+}
+
+/////////////////////////////////////////////////
+void ImportDialog::OnConversionFinished(int _exitCode,
+    QProcess::ExitStatus _exitStatus)
+{
+  if (_exitCode != 0 || _exitStatus != QProcess::NormalExit)
+  {
+    std::string error = "Failed to convert PDF, exit code: " +
+        std::to_string(_exitCode) +
+        ", exit status:" + std::to_string(_exitStatus);
+
+    this->dataPtr->waitLabel->setText(QString::fromStdString(error));
+    gzerr << error << std::endl;
+
+    return;
   }
 
   // Generate step 2 widgets
 
   // Find number of images in temp path
+  // TODO(louise): Use QDir
   boost::filesystem::path tmpPath(this->dataPtr->tmpDir.toStdString());
   this->dataPtr->count = std::count_if(
       boost::filesystem::directory_iterator(tmpPath),
       boost::filesystem::directory_iterator(),
       boost::bind( static_cast<bool(*)(const boost::filesystem::path&)>(
       boost::filesystem::is_regular_file),
-        boost::bind( &boost::filesystem::directory_entry::path, _1 ) ) );
+      boost::bind( &boost::filesystem::directory_entry::path, _1 ) ) );
   QCoreApplication::processEvents();
 
+  // TODO(louise): Support other keyframes
   auto slidesLayout = new QVBoxLayout();
   for (int i = 0; i < this->dataPtr->count; ++i)
   {
@@ -548,6 +606,8 @@ void ImportDialog::OnGenerate()
   else
     saveWorld << worldSdf;
   saveWorld.close();
+
+  gzdbg << "Saved world file to " << worldFile << std::endl;
 
   // Add to path and wait to be added
   saveDialog->AddDirToModelPaths(simslides::slidePath + "/" + "dummy");
