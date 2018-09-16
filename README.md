@@ -4,6 +4,10 @@ http://gazebosim.org/tutorials?cat=install
 
 Checking out a couple other tutorials wouldn't hurt either.
 
+# Extra dependencies
+
+    sudo apt install imagemagick
+
 # Build
 
     mkdir build

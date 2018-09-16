@@ -54,6 +54,9 @@ namespace simslides
     /// \brief Check if buttons should be enabled.
     private slots: void CheckReady(QString _str = QString());
 
+    /// \brief Callback when conversion from PDF to images is completed.
+    private slots: void OnConversionFinished(int, QProcess::ExitStatus);
+
     /// \internal
     /// \brief Pointer to private data.
     private: std::unique_ptr<ImportDialogPrivate> dataPtr;
