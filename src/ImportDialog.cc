@@ -31,9 +31,6 @@ class simslides::ImportDialogPrivate
   /// \brief Wait message
   public: QLabel * waitLabel;
 
-  /// \brief Done message
-  public: QLabel * doneLabel;
-
   /// \brief Directory to save models
   public: QLineEdit * dirEdit;
 
@@ -189,12 +186,6 @@ ImportDialog::ImportDialog()
       "   Transforming PDF into PNG, this may take a while...\n\
            Believe me, just wait.");
 
-  // Done
-  // TODO(louise): Present immediately after importing
-  // TODO(louise): Close dialog when done.
-  this->dataPtr->doneLabel =
-      new QLabel("Done! F5 is not immediately available now, you must load the saved world...");
-
   // TODO(louise): Handle importing a new PDF better.
 
   //////////
@@ -206,7 +197,6 @@ ImportDialog::ImportDialog()
   this->dataPtr->stackedStepLayout->addWidget(step1Widget);
   this->dataPtr->stackedStepLayout->addWidget(this->dataPtr->waitLabel);
   this->dataPtr->stackedStepLayout->addWidget(step3Widget);
-  this->dataPtr->stackedStepLayout->addWidget(this->dataPtr->doneLabel);
 
   this->setLayout(this->dataPtr->stackedStepLayout);
 }
@@ -421,21 +411,28 @@ void ImportDialog::OnNext2()
 /////////////////////////////////////////////////
 void ImportDialog::OnGenerate()
 {
-  // Scale
-  auto scaleX = std::to_string(this->dataPtr->scaleXSpin->value());
-  auto scaleY = std::to_string(this->dataPtr->scaleYSpin->value());
-  auto scaleZ = std::to_string(this->dataPtr->scaleZSpin->value());
-  auto height = std::to_string(this->dataPtr->scaleZSpin->value() * 0.5);
+  // Generate and save world and models, load simslides::keyframes
+  this->GenerateWorld();
 
-  // Start world
-  std::string worldSdf = "<?xml version='1.0' ?>\n\
-    <sdf version='1.5'>\n\
-    <world name='default'>\n\
-    <gui>\n\
+  // Insert models
+  simslides::LoadSlides();
+
+  // Close dialog
+  this->dataPtr->stackedStepLayout->removeItem(
+      this->dataPtr->stackedStepLayout->itemAt(2));
+  this->close();
+}
+
+/////////////////////////////////////////////////
+void ImportDialog::AddGUI(std::string & _worldSdf)
+{
+  // TODO(louise): Use libsdformat
+
+  // <plugin>
+  std::string pluginStr = "\
       <plugin name='simslides' filename='libsimslides.so'>\n\
         <slide_prefix>" + simslides::slidePrefix + "</slide_prefix>\n";
 
-  // Generate plugin
   if (this->dataPtr->buttonGroups.size() != this->dataPtr->count)
   {
     gzerr << "Number of slides [" << this->dataPtr->count <<
@@ -447,30 +444,62 @@ void ImportDialog::OnGenerate()
   for (int i = 0; i < this->dataPtr->count; ++i)
   {
     if (this->dataPtr->buttonGroups[i]->checkedId() == 0)
-      worldSdf += "        <keyframe type='lookat' number='" + std::to_string(i) + "'/>\n";
+    {
+      pluginStr +=
+        "        <keyframe type='lookat' number='" + std::to_string(i) + "'/>\n";
+    }
     else if (this->dataPtr->buttonGroups[i]->checkedId() == 1)
-      worldSdf += "        <keyframe type='stack' number='" + std::to_string(i) + "'/>\n";
+    {
+      pluginStr +=
+          "        <keyframe type='stack' number='" + std::to_string(i) + "'/>\n";
+    }
     else
       gzerr << "Invalid button [" << i << "]" << std::endl;
   }
-
-  // Continue world
-  worldSdf += "\
+  pluginStr +="\
     </plugin>\n\
       <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'>\n\
-      </plugin>\n\
-    </gui>\n\
-    <include>\n\
-      <uri>model://sun</uri>\n\
-    </include>\n\
-    <include>\n\
-      <uri>model://ground_plane</uri>\n\
-    </include>";
+      </plugin>\n";
+
+  // Load plugin so keyframes are generated
+  // Hack: put it inside <world> because that can be a root SDF
+  // TODO(louise): Instead, create Keyframe obejcts above.
+  std::string sdfStr = "\
+    <sdf version ='1.6'>\n\
+      <world name='dummy'>\n" +
+        pluginStr +
+      "</world>\n\
+    </sdf>\n";
+
+  sdf::SDFPtr pluginSdf(new sdf::SDF);
+  pluginSdf->SetFromString(sdfStr);
+  auto pluginElem = pluginSdf->Root()->GetElement("world")->GetElement("plugin");
+  simslides::LoadPluginSDF(pluginElem);
+
+  // <gui>
+  std::string guiStr = "\
+    <gui>\n" +
+      pluginStr +
+    "</gui>\n";
+
+  // Add to world
+  _worldSdf += guiStr;
+}
+
+/////////////////////////////////////////////////
+void ImportDialog::AddSlides(std::string & _worldSdf)
+{
+  // Scale
+  auto scaleX = std::to_string(this->dataPtr->scaleXSpin->value());
+  auto scaleY = std::to_string(this->dataPtr->scaleYSpin->value());
+  auto scaleZ = std::to_string(this->dataPtr->scaleZSpin->value());
+  auto height = std::to_string(this->dataPtr->scaleZSpin->value() * 0.5);
 
   // Save each model and add it to the world
   simslides::slidePath = this->dataPtr->dirEdit->text().toStdString();
   auto saveDialog = new gazebo::gui::SaveEntityDialog(
       gazebo::gui::SaveEntityDialog::MODEL);
+
   for (int i = 0; i < this->dataPtr->count; ++i)
   {
     std::string modelName(simslides::slidePrefix + "-" +
@@ -478,6 +507,7 @@ void ImportDialog::OnGenerate()
     saveDialog->SetModelName(modelName);
     saveDialog->SetSaveLocation(simslides::slidePath + "/" + modelName);
 
+    // TODO(louise) Use QDir
     // Create dir
     {
       boost::filesystem::path path;
@@ -578,36 +608,21 @@ void ImportDialog::OnGenerate()
 
     // Move image to dir
     gazebo::common::moveFile(
-      this->dataPtr->tmpDir.toStdString() + "/tmpPng-" + std::to_string(i) + ".png",
-      simslides::slidePath + "/" + modelName + "/materials/textures/" + modelName + ".png");
+      this->dataPtr->tmpDir.toStdString() +
+      "/tmpPng-" +
+      std::to_string(i) +
+      ".png",
+      simslides::slidePath +
+      "/" + modelName + "/materials/textures/" + modelName + ".png");
 
     // Add model to world
-    worldSdf+=
+    _worldSdf+=
       "<include>\n\
         <name>" + modelName + "</name>\n\
         <pose>" + std::to_string(i) + "0 0 0 0 0 0</pose>\n\
         <uri>model://" + modelName + "</uri>\n\
       </include>";
   }
-
-  // Save world
-  worldSdf+= "</world>\n\
-    </sdf>";
-  std::string worldFile = simslides::slidePath + "/" + simslides::slidePrefix + ".world";
-  std::ofstream saveWorld(worldFile, std::ios::out);
-  if (!saveWorld)
-  {
-    QMessageBox msgBox;
-    std::string str = "Unable to open file: " + worldFile;
-    str += ".\nCheck file permissions.";
-    msgBox.setText(str.c_str());
-    msgBox.exec();
-  }
-  else
-    saveWorld << worldSdf;
-  saveWorld.close();
-
-  gzdbg << "Saved world file to " << worldFile << std::endl;
 
   // Add to path and wait to be added
   saveDialog->AddDirToModelPaths(simslides::slidePath + "/" + "dummy");
@@ -625,6 +640,48 @@ void ImportDialog::OnGenerate()
     }
     gazebo::common::Time::MSleep(100);
   }
+}
+
+/////////////////////////////////////////////////
+void ImportDialog::GenerateWorld()
+{
+  // Start world
+  std::string worldSdf = "<?xml version='1.0' ?>\n\
+    <sdf version='1.5'>\n\
+    <world name='default'>\n";
+
+  this->AddGUI(worldSdf);
+
+  // Continue world
+  worldSdf += "\
+    <include>\n\
+      <uri>model://sun</uri>\n\
+    </include>\n\
+    <include>\n\
+      <uri>model://ground_plane</uri>\n\
+    </include>";
+
+  this->AddSlides(worldSdf);
+
+  // Save world
+  worldSdf+= "</world>\n\
+    </sdf>";
+  std::string worldFile =
+      simslides::slidePath + "/" + simslides::slidePrefix + ".world";
+  std::ofstream saveWorld(worldFile, std::ios::out);
+  if (!saveWorld)
+  {
+    QMessageBox msgBox;
+    std::string str = "Unable to open file: " + worldFile;
+    str += ".\nCheck file permissions.";
+    msgBox.setText(str.c_str());
+    msgBox.exec();
+  }
+  else
+    saveWorld << worldSdf;
+  saveWorld.close();
+
+  gzdbg << "Saved world file to " << worldFile << std::endl;
 
   // Clear temp path
   {
@@ -633,11 +690,5 @@ void ImportDialog::OnGenerate()
     p.start("rm", QStringList() << "-rf" << this->dataPtr->tmpDir);
     p.waitForFinished();
   }
-
-  // Insert models
-  simslides::LoadSlides();
-  this->dataPtr->stackedStepLayout->removeItem(
-      this->dataPtr->stackedStepLayout->itemAt(2));
-  this->dataPtr->stackedStepLayout->setCurrentIndex(3);
 }
 

@@ -31,9 +31,19 @@ class simslides::PresentModePrivate
   /// \brief Node used for communication.
   public: gazebo::transport::NodePtr node;
 
+  /// \brief Subscribe to key click messages.
   public: gazebo::transport::SubscriberPtr keyboardSub;
+
+  /// \brief Keep pointer to camera so we can move it.
   public: gazebo::rendering::UserCameraPtr camera;
+
+  /// \brief Keep track of current keyframe index.
+  /// -1 means the "home" camera pose.
+  /// 0 is the first keyframe.
   public: int currentIndex = -1;
+
+  /// \brief Total number of keyframes.
+  /// -1 means not presenting.
   public: int slideCount = 0;
 
   public: double eyeOffsetX = 0;
@@ -49,12 +59,12 @@ class simslides::PresentModePrivate
   /// \brief Event based connections.
   public: std::vector<gazebo::event::ConnectionPtr> connections;
 
+  /// \brief Window mode, usually "simulation" or "LogPlayback"
   public: std::string windowMode = "simulation";
 };
 
 /////////////////////////////////////////////////
-PresentMode::PresentMode(QObject *_parent)
-  : QObject(_parent), dataPtr(new PresentModePrivate)
+PresentMode::PresentMode() : dataPtr(new PresentModePrivate)
 {
   // Keep pointer to the user camera
   this->dataPtr->camera = gazebo::gui::get_active_camera();
@@ -77,7 +87,7 @@ void PresentMode::OnWindowMode(const std::string &_mode)
 }
 
 /////////////////////////////////////////////////
-void PresentMode::OnToggled(bool _checked)
+void PresentMode::OnToggled(const bool _checked)
 {
   if (_checked)
     this->Start();
@@ -88,6 +98,12 @@ void PresentMode::OnToggled(bool _checked)
 /////////////////////////////////////////////////
 void PresentMode::Start()
 {
+  if (simslides::slidePrefix.empty())
+  {
+    gzerr << "Empty slide prefix, can't run presentation." << std::endl;
+    return;
+  }
+
   if (!this->dataPtr->camera->GetScene()->GetVisual(
       simslides::slidePrefix + "-0::link::visual"))
   {
@@ -113,7 +129,7 @@ void PresentMode::Start()
         this->dataPtr->node->Subscribe("~/keyboard/keypress",
         &PresentMode::OnKeyPress, this, true);
 
-    // TODO: Only advertize this if we have at least one LOG_SEEK frame
+    // TODO(louise): Only advertize this if we have at least one LOG_SEEK frame
     // FIXME: This may fail if we connect after the event is fired, so for now
     // commenting this out, which means Gazebo will crash if a log control
     // msg is published during simulation mode (issue #2350)

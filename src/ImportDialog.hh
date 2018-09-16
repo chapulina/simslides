@@ -36,6 +36,21 @@ namespace simslides
     /// \brief Destructor.
     public: ~ImportDialog();
 
+    /// \brief Do the following:
+    /// * Generate and save a .world file
+    /// * Generate and save a model for each PNG, including material
+    /// * Load keyframes
+    /// * Load models
+    private: void GenerateWorld();
+
+    /// \brief Add <gui> to world SDF.
+    /// \param[out] _worldSdf
+    private: void AddGUI(std::string & _worldSdf);
+
+    /// \brief Add all slide models to SDF.
+    /// \param[out] _worldSdf
+    private: void AddSlides(std::string & _worldSdf);
+
     /// \brief Callback to choose PDF file to be loaded.
     private slots: void OnBrowsePDF();
 

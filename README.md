@@ -14,8 +14,11 @@ Checking out a couple other tutorials wouldn't hurt either.
     cd build
     cmake ..
     make
+    cd ..
 
 # Run SimSlides
+
+From repository root:
 
     . ./simslides.sh
 
