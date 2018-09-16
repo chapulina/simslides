@@ -36,6 +36,10 @@ namespace simslides
   /// after slides are generated and if the option to load slides is chosen,
   /// but not if slides are loaded from a world.
   void LoadSlides();
+
+  /// \brief Load <gui><plugin> tag for libsimslides.
+  /// \param[in] _sdf SDF element.
+  void LoadPluginSDF(const sdf::ElementPtr _sdf);
 }
 
 #endif

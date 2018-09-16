@@ -143,20 +143,7 @@ Simslides::Simslides()
 /////////////////////////////////////////////////
 void Simslides::Load(const sdf::ElementPtr _sdf)
 {
-  if (_sdf->HasElement("slide_prefix"))
-  {
-    simslides::slidePrefix = _sdf->Get<std::string>("slide_prefix");
-  }
-
-  if (_sdf->HasElement("keyframe"))
-  {
-    auto keyframeElem = _sdf->GetElement("keyframe");
-    while (keyframeElem)
-    {
-      simslides::keyframes.push_back(new Keyframe(keyframeElem));
-      keyframeElem = keyframeElem->GetNextElement("keyframe");
-    }
-  }
+  simslides::LoadPluginSDF(_sdf);
 }
 
 /////////////////////////////////////////////////

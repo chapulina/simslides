@@ -18,38 +18,54 @@
 
 #include <memory>
 
+#include <gazebo/gui/gui.hh>
 #include <gazebo/msgs/any.pb.h>
-#ifndef Q_MOC_RUN  // See: https://bugreports.qt-project.org/browse/QTBUG-22829
-# include <gazebo/gui/gui.hh>
-#endif
 
 namespace simslides
 {
   class PresentModePrivate;
 
-  /// \brief Dialog for creating a new presentation.
+  /// \brief Handles keyframes while presenting.
   class PresentMode : public QObject
   {
     Q_OBJECT
 
     /// \brief Constructor.
-    /// \param[in] _parent Parent QWidget.
-    public: PresentMode(QObject *_parent = 0);
+    public: PresentMode();
 
     /// \brief Destructor.
     public: ~PresentMode();
 
-    private slots: void OnToggled(bool _checked);
+    /// \brief Callback when user starts / stops present mode.
+    /// \param[in] _checked True to run, false to stop.
+    private slots: void OnToggled(const bool _checked);
+
+    /// \brief Start presenting.
     private: void Start();
+
+    /// \brief Stop presenting.
     private: void Stop();
 
+    /// \brief Callback when user presses a key.
+    /// \param[in] _msg Message containing key.
     private: void OnKeyPress(ConstAnyPtr &_msg);
-    private: void ChangeSlide();
-    private slots: void OnSlideChanged(int);
 
+    /// \brief Callback when Gazebo says the window mode has changed.
+    /// \param[in] _mode New mode, usually "simulation" or "LogPlayback".
     private: void OnWindowMode(const std::string &_mode);
 
-    Q_SIGNALS: void SlideChanged(int, int);
+    /// \brief Performs the slide change, based on the current index which was
+    /// previously set.
+    private: void ChangeSlide();
+
+    /// \brief Callback when the user requested a new keyframe.
+    /// \oaram[in] _slide New slide index.
+    private slots: void OnSlideChanged(int _slide);
+
+    /// \brief Notifies that the slide index has changed,
+    /// \param[in] _currentIndex Current keyframe index.
+    /// \param[in] _slideCount Total number of keyframes.
+    signals: void SlideChanged(int _currentIndex, int _slideCount);
 
     /// \internal
     /// \brief Pointer to private data.
