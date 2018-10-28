@@ -592,6 +592,10 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
           {\n\
             pass\n\
             {\n\
+              scene_blend alpha_blend\n\
+              depth_write off\n\
+              depth_check on\n\
+              lighting off\n\
               texture_unit\n\
               {\n\
                 texture " + modelName + ".png\n\

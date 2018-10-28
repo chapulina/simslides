@@ -1,0 +1,20 @@
+material Slides/slide_15
+        {
+          receive_shadows off
+          technique
+          {
+            pass
+            {
+              scene_blend alpha_blend
+              depth_write off
+              depth_check on
+              lighting off
+              texture_unit
+              {
+                texture slide-15.png
+                filtering anistropic
+                max_anisotropy 16
+              }
+            }
+          }
+        }
