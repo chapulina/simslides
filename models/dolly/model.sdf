@@ -1,10 +1,10 @@
 <?xml version="1.0" ?>
-<sdf version="1.5">
+<sdf version="1.6">
   <model name='Dolly'>
     <pose>0 0 0.325 0 -0 0</pose>
 
     <link name='chassis'>
-      <pose>-0.151427 -0 0.175 0 -0 0</pose>
+      <pose>-0.151427 -0 0.055 0 -0 0</pose>
       <inertial>
         <mass>1.14395</mass>
         <inertia>
@@ -19,19 +19,26 @@
       <visual name='visual'>
         <geometry>
           <box>
-            <size>2.01142 1 0.568726</size>
+            <size>1.0 0.5 0.15</size>
           </box>
         </geometry>
+        <material>
+          <script>
+            <uri>model://dolly/materials/scripts</uri>
+            <uri>model://dolly/materials/textures</uri>
+            <name>Dolly/fur</name>
+          </script>
+        </material>
       </visual>
       <collision name='collision'>
         <geometry>
           <box>
-            <size>2.01142 1 0.568726</size>
+            <size>1.0 0.5 0.15</size>
           </box>
         </geometry>
       </collision>
       <sensor name="sensor_gpu_ray" type="gpu_ray">
-        <pose>1 0 0 0 0 0</pose>
+        <pose>0.5 0 0 0 0 0</pose>
         <ray>
           <scan>
             <horizontal>
@@ -58,9 +65,63 @@
         </plugin>
       </sensor>
     </link>
+    <link name='caster'>
+      <pose>-0.4 0 -0.1 0 0 0</pose>
+      <inertial>
+        <mass>0.0415553</mass>
+        <inertia>
+          <ixx>7.97741e-05</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>7.97741e-05</iyy>
+          <iyz>0</iyz>
+          <izz>7.97741e-05</izz>
+        </inertia>
+      </inertial>
+      <visual name='visual'>
+        <geometry>
+          <sphere>
+            <radius>0.1</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <diffuse>0 0 0 1</diffuse>
+          <ambient>0 0 0 1</ambient>
+          <specular>0 0 0 1</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <sphere>
+            <radius>0.1</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1</mu>
+              <mu2>1</mu2>
+              <slip1>0</slip1>
+              <slip2>0</slip2>
+            </ode>
+          </friction>
+          <contact>
+            <ode>
+              <soft_cfm>0</soft_cfm>
+              <soft_erp>0.2</soft_erp>
+              <kp>1e+13</kp>
+              <kd>1</kd>
+              <max_vel>0.01</max_vel>
+              <min_depth>0</min_depth>
+            </ode>
+          </contact>
+        </surface>
+      </collision>
+    </link>
 
     <link name='left_wheel'>
-      <pose>0.554283 0.625029 -0.025 -1.5707 0 0</pose>
+      <pose>0.15 0.3 -0.025 -1.5707 0 0</pose>
       <inertial>
         <mass>2</mass>
         <inertia>
@@ -75,14 +136,20 @@
       <visual name='visual'>
         <geometry>
           <sphere>
-            <radius>0.3</radius>
+            <radius>0.15</radius>
           </sphere>
         </geometry>
+        <material>
+          <diffuse>0 0 0 1</diffuse>
+          <ambient>0 0 0 1</ambient>
+          <specular>0 0 0 1</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
       </visual>
       <collision name='collision'>
         <geometry>
           <sphere>
-            <radius>0.3</radius>
+            <radius>0.15</radius>
           </sphere>
         </geometry>
         <surface>
@@ -109,7 +176,7 @@
     </link>
 
     <link name='right_wheel'>
-      <pose>0.554282 -0.625029 -0.025 -1.5707 0 0</pose>
+      <pose>0.15 -0.3 -0.025 -1.5707 0 0</pose>
       <inertial>
         <mass>2</mass>
         <inertia>
@@ -124,14 +191,20 @@
       <visual name='visual'>
         <geometry>
           <sphere>
-            <radius>0.3</radius>
+            <radius>0.15</radius>
           </sphere>
         </geometry>
+        <material>
+          <diffuse>0 0 0 1</diffuse>
+          <ambient>0 0 0 1</ambient>
+          <specular>0 0 0 1</specular>
+          <emissive>0 0 0 1</emissive>
+        </material>
       </visual>
       <collision name='collision'>
         <geometry>
           <sphere>
-            <radius>0.3</radius>
+            <radius>0.15</radius>
           </sphere>
         </geometry>
         <surface>
@@ -154,35 +227,6 @@
             </ode>
           </contact>
         </surface>
-      </collision>
-    </link>
-
-    <link name='caster'>
-      <pose>-0.957138 -0 -0.125 0 -0 0</pose>
-      <inertial>
-        <mass>1</mass>
-        <inertia>
-          <ixx>0.1</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>0.1</iyy>
-          <iyz>0</iyz>
-          <izz>0.1</izz>
-        </inertia>
-      </inertial>
-      <visual name='visual'>
-        <geometry>
-          <sphere>
-            <radius>0.2</radius>
-          </sphere>
-        </geometry>
-      </visual>
-      <collision name='collision'>
-        <geometry>
-          <sphere>
-            <radius>0.2</radius>
-          </sphere>
-        </geometry>
       </collision>
     </link>
 
@@ -229,7 +273,7 @@
 
       <!-- kinematics -->
       <wheel_separation>1.25</wheel_separation>
-      <wheel_diameter>0.6</wheel_diameter>
+      <wheel_diameter>0.3</wheel_diameter>
 
       <!-- limits -->
       <max_wheel_torque>20</max_wheel_torque>
@@ -238,7 +282,6 @@
       <!-- output -->
       <publish_odom>true</publish_odom>
       <publish_odom_tf>true</publish_odom_tf>
-      <publish_wheel_tf>true</publish_wheel_tf>
 
       <odometry_frame>odom_demo</odometry_frame>
       <robot_base_frame>chassis</robot_base_frame>
