@@ -5036,7 +5036,7 @@
       </include>
       <include>
         <pose>-35 5.6 0.14 0 0 1.57</pose>
-        <uri>model://person_walking</uri>
+        <uri>model://casual_female</uri>
       </include>
 
   </world>
