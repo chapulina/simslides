@@ -58,10 +58,10 @@
         <update_rate>1.0</update_rate>
         <plugin name="pc2_gpu" filename="libgazebo_ros_ray_sensor.so">
           <ros>
-            <namespace>/gpu_ray</namespace>
-            <argument>~/out:=pointcloud2</argument>
+            <namespace>/dolly</namespace>
+            <argument>~/out:=laser_scan</argument>
           </ros>
-          <output_type>sensor_msgs/PointCloud2</output_type>
+          <output_type>sensor_msgs/LaserScan</output_type>
         </plugin>
       </sensor>
     </link>
@@ -262,9 +262,7 @@
     <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>
 
       <ros>
-        <namespace>/demo</namespace>
-        <argument>cmd_vel:=cmd_demo</argument>
-        <argument>odom:=odom_demo</argument>
+        <namespace>/dolly</namespace>
       </ros>
 
       <!-- wheels -->
