@@ -5,10 +5,6 @@ material Slides/slide_13
           {
             pass
             {
-              scene_blend alpha_blend
-              depth_write off
-              depth_check on
-              lighting off
               texture_unit
               {
                 texture slide-13.png

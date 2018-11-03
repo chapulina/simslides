@@ -45,18 +45,19 @@ public:
           }
         }
 
+        double turn = msg->angle_min + msg->angle_increment * idx;
+        cmd_msg->angular.z = turn * 0.08;
+
         // Too close, stop
         if (idx < 0 || min_range <= min_dist_)
         {
           cmd_msg->linear.x = 0;
-          cmd_msg->angular.z = 0;
         }
         else
         {
-          double turn = msg->angle_min + msg->angle_increment * idx;
-          cmd_msg->linear.x = 0.04 / abs(turn);
-          cmd_msg->angular.z = turn * 0.08;
+          cmd_msg->linear.x = 0.02 / abs(turn);
         }
+
         cmd_pub_->publish(cmd_msg);
       };
     laser_sub_ = this->create_subscription<sensor_msgs::msg::LaserScan>("laser_scan", onSensorMsg);
