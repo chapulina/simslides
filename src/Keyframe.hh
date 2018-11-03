@@ -57,9 +57,13 @@ namespace simslides
     /// \return
     public: unsigned int SlideNumber() const;
 
-    /// \brief
+    /// \brief For LOG_SEEK
     /// \return
     public: ignition::math::Pose3d CamPose() const;
+
+    /// \brief For LOOKAT
+    /// \return
+    public: ignition::math::Pose3d EyeOffset() const;
 
     /// \brief
     /// \return
