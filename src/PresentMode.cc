@@ -257,6 +257,8 @@ void PresentMode::ChangeSlide()
         return;
       }
 
+      gzmsg << "Stack front: " << frontVisNumber << ", back: " << backVisNumber << std::endl;
+
       // Scale down the other slides in the stack
       for (int i = frontVisNumber; i <= backVisNumber; ++i)
       {
