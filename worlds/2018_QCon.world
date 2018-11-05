@@ -18,25 +18,24 @@
         <keyframe type='lookat' number='6'/>
         <keyframe type='lookat' number='7'/>
         <keyframe type='lookat' number='8'/>
+
         <keyframe type='stack' number='9'/>
         <keyframe type='stack' number='10'/>
         <keyframe type='stack' number='11'/>
         <keyframe type='stack' number='12'/>
         <keyframe type='stack' number='13'/>
+
         <keyframe type='lookat' number='14'/>
-        <keyframe type='stack' number='15'/>
-        <keyframe type='stack' number='16'/>
-        <keyframe type='stack' number='17'/>
+        <keyframe type='lookat' number='15'/>
+        <keyframe type='lookat' number='16'/>
+        <keyframe type='lookat' number='17'/>
         <keyframe type='lookat' number='18'/>
         <keyframe type='lookat' number='19'/>
-        <keyframe type='lookat' number='20'/>
-        <keyframe type='lookat' number='21'/>
-        <keyframe type='lookat' number='22'/>
+        <keyframe type='lookat' number='20' eye_offset="0 -2.0 0.2 0 0 0"/>
+        <keyframe type='lookat' number='21' eye_offset="0 -1.5 -0.2 0 0 0"/>
+        <keyframe type='lookat' number='22' eye_offset="0 -1.5 -0.1 0 0 0"/>
         <keyframe type='lookat' number='23'/>
-        <keyframe type='lookat' number='24' eye_offset="0 -1.5 -0.2 0 0 0"/>
-        <keyframe type='lookat' number='25' eye_offset="0 -1.5 -0.1 0 0 0"/>
-        <keyframe type='lookat' number='26'/>
-        <keyframe type='lookat' number='27' eye_offset="0 -1.5 -0.5 0 0 0"/>
+        <keyframe type='lookat' number='24' eye_offset="0 -1.5 -0.5 0 0 0"/>
       </plugin>
       <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
       </plugin>
@@ -56,6 +55,7 @@
     <physics name='default_physics' default='0' type='ode'>
       <max_step_size>0.005</max_step_size>
       <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>200</real_time_update_rate>
     </physics>
 
     <!-- A global light source -->
@@ -4618,81 +4618,65 @@
         <pose>47.49 129.13 -3.3</pose>
         <uri>model://slide-14</uri>
       </include>
-   <!-- stack modular -->
-      <include>
-        <name>slide-15</name>
-        <pose>100.32 -21.3 3 0 0 1.57</pose>
-        <uri>model://slide-15</uri>
-      </include>
-      <include>
-        <name>slide-16</name>
-        <pose>100.32 -21.3 3 0 0 1.57</pose>
-        <uri>model://slide-16</uri>
-      </include>
-      <include>
-        <name>slide-17</name>
-        <pose>100.32 -21.3 3 0 0 1.57</pose>
-        <uri>model://slide-17</uri>
-      </include>
    <!-- RViz command -->
       <include>
-        <name>slide-18</name>
+        <name>slide-15</name>
         <pose>180 0 0 0 0 0</pose>
-        <uri>model://slide-18</uri>
+        <uri>model://slide-15</uri>
       </include>
    <!-- ROS = -->
       <include>
-        <name>slide-19</name>
+        <name>slide-16</name>
         <pose>196 0 0 0 0 -1.57</pose>
-        <uri>model://slide-19</uri>
+        <uri>model://slide-16</uri>
       </include>
    <!-- ROS versions -->
       <include>
-        <name>slide-20</name>
+        <name>slide-17</name>
         <pose>232.87 -9.9 1.7 0.18 0 3.14</pose>
-        <uri>model://slide-20</uri>
+        <uri>model://slide-17</uri>
       </include>
    <!-- Gazebo = -->
       <include>
-        <name>slide-21</name>
+        <name>slide-18</name>
         <pose>153.7 0 5 0 0 1.57</pose>
-        <uri>model://slide-21</uri>
+        <uri>model://slide-18</uri>
       </include>
    <!-- Gazebo projects -->
       <include>
-        <name>slide-22</name>
+        <name>slide-19</name>
         <pose>97.2 20.9 0 0 0 2.5</pose>
-        <uri>model://slide-22</uri>
+        <uri>model://slide-19</uri>
       </include>
    <!-- Ignition -->
       <include>
-        <name>slide-23</name>
+        <name>slide-20</name>
         <pose>33.4 -37.2 1.3 0 0 0</pose>
-        <uri>model://slide-23</uri>
+        <uri>model://slide-20</uri>
       </include>
    <!-- Robots -->
       <include>
-        <name>slide-24</name>
+        <name>slide-21</name>
         <pose>37.1 42 1.3 0 0 -0.4</pose>
-        <uri>model://slide-24</uri>
+        <uri>model://slide-21</uri>
       </include>
    <!-- Map -->
       <include>
-        <name>slide-25</name>
+        <name>slide-22</name>
         <pose>250 0 0 0 0 0</pose>
-        <uri>model://slide-25</uri>
+        <uri>model://slide-22</uri>
       </include>
    <!-- ROSCon -->
       <include>
-        <name>slide-26</name>
+        <name>slide-23</name>
         <pose>260 0 0 0 0 1.57</pose>
-        <uri>model://slide-26</uri>
+        <uri>model://slide-23</uri>
       </include>
    <!-- links -->
       <include>
-        <name>slide-27</name>
+        <name>slide-24</name>
         <pose>226 0 9 0 0 1.57</pose>
-        <uri>model://slide-27</uri>
+        <uri>model://slide-24</uri>
       </include>
 
     <!-- Dolly -->
@@ -4704,6 +4688,47 @@
         <pose>-35 5.6 0.14 0 0 1.57</pose>
         <uri>model://casual_female</uri>
       </include>
+
+      <actor name='quadrotor'>
+        <pose>-36.7 1.71 40.7 0.13 -0.33 0.038</pose>
+        <link name='link'>
+          <pose frame=''>0 0 0.182466 0 -0 0</pose>
+          <visual name='visual'>
+            <geometry>
+              <mesh>
+                <uri>model://quadrotor/meshes/quadrotor_base.dae</uri>
+                <scale>1 1 1</scale>
+              </mesh>
+            </geometry>
+          </visual>
+        </link>
+          <script>
+            <loop>true</loop>
+            <auto_start>true</auto_start>
+            <trajectory id="0" type="square">
+               <waypoint>
+                  <time>0.0</time>
+                  <pose>-36.7 1.71 40.7 0.13 -0.33 0.038</pose>
+               </waypoint>
+               <waypoint>
+                  <time>1.0</time>
+                  <pose>-36.7 -1.01 40.7 -0.36 0.111 0.528</pose>
+               </waypoint>
+               <waypoint>
+                  <time>2.0</time>
+                  <pose>-39.1 -1.01 40.7 0.050 0.5959 0.55</pose>
+               </waypoint>
+               <waypoint>
+                  <time>3.0</time>
+                  <pose>-39.1 1.71  40.7 0.369 -0.0188 0.523</pose>
+               </waypoint>
+               <waypoint>
+                  <time>4.0</time>
+                  <pose>-36.7 1.71 40.7 0.13 -0.33 0.038</pose>
+               </waypoint>
+            </trajectory>
+          </script>
+      </actor>
 
   </world>
 </sdf>
