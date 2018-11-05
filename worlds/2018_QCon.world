@@ -31,7 +31,7 @@
         <keyframe type='lookat' number='17'/>
         <keyframe type='lookat' number='18'/>
         <keyframe type='lookat' number='19'/>
-        <keyframe type='lookat' number='20' eye_offset="0 -2.0 0.2 0 0 0"/>
+        <keyframe type='lookat' number='20' eye_offset="0 -2.0 0.8 0 0 0"/>
         <keyframe type='lookat' number='21' eye_offset="0 -1.5 -0.2 0 0 0"/>
         <keyframe type='lookat' number='22' eye_offset="0 -1.5 -0.1 0 0 0"/>
         <keyframe type='lookat' number='23'/>
@@ -4615,7 +4615,7 @@
    <!-- node / topic commands -->
       <include>
         <name>slide-14</name>
-        <pose>47.49 129.13 -3.3</pose>
+        <pose>-70.3 32.6 -3.5 0 0 1.15</pose>
         <uri>model://slide-14</uri>
       </include>
    <!-- RViz command -->
