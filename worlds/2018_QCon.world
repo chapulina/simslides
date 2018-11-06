@@ -16,26 +16,24 @@
         <keyframe type='lookat' number='4' eye_offset="-0.2 -5 -0.1 0 0 0"/>
         <keyframe type='lookat' number='5' eye_offset="0 -2 -0.3 0 0 0"/>
         <keyframe type='lookat' number='6'/>
-        <keyframe type='lookat' number='7'/>
-        <keyframe type='lookat' number='8'/>
 
+        <keyframe type='stack' number='7'/>
+        <keyframe type='stack' number='8'/>
         <keyframe type='stack' number='9'/>
         <keyframe type='stack' number='10'/>
         <keyframe type='stack' number='11'/>
         <keyframe type='stack' number='12'/>
-        <keyframe type='stack' number='13'/>
 
+        <keyframe type='lookat' number='13'/>
         <keyframe type='lookat' number='14'/>
         <keyframe type='lookat' number='15'/>
         <keyframe type='lookat' number='16'/>
         <keyframe type='lookat' number='17'/>
         <keyframe type='lookat' number='18'/>
-        <keyframe type='lookat' number='19'/>
-        <keyframe type='lookat' number='20' eye_offset="0 -2.0 0.8 0 0 0"/>
-        <keyframe type='lookat' number='21' eye_offset="0 -1.5 -0.2 0 0 0"/>
-        <keyframe type='lookat' number='22' eye_offset="0 -1.5 -0.1 0 0 0"/>
-        <keyframe type='lookat' number='23'/>
-        <keyframe type='lookat' number='24' eye_offset="0 -1.5 -0.5 0 0 0"/>
+        <keyframe type='lookat' number='19' eye_offset="0 -2.0 0.8 0 0 0"/>
+        <keyframe type='lookat' number='20' eye_offset="0 -1.5 -0.2 0 0 0"/>
+        <keyframe type='lookat' number='21'/>
+        <keyframe type='lookat' number='22' eye_offset="0 -1.5 -0.5 0 0 0"/>
       </plugin>
       <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
       </plugin>
@@ -95,29 +93,6 @@
         </collision>
       </link>
     </model>
-
-    <model name="shaderbox">
-      <pose>0 0 -5 0 0 0</pose>
-      <static>true</static>
-      <link name="link">
-        <visual name="visual">
-          <geometry>
-            <box>
-              <size>0.1 0.1 0.1</size>
-            </box>
-          </geometry>
-          <material>
-            <script>
-              <uri>file://media/materials/scripts/citysim.material</uri>
-              <name>CitySim/ShinyGrey</name>
-            </script>
-          </material>
-          <!--plugin name="bloom" filename="libBloomVisualPlugin.so" /-->
-          <!--plugin name="lensflare" filename="libLensFlareVisualPlugin.so" /-->
-        </visual>
-      </link>
-    </model>
-
 
     <!-- Environment -->
     <include>
@@ -4568,25 +4543,23 @@
         <pose>0 0 10 0 0 -1.57</pose>
         <uri>model://slide-5</uri>
       </include>
-   <!-- HERE -->
+   <!-- robot love open source -->
       <include>
         <name>slide-6</name>
-        <pose>15 0 5 0 0 0</pose>
+        <pose>28 0 5 0 0 0</pose>
         <uri>model://slide-6</uri>
       </include>
-   <!-- FUN -->
+   <!-- node / topic stack -->
       <include>
         <name>slide-7</name>
-        <pose>28 0 5 0 0 0</pose>
+        <pose>-29.6 1.57 3.03 0 0 0.43</pose>
         <uri>model://slide-7</uri>
       </include>
-   <!-- EMPOWERING -->
       <include>
         <name>slide-8</name>
-        <pose>63.02 4.824 3.67 0 0 -0.4597</pose>
+        <pose>-29.6 1.57 3.03 0 0 0.43</pose>
         <uri>model://slide-8</uri>
       </include>
-   <!-- node / topic stack -->
       <include>
         <name>slide-9</name>
         <pose>-29.6 1.57 3.03 0 0 0.43</pose>
@@ -4607,76 +4580,72 @@
         <pose>-29.6 1.57 3.03 0 0 0.43</pose>
         <uri>model://slide-12</uri>
       </include>
-      <include>
-        <name>slide-13</name>
-        <pose>-29.6 1.57 3.03 0 0 0.43</pose>
-        <uri>model://slide-13</uri>
-      </include>
    <!-- node / topic commands -->
       <include>
-        <name>slide-14</name>
+        <name>slide-13</name>
         <pose>-70.3 32.6 -3.5 0 0 1.15</pose>
-        <uri>model://slide-14</uri>
+        <uri>model://slide-13</uri>
       </include>
    <!-- RViz command -->
       <include>
-        <name>slide-15</name>
+        <name>slide-14</name>
         <pose>180 0 0 0 0 0</pose>
-        <uri>model://slide-15</uri>
+        <uri>model://slide-14</uri>
       </include>
    <!-- ROS = -->
       <include>
-        <name>slide-16</name>
+        <name>slide-15</name>
         <pose>196 0 0 0 0 -1.57</pose>
-        <uri>model://slide-16</uri>
+        <uri>model://slide-15</uri>
       </include>
    <!-- ROS versions -->
       <include>
-        <name>slide-17</name>
+        <name>slide-16</name>
         <pose>232.87 -9.9 1.7 0.18 0 3.14</pose>
-        <uri>model://slide-17</uri>
+        <uri>model://slide-16</uri>
       </include>
    <!-- Gazebo = -->
       <include>
-        <name>slide-18</name>
+        <name>slide-17</name>
         <pose>153.7 0 5 0 0 1.57</pose>
-        <uri>model://slide-18</uri>
+        <uri>model://slide-17</uri>
       </include>
    <!-- Gazebo projects -->
       <include>
-        <name>slide-19</name>
+        <name>slide-18</name>
         <pose>97.2 20.9 0 0 0 2.5</pose>
-        <uri>model://slide-19</uri>
+        <uri>model://slide-18</uri>
       </include>
    <!-- Ignition -->
       <include>
-        <name>slide-20</name>
+        <name>slide-19</name>
         <pose>33.4 -43.43 1.3 0 0 0</pose>
-        <uri>model://slide-20</uri>
+        <uri>model://slide-19</uri>
       </include>
    <!-- Robots -->
       <include>
-        <name>slide-21</name>
+        <name>slide-20</name>
         <pose>37.1 42 1.3 0 0 -0.4</pose>
-        <uri>model://slide-21</uri>
-      </include>
-   <!-- Map -->
-      <include>
-        <name>slide-22</name>
-        <pose>250 0 0 0 0 0</pose>
-        <uri>model://slide-22</uri>
+        <uri>model://slide-20</uri>
       </include>
    <!-- ROSCon -->
       <include>
-        <name>slide-23</name>
+        <name>slide-21</name>
         <pose>260 0 0 0 0 1.57</pose>
-        <uri>model://slide-23</uri>
+        <uri>model://slide-21</uri>
       </include>
    <!-- links -->
       <include>
-        <name>slide-24</name>
+        <name>slide-22</name>
         <pose>226 0 9 0 0 1.57</pose>
-        <uri>model://slide-24</uri>
+        <uri>model://slide-22</uri>
+      </include>
+
+   <!-- Start banner -->
+      <include>
+        <name>banner-0</name>
+        <pose>-40.57 0.72 1.66 0 0 -1.08</pose>
+        <uri>model://banner-0</uri>
       </include>
 
     <!-- Dolly -->
