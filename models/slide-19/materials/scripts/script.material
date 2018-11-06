@@ -5,6 +5,9 @@ material Slides/slide_19
           {
             pass
             {
+              scene_blend alpha_blend
+              depth_write off
+              depth_check on
               lighting off
               texture_unit
               {

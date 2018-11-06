@@ -94,13 +94,11 @@ Simslides::Simslides()
        }");
 
   // Current
-  auto currentSpin = new QSpinBox(0);
-  currentSpin->setAlignment(Qt::AlignRight);
-  currentSpin->setMaximumWidth(60);
-  this->connect(this, SIGNAL(SetCurrent(const int)), currentSpin,
-      SLOT(setValue(const int)));
-  this->connect(currentSpin, SIGNAL(valueChanged(const int)), this,
-      SLOT(OnCurrentChanged(const int)));
+  this->currentSpin = new QSpinBox(0);
+  this->currentSpin->setAlignment(Qt::AlignRight);
+  this->currentSpin->setMaximumWidth(60);
+  this->connect(this->currentSpin, SIGNAL(valueChanged(const int)),
+      this, SLOT(OnCurrentChanged(const int)));
 
   // Total
   auto totalLabel = new QLabel("0");
@@ -149,7 +147,10 @@ void Simslides::Load(const sdf::ElementPtr _sdf)
 /////////////////////////////////////////////////
 void Simslides::OnSlideChanged(const int _slide, const int _total)
 {
-  this->SetCurrent(_slide);
+  this->currentSpin->blockSignals(true);
+  this->currentSpin->setValue(_slide);
+  this->currentSpin->blockSignals(false);
+
   this->SetTotal(QString::number(_total));
 }
 

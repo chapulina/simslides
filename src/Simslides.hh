@@ -40,10 +40,6 @@ namespace simslides
     /// \param[in] _total Total number of slides.
     private slots: void OnCurrentChanged(const int _total);
 
-    /// \brief Set value of slide current spin.
-    /// \param[in] _current New current.
-    Q_SIGNALS: void SetCurrent(const int _current);
-
     /// \brief Notifies that the slide spin has changed
     /// \param[in] _current Number of current slide.
     Q_SIGNALS: void CurrentChanged(const int _current);
@@ -51,6 +47,9 @@ namespace simslides
     /// \brief Set total number of slides.
     /// \param[in] _total Total number of slides.
     Q_SIGNALS: void SetTotal(const QString _total);
+
+    /// \brief Spin box holding current slide.
+    private: QSpinBox *currentSpin;
   };
 }
 #endif
