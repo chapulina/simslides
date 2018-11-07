@@ -4,24 +4,33 @@
   <static>1</static>
   <link name='link'>
     <pose frame=''>0 0 0.45 0 -0 0</pose>
-    <collision name='collision'>
+    <visual name='top'>
+      <pose>0 0 0.77 0 -0 0</pose>
       <geometry>
         <box>
-          <size>1.6 0.01 0.9</size>
-        </box>
-      </geometry>
-    </collision>
-    <visual name='visual'>
-      <geometry>
-        <box>
-          <size>1.6 0.01 0.9</size>
+          <size>1.6 0.01 0.26</size>
         </box>
       </geometry>
       <material>
         <script>
           <uri>model://banner-0/materials/scripts</uri>
           <uri>model://banner-0/materials/textures</uri>
-          <name>Banners/banner_0</name>
+          <name>Banners/banner_0_top</name>
+        </script>
+      </material>
+    </visual>
+    <visual name='bottom'>
+      <pose frame=''>0 0 0.045 0 -0 0</pose>
+      <geometry>
+        <box>
+          <size>1.6 0.01 0.09</size>
+        </box>
+      </geometry>
+      <material>
+        <script>
+          <uri>model://banner-0/materials/scripts</uri>
+          <uri>model://banner-0/materials/textures</uri>
+          <name>Banners/banner_0_bottom</name>
         </script>
       </material>
     </visual>
