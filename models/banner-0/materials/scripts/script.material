@@ -1,17 +1,32 @@
-material Banners/banner_0
+material Banners/banner_0_top
         {
           receive_shadows off
           technique
           {
             pass
             {
-              scene_blend alpha_blend
-              depth_write off
-              depth_check on
               lighting off
               texture_unit
               {
-                texture banner-0.png
+                texture banner-0_top.png
+                filtering anistropic
+                max_anisotropy 16
+              }
+            }
+          }
+        }
+
+material Banners/banner_0_bottom
+        {
+          receive_shadows off
+          technique
+          {
+            pass
+            {
+              lighting off
+              texture_unit
+              {
+                texture banner-0_bottom.png
                 filtering anistropic
                 max_anisotropy 16
               }
