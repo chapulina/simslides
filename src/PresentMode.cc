@@ -209,6 +209,7 @@ void PresentMode::ChangeSlide()
   gzmsg << "Change Slide: " << this->dataPtr->currentIndex << std::endl;
 
   ignition::math::Pose3d camPose;
+  ignition::math::Pose3d eyeOff;
   std::string toLookAt;
 
   // Reset presentation
@@ -226,6 +227,8 @@ void PresentMode::ChangeSlide()
     {
       toLookAt = simslides::slidePrefix + "-" +
           std::to_string(keyframe->SlideNumber());
+
+      eyeOff = keyframe->EyeOffset();
     }
 
     if (keyframe->GetType() == KeyframeType::STACK)
@@ -254,8 +257,9 @@ void PresentMode::ChangeSlide()
         return;
       }
 
-      // Get average position of all slides in stack
-      std::vector<gazebo::rendering::VisualPtr> stackVis;
+      gzmsg << "Stack front: " << frontVisNumber << ", back: " << backVisNumber << std::endl;
+
+      // Scale down the other slides in the stack
       for (int i = frontVisNumber; i <= backVisNumber; ++i)
       {
         auto name = simslides::slidePrefix + "-" + std::to_string(i);
@@ -319,14 +323,17 @@ void PresentMode::ChangeSlide()
         bb_pos, origin.Rot()));
 
     // Eye in target frame
-    ignition::math::Matrix4d eye_target =
-        ignition::math::Matrix4d(ignition::math::Pose3d(
-            this->dataPtr->eyeOffsetX,
-            -size.Z()*2,
-            this->dataPtr->eyeOffsetZ,
-            this->dataPtr->eyeOffsetRoll,
-            this->dataPtr->eyeOffsetPitch,
-            this->dataPtr->eyeOffsetYaw));
+    if (eyeOff == ignition::math::Pose3d::Zero)
+    {
+      eyeOff = ignition::math::Pose3d(
+              this->dataPtr->eyeOffsetX,
+              -size.Z()*2,
+              this->dataPtr->eyeOffsetZ,
+              this->dataPtr->eyeOffsetRoll,
+              this->dataPtr->eyeOffsetPitch,
+              this->dataPtr->eyeOffsetYaw);
+    }
+    ignition::math::Matrix4d eye_target(eyeOff);
 
     // Eye in world frame
     auto eye_world = target_world * eye_target;
