@@ -27,6 +27,7 @@ add_library(simslides SHARED
 target_link_libraries(simslides
   ${GAZEBO_LIBRARIES}
   ${Qt5Core_LIBRARIES}
+  ${Qt5Test_LIBRARIES}
   ${Qt5Widgets_LIBRARIES}
   ${PROTOBUF_LIBRARIES}
 )
