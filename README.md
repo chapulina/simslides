@@ -1,3 +1,5 @@
+![SimSlides](simslides_logo.png)
+
 # Make sure you've installed Gazebo
 
 http://gazebosim.org/tutorials?cat=install
