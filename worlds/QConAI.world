@@ -178,6 +178,27 @@
         <gravity>1</gravity>
         <velocity_decay/>
         <self_collide>0</self_collide>
+        <sensor name="camera" type="camera">
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>256</width>
+              <height>256</height>
+            </image>
+            <clip>
+              <near>0.1</near>
+              <far>100</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.2</mean>
+              <stddev>0.07</stddev>
+            </noise>
+          </camera>
+          <always_on>1</always_on>
+          <update_rate>30</update_rate>
+          <visualize>false</visualize>
+        </sensor>
       </link>
       <joint name='HeadPitch' type='revolute'>
         <child>Head</child>
@@ -2749,6 +2770,104 @@
         <map key='66' joint='LElbowYaw' scale='-0.2' type='velocity' kp='480' ki='48' kd='4.8'/>
 
       </plugin>
+    </model>
+
+
+    <model name="soccer_ball">
+      <allow_auto_disable>false</allow_auto_disable>
+      <pose>-6.68 4.15 2 0 0 0</pose>
+      <static>false</static>
+      <link name="soccer_ball_link">
+        <pose>0 0 0 0 0 0</pose>
+        <inertial>
+          <mass>0.026</mass>
+          <!-- inertia based on solid sphere 2/5 mr^2 -->
+          <inertia>
+            <ixx>1.664e-5</ixx>
+            <iyy>1.664e-5</iyy>
+            <izz>1.664e-5</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <sphere>
+              <radius>0.20</radius>
+            </sphere>
+          </geometry>
+          <surface>
+            <bounce>
+              <restitution_coefficient>10.0</restitution_coefficient>
+              <threshold>0</threshold>
+            </bounce>
+            <contact>
+              <ode>
+                <max_vel>10000</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <mesh>
+              <scale>0.20 0.20 0.20</scale>
+              <uri>model://robocup_3Dsim_ball/meshes/ball.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <sensor name="altimeter" type="altimeter">
+          <altimeter>
+            <vertical_position>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.1</stddev>
+                <bias_mean>0.01</bias_mean>
+                <bias_stddev>0.03</bias_stddev>
+              </noise>
+            </vertical_position>
+            <vertical_velocity>
+              <noise type="gaussian">
+                <mean>0.0</mean>
+                <stddev>0.1</stddev>
+                <bias_mean>0.01</bias_mean>
+                <bias_stddev>0.03</bias_stddev>
+              </noise>
+            </vertical_velocity>
+          </altimeter>
+          <always_on>1</always_on>
+          <update_rate>200</update_rate>
+          <topic>/ball/altimeter</topic>
+        </sensor>
+      </link>
+    </model>
+
+    <model name="ball_base">
+      <static>true</static>
+      <pose>-6.68 4.15 0.02 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.2 0.2 0.03</size>
+            </box>
+          </geometry>
+          <surface>
+            <bounce>
+              <restitution_coefficient>1.0</restitution_coefficient>
+              <threshold>0</threshold>
+            </bounce>
+            <contact>
+              <ode>
+                <max_vel>10000</max_vel>
+                <min_depth>0.001</min_depth>
+              </ode>
+            </contact>
+          </surface>
+        </collision>
+      </link>
     </model>
 
   </world>
