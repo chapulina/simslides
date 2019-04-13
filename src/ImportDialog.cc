@@ -124,7 +124,8 @@ ImportDialog::ImportDialog()
 
   // Scale
   this->dataPtr->scaleXSpin = new QDoubleSpinBox();
-  this->dataPtr->scaleXSpin->setValue(4.0);
+  this->dataPtr->scaleXSpin->setDecimals(4);
+  this->dataPtr->scaleXSpin->setValue(1.6);
   this->connect(this->dataPtr->scaleXSpin, SIGNAL(valueChanged(QString)), this,
       SLOT(CheckReady(QString)));
 
@@ -134,7 +135,8 @@ ImportDialog::ImportDialog()
   scaleXLayout->addWidget(new QLabel("m"));
 
   this->dataPtr->scaleYSpin = new QDoubleSpinBox();
-  this->dataPtr->scaleYSpin->setValue(1.0);
+  this->dataPtr->scaleYSpin->setDecimals(4);
+  this->dataPtr->scaleYSpin->setValue(0.001);
   this->connect(this->dataPtr->scaleYSpin, SIGNAL(valueChanged(QString)), this,
       SLOT(CheckReady(QString)));
 
@@ -144,7 +146,8 @@ ImportDialog::ImportDialog()
   scaleYLayout->addWidget(new QLabel("m"));
 
   this->dataPtr->scaleZSpin = new QDoubleSpinBox();
-  this->dataPtr->scaleZSpin->setValue(3.0);
+  this->dataPtr->scaleZSpin->setDecimals(4);
+  this->dataPtr->scaleZSpin->setValue(0.9);
   this->connect(this->dataPtr->scaleZSpin, SIGNAL(valueChanged(QString)), this,
       SLOT(CheckReady(QString)));
 
@@ -540,6 +543,8 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
                 </geometry>\
               </collision>\
               <visual name='visual'>\
+                <cast_shadows>false</cast_shadows>\
+                <transparency>1</transparency>\
                 <geometry>\
                   <box>\
                     <size>" + scaleX + " " + scaleY + " " + scaleZ + "</size>\
@@ -592,6 +597,9 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
           {\n\
             pass\n\
             {\n\
+              lighting off\n\
+              scene_blend alpha_blend\n\
+              depth_check on\n\
               texture_unit\n\
               {\n\
                 texture " + modelName + ".png\n\
