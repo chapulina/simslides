@@ -3,19 +3,12 @@
 <model name='slide-13'>
   <static>1</static>
   <link name='link'>
-    <pose frame=''>0 0 0.45 0 -0 0</pose>
-    <collision name='collision'>
-      <geometry>
-        <box>
-          <size>1.6 0.001 0.9</size>
-        </box>
-      </geometry>
-    </collision>
+    <pose frame=''>0 0 0.135 0 -0 0</pose>
     <visual name='visual'>
-      <cast_shadows>0</cast_shadows>
+      <cast_shadows>0</cast_shadows><transparency>1</transparency>
       <geometry>
         <box>
-          <size>1.6 0.001 0.9</size>
+          <size>0.48 0.001 0.27</size>
         </box>
       </geometry>
       <material>
