@@ -58,7 +58,7 @@
         <keyframe type='lookat' number='19'/>
 
         <!-- Final -->
-        <keyframe type='lookat' number='20'/>
+        <keyframe type='lookat' number='20' eye_offset='0 -2 0.3 0 0 0'/>
       </plugin>
       <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
       </plugin>
@@ -97,7 +97,7 @@
     </include>
     <include>
       <name>slide-2</name>
-      <pose>8.1 -8.21 0 0 0 1.57</pose>
+      <pose>7.3899 -8.663 0.477 0 0 1.57</pose>
       <uri>model://slide-2</uri>
     </include>
     <include>
@@ -107,12 +107,12 @@
     </include>
     <include>
       <name>slide-4</name>
-      <pose>-9.4 -1.21 0.925 0 0 1.57</pose>
+      <pose>-9.48 -1.39 1.810 0 0 1.57</pose>
       <uri>model://slide-4</uri>
     </include>
     <include>
       <name>slide-5</name>
-      <pose>7.8 1.71 0 0 0 1.57</pose>
+      <pose>-8.48 5.68 4.89 0 0 1.57</pose>
       <uri>model://slide-5</uri>
     </include>
     <include>
@@ -122,7 +122,7 @@
     </include>
     <include>
       <name>slide-7</name>
-      <pose>-8.48 5.68 4.89 0 0 1.57</pose>
+      <pose>7.8 1.71 0 0 0 1.57</pose>
       <uri>model://slide-7</uri>
     </include>
     <include>
@@ -132,7 +132,7 @@
     </include>
     <include>
       <name>slide-9</name>
-      <pose>90 0 0 0 0 0</pose>
+      <pose>7.783 2.016 1.25 0 0 1.47</pose>
       <uri>model://slide-9</uri>
     </include>
     <include>
@@ -157,37 +157,37 @@
     </include>
     <include>
       <name>slide-14</name>
-      <pose>20 0 0 0 0 0</pose>
+      <pose>2.07 1.49 0.109 0 0 3.14</pose>
       <uri>model://slide-14</uri>
     </include>
     <include>
       <name>slide-15</name>
-      <pose>20 5 0 0 0 0</pose>
+      <pose>-1.28 -8.223 5.31 0 0 1.57</pose>
       <uri>model://slide-15</uri>
     </include>
     <include>
       <name>slide-16</name>
-      <pose>20 10 0 0 0 0</pose>
+      <pose>-4.6 -2.32 3.19 0 0 -1.57</pose>
       <uri>model://slide-16</uri>
     </include>
     <include>
       <name>slide-17</name>
-      <pose>20 15 0 0 0 0</pose>
+      <pose>-2 6.29 1.44 0 0 1.57</pose>
       <uri>model://slide-17</uri>
     </include>
     <include>
       <name>slide-18</name>
-      <pose>20 20 0 0 0 0</pose>
+      <pose>0 5.95 0 0 0 1.57</pose>
       <uri>model://slide-18</uri>
     </include>
     <include>
       <name>slide-19</name>
-      <pose>20 25 0 0 0 0</pose>
+      <pose>-9.57 -3.86 2.24 0 0 1.57</pose>
       <uri>model://slide-19</uri>
     </include>
     <include>
       <name>slide-20</name>
-      <pose>20 30 0 0 0 0</pose>
+      <pose>6.37 9.29 0 0 0 2.4</pose>
       <uri>model://slide-20</uri>
     </include>
 

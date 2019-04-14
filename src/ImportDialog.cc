@@ -535,13 +535,6 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
             <static>true</static>\
             <link name='link'>\
               <pose>0 0 " + height + " 0 0 0</pose>\
-              <collision name='collision'>\
-                <geometry>\
-                  <box>\
-                    <size>" + scaleX + " " + scaleY + " " + scaleZ + "</size>\
-                  </box>\
-                </geometry>\
-              </collision>\
               <visual name='visual'>\
                 <cast_shadows>false</cast_shadows>\
                 <transparency>1</transparency>\

@@ -5,7 +5,8 @@
   <link name='link'>
     <pose frame=''>0 0 0.045 0 -0 0</pose>
     <visual name='visual'>
-      <cast_shadows>0</cast_shadows>
+      <cast_shadows>0</cast_shadows><transparency>1</transparency>
+      <transparency>1</transparency>
       <geometry>
         <box>
           <size>0.16 0.001 0.09</size>
