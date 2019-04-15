@@ -13,6 +13,15 @@
         <keyframe type='lookat' number='0'/>
 
         <!-- DRC -->
+        <keyframe type='lookat' number='301'/>
+        <keyframe type='lookat' number='201'/>
+        <keyframe type='lookat' number='101'/>
+
+        <!-- VRC -->
+        <keyframe type='lookat' number='100'/>
+        <keyframe type='lookat' number='200'/>
+        <keyframe type='lookat' number='300'/>
+        <keyframe type='lookat' number='500'/>
 
         <!-- sim to real -->
         <keyframe type='lookat' number='1'/>
@@ -24,13 +33,9 @@
         <keyframe type='lookat' number='3'/>
         <keyframe type='lookat' number='4'/>
 
-        <!-- What -->
+        <!-- What / When / Why -->
         <keyframe type='lookat' number='5'/>
-
-        <!-- When -->
         <keyframe type='lookat' number='6'/>
-
-        <!-- Why -->
         <keyframe type='lookat' number='7'/>
 
         <!-- SDF -->
@@ -39,6 +44,7 @@
         <!-- Physics -->
         <keyframe type='lookat' number='9'/>
         <keyframe type='lookat' number='10'/>
+        <keyframe type='lookat' number='400'/>
 
         <!-- Sensors -->
         <keyframe type='lookat' number='11'/>
@@ -112,17 +118,17 @@
     </include>
     <include>
       <name>slide-5</name>
-      <pose>-8.48 5.68 4.89 0 0 1.57</pose>
+      <pose>7.689 1.71 0.2832 0 0 1.57</pose>
       <uri>model://slide-5</uri>
     </include>
     <include>
       <name>slide-6</name>
-      <pose>-8.48 5.68 3.89 0 0 1.57</pose>
+      <pose>7.6972 1.71 0.443 0 0 1.57</pose>
       <uri>model://slide-6</uri>
     </include>
     <include>
       <name>slide-7</name>
-      <pose>7.8 1.71 0 0 0 1.57</pose>
+      <pose>-8.48 5.68 4.89 0 0 1.57</pose>
       <uri>model://slide-7</uri>
     </include>
     <include>
@@ -137,7 +143,7 @@
     </include>
     <include>
       <name>slide-10</name>
-      <pose>-5.76 7.65 0.42 0 0 3.14</pose>
+      <pose>-5.76 7.245 0.754 0 0 -3.1412</pose>
       <uri>model://slide-10</uri>
     </include>
     <include>
@@ -189,6 +195,46 @@
       <name>slide-20</name>
       <pose>6.37 9.29 0 0 0 2.4</pose>
       <uri>model://slide-20</uri>
+    </include>
+    <include>
+      <name>slide-100</name>
+      <pose>-0.268 6.75 0.63 0 0 1.8332</pose>
+      <uri>model://slide-100</uri>
+    </include>
+    <include>
+      <name>slide-200</name>
+      <pose>-0.2388 6.641 0.4893 0 0 1.8332</pose>
+      <uri>model://slide-200</uri>
+    </include>
+    <include>
+      <name>slide-300</name>
+      <pose>-0.2944 6.848 0.4893 0 0 1.8332</pose>
+      <uri>model://slide-300</uri>
+    </include>
+    <include>
+      <name>slide-101</name>
+      <pose>-0.434 5.835 0.4893 0 0 1.468</pose>
+      <uri>model://slide-101</uri>
+    </include>
+    <include>
+      <name>slide-201</name>
+      <pose>-0.45 5.609 0.4893 0 0 1.578</pose>
+      <uri>model://slide-201</uri>
+    </include>
+    <include>
+      <name>slide-301</name>
+      <pose>-0.4486 5.7411 0.63 0 0 1.483</pose>
+      <uri>model://slide-301</uri>
+    </include>
+    <include>
+      <name>slide-400</name>
+      <pose>-0.268 6.75 3 0 0 3.03</pose>
+      <uri>model://slide-400</uri>
+    </include>
+    <include>
+      <name>slide-500</name>
+      <pose>-0.52966 6.89727 0.4893 0 0 -2.879</pose>
+      <uri>model://slide-500</uri>
     </include>
 
     <include>

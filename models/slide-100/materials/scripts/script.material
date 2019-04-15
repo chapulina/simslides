@@ -1,0 +1,16 @@
+material Slides/slide_100
+{
+  technique
+  {
+    pass
+    {
+      lighting off
+      texture_unit
+      {
+        /* anim_texutre <base_name> <num_frames> <duration> */
+        anim_texture slide-100.jpg 103 4
+        filtering none
+      }
+    }
+  }
+}
