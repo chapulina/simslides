@@ -1,0 +1,16 @@
+material Slides/slide_500
+{
+  technique
+  {
+    pass
+    {
+      lighting off
+      texture_unit
+      {
+        /* anim_texutre <base_name> <num_frames> <duration> */
+        anim_texture slide-500.jpg 92 4
+        filtering none
+      }
+    }
+  }
+}
