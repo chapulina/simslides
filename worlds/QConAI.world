@@ -4,7 +4,7 @@
 
     <gui>
      <camera name="user_camera">
-       <pose>-0.344 1.547 1.815 0 0.111 -2.465</pose>
+       <pose>3.447 0.413 1.496 0 0.212 2.626</pose>
      </camera>
       <plugin name="simslides" filename="libsimslides.so">
         <slide_prefix>slide</slide_prefix>
@@ -44,10 +44,13 @@
         <!-- Physics -->
         <keyframe type='lookat' number='9'/>
         <keyframe type='lookat' number='10'/>
+        <keyframe type='cam_pose' pose='3.447 0.413 1.496 0 0.212 2.626'/>
         <keyframe type='lookat' number='400'/>
 
         <!-- Sensors -->
         <keyframe type='lookat' number='11'/>
+        <keyframe type='cam_pose' pose='3.447 0.413 1.496 0 0.212 2.626'/>
+        <keyframe type='cam_pose' pose='0.9398 2.4132 2.987 0 0.25 2.84'/>
 
         <!-- Interfaces -->
         <keyframe type='lookat' number='12'/>
@@ -93,7 +96,7 @@
 
     <include>
       <name>slide-0</name>
-      <pose>13.88 -0.177 2.458 0 0 1.81</pose>
+      <pose>3.08 1.46 1.01 0 0 2.15</pose>
       <uri>model://slide-0</uri>
     </include>
     <include>
@@ -242,7 +245,8 @@
     </include>
 
     <model name='naoH25V40'>
-      <pose>-1.33 0.697 1.7 0 0 0</pose>
+      <!--pose>-1.33 0.697 1.7 0 0 0</pose-->
+      <pose>2.4771 1.000 1.2923 0 -0.402 0</pose>
       <link name='Torso'>
         <pose>0 0 0 0 -0 0</pose>
         <inertial>
@@ -408,7 +412,7 @@
             </distortion>
           </camera>
           <always_on>1</always_on>
-          <update_rate>30</update_rate>
+          <update_rate>5</update_rate>
           <visualize>false</visualize>
         </sensor>
         <sensor name="camera_perfect" type="camera">
@@ -424,7 +428,7 @@
             </clip>
           </camera>
           <always_on>1</always_on>
-          <update_rate>30</update_rate>
+          <update_rate>5</update_rate>
           <visualize>false</visualize>
         </sensor>
       </link>
@@ -2954,30 +2958,30 @@
       <plugin name='keystojoints' filename='libKeysToJointsPlugin.so'>
 
         <!-- space: reset -->
-        <map key='32' joint='HeadYaw' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
+        <!--map key='32' joint='HeadYaw' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='HeadPitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
-        <!--map key='32' joint='LHipYawPitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
+        <map key='32' joint='LHipYawPitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='LHipRoll' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='LHipPitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='LKneePitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='LAnklePitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
-        <map key='32' joint='LAnkleRoll' scale='0' type='position' kp='480' ki='48' kd='4.8'/-->
+        <map key='32' joint='LAnkleRoll' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='LShoulderPitch' scale='-1.5' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='LShoulderRoll' scale='0.15' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='LElbowYaw' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='LElbowRoll' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='LWristYaw' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
-        <!--map key='32' joint='RHipYawPitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
+        <map key='32' joint='RHipYawPitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='RHipRoll' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='RHipPitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='RKneePitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='RAnklePitch' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
-        <map key='32' joint='RAnkleRoll' scale='0' type='position' kp='480' ki='48' kd='4.8'/-->
+        <map key='32' joint='RAnkleRoll' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='RShoulderPitch' scale='-1.5' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='RShoulderRoll' scale='-0.15' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='RElbowYaw' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
         <map key='32' joint='RElbowRoll' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
-        <map key='32' joint='RWristYaw' scale='0' type='position' kp='480' ki='48' kd='4.8'/>
+        <map key='32' joint='RWristYaw' scale='0' type='position' kp='480' ki='48' kd='4.8'/-->
 
         <!-- c -->
         <map key='99' joint='LShoulderPitch' scale='0.2' type='velocity' kp='480' ki='48' kd='4.8'/>
@@ -2996,6 +3000,16 @@
 
         <!-- B -->
         <map key='66' joint='LElbowYaw' scale='-0.2' type='velocity' kp='480' ki='48' kd='4.8'/>
+
+        <!-- h -->
+        <map key='104' joint='HeadYaw' scale='0.2' type='position' kp='10' ki='0' kd='0'/>
+        <!-- H -->
+        <map key='72' joint='HeadYaw' scale='-0.2' type='position' kp='10' ki='0' kd='0'/>
+
+        <!-- j -->
+        <map key='106' joint='HeadPitch' scale='0.2' type='position' kp='10' ki='0' kd='0'/>
+        <!-- J -->
+        <map key='74' joint='HeadPitch' scale='-0.2' type='position' kp='10' ki='0' kd='0'/>
 
       </plugin>
     </model>
@@ -3066,7 +3080,7 @@
             </vertical_velocity>
           </altimeter>
           <always_on>1</always_on>
-          <update_rate>200</update_rate>
+          <update_rate>10</update_rate>
           <topic>/ball/altimeter</topic>
         </sensor>
       </link>
