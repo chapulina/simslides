@@ -37,7 +37,10 @@ namespace simslides
     STACK,
 
     /// \brief Seek to a specific time in a log file.
-    LOG_SEEK
+    LOG_SEEK,
+
+    /// \brief Move camera to a pose in the world.
+    CAM_POSE
   };
 
   class Keyframe
@@ -57,16 +60,16 @@ namespace simslides
     /// \return
     public: unsigned int SlideNumber() const;
 
-    /// \brief For LOG_SEEK
-    /// \return
+    /// \brief For LOG_SEEK and CAM_POSE
+    /// \return Camera pose in the world
     public: ignition::math::Pose3d CamPose() const;
 
     /// \brief For LOOKAT
-    /// \return
+    /// \return Offset from target slide origin.
     public: ignition::math::Pose3d EyeOffset() const;
 
-    /// \brief
-    /// \return
+    /// \brief Log time to seek to
+    /// \return Log time
     public: gazebo::common::Time LogSeek() const;
 
     /// \internal

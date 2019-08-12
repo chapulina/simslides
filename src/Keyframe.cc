@@ -56,6 +56,11 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
     this->dataPtr->logSeek.nsec = logSeek.nsec;
     this->dataPtr->type = KeyframeType::LOG_SEEK;
   }
+  else if (type == "cam_pose")
+  {
+    this->dataPtr->type = KeyframeType::CAM_POSE;
+    this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("pose");
+  }
   else
     gzerr << "Unsupported type [" << type << "]" << std::endl;
 

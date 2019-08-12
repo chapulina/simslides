@@ -300,6 +300,11 @@ void PresentMode::ChangeSlide()
         this->dataPtr->logPlaybackControlPub->Publish(msg);
       }
     }
+
+    if (keyframe->GetType() == KeyframeType::CAM_POSE)
+    {
+      camPose = keyframe->CamPose();
+    }
   }
 
   if (!toLookAt.empty())

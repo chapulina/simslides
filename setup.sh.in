@@ -1,0 +1,4 @@
+# generated from simslides/setup.sh.in
+
+export GAZEBO_MODEL_PATH=@CMAKE_INSTALL_PREFIX@/share/@PROJECT_NAME@/models:$GAZEBO_MODEL_PATH
+export GAZEBO_RESOURCE_PATH=@CMAKE_INSTALL_PREFIX@/share/@PROJECT_NAME@/worlds:$GAZEBO_RESOURCE_PATH
