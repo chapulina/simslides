@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5.1 FATAL_ERROR)
+
+project(simslides)
 
 find_package(gazebo REQUIRED)
 find_package(Qt5 COMPONENTS Core Widgets Test REQUIRED)
@@ -15,4 +17,34 @@ link_directories(${GAZEBO_LIBRARY_DIRS})
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 add_subdirectory(src)
+
+install(DIRECTORY
+  models
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+install(DIRECTORY
+  worlds
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+configure_file(
+  "setup.sh.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/share/setup.sh" @ONLY
+)
+
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/share/setup.sh
+  DESTINATION share/${PROJECT_NAME}
+)
+
+configure_file(
+  "simslides.sh.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/share/simslides" @ONLY
+)
+
+install(PROGRAMS
+  ${CMAKE_CURRENT_BINARY_DIR}/share/simslides
+  DESTINATION bin
+)
 

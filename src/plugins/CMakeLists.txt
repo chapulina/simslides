@@ -9,5 +9,8 @@ foreach (plugin ${plugins})
   target_link_libraries(${plugin}
     ${GAZEBO_LIBRARIES}
   )
+  install(TARGETS ${plugin}
+    DESTINATION lib
+  )
 endforeach (plugin ${plugins})
 

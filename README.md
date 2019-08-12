@@ -16,13 +16,18 @@ Checking out a couple other tutorials wouldn't hurt either.
     cd build
     cmake ..
     make
+    sudo make install
     cd ..
 
 # Run SimSlides
 
-From repository root:
+Source Gazebo, this may be in a different place depending on your Gazebo installation:
 
-    ./simslides.sh
+    source /usr/share/gazebo/setup.sh
+
+Run simslides:
+
+    simslides
 
 # Your own presentation
 

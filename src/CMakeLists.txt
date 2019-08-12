@@ -34,3 +34,7 @@ target_link_libraries(simslides
 
 add_subdirectory(plugins)
 
+install(TARGETS simslides
+  DESTINATION lib
+)
+
