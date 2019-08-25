@@ -9,10 +9,8 @@ set (client_src
 )
 
 set (qt_headers
-  Common.hh
   ImportDialog.hh
   InsertActorDialog.hh
-  Keyframe.hh
   LoadDialog.hh
   PresentMode.hh
   Simslides.hh
@@ -31,8 +29,6 @@ target_link_libraries(simslides
   ${Qt5Widgets_LIBRARIES}
   ${PROTOBUF_LIBRARIES}
 )
-
-add_subdirectory(plugins)
 
 install(TARGETS simslides
   DESTINATION lib

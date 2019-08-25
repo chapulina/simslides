@@ -1,6 +1,19 @@
 # SimSlides
 
-<img src="simslides_logo.png" alt="SimSlides" width="200">
+Import PDF files into robot simulation and present slides flying from slide to slide.
+
+<img src="images/SimSlides_logo.png" alt="SimSlides" width="200">
+
+## Features
+
+* Import *PDF* files into simulation through the GUI
+* Navigate through keyframes using *mouse*, *keyboard* or wireless *presenter*
+* Keyframes can be:
+    * Look at a *slide* (even if it has moved)
+    * *Move camera* to a specific pose
+    * Seek to specific spot in a *log* file
+    * Go through slides *stacked* on the same pose
+* ... plus all *Gazebo* features!
 
 ## Install Gazebo
 
@@ -9,11 +22,16 @@ The master branch supports Gazebo version 9.
 Follow the official install [instructions](http://gazebosim.org/tutorials?cat=install).
 
 Checking out a couple other tutorials is also recommended if you want to
-use all of Gazebo's potential to customize your presentations.
+use all of Gazebo's potential to customize your presentations. Maybe you
+want to setup keyboard triggers? Control a robot using ROS? The possibilities
+are endless!
 
 ## Extra dependencies
 
     sudo apt install imagemagick
+
+> It's also recommended that you make sure ImageMagick can convert PDFs, see
+> [this](https://stackoverflow.com/questions/42928765/convertnot-authorized-aaaa-error-constitute-c-readimage-453?answertab=active#tab-top).
 
 ## Build
 
@@ -26,7 +44,8 @@ use all of Gazebo's potential to customize your presentations.
 
 ## Run SimSlides
 
-Source Gazebo, this may be in a different place depending on your Gazebo installation:
+Recommended: Source Gazebo, this may be in a different place depending on your
+Gazebo installation:
 
     source /usr/share/gazebo/setup.sh
 
@@ -39,6 +58,8 @@ Run simslides:
 You can generate your own presentation as follows:
 
 ### Generate a new presentation
+
+![Generate demo](images/SimSlides_importPDF.gif)
 
 1. On the top menu, choose `Simslides -> Import` PDF (or press `F2`)
 

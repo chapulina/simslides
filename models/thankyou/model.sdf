@@ -1154,8 +1154,5 @@
     </link>
     <static>0</static>
     <allow_auto_disable>1</allow_auto_disable>
-    <plugin name="reset" filename="libreset_model.so">
-      <key>116</key>
-    </plugin>
   </model>
 </sdf>
