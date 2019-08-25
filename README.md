@@ -1,6 +1,8 @@
-![SimSlides](simslides_logo.png | width=200)
+# SimSlides
 
-# Install Gazebo
+<img src="simslides_logo.png" alt="SimSlides" width="200">
+
+## Install Gazebo
 
 The master branch supports Gazebo version 9.
 
@@ -9,11 +11,11 @@ Follow the official install [instructions](http://gazebosim.org/tutorials?cat=in
 Checking out a couple other tutorials is also recommended if you want to
 use all of Gazebo's potential to customize your presentations.
 
-# Extra dependencies
+## Extra dependencies
 
     sudo apt install imagemagick
 
-# Build
+## Build
 
     mkdir build
     cd build
@@ -22,7 +24,7 @@ use all of Gazebo's potential to customize your presentations.
     sudo make install
     cd ..
 
-# Run SimSlides
+## Run SimSlides
 
 Source Gazebo, this may be in a different place depending on your Gazebo installation:
 
@@ -32,11 +34,11 @@ Run simslides:
 
     simslides
 
-# Your own presentation
+## Your own presentation
 
 You can generate your own presentation as follows:
 
-## Generate a new presentation
+### Generate a new presentation
 
 1. On the top menu, choose `Simslides -> Import` PDF (or press `F2`)
 
@@ -53,7 +55,7 @@ an open issue.
 
 1. When it's done, all slides will show up on the world in a grid.
 
-## Load previously generated slide models
+### Load previously generated slide models
 
 If you already generated slide models with the step above, and now just
 want to spawn them into the world:
@@ -68,7 +70,7 @@ want to spawn them into the world:
 
 1. When it's done, all slides will show up on the world in a grid.
 
-## Presentation mode
+### Presentation mode
 
 Once you have the slides loaded into the world, present as follows:
 
@@ -82,7 +84,7 @@ Once you have the slides loaded into the world, present as follows:
 
 1. At any moment, you can press `F6` to return to the initial camera pose.
 
-# Existing presentations
+## Existing presentations
 
 1. Move to the presentation branch, available ones are:
 
@@ -141,7 +143,7 @@ Once you have the slides loaded into the world, present as follows:
 1. A lot changes from one presentation to the next, follow instructions on that
 branch's `README` to run the presentation.
 
-# History
+## History
 
 This project started as a few bash scripts for CppCon 2015. Back then, it was
 hosted on BitBucket using Mercurial.
