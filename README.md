@@ -1,10 +1,13 @@
-![SimSlides](simslides_logo.png)
+![SimSlides](simslides_logo.png | width=200)
 
-# Make sure you've installed Gazebo
+# Install Gazebo
 
-http://gazebosim.org/tutorials?cat=install
+The master branch supports Gazebo version 9.
 
-Checking out a couple other tutorials wouldn't hurt either.
+Follow the official install [instructions](http://gazebosim.org/tutorials?cat=install).
+
+Checking out a couple other tutorials is also recommended if you want to
+use all of Gazebo's potential to customize your presentations.
 
 # Extra dependencies
 
@@ -85,53 +88,67 @@ Once you have the slides loaded into the world, present as follows:
 
     * CppCon, September 2015
 
-            hg up CppCon2015
+            git checkout CppCon2015
 
     * University of Buenos Aires, November 2015
 
-            hg up BuenosAires_Nov2015
+            git checkout BuenosAires_Nov2015
 
     * Universidad de Chile, November 2015
 
-            hg up Chile_Nov2015
+            git checkout Chile_Nov2015
 
     * IEEE Women in Engineering International Leadership Conference, May 2016
 
-            hg up IEEE_WiE_ILC_2016
+            git checkout IEEE_WiE_ILC_2016
 
     * ROSCon, October 2016
 
-            hg up ROSCon_Oct2016
+            git checkout ROSCon_Oct2016
 
     * ROS Industrial web meeting, January 2017
 
-            hg up ROSIndustrial_Jan2017
+            git checkout ROSIndustrial_Jan2017
 
     * Open Source Software for Decision Making, March 2017
 
-            hg up OSS4DM_Mar2017
+            git checkout OSS4DM_Mar2017
 
     * Open Source Conference, May 2017
 
-            hg up OSCON_May2017
+            git checkout OSCON_May2017
 
     * ROSCon, Sep 2017
 
-            hg up ROSCon_Sep2017
+            git checkout ROSCon_Sep2017
 
     * Brasil visits, Mar 2018
 
-            hg up Brasil_Mar2018
+            git checkout Brasil_Mar2018
 
     * QConSF, Nov 2018
 
-            hg up QConSF_Nov2018
+            git checkout QConSF_Nov2018
 
     * University of California, Santa Cruz, Feb 2019
 
-            hg up UCSC_Feb2019
+            git checkout UCSC_Feb2019
+
+    * QCon.ai, Apr 2019
+
+            git checkout QConAI_Apr2019
 
 1. A lot changes from one presentation to the next, follow instructions on that
 branch's `README` to run the presentation.
 
+# History
+
+This project started as a few bash scripts for CppCon 2015. Back then, it was
+hosted on BitBucket using Mercurial.
+
+Over the years, the project evolved into more handy GUI plugins, and is
+gaining more features for each presentation.
+
+The repository was ported to GitHub + Git in August 2019, when BitBucket
+dropped Mercurial support.
 
