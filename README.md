@@ -109,60 +109,35 @@ Once you have the slides loaded into the world, present as follows:
 
 1. Move to the presentation branch, available ones are:
 
-    * CppCon, September 2015
+    * `CppCon2015`: [CppCon, September 2015](https://www.youtube.com/watch?v=PXdQwFSJwQ8)
 
-            git checkout CppCon2015
+    * `BuenosAires_Nov2015`: University of Buenos Aires, November 2015
 
-    * University of Buenos Aires, November 2015
+    * `Chile_Nov2015`: Universidad de Chile, November 2015
 
-            git checkout BuenosAires_Nov2015
+    * `IEEE_WiE_ILC_2016`: [IEEE Women in Engineering International Leadership Conference, May 2016](https://www.youtube.com/watch?v=gTLYT881oao)
 
-    * Universidad de Chile, November 2015
+    * `ROSCon_Oct2016`: [ROSCon, October 2016](https://vimeo.com/187699565)
 
-            git checkout Chile_Nov2015
+    * `ROSIndustrial_Jan2017`: [ROS Industrial web meeting, January 2017](https://www.youtube.com/watch?v=qOhfEweo7V8)
 
-    * IEEE Women in Engineering International Leadership Conference, May 2016
+    * `OSS4DM_Mar2017`: [Open Source Software for Decision Making, March 2017](https://www.youtube.com/watch?v=7PsKBUaddDU)
 
-            git checkout IEEE_WiE_ILC_2016
+    * `OSCON_May2017`: [Open Source Conference, May 2017](https://www.youtube.com/watch?v=Xj026G6rNvE)
 
-    * ROSCon, October 2016
+    * `ROSCon_Sep2017`: [ROSCon, Sep 2017](https://vimeo.com/236482055)
 
-            git checkout ROSCon_Oct2016
+    * `Brasil_Mar2018`: Brasil visits, Mar 2018
 
-    * ROS Industrial web meeting, January 2017
+    * `QConSF_Nov2018`: [QConSF, Nov 2018](https://www.youtube.com/watch?v=Gwbk6Qf_TqY)
 
-            git checkout ROSIndustrial_Jan2017
+    * `UCSC_Feb2019`: University of California, Santa Cruz, Feb 2019
 
-    * Open Source Software for Decision Making, March 2017
+    * `QConAI_Apr2019`: [QCon.ai, Apr 2019](https://www.infoq.com/presentations/robot-simulation-real-world/)
 
-            git checkout OSS4DM_Mar2017
-
-    * Open Source Conference, May 2017
-
-            git checkout OSCON_May2017
-
-    * ROSCon, Sep 2017
-
-            git checkout ROSCon_Sep2017
-
-    * Brasil visits, Mar 2018
-
-            git checkout Brasil_Mar2018
-
-    * QConSF, Nov 2018
-
-            git checkout QConSF_Nov2018
-
-    * University of California, Santa Cruz, Feb 2019
-
-            git checkout UCSC_Feb2019
-
-    * QCon.ai, Apr 2019
-
-            git checkout QConAI_Apr2019
-
-1. A lot changes from one presentation to the next, follow instructions on that
-branch's `README` to run the presentation.
+1. A lot changes from one presentation to the next. Follow instructions on that
+branch's `README` to run the presentation. I've done my best to document it all,
+but each presentation may take some massaging to work years later.
 
 ## History
 
