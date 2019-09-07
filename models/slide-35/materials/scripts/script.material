@@ -1,0 +1,19 @@
+material Slides/slide_35
+        {
+          receive_shadows off
+          technique
+          {
+            pass
+            {
+              lighting off
+              scene_blend alpha_blend
+              depth_check on
+              texture_unit
+              {
+                texture slide-35.png
+                filtering anistropic
+                max_anisotropy 16
+              }
+            }
+          }
+        }

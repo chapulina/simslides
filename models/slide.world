@@ -1,0 +1,262 @@
+<?xml version='1.0' ?>
+    <sdf version='1.5'>
+    <world name='default'>
+    <gui>
+      <plugin name='simslides' filename='libsimslides.so'>
+        <slide_prefix>slide</slide_prefix>
+        <keyframe type='lookat' number='0'/>
+        <keyframe type='lookat' number='1'/>
+        <keyframe type='lookat' number='2'/>
+        <keyframe type='lookat' number='3'/>
+        <keyframe type='lookat' number='4'/>
+        <keyframe type='lookat' number='5'/>
+        <keyframe type='lookat' number='6'/>
+        <keyframe type='lookat' number='7'/>
+        <keyframe type='lookat' number='8'/>
+        <keyframe type='lookat' number='9'/>
+        <keyframe type='lookat' number='10'/>
+        <keyframe type='lookat' number='11'/>
+        <keyframe type='lookat' number='12'/>
+        <keyframe type='lookat' number='13'/>
+        <keyframe type='lookat' number='14'/>
+        <keyframe type='lookat' number='15'/>
+        <keyframe type='lookat' number='16'/>
+        <keyframe type='lookat' number='17'/>
+        <keyframe type='lookat' number='18'/>
+        <keyframe type='lookat' number='19'/>
+        <keyframe type='lookat' number='20'/>
+        <keyframe type='lookat' number='21'/>
+        <keyframe type='lookat' number='22'/>
+        <keyframe type='lookat' number='23'/>
+        <keyframe type='lookat' number='24'/>
+        <keyframe type='lookat' number='25'/>
+        <keyframe type='lookat' number='26'/>
+        <keyframe type='lookat' number='27'/>
+        <keyframe type='lookat' number='28'/>
+        <keyframe type='lookat' number='29'/>
+        <keyframe type='lookat' number='30'/>
+        <keyframe type='lookat' number='31'/>
+        <keyframe type='lookat' number='32'/>
+        <keyframe type='lookat' number='33'/>
+        <keyframe type='lookat' number='34'/>
+        <keyframe type='lookat' number='35'/>
+        <keyframe type='lookat' number='36'/>
+        <keyframe type='lookat' number='37'/>
+        <keyframe type='lookat' number='38'/>
+        <keyframe type='lookat' number='39'/>
+        <keyframe type='lookat' number='40'/>
+        <keyframe type='lookat' number='41'/>
+        <keyframe type='lookat' number='42'/>
+        <keyframe type='lookat' number='43'/>
+        <keyframe type='lookat' number='44'/>
+        <keyframe type='lookat' number='45'/>
+        <keyframe type='lookat' number='46'/>
+        <keyframe type='lookat' number='47'/>
+        <keyframe type='lookat' number='48'/>
+    </plugin>
+      <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'>
+      </plugin>
+</gui>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include><include>
+        <name>slide-0</name>
+        <pose>00 0 0 0 0 0</pose>
+        <uri>model://slide-0</uri>
+      </include><include>
+        <name>slide-1</name>
+        <pose>10 0 0 0 0 0</pose>
+        <uri>model://slide-1</uri>
+      </include><include>
+        <name>slide-2</name>
+        <pose>20 0 0 0 0 0</pose>
+        <uri>model://slide-2</uri>
+      </include><include>
+        <name>slide-3</name>
+        <pose>30 0 0 0 0 0</pose>
+        <uri>model://slide-3</uri>
+      </include><include>
+        <name>slide-4</name>
+        <pose>40 0 0 0 0 0</pose>
+        <uri>model://slide-4</uri>
+      </include><include>
+        <name>slide-5</name>
+        <pose>50 0 0 0 0 0</pose>
+        <uri>model://slide-5</uri>
+      </include><include>
+        <name>slide-6</name>
+        <pose>60 0 0 0 0 0</pose>
+        <uri>model://slide-6</uri>
+      </include><include>
+        <name>slide-7</name>
+        <pose>70 0 0 0 0 0</pose>
+        <uri>model://slide-7</uri>
+      </include><include>
+        <name>slide-8</name>
+        <pose>80 0 0 0 0 0</pose>
+        <uri>model://slide-8</uri>
+      </include><include>
+        <name>slide-9</name>
+        <pose>90 0 0 0 0 0</pose>
+        <uri>model://slide-9</uri>
+      </include><include>
+        <name>slide-10</name>
+        <pose>100 0 0 0 0 0</pose>
+        <uri>model://slide-10</uri>
+      </include><include>
+        <name>slide-11</name>
+        <pose>110 0 0 0 0 0</pose>
+        <uri>model://slide-11</uri>
+      </include><include>
+        <name>slide-12</name>
+        <pose>120 0 0 0 0 0</pose>
+        <uri>model://slide-12</uri>
+      </include><include>
+        <name>slide-13</name>
+        <pose>130 0 0 0 0 0</pose>
+        <uri>model://slide-13</uri>
+      </include><include>
+        <name>slide-14</name>
+        <pose>140 0 0 0 0 0</pose>
+        <uri>model://slide-14</uri>
+      </include><include>
+        <name>slide-15</name>
+        <pose>150 0 0 0 0 0</pose>
+        <uri>model://slide-15</uri>
+      </include><include>
+        <name>slide-16</name>
+        <pose>160 0 0 0 0 0</pose>
+        <uri>model://slide-16</uri>
+      </include><include>
+        <name>slide-17</name>
+        <pose>170 0 0 0 0 0</pose>
+        <uri>model://slide-17</uri>
+      </include><include>
+        <name>slide-18</name>
+        <pose>180 0 0 0 0 0</pose>
+        <uri>model://slide-18</uri>
+      </include><include>
+        <name>slide-19</name>
+        <pose>190 0 0 0 0 0</pose>
+        <uri>model://slide-19</uri>
+      </include><include>
+        <name>slide-20</name>
+        <pose>200 0 0 0 0 0</pose>
+        <uri>model://slide-20</uri>
+      </include><include>
+        <name>slide-21</name>
+        <pose>210 0 0 0 0 0</pose>
+        <uri>model://slide-21</uri>
+      </include><include>
+        <name>slide-22</name>
+        <pose>220 0 0 0 0 0</pose>
+        <uri>model://slide-22</uri>
+      </include><include>
+        <name>slide-23</name>
+        <pose>230 0 0 0 0 0</pose>
+        <uri>model://slide-23</uri>
+      </include><include>
+        <name>slide-24</name>
+        <pose>240 0 0 0 0 0</pose>
+        <uri>model://slide-24</uri>
+      </include><include>
+        <name>slide-25</name>
+        <pose>250 0 0 0 0 0</pose>
+        <uri>model://slide-25</uri>
+      </include><include>
+        <name>slide-26</name>
+        <pose>260 0 0 0 0 0</pose>
+        <uri>model://slide-26</uri>
+      </include><include>
+        <name>slide-27</name>
+        <pose>270 0 0 0 0 0</pose>
+        <uri>model://slide-27</uri>
+      </include><include>
+        <name>slide-28</name>
+        <pose>280 0 0 0 0 0</pose>
+        <uri>model://slide-28</uri>
+      </include><include>
+        <name>slide-29</name>
+        <pose>290 0 0 0 0 0</pose>
+        <uri>model://slide-29</uri>
+      </include><include>
+        <name>slide-30</name>
+        <pose>300 0 0 0 0 0</pose>
+        <uri>model://slide-30</uri>
+      </include><include>
+        <name>slide-31</name>
+        <pose>310 0 0 0 0 0</pose>
+        <uri>model://slide-31</uri>
+      </include><include>
+        <name>slide-32</name>
+        <pose>320 0 0 0 0 0</pose>
+        <uri>model://slide-32</uri>
+      </include><include>
+        <name>slide-33</name>
+        <pose>330 0 0 0 0 0</pose>
+        <uri>model://slide-33</uri>
+      </include><include>
+        <name>slide-34</name>
+        <pose>340 0 0 0 0 0</pose>
+        <uri>model://slide-34</uri>
+      </include><include>
+        <name>slide-35</name>
+        <pose>350 0 0 0 0 0</pose>
+        <uri>model://slide-35</uri>
+      </include><include>
+        <name>slide-36</name>
+        <pose>360 0 0 0 0 0</pose>
+        <uri>model://slide-36</uri>
+      </include><include>
+        <name>slide-37</name>
+        <pose>370 0 0 0 0 0</pose>
+        <uri>model://slide-37</uri>
+      </include><include>
+        <name>slide-38</name>
+        <pose>380 0 0 0 0 0</pose>
+        <uri>model://slide-38</uri>
+      </include><include>
+        <name>slide-39</name>
+        <pose>390 0 0 0 0 0</pose>
+        <uri>model://slide-39</uri>
+      </include><include>
+        <name>slide-40</name>
+        <pose>400 0 0 0 0 0</pose>
+        <uri>model://slide-40</uri>
+      </include><include>
+        <name>slide-41</name>
+        <pose>410 0 0 0 0 0</pose>
+        <uri>model://slide-41</uri>
+      </include><include>
+        <name>slide-42</name>
+        <pose>420 0 0 0 0 0</pose>
+        <uri>model://slide-42</uri>
+      </include><include>
+        <name>slide-43</name>
+        <pose>430 0 0 0 0 0</pose>
+        <uri>model://slide-43</uri>
+      </include><include>
+        <name>slide-44</name>
+        <pose>440 0 0 0 0 0</pose>
+        <uri>model://slide-44</uri>
+      </include><include>
+        <name>slide-45</name>
+        <pose>450 0 0 0 0 0</pose>
+        <uri>model://slide-45</uri>
+      </include><include>
+        <name>slide-46</name>
+        <pose>460 0 0 0 0 0</pose>
+        <uri>model://slide-46</uri>
+      </include><include>
+        <name>slide-47</name>
+        <pose>470 0 0 0 0 0</pose>
+        <uri>model://slide-47</uri>
+      </include><include>
+        <name>slide-48</name>
+        <pose>480 0 0 0 0 0</pose>
+        <uri>model://slide-48</uri>
+      </include></world>
+    </sdf>
