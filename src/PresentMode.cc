@@ -211,6 +211,7 @@ void PresentMode::ChangeSlide()
   ignition::math::Pose3d camPose;
   ignition::math::Pose3d eyeOff;
   std::string toLookAt;
+  std::string text;
 
   // Reset presentation
   if (this->dataPtr->currentIndex == -1)
@@ -221,6 +222,8 @@ void PresentMode::ChangeSlide()
   else
   {
     auto keyframe = simslides::keyframes[this->dataPtr->currentIndex];
+
+    text = keyframe->Text();
 
     if (keyframe->GetType() == KeyframeType::LOOKAT ||
         keyframe->GetType() == KeyframeType::STACK)
@@ -355,6 +358,7 @@ void PresentMode::ChangeSlide()
   {
     this->dataPtr->camera->MoveToPosition(camPose, 1);
   }
-  this->SlideChanged(this->dataPtr->currentIndex, this->dataPtr->slideCount-1);
+  this->SlideChanged(this->dataPtr->currentIndex, this->dataPtr->slideCount-1,
+      QString::fromStdString(text));
 }
 

@@ -44,7 +44,7 @@ are endless!
 
 ## Run SimSlides
 
-Recommended: Source Gazebo, this may be in a different place depending on your
+*Important*: Source Gazebo, this may be in a different place depending on your
 Gazebo installation:
 
     source /usr/share/gazebo/setup.sh
@@ -52,6 +52,28 @@ Gazebo installation:
 Run simslides:
 
     simslides
+
+This starts SimSlides in an empty world. You're ready to create your own presentation!
+
+## Demo
+
+You can find a demo presentation inside the `worlds` directory. Run it as follows:
+
+1. Move to the simslides clone directory
+
+        cd <path to> simslides
+
+1. Source Gazebo
+
+        source /usr/share/gazebo/setup.sh
+
+1. Source SimSlides (depends on where you installed it)
+
+        source /usr/local/share/simslides/setup.sh
+
+1. Load the world
+
+        gazebo --verbose worlds/demo_slide.world
 
 ## Your own presentation
 

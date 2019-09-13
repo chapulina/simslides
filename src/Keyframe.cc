@@ -22,11 +22,23 @@ using namespace simslides;
 
 class simslides::KeyframePrivate
 {
+  /// \brief Type of this keyframe
   public: KeyframeType type;
+
+  /// \brief Number of slide model
   public: int slideNumber = -1;
+
+  /// \brief Camera offset in LOOKAT slide frame
   public: ignition::math::Pose3d eyeOffset;
+
+  /// \brief Camera pose in world frame
   public: ignition::math::Pose3d camPose;
+
+  /// \brief Log time to seek to
   public: gazebo::common::Time logSeek;
+
+  /// \brief Text to display on dialog
+  public: std::string text;
 };
 
 /////////////////////////////////////////////////
@@ -37,7 +49,13 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
 
   auto type = _sdf->Get<std::string>("type");
   if (_sdf->HasAttribute("eye_offset"))
+  {
     this->dataPtr->eyeOffset = _sdf->Get<ignition::math::Pose3d>("eye_offset");
+  }
+  if (_sdf->HasAttribute("text"))
+  {
+    this->dataPtr->text = _sdf->Get<std::string>("text");
+  }
   if (type == "stack")
   {
     this->dataPtr->type = KeyframeType::STACK;
@@ -62,7 +80,9 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
     this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("pose");
   }
   else
+  {
     gzerr << "Unsupported type [" << type << "]" << std::endl;
+  }
 
   if (this->dataPtr->slideNumber >= 0)
   {
@@ -108,5 +128,11 @@ ignition::math::Pose3d Keyframe::EyeOffset() const
 gazebo::common::Time Keyframe::LogSeek() const
 {
   return this->dataPtr->logSeek;
+}
+
+//////////////////////////////////////////////////
+std::string Keyframe::Text() const
+{
+  return this->dataPtr->text;
 }
 

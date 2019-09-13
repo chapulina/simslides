@@ -65,7 +65,8 @@ namespace simslides
     /// \brief Notifies that the slide index has changed,
     /// \param[in] _currentIndex Current keyframe index.
     /// \param[in] _slideCount Total number of keyframes.
-    signals: void SlideChanged(int _currentIndex, int _slideCount);
+    /// \param[in] _text Slide text.
+    signals: void SlideChanged(int _currentIndex, int _slideCount, QString _text);
 
     /// \internal
     /// \brief Pointer to private data.

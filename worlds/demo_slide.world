@@ -1,0 +1,91 @@
+<?xml version='1.0' ?>
+<sdf version='1.5'>
+  <world name='default'>
+    <gui>
+
+     <camera name="user_camera">
+       <!-- Press F6 to come back to this pose -->
+       <pose>-5.18 -4.14 0.68 0 0.03 0.38</pose>
+     </camera>
+
+      <plugin name='simslides' filename='libsimslides.so'>
+
+        <!-- models starting with this prefix will be treated as slides -->
+        <slide_prefix>demo_slide</slide_prefix>
+
+        <!-- Move camera to face slide number 0 (i.e. demo_slide-0) -->
+        <keyframe type='lookat' number='0'/>
+
+        <!-- Keep camera in place and iterate through slides on the stack  -->
+        <keyframe type='stack' number='1'/>
+        <keyframe type='stack' number='2'/>
+        <keyframe type='stack' number='3'/>
+        <keyframe type='stack' number='4'/>
+
+        <!-- Move camera to face slide number 1 with a custom offset -->
+        <keyframe type='lookat' number='5' eye_offset="0 -2 -0.5 0 0 0"/>
+
+        <!-- Add copiable text to a dialog -->
+        <keyframe type='lookat' number='6'
+            text='<a href="https://github.com/chapulina/simslides">github.com/chapulina/simslides</a>'/>
+
+        <!-- Move camera to a given pose -->
+        <keyframe type='cam_pose' pose='41.9 -31.9 12.7 0 0.26 2.13'/>
+
+      </plugin>
+
+      <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'>
+      </plugin>
+
+    </gui>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <pose>20 1 0 0 0 -1.57</pose>
+      <uri>model://double_pendulum_with_base</uri>
+    </include>
+
+    <include>
+      <name>demo_slide-0</name>
+      <pose>0 0 0 0 0 0</pose>
+      <uri>model://demo_slide-0</uri>
+    </include>
+    <include>
+      <name>demo_slide-1</name>
+      <pose>10 0 0 0 0 0</pose>
+      <uri>model://demo_slide-1</uri>
+    </include>
+    <include>
+      <name>demo_slide-2</name>
+      <pose>10 0 0 0 0 0</pose>
+      <uri>model://demo_slide-2</uri>
+    </include>
+    <include>
+      <name>demo_slide-3</name>
+      <pose>10 0 0 0 0 0</pose>
+      <uri>model://demo_slide-3</uri>
+    </include>
+    <include>
+      <name>demo_slide-4</name>
+      <pose>10 0 0 0 0 0</pose>
+      <uri>model://demo_slide-4</uri>
+    </include>
+    <include>
+      <name>demo_slide-5</name>
+      <pose>20 0 0 0 0 0</pose>
+      <uri>model://demo_slide-5</uri>
+    </include>
+    <include>
+      <name>demo_slide-6</name>
+      <pose>30 0 0 0 0 0</pose>
+      <uri>model://demo_slide-6</uri>
+    </include>
+  </world>
+</sdf>

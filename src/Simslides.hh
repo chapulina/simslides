@@ -34,7 +34,9 @@ namespace simslides
     /// \brief Callback when the user requests to change slides.
     /// \param[in] _slide Current slide number.
     /// \param[in] _total Total number of slides.
-    private slots: void OnSlideChanged(const int _slide, const int _total);
+    /// \param[in] _text Text for dialog.
+    private slots: void OnSlideChanged(const int _slide, const int _total,
+        QString _text);
 
     /// \brief Callback when the total number of slides changes.
     /// \param[in] _total Total number of slides.
@@ -49,7 +51,10 @@ namespace simslides
     Q_SIGNALS: void SetTotal(const QString _total);
 
     /// \brief Spin box holding current slide.
-    private: QSpinBox *currentSpin;
+    private: QSpinBox * currentSpin;
+
+    /// \brief Dialog holding text for slides.
+    private: QMessageBox * textDialog;
   };
 }
 #endif

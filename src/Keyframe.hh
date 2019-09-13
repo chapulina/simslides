@@ -17,6 +17,7 @@
 #define SIMSLIDES_KEYFRAME_HH_
 
 #include <memory>
+#include <string>
 #include <sdf/sdf.hh>
 #include <ignition/math/Pose3.hh>
 
@@ -52,12 +53,12 @@ namespace simslides
     /// \brief Destructor.
     public: ~Keyframe();
 
-    /// \brief Get the full type definition.
-    /// \return The full type definition.
+    /// \brief Get the keyframe type.
+    /// \return The type of this keyframe.
     public: KeyframeType GetType() const;
 
-    /// \brief
-    /// \return
+    /// \brief The number of the slide model that this keyframe is tied to.
+    /// \return Slide number.
     public: unsigned int SlideNumber() const;
 
     /// \brief For LOG_SEEK and CAM_POSE
@@ -71,6 +72,10 @@ namespace simslides
     /// \brief Log time to seek to
     /// \return Log time
     public: gazebo::common::Time LogSeek() const;
+
+    /// \brief Text to display
+    /// \return The text.
+    public: std::string Text() const;
 
     /// \internal
     /// \brief Pointer to private data.

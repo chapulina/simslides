@@ -19,7 +19,6 @@
 #include "Common.hh"
 #include "ImportDialog.hh"
 #include "InsertActorDialog.hh"
-#include "Keyframe.hh"
 #include "LoadDialog.hh"
 #include "PresentMode.hh"
 #include "Simslides.hh"
@@ -61,8 +60,8 @@ Simslides::Simslides()
 */
   // Presentation mode
   auto presentMode = new PresentMode();
-  this->connect(presentMode, SIGNAL(SlideChanged(int, int)), this,
-      SLOT(OnSlideChanged(int, int)));
+  this->connect(presentMode, SIGNAL(SlideChanged(int, int, QString)), this,
+      SLOT(OnSlideChanged(int, int, QString)));
   this->connect(this, SIGNAL(CurrentChanged(int)), presentMode,
       SLOT(OnSlideChanged(int)));
 
@@ -110,12 +109,25 @@ Simslides::Simslides()
   presentButton->setDefaultAction(presentAct);
   presentButton->setIconSize(QSize(100, 100));
 
+  // Text
+  // TODO Make it non-modal and remove the Ok button
+  this->textDialog = new QMessageBox();
+  this->textDialog->setWindowTitle("SimSlide text");
+  this->textDialog->setTextFormat(Qt::RichText);
+
+  // TODO better icon
+  auto textButton = new QToolButton();
+  textButton->setText(">");
+  textButton->setIconSize(QSize(100, 100));
+  this->connect(textButton, SIGNAL(clicked()), this->textDialog, SLOT(show()));
+
   // Create the layout that sits inside the frame
   auto frameLayout = new QHBoxLayout();
   frameLayout->addWidget(currentSpin);
   frameLayout->addWidget(new QLabel("/"));
   frameLayout->addWidget(totalLabel);
   frameLayout->addWidget(presentButton);
+  frameLayout->addWidget(textButton);
 
   // Create the frame to hold all the widgets
   auto mainFrame = new QFrame();
@@ -135,7 +147,7 @@ Simslides::Simslides()
 
   // Position and resize this widget
   this->move(10, 10);
-  this->resize(150, 50);
+  this->resize(200, 50);
 }
 
 /////////////////////////////////////////////////
@@ -145,13 +157,15 @@ void Simslides::Load(const sdf::ElementPtr _sdf)
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnSlideChanged(const int _slide, const int _total)
+void Simslides::OnSlideChanged(const int _slide, const int _total, QString _text)
 {
   this->currentSpin->blockSignals(true);
   this->currentSpin->setValue(_slide);
   this->currentSpin->blockSignals(false);
 
   this->SetTotal(QString::number(_total));
+
+  this->textDialog->setText(_text);
 }
 
 /////////////////////////////////////////////////
