@@ -90,6 +90,10 @@ Simslides::Simslides()
          background-color : rgba(230, 230, 230, 255);\
          color : rgba(30, 30, 30, 255);\
          font-size : 50 px;\
+       }"\
+      "QToolButton {\
+         color : rgba(30, 30, 30, 255);\
+         font-size : 100 px;\
        }");
 
   // Current
@@ -110,16 +114,24 @@ Simslides::Simslides()
   presentButton->setIconSize(QSize(100, 100));
 
   // Text
-  // TODO Make it non-modal and remove the Ok button
-  this->textDialog = new QMessageBox();
-  this->textDialog->setWindowTitle("SimSlide text");
-  this->textDialog->setTextFormat(Qt::RichText);
+  this->text = new QTextBrowser();
+  this->text->setAcceptRichText(true);
+  this->text->setOpenExternalLinks(true);
+  this->text->setReadOnly(true);
 
-  // TODO better icon
+  auto textLayout = new QVBoxLayout();
+  textLayout->addWidget(this->text);
+
+  auto textDialog = new QDialog();
+  textDialog->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
+      Qt::WindowStaysOnTopHint | Qt::CustomizeWindowHint);
+  textDialog->setWindowTitle("SimSlide Text");
+  textDialog->setLayout(textLayout);
+
   auto textButton = new QToolButton();
-  textButton->setText(">");
+  textButton->setText(QString::fromUtf8("\u2197"));
   textButton->setIconSize(QSize(100, 100));
-  this->connect(textButton, SIGNAL(clicked()), this->textDialog, SLOT(show()));
+  this->connect(textButton, SIGNAL(clicked()), textDialog, SLOT(show()));
 
   // Create the layout that sits inside the frame
   auto frameLayout = new QHBoxLayout();
@@ -165,7 +177,7 @@ void Simslides::OnSlideChanged(const int _slide, const int _total, QString _text
 
   this->SetTotal(QString::number(_total));
 
-  this->textDialog->setText(_text);
+  this->text->setHtml(_text);
 }
 
 /////////////////////////////////////////////////

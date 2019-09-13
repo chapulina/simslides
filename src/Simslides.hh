@@ -51,10 +51,10 @@ namespace simslides
     Q_SIGNALS: void SetTotal(const QString _total);
 
     /// \brief Spin box holding current slide.
-    private: QSpinBox * currentSpin;
+    private: QSpinBox * currentSpin{nullptr};
 
-    /// \brief Dialog holding text for slides.
-    private: QMessageBox * textDialog;
+    /// \brief Holds text for slides.
+    private: QTextBrowser * text{nullptr};
   };
 }
 #endif

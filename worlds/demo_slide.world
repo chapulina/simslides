@@ -27,7 +27,7 @@
 
         <!-- Add copiable text to a dialog -->
         <keyframe type='lookat' number='6'
-            text='<a href="https://github.com/chapulina/simslides">github.com/chapulina/simslides</a>'/>
+            text='<a style="color: white; font-size: 40px" href="https://github.com/chapulina/simslides">github.com/chapulina/simslides</a>'/>
 
         <!-- Move camera to a given pose -->
         <keyframe type='cam_pose' pose='41.9 -31.9 12.7 0 0.26 2.13'/>
