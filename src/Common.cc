@@ -15,6 +15,7 @@
 */
 #include <boost/filesystem.hpp>
 #include <gazebo/common/Console.hh>
+#include <gazebo/rendering/UserCamera.hh>
 #include <gazebo/transport/Node.hh>
 
 #include "Common.hh"
@@ -82,6 +83,19 @@ void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)
   if (_sdf->HasElement("slide_prefix"))
   {
     simslides::slidePrefix = _sdf->Get<std::string>("slide_prefix");
+  }
+
+  if (_sdf->HasElement("far_clip") && _sdf->HasElement("near_clip"))
+  {
+    auto camera = gazebo::gui::get_active_camera();
+    if (nullptr == camera)
+    {
+      gzwarn << "No user camera, can't set near and far clip distances" << std::endl;
+    }
+    else
+    {
+      camera->SetClipDist(_sdf->Get<double>("near_clip"), _sdf->Get<double>("far_clip"));
+    }
   }
 
   if (_sdf->HasElement("keyframe"))

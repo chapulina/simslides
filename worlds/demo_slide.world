@@ -10,6 +10,10 @@
 
       <plugin name='simslides' filename='libsimslides.so'>
 
+        <!-- optionally, set camera's near and far clip distances -->
+        <near_clip>0.1</near_clip>
+        <far_clip>100</far_clip>
+
         <!-- models starting with this prefix will be treated as slides -->
         <slide_prefix>demo_slide</slide_prefix>
 

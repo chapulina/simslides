@@ -8,11 +8,12 @@ Import PDF files into robot simulation and present slides flying from slide to s
 
 * Import *PDF* files into simulation through the GUI
 * Navigate through keyframes using *mouse*, *keyboard* or wireless *presenter*
-* Keyframes can be:
+* Keyframes can:
     * Look at a *slide* (even if it has moved)
     * *Move camera* to a specific pose
     * Seek to specific spot in a *log* file
     * Go through slides *stacked* on the same pose
+    * Write copiable *text* to a dialog
 * ... plus all *Gazebo* features!
 
 ## Install Gazebo
