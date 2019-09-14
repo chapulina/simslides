@@ -115,14 +115,14 @@ Simslides::Simslides()
 
   // Text
   this->text = new QTextBrowser();
-  this->text->setAcceptRichText(true);
+  this->text->setAcceptRichText(false);
   this->text->setOpenExternalLinks(true);
   this->text->setReadOnly(true);
 
   auto textLayout = new QVBoxLayout();
   textLayout->addWidget(this->text);
 
-  auto textDialog = new QDialog();
+  auto textDialog = new QDialog(this);
   textDialog->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint |
       Qt::WindowStaysOnTopHint | Qt::CustomizeWindowHint);
   textDialog->setWindowTitle("SimSlide Text");
@@ -177,7 +177,9 @@ void Simslides::OnSlideChanged(const int _slide, const int _total, QString _text
 
   this->SetTotal(QString::number(_total));
 
-  this->text->setHtml(_text);
+  // FIXME Setting plain text so it's possible to display XML. Ideally we'd
+  // support rich text with links
+  this->text->setPlainText(_text);
 }
 
 /////////////////////////////////////////////////
