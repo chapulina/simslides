@@ -100,8 +100,8 @@ Simslides::Simslides()
   this->currentSpin = new QSpinBox(0);
   this->currentSpin->setAlignment(Qt::AlignRight);
   this->currentSpin->setMaximumWidth(60);
-  this->connect(this->currentSpin, SIGNAL(valueChanged(const int)),
-      this, SLOT(OnCurrentChanged(const int)));
+  this->connect(this->currentSpin, SIGNAL(editingFinished()),
+      this, SLOT(OnCurrentChanged()));
 
   // Total
   auto totalLabel = new QLabel("0");
@@ -183,8 +183,8 @@ void Simslides::OnSlideChanged(const int _slide, const int _total, QString _text
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnCurrentChanged(const int _slide)
+void Simslides::OnCurrentChanged()
 {
-  this->CurrentChanged(_slide);
+  this->CurrentChanged(this->currentSpin->value());
 }
 

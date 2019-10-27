@@ -38,9 +38,9 @@ namespace simslides
     private slots: void OnSlideChanged(const int _slide, const int _total,
         QString _text);
 
-    /// \brief Callback when the total number of slides changes.
-    /// \param[in] _total Total number of slides.
-    private slots: void OnCurrentChanged(const int _total);
+    /// \brief Callback when the slide number is changed. This is only called
+    /// whent the widget loses focus or the user presses enter.
+    private slots: void OnCurrentChanged();
 
     /// \brief Notifies that the slide spin has changed
     /// \param[in] _current Number of current slide.
