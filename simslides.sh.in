@@ -2,4 +2,12 @@
 
 source @CMAKE_INSTALL_PREFIX@/share/@PROJECT_NAME@/setup.sh
 
-gazebo --verbose simslides.world
+WORLD=$1
+
+if [ -z "$WORLD" ]; then
+  WORLD=simslides.world
+fi
+
+echo -e "\e[34mSimSlides loading world [$WORLD]\e[0m"
+
+gazebo --verbose $WORLD

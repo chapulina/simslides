@@ -14,6 +14,7 @@
  * limitations under the License.
 */
 #include <iostream>
+#include <regex>
 #include <string>
 
 #include "Keyframe.hh"
@@ -55,6 +56,14 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
   if (_sdf->HasAttribute("text"))
   {
     this->dataPtr->text = _sdf->Get<std::string>("text");
+
+    // When the user wants special characters like <> to be printed in
+    // QTextBrowser, we need these characters to be encoded. But SDF / TinyXml
+    // decodes them. Thus the need for an intermediate encoding :]
+    this->dataPtr->text = std::regex_replace(this->dataPtr->text,
+        std::regex("<<"), "&lt;");
+    this->dataPtr->text = std::regex_replace(this->dataPtr->text,
+        std::regex(">>"), "&gt;");
   }
   if (type == "stack")
   {

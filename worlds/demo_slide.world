@@ -29,9 +29,19 @@
         <!-- Move camera to face slide number 1 with a custom offset -->
         <keyframe type='lookat' number='5' eye_offset="0 -2 -0.5 0 0 0"/>
 
-        <!-- Add copiable text to a dialog -->
+        <!-- Add HTML to a dialog -->
+        <!-- Escape < as << and > as >>. -->
         <keyframe type='lookat' number='6'
-            text='https://github.com/chapulina/simslides'/>
+            text='<a style="color: blue; font-size: 20px" href="https://github.com/chapulina/simslides">github.com/chapulina/simslides</a>
+
+<p>Display embedded XML:</p>
+
+<pre style="color: #222277; font-family: monospace;">
+<<model name="awesome_slide">>
+  ...
+<</model>>
+</pre>
+'/>
 
         <!-- Move camera to a given pose -->
         <keyframe type='cam_pose' pose='41.9 -31.9 12.7 0 0.26 2.13'/>

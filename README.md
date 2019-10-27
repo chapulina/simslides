@@ -6,15 +6,15 @@ Import PDF files into robot simulation and present slides flying from slide to s
 
 ## Features
 
-* Import *PDF* files into simulation through the GUI
-* Navigate through keyframes using *mouse*, *keyboard* or wireless *presenter*
+* Import **PDF** files into simulation through the GUI
+* Navigate through keyframes using **mouse**, **keyboard** or wireless **presenter**
 * Keyframes can:
-    * Look at a *slide* (even if it has moved)
-    * *Move camera* to a specific pose
-    * Seek to specific spot in a *log* file
-    * Go through slides *stacked* on the same pose
-    * Write copiable *text* to a dialog
-* ... plus all *Gazebo* features!
+    * Look at a **slide** (even if it has moved)
+    * **Move camera** to a specific pose
+    * Seek to specific spot in a **log** file
+    * Go through slides **stacked** on the same pose
+    * Write copiable HTML **text** to a dialog
+* ... plus all **Gazebo** features!
 
 ## Install Gazebo
 
@@ -68,13 +68,9 @@ You can find a demo presentation inside the `worlds` directory. Run it as follow
 
         source /usr/share/gazebo/setup.sh
 
-1. Source SimSlides (depends on where you installed it)
-
-        source /usr/local/share/simslides/setup.sh
-
 1. Load the world
 
-        gazebo --verbose worlds/demo_slide.world
+        simslides worlds/demo_slide.world
 
 ## Your own presentation
 
@@ -130,6 +126,12 @@ Once you have the slides loaded into the world, present as follows:
 
 ## Existing presentations
 
+When this project was started, all presentations were kept in different
+branches of the same repository. Since mid 2019, new presentations are being
+created in their own repositories.
+
+### Until mid 2019
+
 1. Move to the presentation branch, available ones are:
 
     * `CppCon2015`: [CppCon, September 2015](https://www.youtube.com/watch?v=PXdQwFSJwQ8)
@@ -162,10 +164,17 @@ Once you have the slides loaded into the world, present as follows:
 branch's `README` to run the presentation. I've done my best to document it all,
 but each presentation may take some massaging to work years later.
 
+### Since mid 2019
+
+See each repository:
+
+* [ROSConJP 2019](https://github.com/chapulina/rosconjp_2019)
+* [ROSCon 2019](https://github.com/chapulina/roscon_gz_ros2/)
+
 ## History
 
-This project started as a few bash scripts for CppCon 2015. Back then, it was
-hosted on BitBucket using Mercurial.
+This project started as a few bash scripts for CppCon 2015. Back then, it used
+to be hosted on BitBucket using Mercurial.
 
 Over the years, the project evolved into more handy GUI plugins, and is
 gaining more features for each presentation.
