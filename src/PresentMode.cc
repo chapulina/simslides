@@ -236,29 +236,40 @@ void PresentMode::ChangeSlide()
 
     if (keyframe->GetType() == KeyframeType::STACK)
     {
+      // TODO(louise) Support stacks with non-sequential slide suffixes
       // Find stack front
       auto frontKeyframe = this->dataPtr->currentIndex;
       while (frontKeyframe > 0 &&
-          simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
+          simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK &&
+          simslides::keyframes[frontKeyframe]->SlideNumber() - 1 ==
+          simslides::keyframes[frontKeyframe-1]->SlideNumber())
       {
         frontKeyframe--;
+      }
+
+      if (frontKeyframe < 0)
+      {
+        gzerr << "Dafuq! Front keyframe: " << frontKeyframe << std::endl;
+        return;
       }
       auto frontVisNumber = simslides::keyframes[frontKeyframe]->SlideNumber();
 
       // Find stack back
       auto backKeyframe = this->dataPtr->currentIndex;
       while (backKeyframe+1 < simslides::keyframes.size() &&
-          simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK)
+          simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK &&
+          simslides::keyframes[backKeyframe]->SlideNumber() + 1 ==
+          simslides::keyframes[backKeyframe+1]->SlideNumber())
       {
         backKeyframe++;
       }
-      auto backVisNumber = simslides::keyframes[backKeyframe]->SlideNumber();
 
-      if (backVisNumber > simslides::keyframes.size())
+      if (backKeyframe >= simslides::keyframes.size())
       {
-        gzerr << "Dafuq! " << backVisNumber << std::endl;
+        gzerr << "Dafuq! Back keyframe: " << backKeyframe << std::endl;
         return;
       }
+      auto backVisNumber = simslides::keyframes[backKeyframe]->SlideNumber();
 
       gzmsg << "Stack front: " << frontVisNumber << ", back: " << backVisNumber << std::endl;
 
