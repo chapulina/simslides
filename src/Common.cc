@@ -34,12 +34,8 @@ void simslides::LoadSlides()
   }
 
   // Count number of models in path
-  int count = std::count_if(
-      boost::filesystem::directory_iterator(simslides::slidePath),
-      boost::filesystem::directory_iterator(),
-      boost::bind( static_cast<bool(*)(const boost::filesystem::path&)>(
-      boost::filesystem::is_directory),
-        boost::bind( &boost::filesystem::directory_entry::path, _1 ) ) );
+  int count = QDir(QString::fromStdString(simslides::slidePath))
+     .entryList(QStringList("*"), QDir::Files | QDir::NoSymLinks).size();
 
   // Setup transport
   auto node = gazebo::transport::NodePtr(new gazebo::transport::Node());

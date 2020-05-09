@@ -354,13 +354,8 @@ void ImportDialog::OnConversionFinished(int _exitCode,
 
   // Find number of images in temp path
   // TODO(louise): Use QDir
-  boost::filesystem::path tmpPath(this->dataPtr->tmpDir.toStdString());
-  this->dataPtr->count = std::count_if(
-      boost::filesystem::directory_iterator(tmpPath),
-      boost::filesystem::directory_iterator(),
-      boost::bind( static_cast<bool(*)(const boost::filesystem::path&)>(
-      boost::filesystem::is_regular_file),
-      boost::bind( &boost::filesystem::directory_entry::path, _1 ) ) );
+  this->dataPtr->count = QDir(this->dataPtr->tmpDir).entryList(QStringList("*"),
+     QDir::Files | QDir::NoSymLinks).size();
   QCoreApplication::processEvents();
 
   // TODO(louise): Support other keyframes
