@@ -13,29 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-#include <boost/filesystem.hpp>
+#include <filesystem>
+
 #include <gazebo/common/Console.hh>
-#include <gazebo/rendering/UserCamera.hh>
 #include <gazebo/transport/Node.hh>
 
-#include "Common.hh"
+#include <simslides/common/Common.hh>
 
-std::string simslides::slidePrefix;
-std::string simslides::slidePath;
-std::vector<simslides::Keyframe *> simslides::keyframes;
+#include "Helpers.hh"
 
 /////////////////////////////////////////////////
-void simslides::LoadSlides()
+void simslides::SpawnSlides()
 {
   if (simslides::slidePrefix.empty() || simslides::slidePath.empty())
   {
     gzerr << "Missing slide prefix or path." << std::endl;
     return;
   }
-
-  // Count number of models in path
-  int count = QDir(QString::fromStdString(simslides::slidePath))
-     .entryList(QStringList("*"), QDir::Files | QDir::NoSymLinks).size();
 
   // Setup transport
   auto node = gazebo::transport::NodePtr(new gazebo::transport::Node());
@@ -45,12 +39,14 @@ void simslides::LoadSlides()
 
   int countX= 0;
   int countY= 0;
-  for (int i = 0; i < count; ++i)
+  for (const auto & dir : std::filesystem::directory_iterator(simslides::slidePath))
   {
+    if (!dir.is_directory())
+      continue;
+
     gazebo::msgs::Factory msg;
 
-    std::string filename("file://" + simslides::slidePath + "/" +
-        simslides::slidePrefix + "-" + std::to_string(i));
+    std::string filename("file://" + dir.path().u8string());
     msg.set_sdf_filename(filename);
 
     gazebo::msgs::Set(msg.mutable_pose(),
@@ -71,36 +67,4 @@ void simslides::LoadSlides()
 
   factoryPub.reset();
   node->Fini();
-}
-
-/////////////////////////////////////////////////
-void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)
-{
-  if (_sdf->HasElement("slide_prefix"))
-  {
-    simslides::slidePrefix = _sdf->Get<std::string>("slide_prefix");
-  }
-
-  if (_sdf->HasElement("far_clip") && _sdf->HasElement("near_clip"))
-  {
-    auto camera = gazebo::gui::get_active_camera();
-    if (nullptr == camera)
-    {
-      gzwarn << "No user camera, can't set near and far clip distances" << std::endl;
-    }
-    else
-    {
-      camera->SetClipDist(_sdf->Get<double>("near_clip"), _sdf->Get<double>("far_clip"));
-    }
-  }
-
-  if (_sdf->HasElement("keyframe"))
-  {
-    auto keyframeElem = _sdf->GetElement("keyframe");
-    while (keyframeElem)
-    {
-      simslides::keyframes.push_back(new Keyframe(keyframeElem));
-      keyframeElem = keyframeElem->GetNextElement("keyframe");
-    }
-  }
 }

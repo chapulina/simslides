@@ -17,7 +17,7 @@
 #include <regex>
 #include <string>
 
-#include "Keyframe.hh"
+#include "include/simslides/common/Keyframe.hh"
 
 using namespace simslides;
 
@@ -36,7 +36,7 @@ class simslides::KeyframePrivate
   public: ignition::math::Pose3d camPose;
 
   /// \brief Log time to seek to
-  public: gazebo::common::Time logSeek;
+  public: std::chrono::steady_clock::duration logSeek;
 
   /// \brief Text to display on dialog
   public: std::string text;
@@ -79,8 +79,8 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
   {
     this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("cam_pose");
     auto logSeek = _sdf->Get<sdf::Time>("time");
-    this->dataPtr->logSeek.sec = logSeek.sec;
-    this->dataPtr->logSeek.nsec = logSeek.nsec;
+    this->dataPtr->logSeek = std::chrono::seconds(logSeek.sec) +
+       std::chrono::nanoseconds(logSeek.nsec);
     this->dataPtr->type = KeyframeType::LOG_SEEK;
   }
   else if (type == "cam_pose")
@@ -90,17 +90,17 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
   }
   else
   {
-    gzerr << "Unsupported type [" << type << "]" << std::endl;
+    std::cerr << "Unsupported type [" << type << "]" << std::endl;
   }
 
   if (this->dataPtr->slideNumber >= 0)
   {
-    gzmsg << "Loading [" << type << "] keyframe tied to slide ["
+    std::cout << "Loading [" << type << "] keyframe tied to slide ["
           << this->dataPtr->slideNumber << "]" << std::endl;
   }
   else
   {
-    gzmsg << "Loading [" << type << "] keyframe" << std::endl;
+    std::cout << "Loading [" << type << "] keyframe" << std::endl;
   }
 }
 
@@ -134,7 +134,7 @@ ignition::math::Pose3d Keyframe::EyeOffset() const
 }
 
 //////////////////////////////////////////////////
-gazebo::common::Time Keyframe::LogSeek() const
+std::chrono::steady_clock::duration Keyframe::LogSeek() const
 {
   return this->dataPtr->logSeek;
 }

@@ -13,7 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-#include "Common.hh"
+
+#include "Helpers.hh"
 #include "LoadDialog.hh"
 
 using namespace simslides;
@@ -118,7 +119,7 @@ void LoadDialog::Load()
   simslides::slidePrefix = this->dataPtr->nameEdit->text().toStdString();
   simslides::slidePath = this->dataPtr->pathLabel->text().toStdString();
 
-  simslides::LoadSlides();
+  simslides::SpawnSlides();
 
   // TODO(louise): close dialog
 }

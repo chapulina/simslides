@@ -15,7 +15,11 @@
 */
 #include <gazebo/common/CommonIface.hh>
 #include <gazebo/common/Console.hh>
-#include "Common.hh"
+#include <gazebo/common/SystemPaths.hh>
+#include <gazebo/gui/SaveEntityDialog.hh>
+#include <sdf/Root.hh>
+#include <simslides/common/Common.hh>
+#include "Helpers.hh"
 #include "ImportDialog.hh"
 
 using namespace simslides;
@@ -413,7 +417,7 @@ void ImportDialog::OnGenerate()
   this->GenerateWorld();
 
   // Insert models
-  simslides::LoadSlides();
+  simslides::SpawnSlides();
 
   // Close dialog
   this->dataPtr->stackedStepLayout->removeItem(

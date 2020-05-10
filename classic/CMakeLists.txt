@@ -1,8 +1,7 @@
 set (client_src
-  Common.cc
+  Helpers.cc
   ImportDialog.cc
   InsertActorDialog.cc
-  Keyframe.cc
   LoadDialog.cc
   PresentMode.cc
   Simslides.cc
@@ -16,6 +15,18 @@ set (qt_headers
   Simslides.hh
 )
 
+find_package(Qt5 COMPONENTS Core Widgets Test QUIET)
+
+add_definitions(${QT_DEFINITIONS})
+
+include_directories(SYSTEM
+  ${GAZEBO_INCLUDE_DIRS}
+  ${Qt5Core_INCLUDE_DIRS}
+)
+link_directories(${GAZEBO_LIBRARY_DIRS})
+
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS} -std=c++17 -lstdc++fs")
+
 QT5_WRAP_CPP(headers_MOC ${qt_headers})
 
 add_library(simslides SHARED
@@ -23,6 +34,8 @@ add_library(simslides SHARED
   ${headers_MOC}
 )
 target_link_libraries(simslides
+  stdc++fs
+  simslides_common
   ${GAZEBO_LIBRARIES}
   ${Qt5Core_LIBRARIES}
   ${Qt5Test_LIBRARIES}
@@ -30,7 +43,8 @@ target_link_libraries(simslides
   ${PROTOBUF_LIBRARIES}
 )
 
+include(GNUInstallDirs)
 install(TARGETS simslides
-  DESTINATION lib
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 

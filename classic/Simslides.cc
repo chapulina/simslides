@@ -15,8 +15,9 @@
  *
 */
 #include <sstream>
+#include <gazebo/rendering/UserCamera.hh>
+#include <simslides/common/Common.hh>
 
-#include "Common.hh"
 #include "ImportDialog.hh"
 #include "InsertActorDialog.hh"
 #include "LoadDialog.hh"
@@ -166,6 +167,20 @@ Simslides::Simslides()
 void Simslides::Load(const sdf::ElementPtr _sdf)
 {
   simslides::LoadPluginSDF(_sdf);
+
+  if (!std::isnan(simslides::farClip) && !std::isnan(simslides::nearClip))
+  {
+    auto camera = gazebo::gui::get_active_camera();
+    if (nullptr == camera)
+    {
+      gzwarn << "No user camera, can't set near and far clip distances"
+             << std::endl;
+    }
+    else
+    {
+      camera->SetClipDist(simslides::nearClip, simslides::farClip);
+    }
+  }
 }
 
 /////////////////////////////////////////////////

@@ -16,12 +16,11 @@
 #ifndef SIMSLIDES_KEYFRAME_HH_
 #define SIMSLIDES_KEYFRAME_HH_
 
+#include <chrono>
 #include <memory>
 #include <string>
-#include <sdf/sdf.hh>
+#include <sdf/Element.hh>
 #include <ignition/math/Pose3.hh>
-
-#include <gazebo/gui/gui.hh>
 
 namespace simslides
 {
@@ -71,7 +70,7 @@ namespace simslides
 
     /// \brief Log time to seek to
     /// \return Log time
-    public: gazebo::common::Time LogSeek() const;
+    public: std::chrono::steady_clock::duration LogSeek() const;
 
     /// \brief Text to display
     /// \return The text.

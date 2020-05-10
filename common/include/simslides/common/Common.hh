@@ -32,10 +32,8 @@ namespace simslides
   /// \brief Vector of keyframes loaded for presentation
   extern std::vector<Keyframe *> keyframes;
 
-  /// \brief Load slide models into the world based on the path. This is used
-  /// after slides are generated and if the option to load slides is chosen,
-  /// but not if slides are loaded from a world.
-  void LoadSlides();
+  extern double farClip;
+  extern double nearClip;
 
   /// \brief Load <gui><plugin> tag for libsimslides.
   /// \param[in] _sdf SDF element.

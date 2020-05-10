@@ -21,7 +21,7 @@
 #include <gazebo/transport/Node.hh>
 #include <gazebo/transport/Subscriber.hh>
 
-#include "Common.hh"
+#include <simslides/common/Common.hh>
 #include "PresentMode.hh"
 
 using namespace simslides;
@@ -308,8 +308,12 @@ void PresentMode::ChangeSlide()
       if (this->dataPtr->logPlaybackControlPub)
       {
         auto logSeek = keyframe->LogSeek();
+        auto s = std::chrono::duration_cast<std::chrono::seconds>(logSeek);
+        auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(logSeek-s);
+
         gazebo::msgs::LogPlaybackControl msg;
-        gazebo::msgs::Set(msg.mutable_seek(), logSeek);
+        gazebo::msgs::Set(msg.mutable_seek(),
+            gazebo::common::Time(s.count(), ns.count()));
         msg.set_pause(false);
         this->dataPtr->logPlaybackControlPub->Publish(msg);
       }
