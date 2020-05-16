@@ -43,13 +43,3 @@ install(FILES
   DESTINATION share/${PROJECT_NAME}
 )
 
-configure_file(
-  "simslides.sh.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/share/simslides" @ONLY
-)
-
-install(PROGRAMS
-  ${CMAKE_CURRENT_BINARY_DIR}/share/simslides
-  DESTINATION bin
-)
-

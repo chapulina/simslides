@@ -53,3 +53,13 @@ install(TARGETS simslides
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
+configure_file(
+  "simslides_classic.sh.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/share/simslides_classic" @ONLY
+)
+
+install(PROGRAMS
+  ${CMAKE_CURRENT_BINARY_DIR}/share/simslides_classic
+  DESTINATION bin
+)
+

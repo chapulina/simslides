@@ -57,3 +57,13 @@ install(TARGETS ${library_name}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
+configure_file(
+  "simslides_ignition.sh.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/share/simslides_ignition" @ONLY
+)
+
+install(PROGRAMS
+  ${CMAKE_CURRENT_BINARY_DIR}/share/simslides_ignition
+  DESTINATION bin
+)
+
