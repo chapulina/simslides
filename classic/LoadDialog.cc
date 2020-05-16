@@ -14,6 +14,8 @@
  * limitations under the License.
 */
 
+#include <simslides/common/Common.hh>
+
 #include "Helpers.hh"
 #include "LoadDialog.hh"
 

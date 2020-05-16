@@ -15,7 +15,12 @@ set (qt_headers
   Simslides.hh
 )
 
-find_package(Qt5 COMPONENTS Core Widgets Test QUIET)
+find_package(Qt5
+  COMPONENTS
+    Core
+    Widgets
+  REQUIRED
+)
 
 add_definitions(${QT_DEFINITIONS})
 
