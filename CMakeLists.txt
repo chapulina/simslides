@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.5.1 FATAL_ERROR)
 
 project(simslides)
 
-find_package(gazebo)
-find_package(ignition-gui3)
-find_package(SDFormat REQUIRED)
+find_package(gazebo QUIET)
+find_package(ignition-gui3 QUIET)
+find_package(sdformat9 REQUIRED)
 find_package(Protobuf REQUIRED)
 
 # Common
