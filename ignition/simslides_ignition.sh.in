@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+source @CMAKE_INSTALL_PREFIX@/share/@PROJECT_NAME@/setup.sh
+
+WORLD=$1
+
+if [ -z "$WORLD" ]; then
+  WORLD=simslides_ignition.sdf
+fi
+
+echo -e "\e[34mSimSlides loading world [$WORLD]\e[0m"
+
+ign gazebo $WORLD -v 4
