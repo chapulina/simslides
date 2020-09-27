@@ -1,0 +1,200 @@
+<?xml version='1.0' ?>
+<sdf version='1.5'>
+  <world name='simslides'>
+
+    <gui>
+
+      <!-------------------- classic ---------------------------->
+
+     <camera name="user_camera">
+       <!-- Press F6 to come back to this pose -->
+       <pose>-5.18 -4.14 0.68 0 0.03 0.38</pose>
+     </camera>
+
+      <plugin name='simslides' filename='libsimslides.so'>
+
+        <!-- optionally, set camera's near and far clip distances -->
+        <near_clip>0.1</near_clip>
+        <far_clip>100</far_clip>
+
+        <!-- models starting with this prefix will be treated as slides -->
+        <slide_prefix>demo_slide</slide_prefix>
+
+        <!-- Move camera to face slide number 0 (i.e. demo_slide-0) -->
+        <keyframe type='lookat' number='0'/>
+
+        <!-- Keep camera in place and iterate through slides on the stack  -->
+        <keyframe type='stack' number='1'/>
+        <keyframe type='stack' number='2'/>
+        <keyframe type='stack' number='3'/>
+        <keyframe type='stack' number='4'/>
+
+        <!-- Move camera to face slide number 1 with a custom offset -->
+        <keyframe type='lookat' number='5' eye_offset="0 -2 -0.5 0 0 0"/>
+
+        <!-- Add HTML to a dialog -->
+        <!-- Escape < as << and > as >>. -->
+        <keyframe type='lookat' number='6'
+            text='<a style="color: blue; font-size: 20px" href="https://github.com/chapulina/simslides">github.com/chapulina/simslides</a>
+
+<p>Display embedded XML:</p>
+
+<pre style="color: #222277; font-family: monospace;">
+<<model name="awesome_slide">>
+  ...
+<</model>>
+</pre>
+'/>
+
+        <!-- Move camera to a given pose -->
+        <keyframe type='cam_pose' pose='41.9 -31.9 12.7 0 0.26 2.13'/>
+
+      </plugin>
+
+      <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'>
+      </plugin>
+
+      <!-------------------- ignition ---------------------------->
+
+      <!-- 3D scene -->
+      <plugin filename="GzScene3D" name="3D View">
+        <ignition-gui>
+          <title>3D View</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="string" key="state">docked</property>
+        </ignition-gui>
+
+        <engine>ogre2</engine>
+        <scene>scene</scene>
+        <ambient_light>1.0 1.0 1.0</ambient_light>
+        <background_color>0.8 0.8 0.8</background_color>
+        <camera_pose>-5.18 -4.14 0.68 0 0.03 0.38</camera_pose>
+      </plugin>
+
+      <!-- World control -->
+      <plugin filename="WorldControl" name="World control">
+        <ignition-gui>
+          <title>World control</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">72</property>
+          <property type="double" key="width">121</property>
+          <property type="double" key="z">1</property>
+
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="left" target="left"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </ignition-gui>
+
+        <play_pause>true</play_pause>
+        <step>true</step>
+        <start_paused>true</start_paused>
+
+      </plugin>
+
+      <!-- World statistics -->
+      <plugin filename="WorldStats" name="World stats">
+        <ignition-gui>
+          <title>World stats</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">110</property>
+          <property type="double" key="width">290</property>
+          <property type="double" key="z">1</property>
+
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="right" target="right"/>
+            <line own="bottom" target="bottom"/>
+          </anchors>
+        </ignition-gui>
+
+        <sim_time>true</sim_time>
+        <real_time>true</real_time>
+        <real_time_factor>true</real_time_factor>
+        <iterations>true</iterations>
+
+      </plugin>
+
+      <plugin name="SimSlides" filename="SimSlidesIgn">
+        <ignition-gui>
+          <title>SimSlides</title>
+        </ignition-gui>
+      </plugin>
+
+    </gui>
+
+    <!-- Ignition -->
+    <plugin
+      filename="libignition-gazebo-physics-system.so"
+      name="ignition::gazebo::systems::Physics">
+    </plugin>
+    <plugin
+      filename="libignition-gazebo-user-commands-system.so"
+      name="ignition::gazebo::systems::UserCommands">
+    </plugin>
+    <plugin
+      filename="libignition-gazebo-scene-broadcaster-system.so"
+      name="ignition::gazebo::systems::SceneBroadcaster">
+    </plugin>
+
+    <!-- All simulators -->
+
+    <include>
+      <uri>
+        https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Sun
+      </uri>
+    </include>
+
+    <include>
+      <uri>
+        https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Ground Plane
+      </uri>
+    </include>
+
+    <include>
+      <pose>20 1 0 0 0 -1.57</pose>
+      <uri>
+        https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Double pendulum with base
+      </uri>
+    </include>
+
+    <include>
+      <name>demo_slide-0</name>
+    <pose>0 0 0 0 0 0</pose>
+    <uri>model://demo_slide-0</uri>
+     </include>
+     <include>
+       <name>demo_slide-1</name>
+       <pose>10 0 0 0 0 0</pose>
+       <uri>model://demo_slide-1</uri>
+     </include>
+     <include>
+       <name>demo_slide-2</name>
+       <pose>10 0 0 0 0 0</pose>
+       <uri>model://demo_slide-2</uri>
+     </include>
+     <include>
+       <name>demo_slide-3</name>
+       <pose>10 0 0 0 0 0</pose>
+       <uri>model://demo_slide-3</uri>
+     </include>
+     <include>
+       <name>demo_slide-4</name>
+       <pose>10 0 0 0 0 0</pose>
+       <uri>model://demo_slide-4</uri>
+     </include>
+     <include>
+       <name>demo_slide-5</name>
+       <pose>20 0 0 0 0 0</pose>
+       <uri>model://demo_slide-5</uri>
+     </include>
+     <include>
+       <name>demo_slide-6</name>
+       <pose>30 0 0 0 0 0</pose>
+       <uri>model://demo_slide-6</uri>
+     </include>
+  </world>
+</sdf>

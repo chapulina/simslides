@@ -12,14 +12,18 @@ add_subdirectory(common)
 
 # Gazebo-classic
 if (${gazebo_FOUND})
-  message (STATUS "Gazebo-classic found")
+  message (STATUS "Gazebo classic found")
   add_subdirectory(classic)
+else()
+  message (STATUS "Gazebo classic not found, skipping this simulator")
 endif()
 
 # Ignition
 if (${ignition-gui3_FOUND})
   message (STATUS "Ignition found")
   add_subdirectory(ignition)
+else()
+  message (STATUS "Ignition not found, skipping this simulator")
 endif()
 
 

@@ -1,10 +1,28 @@
+TODO
+
+* Slide textures without material files
+* Look at keyframes
+* Find installed models
+
+
+
+
+
+
 # SimSlides
 
-Import PDF files into robot simulation and present slides flying from slide to slide.
+Import PDF files into robot simulation and present flying from slide to slide.
 
 <img src="images/SimSlides_logo.png" alt="SimSlides" width="200">
 
 ## Features
+
+SimSlides consists of plugins for two simulators:
+[Gazebo (classic)](http://gazebosim.org/) and
+[Ignition](https://ignitionrobotics.org/). There are different features for
+each simulator.
+
+### Gazebo classic
 
 * Import **PDF** files into simulation through the GUI
 * Navigate through keyframes using **mouse**, **keyboard** or wireless **presenter**
@@ -16,25 +34,49 @@ Import PDF files into robot simulation and present slides flying from slide to s
     * Write copiable HTML **text** to a dialog
 * ... plus all **Gazebo** features!
 
-## Install Gazebo
+### Ignition
 
-The master branch supports Gazebo version 9.
+* Navigate through keyframes using **mouse**, **keyboard** or wireless **presenter**
+* Keyframes can:
+    * Look at a **slide** (even if it has moved)
+    * **Move camera** to a specific pose
+    * Go through slides **stacked** on the same pose
+* ... plus all **Ignition** features!
+
+
+---
+
+Checking out a couple other tutorials is also recommended if you want to
+use each simulator's potential to customize your presentations. Maybe you
+want to setup keyboard triggers? Control a robot using
+[ROS](https://www.ros.org/)? The possibilities are endless!
+
+## Install
+
+SimSlides' master branch supports both Gazebo-classic and Ignition. It's ok if
+you don't have both simulators installed, only the plugin for the simulator
+present will be compiled.
+
+### Gazebo classic
+
+The master branch has been tested on Gazebo version 11.
 
 Follow the official install [instructions](http://gazebosim.org/tutorials?cat=install).
 
-Checking out a couple other tutorials is also recommended if you want to
-use all of Gazebo's potential to customize your presentations. Maybe you
-want to setup keyboard triggers? Control a robot using ROS? The possibilities
-are endless!
-
-## Extra dependencies
+Extra dependencies:
 
     sudo apt install imagemagick
 
 > It's also recommended that you make sure ImageMagick can convert PDFs, see
 > [this](https://stackoverflow.com/questions/42928765/convertnot-authorized-aaaa-error-constitute-c-readimage-453?answertab=active#tab-top).
 
-## Build
+### Ignition
+
+The master branch has been tested on Ignition Citadel.
+
+Follow the official install [instructions](https://ignitionrobotics.org/docs/citadel/install).
+
+## Build SimSlides
 
     mkdir build
     cd build
@@ -45,6 +87,8 @@ are endless!
 
 ## Run SimSlides
 
+### Gazebo classic
+
 *Important*: Source Gazebo, this may be in a different place depending on your
 Gazebo installation:
 
@@ -52,9 +96,15 @@ Gazebo installation:
 
 Run simslides:
 
-    simslides
+    simslides_classic
 
 This starts SimSlides in an empty world. You're ready to create your own presentation!
+
+### Ignition
+
+Run simslides:
+
+    simslides_ignition
 
 ## Demo
 

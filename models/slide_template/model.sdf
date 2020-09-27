@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version="1.6">
-  <model name="demo_slide-4">
+  <model name="slide_template">
     <static>true</static>
     <link name="link">
       <pose>0 0 0.45</pose>
@@ -8,7 +8,7 @@
         <geometry>
           <mesh>
             <scale>1.6 0.001 0.9</scale>
-            <uri>model://demo_slide-4/meshes/demo_slide-4.obj</uri>
+            <uri>model://slide_template/meshes/slide_template.obj</uri>
           </mesh>
         </geometry>
       </visual>

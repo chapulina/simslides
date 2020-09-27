@@ -15,13 +15,11 @@
  *
 */
 
-#ifndef IGNITION_GUI_HELLOPLUGIN_HH_
-#define IGNITION_GUI_HELLOPLUGIN_HH_
+#ifndef SIMSLIDES_IGNITION_SIMSLIDESIGN_HH_
+#define SIMSLIDES_IGNITION_SIMSLIDESIGN_HH_
 
-#ifndef Q_MOC_RUN
-  #include <ignition/gui/qt.h>
-  #include <ignition/gui/Plugin.hh>
-#endif
+#include <ignition/gui/qt.h>
+#include <ignition/gui/Plugin.hh>
 
 namespace simslides
 {
