@@ -21,6 +21,18 @@ endif()
 # Ignition
 if (${ignition-gui3_FOUND})
   message (STATUS "Ignition found")
+
+  find_package(ignition-common3 REQUIRED)
+  set(IGN_COMMON_VER ${ignition-common3_VERSION_MAJOR})
+
+  find_package(ignition-gazebo3 REQUIRED COMPONENTS gui)
+  set(IGN_GAZEBO_VER ${ignition-gazebo3_VERSION_MAJOR})
+
+  find_package(ignition-rendering3 REQUIRED)
+  set(IGN_RENDERING_VER ${ignition-rendering3_VERSION_MAJOR})
+
+  set(IGN_GUI_VER ${ignition-gui3_VERSION_MAJOR})
+
   add_subdirectory(ignition)
 else()
   message (STATUS "Ignition not found, skipping this simulator")

@@ -1,8 +1,18 @@
 TODO
 
-* Slide textures without material files
-* Look at keyframes
-* Find installed models
+* Slide textures are faded
+* Remove slide prefix logic: use visual names instead
+* Move PresentMode / SimSlideIgn common logic to Common.hh
+* Have libsimslides.so and SimSlidesIgn in the same SDF file
+
+Future
+
+* Text dialog
+* F6 to camera initial pose
+* Log seek
+* camera clip
+
+
 
 
 
@@ -53,13 +63,13 @@ want to setup keyboard triggers? Control a robot using
 
 ## Install
 
-SimSlides' master branch supports both Gazebo-classic and Ignition. It's ok if
+SimSlides' main branch supports both Gazebo-classic and Ignition. It's ok if
 you don't have both simulators installed, only the plugin for the simulator
 present will be compiled.
 
 ### Gazebo classic
 
-The master branch has been tested on Gazebo version 11.
+The main branch has been tested on Gazebo version 11.
 
 Follow the official install [instructions](http://gazebosim.org/tutorials?cat=install).
 
@@ -72,7 +82,7 @@ Extra dependencies:
 
 ### Ignition
 
-The master branch has been tested on Ignition Citadel.
+The main branch has been tested on Ignition Citadel.
 
 Follow the official install [instructions](https://ignitionrobotics.org/docs/citadel/install).
 

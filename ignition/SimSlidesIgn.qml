@@ -19,9 +19,12 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 
 RowLayout {
+  id: simSlides
   Layout.minimumWidth: 250
   Layout.minimumHeight: 100
   spacing: 2
+
+  property int lastSlide: 10;
 
   RoundButton {
     id: presentButton
@@ -31,7 +34,19 @@ RowLayout {
     ToolTip.visible: hovered
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
     onClicked: {
-      SimSlidesIgn.OnPresent(presentButton.checked);
+      SimSlidesIgn.OnToggled(presentButton.checked);
+    }
+  }
+
+  SpinBox {
+    id: slideSpin
+    from: 0
+    to: simSlides.lastSlide
+    ToolTip.text: "Current slide"
+    ToolTip.visible: hovered
+    ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
+    onValueModified: {
+      SimSlidesIgn.OnSlideChanged(slideSpin.value);
     }
   }
 }

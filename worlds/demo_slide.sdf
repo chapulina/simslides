@@ -11,45 +11,7 @@
        <pose>-5.18 -4.14 0.68 0 0.03 0.38</pose>
      </camera>
 
-      <plugin name='simslides' filename='libsimslides.so'>
-
-        <!-- optionally, set camera's near and far clip distances -->
-        <near_clip>0.1</near_clip>
-        <far_clip>100</far_clip>
-
-        <!-- models starting with this prefix will be treated as slides -->
-        <slide_prefix>demo_slide</slide_prefix>
-
-        <!-- Move camera to face slide number 0 (i.e. demo_slide-0) -->
-        <keyframe type='lookat' number='0'/>
-
-        <!-- Keep camera in place and iterate through slides on the stack  -->
-        <keyframe type='stack' number='1'/>
-        <keyframe type='stack' number='2'/>
-        <keyframe type='stack' number='3'/>
-        <keyframe type='stack' number='4'/>
-
-        <!-- Move camera to face slide number 1 with a custom offset -->
-        <keyframe type='lookat' number='5' eye_offset="0 -2 -0.5 0 0 0"/>
-
-        <!-- Add HTML to a dialog -->
-        <!-- Escape < as << and > as >>. -->
-        <keyframe type='lookat' number='6'
-            text='<a style="color: blue; font-size: 20px" href="https://github.com/chapulina/simslides">github.com/chapulina/simslides</a>
-
-<p>Display embedded XML:</p>
-
-<pre style="color: #222277; font-family: monospace;">
-<<model name="awesome_slide">>
-  ...
-<</model>>
-</pre>
-'/>
-
-        <!-- Move camera to a given pose -->
-        <keyframe type='cam_pose' pose='41.9 -31.9 12.7 0 0.26 2.13'/>
-
-      </plugin>
+<!-- TODO: having libsimslides here prevents SimSlidesIgn from working on Ignition -->
 
       <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'>
       </plugin>
@@ -122,6 +84,42 @@
         <ignition-gui>
           <title>SimSlides</title>
         </ignition-gui>
+
+        <!-- optionally, set camera's near and far clip distances -->
+        <near_clip>0.1</near_clip>
+        <far_clip>100</far_clip>
+
+        <!-- models starting with this prefix will be treated as slides -->
+        <slide_prefix>demo_slide</slide_prefix>
+
+        <!-- Move camera to face slide number 0 (i.e. demo_slide-0) -->
+        <keyframe type='lookat' number='0'/>
+
+        <!-- Keep camera in place and iterate through slides on the stack  -->
+        <keyframe type='stack' number='1'/>
+        <keyframe type='stack' number='2'/>
+        <keyframe type='stack' number='3'/>
+        <keyframe type='stack' number='4'/>
+
+        <!-- Move camera to face slide number 1 with a custom offset -->
+        <keyframe type='lookat' number='5' eye_offset="0 -2 -0.5 0 0 0"/>
+
+        <!-- Add HTML to a dialog -->
+        <!-- Escape < as << and > as >>. -->
+        <keyframe type='lookat' number='6'
+            text='<a style="color: blue; font-size: 20px" href="https://github.com/chapulina/simslides">github.com/chapulina/simslides</a>
+
+<p>Display embedded XML:</p>
+
+<pre style="color: #222277; font-family: monospace;">
+<<model name="awesome_slide">>
+  ...
+<</model>>
+</pre>
+'/>
+
+        <!-- Move camera to a given pose -->
+        <keyframe type='cam_pose' pose='41.9 -31.9 12.7 0 0.26 2.13'/>
       </plugin>
 
     </gui>
