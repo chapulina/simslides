@@ -18,7 +18,7 @@ Import PDF files into robot simulation and present slides flying from slide to s
 
 ## Install Gazebo
 
-The master branch supports Gazebo version 9.
+The main branch supports Gazebo version 9.
 
 Follow the official install [instructions](http://gazebosim.org/tutorials?cat=install).
 
