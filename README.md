@@ -53,7 +53,6 @@ each simulator.
     * Go through slides **stacked** on the same pose
 * ... plus all **Ignition** features!
 
-
 ---
 
 Checking out a couple other tutorials is also recommended if you want to
