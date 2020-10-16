@@ -50,6 +50,12 @@ class SimSlidesIgn : public ignition::gui::Plugin
   /// \brief Process pending commands on the rendering thread.
   private slots: void ProcessCommands();
 
+  /// \brief Notifies that the slide index has changed,
+  /// \param[in] _currentKeyframe Current keyframe index.
+  /// \param[in] _keyframeCount Total number of keyframes.
+  /// \param[in] _text Slide text.
+  signals: void updateGUI(int _currentKeyframe, int _keyframeCount, QString _text);
+
   private: void LoadScene();
 
   private: void OnKeyPress(const ignition::msgs::Int32 &_msg);

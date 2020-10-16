@@ -1,6 +1,5 @@
 TODO
 
-* Update UI when navigating with keyboard
 * Move PresentMode / SimSlideIgn common logic to Common.hh
 * Have libsimslides.so and SimSlidesIgn in the same SDF file
 * Update classic's ImportDialog not to use prefix

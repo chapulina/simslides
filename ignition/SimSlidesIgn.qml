@@ -26,6 +26,14 @@ RowLayout {
 
   property int lastSlide: 10;
 
+  Connections {
+    target: SimSlidesIgn
+    onUpdateGUI: {
+      slideSpin.value = _currentKeyframe;
+      simSlides.lastSlide = _keyframeCount;
+    }
+  }
+
   SpinBox {
     id: slideSpin
     from: 0

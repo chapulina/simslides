@@ -350,8 +350,8 @@ void SimSlidesIgn::ProcessCommands()
 
     this->node.Request("/gui/move_to/pose", req, cb);
   }
-//  this->SlideChanged(simslides::currentKeyframe, simslides::keyframes.size() - 1,
-//      QString::fromStdString(text));
+  this->updateGUI(simslides::currentKeyframe, simslides::keyframes.size() - 1,
+      QString::fromStdString(text));
 }
 
 /////////////////////////////////////////////////
