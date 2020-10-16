@@ -48,6 +48,13 @@ namespace simslides
   /// -1 means not presenting.
   extern int slideCount;
 
+  extern const double kEyeOffsetX;
+  extern const double kEyeOffsetY;
+  extern const double kEyeOffsetZ;
+  extern const double kEyeOffsetRoll;
+  extern const double kEyeOffsetPitch;
+  extern const double kEyeOffsetYaw;
+
   /// \brief Load <gui><plugin> tag for libsimslides.
   /// \param[in] _sdf SDF element.
   void LoadPluginSDF(const sdf::ElementPtr _sdf);

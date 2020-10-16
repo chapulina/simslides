@@ -25,6 +25,12 @@ double simslides::nearClip{std::numeric_limits<double>::quiet_NaN()};
 double simslides::farClip{std::numeric_limits<double>::quiet_NaN()};
 int simslides::currentKeyframe{-1};
 int simslides::slideCount{-1};
+const double simslides::kEyeOffsetX{0.0};
+const double simslides::kEyeOffsetY{-3.0};
+const double simslides::kEyeOffsetZ{0.0};
+const double simslides::kEyeOffsetRoll{0.0};
+const double simslides::kEyeOffsetPitch{0.0};
+const double simslides::kEyeOffsetYaw{IGN_PI_2};
 
 /////////////////////////////////////////////////
 void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)

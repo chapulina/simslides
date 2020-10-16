@@ -311,12 +311,12 @@ void SimSlidesIgn::ProcessCommands()
     if (eyeOff == ignition::math::Pose3d::Zero)
     {
       eyeOff = ignition::math::Pose3d(
-              this->eyeOffsetX,
+              simslides::kEyeOffsetX,
               -size.Z()*2,
-              this->eyeOffsetZ,
-              this->eyeOffsetRoll,
-              this->eyeOffsetPitch,
-              this->eyeOffsetYaw);
+              simslides::kEyeOffsetZ,
+              simslides::kEyeOffsetRoll,
+              simslides::kEyeOffsetPitch,
+              simslides::kEyeOffsetYaw);
     }
     ignition::math::Matrix4d eye_target(eyeOff);
 

@@ -60,6 +60,7 @@ class SimSlidesIgn : public ignition::gui::Plugin
 
   private: void OnKeyPress(const ignition::msgs::Int32 &_msg);
 
+  /// \brief True when there's a pending command.
   private: bool pendingCommand;
 
   /// \brief Node used for communication.
@@ -67,14 +68,9 @@ class SimSlidesIgn : public ignition::gui::Plugin
 
   /// \brief Keep pointer to camera so we can move it.
   private: ignition::rendering::CameraPtr camera;
-  private: ignition::rendering::ScenePtr scene;
 
-  private: double eyeOffsetX = 0;
-  private: double eyeOffsetY = -3.0;
-  private: double eyeOffsetZ = 0;
-  private: double eyeOffsetRoll = 0;
-  private: double eyeOffsetPitch = 0;
-  private: double eyeOffsetYaw = IGN_PI_2;
+  /// \brief Keep pointer to scene so we can get visuals.
+  private: ignition::rendering::ScenePtr scene;
 
 //  /// \brief Used to start, stop, and step simulation.
 //  private: ignition::transport::Publisher logPlaybackControlPub;

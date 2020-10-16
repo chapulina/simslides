@@ -37,13 +37,6 @@ class simslides::PresentModePrivate
   /// \brief Keep pointer to camera so we can move it.
   public: gazebo::rendering::UserCameraPtr camera;
 
-  public: double eyeOffsetX = 0;
-  public: double eyeOffsetY = -3.0;
-  public: double eyeOffsetZ = 0;
-  public: double eyeOffsetRoll = 0;
-  public: double eyeOffsetPitch = 0;
-  public: double eyeOffsetYaw = IGN_PI_2;
-
   /// \brief Used to start, stop, and step simulation.
   public: gazebo::transport::PublisherPtr logPlaybackControlPub;
 
@@ -68,16 +61,6 @@ PresentMode::PresentMode() : dataPtr(new PresentModePrivate)
   this->dataPtr->keyboardSub =
       this->dataPtr->node->Subscribe("~/keyboard/keypress",
       &PresentMode::OnKeyPress, this, true);
-
-  // TODO(louise): Only advertize this if we have at least one LOG_SEEK frame
-  // FIXME: This may fail if we connect after the event is fired, so for now
-  // commenting this out, which means Gazebo will crash if a log control
-  // msg is published during simulation mode (issue #2350)
-//    if (this->dataPtr->windowMode == "LogPlayback")
-//    {
-//      this->dataPtr->logPlaybackControlPub = this->dataPtr->node->
-//          Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
-//    }
 
   // Connections
   this->dataPtr->connections.push_back(
@@ -190,7 +173,7 @@ void PresentMode::ChangeSlide()
     {
       camPose = keyframe->CamPose();
 
-      // New chance to advertise
+      // Advertise
       if (!this->dataPtr->logPlaybackControlPub &&
           this->dataPtr->windowMode == "LogPlayback")
       {
@@ -242,12 +225,12 @@ void PresentMode::ChangeSlide()
     if (eyeOff == ignition::math::Pose3d::Zero)
     {
       eyeOff = ignition::math::Pose3d(
-              this->dataPtr->eyeOffsetX,
+              simslides::kEyeOffsetX,
               -size.Z()*2,
-              this->dataPtr->eyeOffsetZ,
-              this->dataPtr->eyeOffsetRoll,
-              this->dataPtr->eyeOffsetPitch,
-              this->dataPtr->eyeOffsetYaw);
+              simslides::kEyeOffsetZ,
+              simslides::kEyeOffsetRoll,
+              simslides::kEyeOffsetPitch,
+              simslides::kEyeOffsetYaw);
     }
     ignition::math::Matrix4d eye_target(eyeOff);
 
