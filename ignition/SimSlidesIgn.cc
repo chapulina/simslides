@@ -102,6 +102,9 @@ void SimSlidesIgn::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
   simslides::Common::Instance()->visualPose =
       std::bind(&SimSlidesIgn::OnVisualPose, this, std::placeholders::_1);
 
+  simslides::Common::Instance()->SetText =
+      std::bind(&SimSlidesIgn::OnSetText, this, std::placeholders::_1);
+
   ignmsg << "Start presentation. Total of [" << simslides::keyframes.size()
         << "] keyframes" << std::endl;
 
@@ -204,106 +207,9 @@ void SimSlidesIgn::ProcessCommands()
   ignmsg << "Changing to slide [" << simslides::currentKeyframe << "]"
          << std::endl;
 
-  ignition::math::Pose3d camPose;
-  ignition::math::Pose3d eyeOff;
-  std::string toLookAt;
-  std::string text;
+  simslides::Common::Instance()->Update();
 
-  // Reset presentation
-  if (simslides::currentKeyframe < 0)
-  {
-    camPose = simslides::Common::Instance()->initialCameraPose();
-  }
-  // Slides
-  else
-  {
-    auto keyframe = simslides::keyframes[simslides::currentKeyframe];
-
-    text = keyframe->Text();
-
-    if (keyframe->GetType() == KeyframeType::LOOKAT ||
-        keyframe->GetType() == KeyframeType::STACK)
-    {
-      toLookAt = keyframe->Visual();
-      eyeOff = keyframe->EyeOffset();
-    }
-
-    if (keyframe->GetType() == KeyframeType::STACK)
-    {
-      // Find stack front
-      auto frontKeyframe = simslides::currentKeyframe;
-      while (frontKeyframe > 0 &&
-          simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
-      {
-        frontKeyframe--;
-      }
-
-      // Find stack back
-      auto backKeyframe = simslides::currentKeyframe;
-      while (backKeyframe+1 < simslides::keyframes.size() &&
-          simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK)
-      {
-        backKeyframe++;
-      }
-
-      ignmsg << "Stack front: " << frontKeyframe << ", back: " << backKeyframe << std::endl;
-
-      // Scale down the other slides in the stack
-      for (int i = frontKeyframe; i <= backKeyframe; ++i)
-      {
-        auto name = simslides::keyframes[i]->Visual();
-        simslides::Common::Instance()->setVisualVisible(name, name == keyframe->Visual());
-      }
-    }
-
-    if (keyframe->GetType() == KeyframeType::LOG_SEEK)
-    {
-      camPose = keyframe->CamPose();
-      simslides::Common::Instance()->seekLog(keyframe->LogSeek());
-    }
-
-    if (keyframe->GetType() == KeyframeType::CAM_POSE)
-    {
-      camPose = keyframe->CamPose();
-    }
-  }
-
-  if (!toLookAt.empty())
-  {
-    // Target in world frame
-    auto origin = simslides::Common::Instance()->visualPose(toLookAt);
-
-    auto bb_pos = origin.Pos() + ignition::math::Vector3d(0, 0, 0.5);
-    auto target_world = ignition::math::Matrix4d(ignition::math::Pose3d(
-        bb_pos, origin.Rot()));
-
-    // Eye in target frame
-    if (eyeOff == ignition::math::Pose3d::Zero)
-    {
-      eyeOff = ignition::math::Pose3d(
-              simslides::kEyeOffsetX,
-              simslides::kEyeOffsetY,
-              simslides::kEyeOffsetZ,
-              simslides::kEyeOffsetRoll,
-              simslides::kEyeOffsetPitch,
-              simslides::kEyeOffsetYaw);
-    }
-    ignition::math::Matrix4d eye_target(eyeOff);
-
-    // Eye in world frame
-    auto eye_world = target_world * eye_target;
-
-    // Look At
-    auto mat = ignition::math::Matrix4d::LookAt(eye_world.Translation(),
-        target_world.Translation());
-
-    camPose = mat.Pose();
-  }
-
-  simslides::Common::Instance()->moveCamera(camPose);
-
-  this->updateGUI(simslides::currentKeyframe, simslides::keyframes.size() - 1,
-      QString::fromStdString(text));
+  this->updateGUI(simslides::currentKeyframe, simslides::keyframes.size() - 1);
 }
 
 /////////////////////////////////////////////////
@@ -409,6 +315,12 @@ ignition::math::Pose3d SimSlidesIgn::OnVisualPose(const std::string &_name)
 
   // Target in world frame
   return vis->WorldPose();
+}
+
+/////////////////////////////////////////////////
+void SimSlidesIgn::OnSetText(const std::string &_name)
+{
+  // TODO(louise) Support setting text
 }
 
 // Register this plugin

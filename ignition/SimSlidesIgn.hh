@@ -53,8 +53,7 @@ class SimSlidesIgn : public ignition::gui::Plugin
   /// \brief Notifies that the slide index has changed,
   /// \param[in] _currentKeyframe Current keyframe index.
   /// \param[in] _keyframeCount Total number of keyframes.
-  /// \param[in] _text Slide text.
-  signals: void updateGUI(int _currentKeyframe, int _keyframeCount, QString _text);
+  signals: void updateGUI(int _currentKeyframe, int _keyframeCount);
 
   private: void LoadScene();
 
@@ -69,6 +68,8 @@ class SimSlidesIgn : public ignition::gui::Plugin
   private: ignition::math::Pose3d OnInitialCameraPose();
 
   private: ignition::math::Pose3d OnVisualPose(const std::string &_name);
+
+  private: void OnSetText(const std::string &_text);
 
   /// \brief True when there's a pending command.
   private: bool pendingCommand;

@@ -106,3 +106,100 @@ void simslides::ChangeKeyframe(int _keyframe)
   else
     simslides::currentKeyframe = _keyframe;
 }
+
+/////////////////////////////////////////////////
+void simslides::Common::Update()
+{
+  // Reset presentation
+  if (simslides::currentKeyframe < 0)
+  {
+    auto initialPose = simslides::Common::Instance()->initialCameraPose();
+    if (!std::isnan(initialPose.Pos().X()))
+      simslides::Common::Instance()->moveCamera(initialPose);
+    return;
+  }
+
+  auto keyframe = simslides::keyframes[simslides::currentKeyframe];
+
+  // Set text
+  simslides::Common::Instance()->SetText(keyframe->Text());
+
+  // Log seek
+  if (keyframe->GetType() == KeyframeType::LOG_SEEK)
+  {
+    simslides::Common::Instance()->moveCamera(keyframe->CamPose());
+    simslides::Common::Instance()->seekLog(keyframe->LogSeek());
+    return;
+  }
+
+  // Cam pose
+  if (keyframe->GetType() == KeyframeType::CAM_POSE)
+  {
+    simslides::Common::Instance()->moveCamera(keyframe->CamPose());
+    return;
+  }
+
+  // Look at
+  if (keyframe->GetType() == KeyframeType::LOOKAT ||
+      keyframe->GetType() == KeyframeType::STACK)
+  {
+    // Target in world frame
+    auto origin = simslides::Common::Instance()->visualPose(keyframe->Visual());
+
+    auto bbPos = origin.Pos() + ignition::math::Vector3d(0, 0, 0.5);
+    auto targetWorld = ignition::math::Matrix4d(ignition::math::Pose3d(
+        bbPos, origin.Rot()));
+
+    // Eye in target frame
+    auto offset = keyframe->EyeOffset();
+    if (offset == ignition::math::Pose3d::Zero)
+    {
+      offset = ignition::math::Pose3d(
+               simslides::kEyeOffsetX,
+               simslides::kEyeOffsetY,
+               simslides::kEyeOffsetZ,
+               simslides::kEyeOffsetRoll,
+               simslides::kEyeOffsetPitch,
+               simslides::kEyeOffsetYaw);
+    }
+    ignition::math::Matrix4d eyeTarget(offset);
+
+    // Eye in world frame
+    auto eyeWorld = targetWorld * eyeTarget;
+
+    // Look At
+    auto mat = ignition::math::Matrix4d::LookAt(eyeWorld.Translation(),
+        targetWorld.Translation());
+
+    simslides::Common::Instance()->moveCamera(mat.Pose());
+  }
+
+  // Set stack visibility
+  if (keyframe->GetType() == KeyframeType::STACK)
+  {
+    auto frontKeyframe = simslides::currentKeyframe;
+    while (frontKeyframe > 0 &&
+        simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
+    {
+      frontKeyframe--;
+    }
+
+    auto backKeyframe = simslides::currentKeyframe;
+    while (backKeyframe + 1 < simslides::keyframes.size() &&
+        simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK)
+    {
+      backKeyframe++;
+    }
+
+    std::cout << "Stack front [" << frontKeyframe << "], back [" << backKeyframe
+              << "]" << std::endl;
+
+    for (int i = frontKeyframe; i <= backKeyframe; ++i)
+    {
+      auto name = simslides::keyframes[i]->Visual();
+      simslides::Common::Instance()->setVisualVisible(name,
+          name == keyframe->Visual());
+    }
+  }
+
+}

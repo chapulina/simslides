@@ -50,6 +50,8 @@ namespace simslides
 
     private: ignition::math::Pose3d OnVisualPose(const std::string &_name);
 
+    private: void OnSetText(const std::string &_name);
+
     /// \brief Callback when Gazebo says the window mode has changed.
     /// \param[in] _mode New mode, usually "simulation" or "LogPlayback".
     private: void OnWindowMode(const std::string &_mode);
@@ -65,8 +67,11 @@ namespace simslides
     /// \brief Notifies that the slide index has changed,
     /// \param[in] _currentIndex Current keyframe index.
     /// \param[in] _slideCount Total number of keyframes.
+    signals: void SlideChanged(int _currentIndex, int _slideCount);
+
+    /// \brief Notifies that the slide text has changed,
     /// \param[in] _text Slide text.
-    signals: void SlideChanged(int _currentIndex, int _slideCount, QString _text);
+    signals: void TextChanged(QString _text);
 
     /// \internal
     /// \brief Pointer to private data.

@@ -37,12 +37,15 @@ namespace simslides
        return instance;
      }
 
+     public: void Update();
+
      public: std::function<void(const ignition::math::Pose3d &)> moveCamera;
      public: std::function<void(const std::string &, bool)> setVisualVisible;
      public: std::function<void(std::chrono::steady_clock::duration)> seekLog;
      public: std::function<ignition::math::Pose3d()> initialCameraPose;
      public: std::function<ignition::math::Pose3d(const std::string &)>
          visualPose;
+     public: std::function<void(const std::string &)> SetText;
 
      /// \brief Static instance
      static Common *instance;

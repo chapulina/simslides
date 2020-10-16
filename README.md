@@ -1,7 +1,8 @@
 TODO
 
-* Move PresentMode / SimSlideIgn common logic to Common.hh
-* Have libsimslides.so and SimSlidesIgn in the same SDF file
+* Fix F5 and initial 0/0 for classic
+* Document all API
+* "slide" -> "keyframe"
 * Update classic's ImportDialog not to use prefix
 
 Future

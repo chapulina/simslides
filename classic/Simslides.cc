@@ -62,7 +62,8 @@ Simslides::Simslides()
 
   auto presentAct = new QAction(QIcon(":/images/play.png"),
       tr("Presentation mode"), menu);
-  presentAct->setShortcut(Qt::Key_F5);
+  // TODO(louise) Starting with shortcut is crashing on PresentMode's constructor
+  // presentAct->setShortcut(Qt::Key_F5);
   this->connect(presentAct, SIGNAL(triggered()), this, SLOT(OnPresent()));
   menu->addAction(presentAct);
 
@@ -176,14 +177,18 @@ void Simslides::Load(const sdf::ElementPtr _sdf)
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnSlideChanged(const int _slide, const int _total, QString _text)
+void Simslides::OnSlideChanged(const int _slide, const int _total)
 {
   this->currentSpin->blockSignals(true);
   this->currentSpin->setValue(_slide);
   this->currentSpin->blockSignals(false);
 
   this->SetTotal(QString::number(_total));
+}
 
+/////////////////////////////////////////////////
+void Simslides::OnTextChanged(QString _text)
+{
   // FIXME Setting plain text so it's possible to display XML. Ideally we'd
   // support rich text with links
   this->text->setHtml(_text);
@@ -198,12 +203,14 @@ void Simslides::OnCurrentChanged()
 /////////////////////////////////////////////////
 void Simslides::OnPresent()
 {
-  if (this->presentMode)
+  if (nullptr != this->presentMode)
     delete this->presentMode;
 
   this->presentMode = new PresentMode();
-  this->connect(presentMode, SIGNAL(SlideChanged(int, int, QString)), this,
-      SLOT(OnSlideChanged(int, int, QString)));
+  this->connect(presentMode, SIGNAL(SlideChanged(int, int)), this,
+      SLOT(OnSlideChanged(int, int)));
+  this->connect(presentMode, SIGNAL(TextChanged(QString)), this,
+      SLOT(OnTextChanged(QString)));
   this->connect(this, SIGNAL(CurrentChanged(int)), presentMode,
       SLOT(OnSlideChanged(int)));
 }

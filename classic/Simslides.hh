@@ -35,9 +35,11 @@ namespace simslides
     /// \brief Callback when the user requests to change slides.
     /// \param[in] _slide Current slide number.
     /// \param[in] _total Total number of slides.
+    private slots: void OnSlideChanged(const int _slide, const int _total);
+
+    /// \brief Callback when the user requests to change text.
     /// \param[in] _text Text for dialog.
-    private slots: void OnSlideChanged(const int _slide, const int _total,
-        QString _text);
+    private slots: void OnTextChanged(QString _text);
 
     /// \brief Callback when the slide number is changed. This is only called
     /// whent the widget loses focus or the user presses enter.
