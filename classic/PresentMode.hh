@@ -40,6 +40,16 @@ namespace simslides
     /// \param[in] _msg Message containing key.
     private: void OnKeyPress(ConstAnyPtr &_msg);
 
+    private: void OnMoveCamera(const ignition::math::Pose3d &_pose);
+
+    private: void OnSetVisualVisible(const std::string &_name, bool _visible);
+
+    private: void OnSeekLog(std::chrono::steady_clock::duration _time);
+
+    private: ignition::math::Pose3d OnInitialCameraPose();
+
+    private: ignition::math::Pose3d OnVisualPose(const std::string &_name);
+
     /// \brief Callback when Gazebo says the window mode has changed.
     /// \param[in] _mode New mode, usually "simulation" or "LogPlayback".
     private: void OnWindowMode(const std::string &_mode);

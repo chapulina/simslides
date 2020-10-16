@@ -16,12 +16,39 @@
 #ifndef SIMSLIDES_COMMON_HH_
 #define SIMSLIDES_COMMON_HH_
 
+#include <memory>
 #include <string>
 
 #include "Keyframe.hh"
 
 namespace simslides
 {
+  class Common
+  {
+     /// \brief Private constructor
+     private: Common() = default;
+
+     /// \brief Get the instance
+     /// \return Singleton
+     public: static Common *Instance()
+     {
+       if (nullptr == instance)
+         instance = new Common;
+       return instance;
+     }
+
+     public: std::function<void(const ignition::math::Pose3d &)> moveCamera;
+     public: std::function<void(const std::string &, bool)> setVisualVisible;
+     public: std::function<void(std::chrono::steady_clock::duration)> seekLog;
+     public: std::function<ignition::math::Pose3d()> initialCameraPose;
+     public: std::function<ignition::math::Pose3d(const std::string &)>
+         visualPose;
+
+     /// \brief Static instance
+     static Common *instance;
+  };
+
+
   /// \brief Prefix for slide models' names, used for creating model files
   /// and to find slides during presentation.
   /// TODO(louise) Deprecate slide prefix from ImportDialog

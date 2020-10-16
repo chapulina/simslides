@@ -18,6 +18,8 @@
 
 #include "include/simslides/common/Common.hh"
 
+simslides::Common *simslides::Common::instance = nullptr;
+
 std::string simslides::slidePrefix;
 std::string simslides::slidePath;
 std::vector<simslides::Keyframe *> simslides::keyframes;

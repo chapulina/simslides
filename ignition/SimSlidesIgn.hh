@@ -60,6 +60,16 @@ class SimSlidesIgn : public ignition::gui::Plugin
 
   private: void OnKeyPress(const ignition::msgs::Int32 &_msg);
 
+  private: void OnMoveCamera(const ignition::math::Pose3d &_pose);
+
+  private: void OnSetVisualVisible(const std::string &_name, bool _visible);
+
+  private: void OnSeekLog(std::chrono::steady_clock::duration _time);
+
+  private: ignition::math::Pose3d OnInitialCameraPose();
+
+  private: ignition::math::Pose3d OnVisualPose(const std::string &_name);
+
   /// \brief True when there's a pending command.
   private: bool pendingCommand;
 

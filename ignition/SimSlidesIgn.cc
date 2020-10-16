@@ -16,6 +16,7 @@
 */
 
 #include <iostream>
+#include <limits>
 
 #include <ignition/msgs/gui_camera.pb.h>
 #include <ignition/msgs/boolean.pb.h>
@@ -82,15 +83,31 @@ void SimSlidesIgn::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
 //      this->logPlaybackControlPub = this->node->
 //          Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
 
+  ignition::gui::App()->findChild<ignition::gui::MainWindow *>
+      ()->installEventFilter(this);
+
+  simslides::Common::Instance()->moveCamera =
+      std::bind(&SimSlidesIgn::OnMoveCamera, this, std::placeholders::_1);
+
+  simslides::Common::Instance()->setVisualVisible =
+      std::bind(&SimSlidesIgn::OnSetVisualVisible, this, std::placeholders::_1,
+      std::placeholders::_2);
+
+  simslides::Common::Instance()->seekLog =
+      std::bind(&SimSlidesIgn::OnSeekLog, this, std::placeholders::_1);
+
+  simslides::Common::Instance()->initialCameraPose =
+      std::bind(&SimSlidesIgn::OnInitialCameraPose, this);
+
+  simslides::Common::Instance()->visualPose =
+      std::bind(&SimSlidesIgn::OnVisualPose, this, std::placeholders::_1);
+
   ignmsg << "Start presentation. Total of [" << simslides::keyframes.size()
         << "] keyframes" << std::endl;
 
   // Trigger first slide
   simslides::currentKeyframe = 0;
   this->pendingCommand = true;
-
-  ignition::gui::App()->findChild<ignition::gui::MainWindow *>
-      ()->installEventFilter(this);
 }
 
 /////////////////////////////////////////////////
@@ -193,9 +210,9 @@ void SimSlidesIgn::ProcessCommands()
   std::string text;
 
   // Reset presentation
-  if (simslides::currentKeyframe == -1)
+  if (simslides::currentKeyframe < 0)
   {
-//    camPose = this->camera->InitialPose();
+    camPose = simslides::Common::Instance()->initialCameraPose();
   }
   // Slides
   else
@@ -213,7 +230,6 @@ void SimSlidesIgn::ProcessCommands()
 
     if (keyframe->GetType() == KeyframeType::STACK)
     {
-      // TODO(louise) Support stacks with non-sequential slide suffixes
       // Find stack front
       auto frontKeyframe = simslides::currentKeyframe;
       while (frontKeyframe > 0 &&
@@ -230,56 +246,21 @@ void SimSlidesIgn::ProcessCommands()
         backKeyframe++;
       }
 
-      if (backKeyframe >= simslides::keyframes.size())
-      {
-        ignerr << "Dafuq! Back keyframe: " << backKeyframe << std::endl;
-        return;
-      }
-
       ignmsg << "Stack front: " << frontKeyframe << ", back: " << backKeyframe << std::endl;
 
       // Scale down the other slides in the stack
       for (int i = frontKeyframe; i <= backKeyframe; ++i)
       {
         auto name = simslides::keyframes[i]->Visual();
-
-        auto vis = this->scene->VisualByName(name);
-
-        if (!vis)
-        {
-          ignerr << "Couldn't find visual [" << name << "]" << std::endl;
-          continue;
-        }
-
-        vis->SetVisible(name == keyframe->Visual());
+        simslides::Common::Instance()->setVisualVisible(name, name == keyframe->Visual());
       }
     }
 
-//    if (keyframe->GetType() == KeyframeType::LOG_SEEK)
-//    {
-//      camPose = keyframe->CamPose();
-//
-//      // New chance to advertise
-//      if (!this->logPlaybackControlPub &&
-//          this->windowMode == "LogPlayback")
-//      {
-//        this->logPlaybackControlPub = this->node->
-//            Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
-//      }
-//
-//      if (this->logPlaybackControlPub)
-//      {
-//        auto logSeek = keyframe->LogSeek();
-//        auto s = std::chrono::duration_cast<std::chrono::seconds>(logSeek);
-//        auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(logSeek-s);
-//
-//        gazebo::msgs::LogPlaybackControl msg;
-//        gazebo::msgs::Set(msg.mutable_seek(),
-//            gazebo::common::Time(s.count(), ns.count()));
-//        msg.set_pause(false);
-//        this->logPlaybackControlPub->Publish(msg);
-//      }
-//    }
+    if (keyframe->GetType() == KeyframeType::LOG_SEEK)
+    {
+      camPose = keyframe->CamPose();
+      simslides::Common::Instance()->seekLog(keyframe->LogSeek());
+    }
 
     if (keyframe->GetType() == KeyframeType::CAM_POSE)
     {
@@ -289,21 +270,10 @@ void SimSlidesIgn::ProcessCommands()
 
   if (!toLookAt.empty())
   {
-    std::string visName(toLookAt + "::link::visual");
-
-    auto vis = this->camera->Scene()->VisualByName(visName);
-    if (!vis)
-    {
-      ignerr << "Failed to find visual [" << visName << "]" << std::endl;
-      return;
-    }
-
-    auto size = ignition::math::Vector3d(1, 1, 1); // vis->GeometrySize();
-
     // Target in world frame
-    auto origin = vis->Parent()->Parent()->WorldPose();
+    auto origin = simslides::Common::Instance()->visualPose(toLookAt);
 
-    auto bb_pos = origin.Pos() + ignition::math::Vector3d(0, 0, size.Z()*0.5);
+    auto bb_pos = origin.Pos() + ignition::math::Vector3d(0, 0, 0.5);
     auto target_world = ignition::math::Matrix4d(ignition::math::Pose3d(
         bb_pos, origin.Rot()));
 
@@ -312,7 +282,7 @@ void SimSlidesIgn::ProcessCommands()
     {
       eyeOff = ignition::math::Pose3d(
               simslides::kEyeOffsetX,
-              -size.Z()*2,
+              simslides::kEyeOffsetY,
               simslides::kEyeOffsetZ,
               simslides::kEyeOffsetRoll,
               simslides::kEyeOffsetPitch,
@@ -330,26 +300,8 @@ void SimSlidesIgn::ProcessCommands()
     camPose = mat.Pose();
   }
 
-  if ((this->camera->WorldPose().Pos() - camPose.Pos()).Length() > 0.001)
-  {
-    ignition::msgs::GUICamera req;
-    ignition::msgs::Set(req.mutable_pose(), camPose);
+  simslides::Common::Instance()->moveCamera(camPose);
 
-    std::function<void(const ignition::msgs::Boolean &, const bool)> cb =
-        [](const ignition::msgs::Boolean &_res, const bool _result)
-    {
-      if (!_result)
-      {
-        ignerr << "Timed out requesting to move camera" << std::endl;
-      }
-      if (!_res.data())
-      {
-        ignerr << "Failed to move camera" << std::endl;
-      }
-    };
-
-    this->node.Request("/gui/move_to/pose", req, cb);
-  }
   this->updateGUI(simslides::currentKeyframe, simslides::keyframes.size() - 1,
       QString::fromStdString(text));
 }
@@ -359,6 +311,104 @@ void SimSlidesIgn::OnKeyPress(const ignition::msgs::Int32 &_msg)
 {
   simslides::HandleKeyPress(_msg.data());
   this->pendingCommand = true;
+}
+
+/////////////////////////////////////////////////
+void SimSlidesIgn::OnMoveCamera(const ignition::math::Pose3d &_pose)
+{
+  // Don't bother moving just a mm
+  if ((this->camera->WorldPose().Pos() - _pose.Pos()).Length() < 0.001)
+    return;
+
+  ignition::msgs::GUICamera req;
+  ignition::msgs::Set(req.mutable_pose(), _pose);
+
+  std::function<void(const ignition::msgs::Boolean &, const bool)> cb =
+      [](const ignition::msgs::Boolean &_res, const bool _result)
+  {
+    if (!_result)
+    {
+      ignerr << "Timed out requesting to move camera" << std::endl;
+    }
+    if (!_res.data())
+    {
+      ignerr << "Failed to move camera" << std::endl;
+    }
+  };
+
+  this->node.Request("/gui/move_to/pose", req, cb);
+}
+
+/////////////////////////////////////////////////
+void SimSlidesIgn::OnSetVisualVisible(const std::string &_name, bool _visible)
+{
+  auto vis = this->scene->VisualByName(_name);
+
+  if (!vis)
+  {
+    ignerr << "Couldn't find visual [" << _name << "]" << std::endl;
+    return;
+  }
+
+  vis->SetVisible(_visible);
+}
+
+/////////////////////////////////////////////////
+void SimSlidesIgn::OnSeekLog(std::chrono::steady_clock::duration _time)
+{
+  std::cout << "Log seek not supported yet" << std::endl;
+  // if (!this->logPlaybackControlPub)
+  // {
+  //   this->logPlaybackControlPub = this->node->
+  //       Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
+  // }
+
+  // if (this->logPlaybackControlPub)
+  // {
+  //   auto s = std::chrono::duration_cast<std::chrono::seconds>(_time);
+  //   auto ns = std::chrono::duration_cast<std::chrono::nanoseconds>(_time-s);
+
+  //   gazebo::msgs::LogPlaybackControl msg;
+  //   gazebo::msgs::Set(msg.mutable_seek(),
+  //       gazebo::common::Time(s.count(), ns.count()));
+  //   msg.set_pause(false);
+  //   this->logPlaybackControlPub->Publish(msg);
+  // }
+}
+
+/////////////////////////////////////////////////
+ignition::math::Pose3d SimSlidesIgn::OnInitialCameraPose()
+{
+  // TODO(louise) Support initial camera pose
+  return {
+    std::numeric_limits<double>::quiet_NaN(),
+    std::numeric_limits<double>::quiet_NaN(),
+    std::numeric_limits<double>::quiet_NaN(),
+    std::numeric_limits<double>::quiet_NaN(),
+    std::numeric_limits<double>::quiet_NaN(),
+    std::numeric_limits<double>::quiet_NaN()
+  };
+}
+
+/////////////////////////////////////////////////
+ignition::math::Pose3d SimSlidesIgn::OnVisualPose(const std::string &_name)
+{
+  auto vis = this->camera->Scene()->VisualByName(_name);
+  if (!vis)
+  {
+    ignerr << "Failed to find visual [" << _name << "]" << std::endl;
+    return {
+      std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::quiet_NaN()
+    };
+  }
+
+  // Target in world frame
+  return vis->WorldPose();
 }
 
 // Register this plugin
