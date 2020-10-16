@@ -14,13 +14,17 @@
  * limitations under the License.
 */
 
+#include <limits>
+
 #include "include/simslides/common/Common.hh"
 
 std::string simslides::slidePrefix;
 std::string simslides::slidePath;
 std::vector<simslides::Keyframe *> simslides::keyframes;
-double simslides::nearClip;
-double simslides::farClip;
+double simslides::nearClip{std::numeric_limits<double>::quiet_NaN()};
+double simslides::farClip{std::numeric_limits<double>::quiet_NaN()};
+int simslides::currentKeyframe{-1};
+int simslides::slideCount{-1};
 
 /////////////////////////////////////////////////
 void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)
@@ -51,4 +55,47 @@ void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)
       keyframeElem = keyframeElem->GetNextElement("keyframe");
     }
   }
+}
+
+/////////////////////////////////////////////////
+void simslides::HandleKeyPress(int _key)
+{
+  if (simslides::keyframes.empty())
+    return;
+
+  // Next (right arrow on keyboard or presenter)
+  if ((_key == 16777236 || _key == 16777239) &&
+      simslides::currentKeyframe + 1 < simslides::keyframes.size())
+  {
+    simslides::currentKeyframe++;
+  }
+  // Previous (left arrow on keyboard or presenter)
+  else if ((_key == 16777234 || _key == 16777238) &&
+      simslides::currentKeyframe >= 1)
+  {
+    simslides::currentKeyframe--;
+  }
+  // Current (F1)
+  else if (_key == 16777264)
+  {
+  }
+  // Home (F6)
+  else if (_key == 16777269)
+  {
+    simslides::currentKeyframe = -1;
+  }
+  else
+    return;
+}
+
+/////////////////////////////////////////////////
+void simslides::ChangeKeyframe(int _keyframe)
+{
+  if (simslides::keyframes.empty())
+    return;
+
+  if (_keyframe > simslides::keyframes.size())
+    simslides::currentKeyframe = simslides::keyframes.size() - 1;
+  else
+    simslides::currentKeyframe = _keyframe;
 }

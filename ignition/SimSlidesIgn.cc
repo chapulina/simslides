@@ -77,20 +77,6 @@ void SimSlidesIgn::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
 
   simslides::LoadPluginSDF(pluginElem);
 
-  if (!std::isnan(simslides::farClip) && !std::isnan(simslides::nearClip))
-  {
-  //  auto camera = gazebo::gui::get_active_camera();
-  //  if (nullptr == camera)
-  //  {
-  //    ignwarn << "No user camera, can't set near and far clip distances"
-  //           << std::endl;
-  //  }
-  //  else
-  //  {
-  //    camera->SetClipDist(simslides::nearClip, simslides::farClip);
-  //  }
-  }
-
   ignition::gui::App()->findChild<ignition::gui::MainWindow *>
       ()->installEventFilter(this);
 }
@@ -154,6 +140,12 @@ void SimSlidesIgn::LoadScene()
     if (nullptr != cam)
     {
       this->camera = cam;
+
+      if (!std::isnan(simslides::farClip) && !std::isnan(simslides::nearClip))
+      {
+        camera->SetNearClipPlane(simslides::nearClip);
+        camera->SetFarClipPlane(simslides::farClip);
+      }
       break;
     }
   }
@@ -197,39 +189,29 @@ void SimSlidesIgn::Start()
     return;
   }
 
-//    this->keyboardSub =
-//        this->node->Subscribe("/keyboard/keypress",
-//        &PresentMode::OnKeyPress, this, true);
+  this->node.Subscribe("/keyboard/keypress", &SimSlidesIgn::OnKeyPress, this);
 
 //      this->logPlaybackControlPub = this->node->
 //          Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
 
-  this->slideCount = simslides::keyframes.size();
-
-  ignmsg << "Start presentation. Total of [" << this->slideCount
-        << "] slides" << std::endl;
+  ignmsg << "Start presentation. Total of [" << simslides::keyframes.size()
+        << "] leyframes" << std::endl;
 
   // Trigger first slide
-  this->currentIndex = 0;
+  simslides::currentKeyframe = 0;
   this->pendingCommand = true;
 }
 
 /////////////////////////////////////////////////
 void SimSlidesIgn::Stop()
 {
-  this->slideCount = -1;
+  // TODO: remove start / stop logic
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::OnSlideChanged(int _slide)
+void SimSlidesIgn::OnSlideChanged(int _keyframe)
 {
-  if (this->slideCount < 0)
-    return;
-
-  if (_slide > this->slideCount)
-    this->currentIndex = this->slideCount - 1;
-
-  this->currentIndex = _slide;
+  simslides::ChangeKeyframe(_keyframe);
   this->pendingCommand = true;
 }
 
@@ -241,13 +223,13 @@ void SimSlidesIgn::ProcessCommands()
 
   this->pendingCommand = false;
 
-  if (this->currentIndex < 0 || this->currentIndex >= simslides::keyframes.size())
+  if (simslides::currentKeyframe < 0 || simslides::currentKeyframe >= simslides::keyframes.size())
   {
-    ignerr << "Keyframe [" << this->currentIndex << "] not found" << std::endl;
+    ignerr << "Keyframe [" << simslides::currentKeyframe << "] not found" << std::endl;
     return;
   }
 
-  ignmsg << "Changing to slide [" << this->currentIndex << "]"
+  ignmsg << "Changing to slide [" << simslides::currentKeyframe << "]"
          << std::endl;
 
   ignition::math::Pose3d camPose;
@@ -256,14 +238,14 @@ void SimSlidesIgn::ProcessCommands()
   std::string text;
 
   // Reset presentation
-  if (this->currentIndex == -1)
+  if (simslides::currentKeyframe == -1)
   {
 //    camPose = this->camera->InitialPose();
   }
   // Slides
   else
   {
-    auto keyframe = simslides::keyframes[this->currentIndex];
+    auto keyframe = simslides::keyframes[simslides::currentKeyframe];
 
     text = keyframe->Text();
 
@@ -280,7 +262,7 @@ void SimSlidesIgn::ProcessCommands()
     {
       // TODO(louise) Support stacks with non-sequential slide suffixes
       // Find stack front
-      auto frontKeyframe = this->currentIndex;
+      auto frontKeyframe = simslides::currentKeyframe;
       while (frontKeyframe > 0 &&
           simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK &&
           simslides::keyframes[frontKeyframe]->SlideNumber() - 1 ==
@@ -297,7 +279,7 @@ void SimSlidesIgn::ProcessCommands()
       auto frontVisNumber = simslides::keyframes[frontKeyframe]->SlideNumber();
 
       // Find stack back
-      auto backKeyframe = this->currentIndex;
+      auto backKeyframe = simslides::currentKeyframe;
       while (backKeyframe+1 < simslides::keyframes.size() &&
           simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK &&
           simslides::keyframes[backKeyframe]->SlideNumber() + 1 ==
@@ -430,8 +412,15 @@ void SimSlidesIgn::ProcessCommands()
 
     this->node.Request("/gui/move_to/pose", req, cb);
   }
-//  this->SlideChanged(this->currentIndex, this->slideCount-1,
+//  this->SlideChanged(simslides::currentKeyframe, simslides::keyframes.size() - 1,
 //      QString::fromStdString(text));
+}
+
+/////////////////////////////////////////////////
+void SimSlidesIgn::OnKeyPress(const ignition::msgs::Int32 &_msg)
+{
+  simslides::HandleKeyPress(_msg.data());
+  this->pendingCommand = true;
 }
 
 // Register this plugin

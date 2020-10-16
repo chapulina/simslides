@@ -32,12 +32,34 @@ namespace simslides
   /// \brief Vector of keyframes loaded for presentation
   extern std::vector<Keyframe *> keyframes;
 
+  /// \brief User camera far clip as set by the user.
   extern double farClip;
+
+  /// \brief User camera near clip as set by the user.
   extern double nearClip;
+
+  /// \brief Keep track of current keyframe index.
+  /// -1 means the "home" camera pose.
+  /// 0 is the first keyframe.
+  extern int currentKeyframe;
+
+  /// \brief Total number of keyframes.
+  /// -1 means not presenting.
+  extern int slideCount;
 
   /// \brief Load <gui><plugin> tag for libsimslides.
   /// \param[in] _sdf SDF element.
   void LoadPluginSDF(const sdf::ElementPtr _sdf);
+
+  /// \brief Handle an incoming key press from the user
+  /// \param[in] _key Key as an integer
+  void HandleKeyPress(int _key);
+
+  /// \brief Change to the given keyframe.
+  /// If -1, go back to initial pose.
+  /// If larger than total of keyframes, go to last keyframe.
+  /// \param[in] _keyframe Index of keyframe to go to.
+  void ChangeKeyframe(int _keyframe);
 }
 
 #endif

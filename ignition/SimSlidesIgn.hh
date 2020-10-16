@@ -19,6 +19,7 @@
 #define SIMSLIDES_IGNITION_SIMSLIDESIGN_HH_
 
 #include <ignition/gui/qt.h>
+#include <ignition/msgs/int64.pb.h>
 #include <ignition/gui/Plugin.hh>
 #include <ignition/rendering/Camera.hh>
 #include <ignition/rendering/Scene.hh>
@@ -61,26 +62,16 @@ class SimSlidesIgn : public ignition::gui::Plugin
 
   private: void LoadScene();
 
+  private: void OnKeyPress(const ignition::msgs::Int32 &_msg);
+
   private: bool pendingCommand;
 
   /// \brief Node used for communication.
   private: ignition::transport::Node node;
 
-//  /// \brief Subscribe to key click messages.
-//  private: ignition::transport::Subscriber keyboardSub;
-
   /// \brief Keep pointer to camera so we can move it.
   private: ignition::rendering::CameraPtr camera;
   private: ignition::rendering::ScenePtr scene;
-
-  /// \brief Keep track of current keyframe index.
-  /// -1 means the "home" camera pose.
-  /// 0 is the first keyframe.
-  private: int currentIndex = -1;
-
-  /// \brief Total number of keyframes.
-  /// -1 means not presenting.
-  private: int slideCount = -1;
 
   private: double eyeOffsetX = 0;
   private: double eyeOffsetY = -3.0;

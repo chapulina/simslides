@@ -1,6 +1,7 @@
 TODO
 
-* Use keyboard to navigate
+* Remove toggle functionality
+* Update UI when navigating with keyboard
 * Remove slide prefix logic: use visual names instead
 * Move PresentMode / SimSlideIgn common logic to Common.hh
 * Have libsimslides.so and SimSlidesIgn in the same SDF file
@@ -10,7 +11,6 @@ Future
 * Text dialog
 * F6 to camera initial pose
 * Log seek
-* camera clip
 
 
 

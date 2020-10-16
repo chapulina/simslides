@@ -37,15 +37,6 @@ class simslides::PresentModePrivate
   /// \brief Keep pointer to camera so we can move it.
   public: gazebo::rendering::UserCameraPtr camera;
 
-  /// \brief Keep track of current keyframe index.
-  /// -1 means the "home" camera pose.
-  /// 0 is the first keyframe.
-  public: int currentIndex = -1;
-
-  /// \brief Total number of keyframes.
-  /// -1 means not presenting.
-  public: int slideCount = 0;
-
   public: double eyeOffsetX = 0;
   public: double eyeOffsetY = -3.0;
   public: double eyeOffsetZ = 0;
@@ -140,73 +131,38 @@ void PresentMode::Start()
 //    }
   }
 
-  this->dataPtr->slideCount = simslides::keyframes.size();
-
-  gzmsg << "Start presentation. Total of [" << this->dataPtr->slideCount
+  gzmsg << "Start presentation. Total of [" << simslides::keyframes.size()
         << "] slides" << std::endl;
 
   // Trigger first slide
-  this->dataPtr->currentIndex = 0;
+  simslides::currentKeyframe = 0;
   this->ChangeSlide();
 }
 
 /////////////////////////////////////////////////
 void PresentMode::Stop()
 {
-  this->dataPtr->slideCount = -1;
+  // TODO Remove Start / Stop logic
 }
 
 /////////////////////////////////////////////////
 void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
 {
-  if (this->dataPtr->slideCount < 0)
-    return;
-
-  // Next (right arrow on keyboard or presenter)
-  if ((_msg->int_value() == 16777236 || _msg->int_value() == 16777239) &&
-      this->dataPtr->currentIndex + 1 < this->dataPtr->slideCount)
-  {
-    this->dataPtr->currentIndex++;
-  }
-  // Previous (left arrow on keyboard or presenter)
-  else if ((_msg->int_value() == 16777234 || _msg->int_value() == 16777238) &&
-      this->dataPtr->currentIndex >= 1)
-  {
-    this->dataPtr->currentIndex--;
-  }
-  // Current (F1)
-  else if (_msg->int_value() == 16777264)
-  {
-  }
-  // Home (F6)
-  else if (_msg->int_value() == 16777269)
-  {
-    this->dataPtr->currentIndex = -1;
-  }
-  else
-    return;
-
+  simslides::HandleKeyPress(_msg->int_value());
   this->ChangeSlide();
 }
 
 /////////////////////////////////////////////////
-void PresentMode::OnSlideChanged(int _slide)
+void PresentMode::OnSlideChanged(int _keyframe)
 {
-  if (this->dataPtr->slideCount < 0)
-    return;
-
-  if (_slide > this->dataPtr->slideCount)
-    this->dataPtr->currentIndex = this->dataPtr->slideCount - 1;
-
-  this->dataPtr->currentIndex = _slide;
-
+  simslides::ChangeKeyframe(_keyframe);
   this->ChangeSlide();
 }
 
 /////////////////////////////////////////////////
 void PresentMode::ChangeSlide()
 {
-  gzmsg << "Change Slide: " << this->dataPtr->currentIndex << std::endl;
+  gzmsg << "Change Slide: " << simslides::currentKeyframe << std::endl;
 
   ignition::math::Pose3d camPose;
   ignition::math::Pose3d eyeOff;
@@ -214,14 +170,14 @@ void PresentMode::ChangeSlide()
   std::string text;
 
   // Reset presentation
-  if (this->dataPtr->currentIndex == -1)
+  if (simslides::currentKeyframe == -1)
   {
     camPose = this->dataPtr->camera->InitialPose();
   }
   // Slides
   else
   {
-    auto keyframe = simslides::keyframes[this->dataPtr->currentIndex];
+    auto keyframe = simslides::keyframes[simslides::currentKeyframe];
 
     text = keyframe->Text();
 
@@ -238,7 +194,7 @@ void PresentMode::ChangeSlide()
     {
       // TODO(louise) Support stacks with non-sequential slide suffixes
       // Find stack front
-      auto frontKeyframe = this->dataPtr->currentIndex;
+      auto frontKeyframe = simslides::currentKeyframe;
       while (frontKeyframe > 0 &&
           simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK &&
           simslides::keyframes[frontKeyframe]->SlideNumber() - 1 ==
@@ -255,7 +211,7 @@ void PresentMode::ChangeSlide()
       auto frontVisNumber = simslides::keyframes[frontKeyframe]->SlideNumber();
 
       // Find stack back
-      auto backKeyframe = this->dataPtr->currentIndex;
+      auto backKeyframe = simslides::currentKeyframe;
       while (backKeyframe+1 < simslides::keyframes.size() &&
           simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK &&
           simslides::keyframes[backKeyframe]->SlideNumber() + 1 ==
@@ -373,7 +329,7 @@ void PresentMode::ChangeSlide()
   {
     this->dataPtr->camera->MoveToPosition(camPose, 1);
   }
-  this->SlideChanged(this->dataPtr->currentIndex, this->dataPtr->slideCount-1,
+  this->SlideChanged(simslides::currentKeyframe, simslides::keyframes.size()-1,
       QString::fromStdString(text));
 }
 
