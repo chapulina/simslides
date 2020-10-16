@@ -89,20 +89,6 @@ void PresentMode::OnToggled(const bool _checked)
 /////////////////////////////////////////////////
 void PresentMode::Start()
 {
-  if (simslides::slidePrefix.empty())
-  {
-    gzerr << "Empty slide prefix, can't run presentation." << std::endl;
-    return;
-  }
-
-  if (!this->dataPtr->camera->GetScene()->GetVisual(
-      simslides::slidePrefix + "-0::link::visual"))
-  {
-    gzerr << "No slide models named [" << simslides::slidePrefix <<
-        "] to present." << std::endl;
-    return;
-  }
-
   if (simslides::keyframes.size() == 0)
   {
     gzerr << "No keyframes were loaded." << std::endl;
@@ -170,7 +156,7 @@ void PresentMode::ChangeSlide()
   std::string text;
 
   // Reset presentation
-  if (simslides::currentKeyframe == -1)
+  if (simslides::currentKeyframe < 0)
   {
     camPose = this->dataPtr->camera->InitialPose();
   }
@@ -184,8 +170,7 @@ void PresentMode::ChangeSlide()
     if (keyframe->GetType() == KeyframeType::LOOKAT ||
         keyframe->GetType() == KeyframeType::STACK)
     {
-      toLookAt = simslides::slidePrefix + "-" +
-          std::to_string(keyframe->SlideNumber());
+      toLookAt = keyframe->Visual();
 
       eyeOff = keyframe->EyeOffset();
     }
@@ -196,43 +181,26 @@ void PresentMode::ChangeSlide()
       // Find stack front
       auto frontKeyframe = simslides::currentKeyframe;
       while (frontKeyframe > 0 &&
-          simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK &&
-          simslides::keyframes[frontKeyframe]->SlideNumber() - 1 ==
-          simslides::keyframes[frontKeyframe-1]->SlideNumber())
+          simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
       {
         frontKeyframe--;
       }
 
-      if (frontKeyframe < 0)
-      {
-        gzerr << "Dafuq! Front keyframe: " << frontKeyframe << std::endl;
-        return;
-      }
-      auto frontVisNumber = simslides::keyframes[frontKeyframe]->SlideNumber();
-
       // Find stack back
       auto backKeyframe = simslides::currentKeyframe;
-      while (backKeyframe+1 < simslides::keyframes.size() &&
-          simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK &&
-          simslides::keyframes[backKeyframe]->SlideNumber() + 1 ==
-          simslides::keyframes[backKeyframe+1]->SlideNumber())
+      while (backKeyframe + 1 < simslides::keyframes.size() &&
+          simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK)
       {
         backKeyframe++;
       }
 
-      if (backKeyframe >= simslides::keyframes.size())
-      {
-        gzerr << "Dafuq! Back keyframe: " << backKeyframe << std::endl;
-        return;
-      }
-      auto backVisNumber = simslides::keyframes[backKeyframe]->SlideNumber();
-
-      gzmsg << "Stack front: " << frontVisNumber << ", back: " << backVisNumber << std::endl;
+      gzmsg << "Stack front [" << frontKeyframe << "], back [" << backKeyframe
+            << "]" << std::endl;
 
       // Scale down the other slides in the stack
-      for (int i = frontVisNumber; i <= backVisNumber; ++i)
+      for (int i = frontKeyframe; i <= backKeyframe; ++i)
       {
-        auto name = simslides::slidePrefix + "-" + std::to_string(i);
+        auto name = simslides::keyframes[i]->Visual();
 
         auto vis = this->dataPtr->camera->GetScene()->GetVisual(name);
 
@@ -242,10 +210,7 @@ void PresentMode::ChangeSlide()
           continue;
         }
 
-        if (i == keyframe->SlideNumber())
-          vis->SetScale(ignition::math::Vector3d(1, 1, 1));
-        else
-          vis->SetScale(ignition::math::Vector3d(0.5, 0.5, 0.5));
+        vis->SetVisible(name == keyframe->Visual());
       }
     }
 

@@ -163,23 +163,9 @@ void SimSlidesIgn::OnToggled(bool _checked)
 /////////////////////////////////////////////////
 void SimSlidesIgn::Start()
 {
-  if (simslides::slidePrefix.empty())
-  {
-    ignerr << "Empty slide prefix, can't run presentation." << std::endl;
-    return;
-  }
-
   if (nullptr == this->scene)
   {
     ignerr << "No scene." << std::endl;
-    return;
-  }
-
-  if (!this->scene->VisualByName(
-      simslides::slidePrefix + "-0::link::visual"))
-  {
-    ignerr << "No slide models named [" << simslides::slidePrefix <<
-        "] to present." << std::endl;
     return;
   }
 
@@ -252,9 +238,7 @@ void SimSlidesIgn::ProcessCommands()
     if (keyframe->GetType() == KeyframeType::LOOKAT ||
         keyframe->GetType() == KeyframeType::STACK)
     {
-      toLookAt = simslides::slidePrefix + "-" +
-          std::to_string(keyframe->SlideNumber());
-
+      toLookAt = keyframe->Visual();
       eyeOff = keyframe->EyeOffset();
     }
 
@@ -264,26 +248,15 @@ void SimSlidesIgn::ProcessCommands()
       // Find stack front
       auto frontKeyframe = simslides::currentKeyframe;
       while (frontKeyframe > 0 &&
-          simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK &&
-          simslides::keyframes[frontKeyframe]->SlideNumber() - 1 ==
-          simslides::keyframes[frontKeyframe-1]->SlideNumber())
+          simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
       {
         frontKeyframe--;
       }
 
-      if (frontKeyframe < 0)
-      {
-        ignerr << "Dafuq! Front keyframe: " << frontKeyframe << std::endl;
-        return;
-      }
-      auto frontVisNumber = simslides::keyframes[frontKeyframe]->SlideNumber();
-
       // Find stack back
       auto backKeyframe = simslides::currentKeyframe;
       while (backKeyframe+1 < simslides::keyframes.size() &&
-          simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK &&
-          simslides::keyframes[backKeyframe]->SlideNumber() + 1 ==
-          simslides::keyframes[backKeyframe+1]->SlideNumber())
+          simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK)
       {
         backKeyframe++;
       }
@@ -293,14 +266,13 @@ void SimSlidesIgn::ProcessCommands()
         ignerr << "Dafuq! Back keyframe: " << backKeyframe << std::endl;
         return;
       }
-      auto backVisNumber = simslides::keyframes[backKeyframe]->SlideNumber();
 
-      ignmsg << "Stack front: " << frontVisNumber << ", back: " << backVisNumber << std::endl;
+      ignmsg << "Stack front: " << frontKeyframe << ", back: " << backKeyframe << std::endl;
 
       // Scale down the other slides in the stack
-      for (int i = frontVisNumber; i <= backVisNumber; ++i)
+      for (int i = frontKeyframe; i <= backKeyframe; ++i)
       {
-        auto name = simslides::slidePrefix + "-" + std::to_string(i);
+        auto name = simslides::keyframes[i]->Visual();
 
         auto vis = this->scene->VisualByName(name);
 
@@ -310,10 +282,7 @@ void SimSlidesIgn::ProcessCommands()
           continue;
         }
 
-        if (i == keyframe->SlideNumber())
-          vis->SetVisible(true);
-        else
-          vis->SetVisible(false);
+        vis->SetVisible(name == keyframe->Visual());
       }
     }
 

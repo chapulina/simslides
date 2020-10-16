@@ -24,6 +24,7 @@ namespace simslides
 {
   /// \brief Prefix for slide models' names, used for creating model files
   /// and to find slides during presentation.
+  /// TODO(louise) Deprecate slide prefix from ImportDialog
   extern std::string slidePrefix;
 
   /// \brief Path where to save / find slide models

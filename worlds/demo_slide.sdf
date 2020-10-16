@@ -6,12 +6,12 @@
 
       <!-------------------- classic ---------------------------->
 
-      <camera name="user_camera">
+      <camera name='user_camera'>
         <!-- Press F6 to come back to this pose -->
         <pose>-5.18 -4.14 0.68 0 0.03 0.38</pose>
       </camera>
 
-      <plugin name="SimSlides" filename="libsimslides.so">
+      <plugin name='SimSlides' filename='libsimslides.so'>
 
         <!-- optionally, set camera's near and far clip distances -->
         <near_clip>0.1</near_clip>
@@ -20,21 +20,21 @@
         <!-- models starting with this prefix will be treated as slides -->
         <slide_prefix>demo_slide</slide_prefix>
 
-        <!-- Move camera to face slide number 0 (i.e. demo_slide-0) -->
-        <keyframe type='lookat' number='0'/>
+        <!-- Move camera to face slide "demo_slide-0" -->
+        <keyframe type='lookat' visual='demo_slide-0'/>
 
         <!-- Keep camera in place and iterate through slides on the stack  -->
-        <keyframe type='stack' number='1'/>
-        <keyframe type='stack' number='2'/>
-        <keyframe type='stack' number='3'/>
-        <keyframe type='stack' number='4'/>
+        <keyframe type='stack' visual='demo_slide-1'/>
+        <keyframe type='stack' visual='demo_slide-2'/>
+        <keyframe type='stack' visual='demo_slide-3'/>
+        <keyframe type='stack' visual='demo_slide-4'/>
 
-        <!-- Move camera to face slide number 1 with a custom offset -->
-        <keyframe type='lookat' number='5' eye_offset="0 -2 -0.5 0 0 0"/>
+        <!-- Move camera to face "demo_slide-5" with a custom offset -->
+        <keyframe type='lookat' visual='demo_slide-5' eye_offset='0 -2 -0.5 0 0 0'/>
 
         <!-- Add HTML to a dialog -->
         <!-- Escape < as << and > as >>. -->
-        <keyframe type='lookat' number='6'
+        <keyframe type='lookat' visual='demo_slide-6'
             text='<a style="color: blue; font-size: 20px" href="https://github.com/chapulina/simslides">github.com/chapulina/simslides</a>
 
 <p>Display embedded XML:</p>
@@ -144,20 +144,20 @@
         <slide_prefix>demo_slide</slide_prefix>
 
         <!-- Move camera to face slide number 0 (i.e. demo_slide-0) -->
-        <keyframe type='lookat' number='0'/>
+        <keyframe type='lookat' number='0' visual='demo_slide-0'/>
 
         <!-- Keep camera in place and iterate through slides on the stack  -->
-        <keyframe type='stack' number='1'/>
-        <keyframe type='stack' number='2'/>
-        <keyframe type='stack' number='3'/>
-        <keyframe type='stack' number='4'/>
+        <keyframe type='stack' number='1' visual='demo_slide-1'/>
+        <keyframe type='stack' number='2' visual='demo_slide-2'/>
+        <keyframe type='stack' number='3' visual='demo_slide-3'/>
+        <keyframe type='stack' number='4' visual='demo_slide-4'/>
 
         <!-- Move camera to face slide number 1 with a custom offset -->
-        <keyframe type='lookat' number='5' eye_offset="0 -2 -0.5 0 0 0"/>
+        <keyframe type='lookat' number='5' visual='demo_slide-5' eye_offset='0 -2 -0.5 0 0 0'/>
 
         <!-- Add HTML to a dialog -->
         <!-- Escape < as << and > as >>. -->
-        <keyframe type='lookat' number='6'
+        <keyframe type='lookat' number='6' visual='demo_slide-6'
             text='<a style="color: blue; font-size: 20px" href="https://github.com/chapulina/simslides">github.com/chapulina/simslides</a>
 
 <p>Display embedded XML:</p>

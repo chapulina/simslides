@@ -29,12 +29,6 @@ int simslides::slideCount{-1};
 /////////////////////////////////////////////////
 void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)
 {
-  // TODO Deprecate prefix in favor of listing all visual names
-  if (_sdf->HasElement("slide_prefix"))
-  {
-    simslides::slidePrefix = _sdf->Get<std::string>("slide_prefix");
-  }
-
   if (_sdf->HasElement("far_clip") && _sdf->HasElement("near_clip"))
   {
     simslides::farClip = _sdf->Get<double>("far_clip");

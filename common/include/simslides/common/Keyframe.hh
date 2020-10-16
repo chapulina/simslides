@@ -29,6 +29,9 @@ namespace simslides
   /// \brief Keyframe types
   enum KeyframeType
   {
+    /// \brief No type
+    NONE,
+
     /// \brief Move the camera to look at a given slide
     LOOKAT,
 
@@ -59,6 +62,10 @@ namespace simslides
     /// \brief The number of the slide model that this keyframe is tied to.
     /// \return Slide number.
     public: unsigned int SlideNumber() const;
+
+    /// \brief Name of the visual that this keyframe is attached to.
+    /// \return Visual name.
+    public: std::string Visual() const;
 
     /// \brief For LOG_SEEK and CAM_POSE
     /// \return Camera pose in the world

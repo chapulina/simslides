@@ -2,7 +2,6 @@ TODO
 
 * Remove toggle functionality
 * Update UI when navigating with keyboard
-* Remove slide prefix logic: use visual names instead
 * Move PresentMode / SimSlideIgn common logic to Common.hh
 * Have libsimslides.so and SimSlidesIgn in the same SDF file
 
