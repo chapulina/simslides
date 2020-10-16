@@ -26,18 +26,6 @@ RowLayout {
 
   property int lastSlide: 10;
 
-  RoundButton {
-    id: presentButton
-    checkable: true
-    text: "\u25B6"
-    ToolTip.text: "Present"
-    ToolTip.visible: hovered
-    ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
-    onClicked: {
-      SimSlidesIgn.OnToggled(presentButton.checked);
-    }
-  }
-
   SpinBox {
     id: slideSpin
     from: 0

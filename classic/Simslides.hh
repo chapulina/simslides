@@ -17,6 +17,7 @@
 #define SIMSLIDES_SIMSLIDES_HH_
 
 #include <gazebo/gui/GuiPlugin.hh>
+#include "PresentMode.hh"
 
 namespace simslides
 {
@@ -42,6 +43,9 @@ namespace simslides
     /// whent the widget loses focus or the user presses enter.
     private slots: void OnCurrentChanged();
 
+    /// \brief Callback when the user starts presenting.
+    private slots: void OnPresent();
+
     /// \brief Notifies that the slide spin has changed
     /// \param[in] _current Number of current slide.
     Q_SIGNALS: void CurrentChanged(const int _current);
@@ -55,6 +59,9 @@ namespace simslides
 
     /// \brief Holds text for slides.
     private: QTextBrowser * text{nullptr};
+
+    /// \brief Present mode helper
+    private: PresentMode * presentMode{nullptr};
   };
 }
 #endif

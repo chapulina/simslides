@@ -36,16 +36,6 @@ namespace simslides
     /// \brief Destructor.
     public: ~PresentMode();
 
-    /// \brief Callback when user starts / stops present mode.
-    /// \param[in] _checked True to run, false to stop.
-    private slots: void OnToggled(const bool _checked);
-
-    /// \brief Start presenting.
-    private: void Start();
-
-    /// \brief Stop presenting.
-    private: void Stop();
-
     /// \brief Callback when user presses a key.
     /// \param[in] _msg Message containing key.
     private: void OnKeyPress(ConstAnyPtr &_msg);

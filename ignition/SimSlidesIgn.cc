@@ -77,6 +77,18 @@ void SimSlidesIgn::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
 
   simslides::LoadPluginSDF(pluginElem);
 
+  this->node.Subscribe("/keyboard/keypress", &SimSlidesIgn::OnKeyPress, this);
+
+//      this->logPlaybackControlPub = this->node->
+//          Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
+
+  ignmsg << "Start presentation. Total of [" << simslides::keyframes.size()
+        << "] keyframes" << std::endl;
+
+  // Trigger first slide
+  simslides::currentKeyframe = 0;
+  this->pendingCommand = true;
+
   ignition::gui::App()->findChild<ignition::gui::MainWindow *>
       ()->installEventFilter(this);
 }
@@ -149,49 +161,6 @@ void SimSlidesIgn::LoadScene()
       break;
     }
   }
-}
-
-/////////////////////////////////////////////////
-void SimSlidesIgn::OnToggled(bool _checked)
-{
-  if (_checked)
-    this->Start();
-  else
-    this->Stop();
-}
-
-/////////////////////////////////////////////////
-void SimSlidesIgn::Start()
-{
-  if (nullptr == this->scene)
-  {
-    ignerr << "No scene." << std::endl;
-    return;
-  }
-
-  if (simslides::keyframes.size() == 0)
-  {
-    ignerr << "No keyframes were loaded." << std::endl;
-    return;
-  }
-
-  this->node.Subscribe("/keyboard/keypress", &SimSlidesIgn::OnKeyPress, this);
-
-//      this->logPlaybackControlPub = this->node->
-//          Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
-
-  ignmsg << "Start presentation. Total of [" << simslides::keyframes.size()
-        << "] leyframes" << std::endl;
-
-  // Trigger first slide
-  simslides::currentKeyframe = 0;
-  this->pendingCommand = true;
-}
-
-/////////////////////////////////////////////////
-void SimSlidesIgn::Stop()
-{
-  // TODO: remove start / stop logic
 }
 
 /////////////////////////////////////////////////

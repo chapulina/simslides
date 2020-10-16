@@ -59,19 +59,11 @@ Simslides::Simslides()
   this->connect(importActorAct, SIGNAL(triggered()), importActorDialog, SLOT(open()));
   menu->addAction(importActorAct);
 */
-  // Presentation mode
-  auto presentMode = new PresentMode();
-  this->connect(presentMode, SIGNAL(SlideChanged(int, int, QString)), this,
-      SLOT(OnSlideChanged(int, int, QString)));
-  this->connect(this, SIGNAL(CurrentChanged(int)), presentMode,
-      SLOT(OnSlideChanged(int)));
 
   auto presentAct = new QAction(QIcon(":/images/play.png"),
       tr("Presentation mode"), menu);
   presentAct->setShortcut(Qt::Key_F5);
-  presentAct->setCheckable(true);
-  this->connect(presentAct, SIGNAL(toggled(bool)), presentMode,
-      SLOT(OnToggled(bool)));
+  this->connect(presentAct, SIGNAL(triggered()), this, SLOT(OnPresent()));
   menu->addAction(presentAct);
 
   // Add to main window
@@ -201,5 +193,18 @@ void Simslides::OnSlideChanged(const int _slide, const int _total, QString _text
 void Simslides::OnCurrentChanged()
 {
   this->CurrentChanged(this->currentSpin->value());
+}
+
+/////////////////////////////////////////////////
+void Simslides::OnPresent()
+{
+  if (this->presentMode)
+    delete this->presentMode;
+
+  this->presentMode = new PresentMode();
+  this->connect(presentMode, SIGNAL(SlideChanged(int, int, QString)), this,
+      SLOT(OnSlideChanged(int, int, QString)));
+  this->connect(this, SIGNAL(CurrentChanged(int)), presentMode,
+      SLOT(OnSlideChanged(int)));
 }
 

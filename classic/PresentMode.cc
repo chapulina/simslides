@@ -60,10 +60,36 @@ PresentMode::PresentMode() : dataPtr(new PresentModePrivate)
   // Keep pointer to the user camera
   this->dataPtr->camera = gazebo::gui::get_active_camera();
 
+  // Initialize transport
+  this->dataPtr->node = gazebo::transport::NodePtr(
+      new gazebo::transport::Node());
+  this->dataPtr->node->Init();
+
+  this->dataPtr->keyboardSub =
+      this->dataPtr->node->Subscribe("~/keyboard/keypress",
+      &PresentMode::OnKeyPress, this, true);
+
+  // TODO(louise): Only advertize this if we have at least one LOG_SEEK frame
+  // FIXME: This may fail if we connect after the event is fired, so for now
+  // commenting this out, which means Gazebo will crash if a log control
+  // msg is published during simulation mode (issue #2350)
+//    if (this->dataPtr->windowMode == "LogPlayback")
+//    {
+//      this->dataPtr->logPlaybackControlPub = this->dataPtr->node->
+//          Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
+//    }
+
   // Connections
   this->dataPtr->connections.push_back(
       gazebo::gui::Events::ConnectWindowMode(
       std::bind(&PresentMode::OnWindowMode, this, std::placeholders::_1)));
+
+  gzmsg << "Start presentation. Total of [" << simslides::keyframes.size()
+        << "] slides" << std::endl;
+
+  // Trigger first slide
+  simslides::currentKeyframe = 0;
+  this->ChangeSlide();
 }
 
 /////////////////////////////////////////////////
@@ -75,60 +101,6 @@ PresentMode::~PresentMode()
 void PresentMode::OnWindowMode(const std::string &_mode)
 {
   this->dataPtr->windowMode = _mode;
-}
-
-/////////////////////////////////////////////////
-void PresentMode::OnToggled(const bool _checked)
-{
-  if (_checked)
-    this->Start();
-  else
-    this->Stop();
-}
-
-/////////////////////////////////////////////////
-void PresentMode::Start()
-{
-  if (simslides::keyframes.size() == 0)
-  {
-    gzerr << "No keyframes were loaded." << std::endl;
-    return;
-  }
-
-  if (!this->dataPtr->node)
-  {
-    // Initialize transport
-    this->dataPtr->node = gazebo::transport::NodePtr(
-        new gazebo::transport::Node());
-    this->dataPtr->node->Init();
-
-    this->dataPtr->keyboardSub =
-        this->dataPtr->node->Subscribe("~/keyboard/keypress",
-        &PresentMode::OnKeyPress, this, true);
-
-    // TODO(louise): Only advertize this if we have at least one LOG_SEEK frame
-    // FIXME: This may fail if we connect after the event is fired, so for now
-    // commenting this out, which means Gazebo will crash if a log control
-    // msg is published during simulation mode (issue #2350)
-//    if (this->dataPtr->windowMode == "LogPlayback")
-//    {
-//      this->dataPtr->logPlaybackControlPub = this->dataPtr->node->
-//          Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
-//    }
-  }
-
-  gzmsg << "Start presentation. Total of [" << simslides::keyframes.size()
-        << "] slides" << std::endl;
-
-  // Trigger first slide
-  simslides::currentKeyframe = 0;
-  this->ChangeSlide();
-}
-
-/////////////////////////////////////////////////
-void PresentMode::Stop()
-{
-  // TODO Remove Start / Stop logic
 }
 
 /////////////////////////////////////////////////

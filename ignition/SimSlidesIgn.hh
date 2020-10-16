@@ -43,22 +43,12 @@ class SimSlidesIgn : public ignition::gui::Plugin
   // Documentation inherited
   protected: bool eventFilter(QObject *_obj, QEvent *_event) override;
 
-  /// \brief Callback when user starts / stops present mode.
-  /// \param[in] _checked True to run, false to stop.
-  protected slots: void OnToggled(const bool _checked);
-
   /// \brief Callback trigged when the slide value is changed.
   /// \param[in] _slide Number of slide to change to
   protected slots: void OnSlideChanged(int _slide);
 
   /// \brief Process pending commands on the rendering thread.
   private slots: void ProcessCommands();
-
-  /// \brief Start presenting.
-  private: void Start();
-
-  /// \brief Stop presenting.
-  private: void Stop();
 
   private: void LoadScene();
 

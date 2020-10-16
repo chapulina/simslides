@@ -49,6 +49,11 @@ void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)
       keyframeElem = keyframeElem->GetNextElement("keyframe");
     }
   }
+
+  if (simslides::keyframes.size() == 0)
+  {
+    std::cerr << "No keyframes were loaded." << std::endl;
+  }
 }
 
 /////////////////////////////////////////////////
