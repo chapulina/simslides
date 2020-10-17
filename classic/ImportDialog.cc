@@ -61,6 +61,9 @@ class simslides::ImportDialogPrivate
   /// \brief Total number of slides
   public: int count;
 
+  /// \brief Prefix to be used for all generated models
+  public: std::string modelPrefix;
+
   /// \brief External process to convert PDF into images
   public: QProcess * convertProcess{nullptr};
 };
@@ -266,7 +269,7 @@ void ImportDialog::CheckReady(QString)
       this->dataPtr->scaleZSpin->value() != 0 &&
       !this->dataPtr->dirEdit->text().isEmpty());
 
-  simslides::slidePrefix = this->dataPtr->nameEdit->text().toStdString();
+  this->dataPtr->modelPrefix = this->dataPtr->nameEdit->text().toStdString();
 }
 
 /////////////////////////////////////////////////
@@ -432,8 +435,7 @@ void ImportDialog::AddGUI(std::string & _worldSdf)
 
   // <plugin>
   std::string pluginStr = "\
-      <plugin name='simslides' filename='libsimslides.so'>\n\
-        <slide_prefix>" + simslides::slidePrefix + "</slide_prefix>\n";
+      <plugin name='simslides' filename='libsimslides.so'>\n";
 
   if (this->dataPtr->buttonGroups.size() != this->dataPtr->count)
   {
@@ -445,15 +447,16 @@ void ImportDialog::AddGUI(std::string & _worldSdf)
 
   for (int i = 0; i < this->dataPtr->count; ++i)
   {
+    auto visualName = this->dataPtr->modelPrefix + "-" + std::to_string(i);
     if (this->dataPtr->buttonGroups[i]->checkedId() == 0)
     {
       pluginStr +=
-        "        <keyframe type='lookat' number='" + std::to_string(i) + "'/>\n";
+        "        <keyframe type='lookat' visual='" + visualName + "'/>\n";
     }
     else if (this->dataPtr->buttonGroups[i]->checkedId() == 1)
     {
       pluginStr +=
-          "        <keyframe type='stack' number='" + std::to_string(i) + "'/>\n";
+          "        <keyframe type='stack' visual='" + visualName + "'/>\n";
     }
     else
       gzerr << "Invalid button [" << i << "]" << std::endl;
@@ -504,8 +507,7 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
 
   for (int i = 0; i < this->dataPtr->count; ++i)
   {
-    std::string modelName(simslides::slidePrefix + "-" +
-        std::to_string(i));
+    std::string modelName(this->dataPtr->modelPrefix + "-" + std::to_string(i));
     saveDialog->SetModelName(modelName);
     saveDialog->SetSaveLocation(simslides::slidePath + "/" + modelName);
 
@@ -546,7 +548,7 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
                   <script>\
                     <uri>model://" + modelName + "/materials/scripts</uri>\
                     <uri>model://" + modelName + "/materials/textures</uri>\
-                    <name>Slides/" + simslides::slidePrefix + "_" + std::to_string(i) + "</name>\
+                    <name>Slides/" + this->dataPtr->modelPrefix + "_" + std::to_string(i) + "</name>\
                   </script>\
                 </material>\
               </visual>\
@@ -582,7 +584,7 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
     if (materialFile.is_open())
     {
       materialFile <<
-        "material Slides/" + simslides::slidePrefix + "_" << std::to_string(i) << "\n\
+        "material Slides/" + this->dataPtr->modelPrefix + "_" << std::to_string(i) << "\n\
         {\n\
           receive_shadows off\n\
           technique\n\
@@ -667,7 +669,7 @@ void ImportDialog::GenerateWorld()
   worldSdf+= "</world>\n\
     </sdf>";
   std::string worldFile =
-      simslides::slidePath + "/" + simslides::slidePrefix + ".world";
+      simslides::slidePath + "/" + this->dataPtr->modelPrefix + ".world";
   std::ofstream saveWorld(worldFile, std::ios::out);
   if (!saveWorld)
   {

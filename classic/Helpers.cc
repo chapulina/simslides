@@ -25,9 +25,9 @@
 /////////////////////////////////////////////////
 void simslides::SpawnSlides()
 {
-  if (simslides::slidePrefix.empty() || simslides::slidePath.empty())
+  if (simslides::slidePath.empty())
   {
-    gzerr << "Missing slide prefix or path." << std::endl;
+    gzerr << "Missing slide path." << std::endl;
     return;
   }
 

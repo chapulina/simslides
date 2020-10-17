@@ -20,7 +20,6 @@
 
 simslides::Common *simslides::Common::instance = nullptr;
 
-std::string simslides::slidePrefix;
 std::string simslides::slidePath;
 std::vector<simslides::Keyframe *> simslides::keyframes;
 double simslides::nearClip{std::numeric_limits<double>::quiet_NaN()};

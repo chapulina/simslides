@@ -1,7 +1,7 @@
 TODO
 
+* Move global vars to Common
 * Document all API
-* Update classic's ImportDialog not to use prefix
 
 Future
 
@@ -151,20 +151,7 @@ an open issue.
 
 1. When it's done, all slides will show up on the world in a grid.
 
-### Load previously generated slide models
-
-If you already generated slide models with the step above, and now just
-want to spawn them into the world:
-
-1. On the top menu, choose `Simslides -> Load Models` (or press `F3`)
-
-1. Choose the path of the directory which includes all the slides
-
-1. Type in the model name prefix
-
-1. Load
-
-1. When it's done, all slides will show up on the world in a grid.
+1. A world file is also created, so you can reload that any time.
 
 ### Presentation mode
 

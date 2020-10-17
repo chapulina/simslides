@@ -17,9 +17,6 @@
         <near_clip>0.1</near_clip>
         <far_clip>100</far_clip>
 
-        <!-- models starting with this prefix will be treated as slides -->
-        <slide_prefix>demo_slide</slide_prefix>
-
         <!-- Move camera to face slide "demo_slide-0" -->
         <keyframe type='lookat' visual='demo_slide-0'/>
 
@@ -139,9 +136,6 @@
         <!-- optionally, set camera's near and far clip distances -->
         <near_clip>0.1</near_clip>
         <far_clip>100</far_clip>
-
-        <!-- models starting with this prefix will be treated as slides -->
-        <slide_prefix>demo_slide</slide_prefix>
 
         <!-- Move camera to face slide number 0 (i.e. demo_slide-0) -->
         <keyframe type='lookat' number='0' visual='demo_slide-0'/>

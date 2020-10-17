@@ -45,12 +45,15 @@ Simslides::Simslides()
   menu->addAction(newAct);
 
   // Load keyframes
+  // TODO(louise) Support loading any keyframes, not just spawning slides
+/*
   auto loadDialog = new LoadDialog();
 
   auto loadAct = new QAction(tr("Load models"), menu);
   loadAct->setShortcut(Qt::Key_F3);
   this->connect(loadAct, SIGNAL(triggered()), loadDialog, SLOT(open()));
   menu->addAction(loadAct);
+*/
 /*
   // InsertActor keyframes
   auto importActorDialog = new InsertActorDialog();
