@@ -36,6 +36,14 @@ namespace simslides
     /// \brief Destructor.
     public: ~PresentMode();
 
+    /// \brief Subscribing to key presses from the constructor makes the
+    /// Node::Subscribe function crash with
+    ///
+    /// terminate called after throwing an instance of 'std::bad_function_call'                                                               ///  what():  bad_function_call
+    ///
+    /// So we initialize it later
+    public: void InitTransport();
+
     /// \brief Callback when user presses a key.
     /// \param[in] _msg Message containing key.
     private: void OnKeyPress(ConstAnyPtr &_msg);
@@ -58,16 +66,16 @@ namespace simslides
 
     /// \brief Performs the slide change, based on the current index which was
     /// previously set.
-    private: void ChangeSlide();
+    private: void ChangeKeyframe();
 
     /// \brief Callback when the user requested a new keyframe.
     /// \oaram[in] _slide New slide index.
-    private slots: void OnSlideChanged(int _slide);
+    private slots: void OnKeyframeChanged(int _slide);
 
     /// \brief Notifies that the slide index has changed,
     /// \param[in] _currentIndex Current keyframe index.
     /// \param[in] _slideCount Total number of keyframes.
-    signals: void SlideChanged(int _currentIndex, int _slideCount);
+    signals: void KeyframeChanged(int _currentIndex, int _slideCount);
 
     /// \brief Notifies that the slide text has changed,
     /// \param[in] _text Slide text.

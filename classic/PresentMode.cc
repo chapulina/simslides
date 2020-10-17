@@ -53,15 +53,6 @@ PresentMode::PresentMode() : dataPtr(new PresentModePrivate)
   // Keep pointer to the user camera
   this->dataPtr->camera = gazebo::gui::get_active_camera();
 
-  // Initialize transport
-  this->dataPtr->node = gazebo::transport::NodePtr(
-      new gazebo::transport::Node());
-  this->dataPtr->node->Init();
-
-  this->dataPtr->keyboardSub =
-      this->dataPtr->node->Subscribe("~/keyboard/keypress",
-      &PresentMode::OnKeyPress, this, true);
-
   // Connections
   this->dataPtr->connections.push_back(
       gazebo::gui::Events::ConnectWindowMode(
@@ -91,12 +82,28 @@ PresentMode::PresentMode() : dataPtr(new PresentModePrivate)
 
   // Trigger first slide
   simslides::currentKeyframe = 0;
-  this->ChangeSlide();
+  this->ChangeKeyframe();
 }
 
 /////////////////////////////////////////////////
 PresentMode::~PresentMode()
 {
+}
+
+/////////////////////////////////////////////////
+void PresentMode::InitTransport()
+{
+  if (nullptr != this->dataPtr->node)
+    return;
+
+  // Initialize transport
+  this->dataPtr->node = gazebo::transport::NodePtr(
+      new gazebo::transport::Node());
+  this->dataPtr->node->Init();
+
+  this->dataPtr->keyboardSub =
+      this->dataPtr->node->Subscribe("~/keyboard/keypress",
+      &PresentMode::OnKeyPress, this, true);
 }
 
 /////////////////////////////////////////////////
@@ -109,24 +116,25 @@ void PresentMode::OnWindowMode(const std::string &_mode)
 void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
 {
   simslides::HandleKeyPress(_msg->int_value());
-  this->ChangeSlide();
+  this->ChangeKeyframe();
 }
 
 /////////////////////////////////////////////////
-void PresentMode::OnSlideChanged(int _keyframe)
+void PresentMode::OnKeyframeChanged(int _keyframe)
 {
   simslides::ChangeKeyframe(_keyframe);
-  this->ChangeSlide();
+  this->ChangeKeyframe();
 }
 
 /////////////////////////////////////////////////
-void PresentMode::ChangeSlide()
+void PresentMode::ChangeKeyframe()
 {
   gzmsg << "Change Slide: " << simslides::currentKeyframe << std::endl;
 
   simslides::Common::Instance()->Update();
 
-  this->SlideChanged(simslides::currentKeyframe, simslides::keyframes.size()-1);
+  this->KeyframeChanged(simslides::currentKeyframe,
+      simslides::keyframes.size()-1);
 }
 
 /////////////////////////////////////////////////

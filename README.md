@@ -1,8 +1,6 @@
 TODO
 
-* Fix F5 and initial 0/0 for classic
 * Document all API
-* "slide" -> "keyframe"
 * Update classic's ImportDialog not to use prefix
 
 Future

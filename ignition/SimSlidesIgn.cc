@@ -184,7 +184,7 @@ void SimSlidesIgn::LoadScene()
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::OnSlideChanged(int _keyframe)
+void SimSlidesIgn::OnKeyframeChanged(int _keyframe)
 {
   simslides::ChangeKeyframe(_keyframe);
   this->pendingCommand = true;

@@ -24,25 +24,25 @@ RowLayout {
   Layout.minimumHeight: 100
   spacing: 2
 
-  property int lastSlide: 10;
+  property int lastKeyframe: 10;
 
   Connections {
     target: SimSlidesIgn
     onUpdateGUI: {
-      slideSpin.value = _currentKeyframe;
-      simSlides.lastSlide = _keyframeCount;
+      keyframeSpin.value = _currentKeyframe;
+      simSlides.lastKeyframe = _keyframeCount;
     }
   }
 
   SpinBox {
-    id: slideSpin
+    id: keyframeSpin
     from: 0
-    to: simSlides.lastSlide
+    to: simSlides.lastKeyframe
     ToolTip.text: "Current slide"
     ToolTip.visible: hovered
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
     onValueModified: {
-      SimSlidesIgn.OnSlideChanged(slideSpin.value);
+      SimSlidesIgn.OnKeyframeChanged(keyframeSpin.value);
     }
   }
 }

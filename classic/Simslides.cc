@@ -44,7 +44,7 @@ Simslides::Simslides()
   this->connect(newAct, SIGNAL(triggered()), newSlideDialog, SLOT(open()));
   menu->addAction(newAct);
 
-  // Load slides
+  // Load keyframes
   auto loadDialog = new LoadDialog();
 
   auto loadAct = new QAction(tr("Load models"), menu);
@@ -52,7 +52,7 @@ Simslides::Simslides()
   this->connect(loadAct, SIGNAL(triggered()), loadDialog, SLOT(open()));
   menu->addAction(loadAct);
 /*
-  // InsertActor slides
+  // InsertActor keyframes
   auto importActorDialog = new InsertActorDialog();
 
   auto importActorAct = new QAction(tr("Insert actor"), menu);
@@ -62,8 +62,7 @@ Simslides::Simslides()
 
   auto presentAct = new QAction(QIcon(":/images/play.png"),
       tr("Presentation mode"), menu);
-  // TODO(louise) Starting with shortcut is crashing on PresentMode's constructor
-  // presentAct->setShortcut(Qt::Key_F5);
+  presentAct->setShortcut(Qt::Key_F5);
   this->connect(presentAct, SIGNAL(triggered()), this, SLOT(OnPresent()));
   menu->addAction(presentAct);
 
@@ -177,10 +176,10 @@ void Simslides::Load(const sdf::ElementPtr _sdf)
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnSlideChanged(const int _slide, const int _total)
+void Simslides::OnKeyframeChanged(const int _keyframe, const int _total)
 {
   this->currentSpin->blockSignals(true);
-  this->currentSpin->setValue(_slide);
+  this->currentSpin->setValue(_keyframe);
   this->currentSpin->blockSignals(false);
 
   this->SetTotal(QString::number(_total));
@@ -207,11 +206,15 @@ void Simslides::OnPresent()
     delete this->presentMode;
 
   this->presentMode = new PresentMode();
-  this->connect(presentMode, SIGNAL(SlideChanged(int, int)), this,
-      SLOT(OnSlideChanged(int, int)));
+  this->connect(presentMode, SIGNAL(KeyframeChanged(int, int)), this,
+      SLOT(OnKeyframeChanged(int, int)));
   this->connect(presentMode, SIGNAL(TextChanged(QString)), this,
       SLOT(OnTextChanged(QString)));
   this->connect(this, SIGNAL(CurrentChanged(int)), presentMode,
-      SLOT(OnSlideChanged(int)));
+      SLOT(OnKeyframeChanged(int)));
+
+  this->presentMode->InitTransport();
+  this->OnKeyframeChanged(simslides::currentKeyframe,
+      simslides::keyframes.size()-1);
 }
 

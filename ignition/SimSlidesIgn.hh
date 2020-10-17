@@ -43,14 +43,14 @@ class SimSlidesIgn : public ignition::gui::Plugin
   // Documentation inherited
   protected: bool eventFilter(QObject *_obj, QEvent *_event) override;
 
-  /// \brief Callback trigged when the slide value is changed.
-  /// \param[in] _slide Number of slide to change to
-  protected slots: void OnSlideChanged(int _slide);
+  /// \brief Callback trigged when the keyframe value is changed.
+  /// \param[in] _keyframe Number of keyframe to change to
+  protected slots: void OnKeyframeChanged(int _keyframe);
 
   /// \brief Process pending commands on the rendering thread.
   private slots: void ProcessCommands();
 
-  /// \brief Notifies that the slide index has changed,
+  /// \brief Notifies that the keyframe index has changed,
   /// \param[in] _currentKeyframe Current keyframe index.
   /// \param[in] _keyframeCount Total number of keyframes.
   signals: void updateGUI(int _currentKeyframe, int _keyframeCount);
