@@ -64,6 +64,7 @@
         <scene>scene</scene>
         <ambient_light>1.0 1.0 1.0</ambient_light>
         <background_color>0.8 0.8 0.8</background_color>
+        <!-- Press F6 to come back to this pose -->
         <camera_pose>-5.18 -4.14 0.68 0 0.03 0.38</camera_pose>
       </plugin>
 

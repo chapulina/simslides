@@ -58,30 +58,30 @@ PresentMode::PresentMode() : dataPtr(new PresentModePrivate)
       gazebo::gui::Events::ConnectWindowMode(
       std::bind(&PresentMode::OnWindowMode, this, std::placeholders::_1)));
 
-  simslides::Common::Instance()->moveCamera =
+  simslides::Common::Instance()->MoveCamera =
       std::bind(&PresentMode::OnMoveCamera, this, std::placeholders::_1);
 
-  simslides::Common::Instance()->setVisualVisible =
+  simslides::Common::Instance()->SetVisualVisible =
       std::bind(&PresentMode::OnSetVisualVisible, this, std::placeholders::_1,
       std::placeholders::_2);
 
-  simslides::Common::Instance()->seekLog =
+  simslides::Common::Instance()->SeekLog =
       std::bind(&PresentMode::OnSeekLog, this, std::placeholders::_1);
 
-  simslides::Common::Instance()->initialCameraPose =
-      std::bind(&PresentMode::OnInitialCameraPose, this);
+  simslides::Common::Instance()->ResetCameraPose =
+      std::bind(&PresentMode::OnResetCameraPose, this);
 
-  simslides::Common::Instance()->visualPose =
+  simslides::Common::Instance()->VisualPose =
       std::bind(&PresentMode::OnVisualPose, this, std::placeholders::_1);
 
   simslides::Common::Instance()->SetText =
       std::bind(&PresentMode::OnSetText, this, std::placeholders::_1);
 
-  gzmsg << "Start presentation. Total of [" << simslides::keyframes.size()
+  gzmsg << "Start presentation. Total of [" << Common::Instance()->keyframes.size()
         << "] slides" << std::endl;
 
   // Trigger first slide
-  simslides::currentKeyframe = 0;
+  Common::Instance()->currentKeyframe = 0;
   this->ChangeKeyframe();
 }
 
@@ -115,26 +115,26 @@ void PresentMode::OnWindowMode(const std::string &_mode)
 /////////////////////////////////////////////////
 void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
 {
-  simslides::HandleKeyPress(_msg->int_value());
+  Common::Instance()->HandleKeyPress(_msg->int_value());
   this->ChangeKeyframe();
 }
 
 /////////////////////////////////////////////////
 void PresentMode::OnKeyframeChanged(int _keyframe)
 {
-  simslides::ChangeKeyframe(_keyframe);
+  Common::Instance()->ChangeKeyframe(_keyframe);
   this->ChangeKeyframe();
 }
 
 /////////////////////////////////////////////////
 void PresentMode::ChangeKeyframe()
 {
-  gzmsg << "Change Slide: " << simslides::currentKeyframe << std::endl;
+  gzmsg << "Change Slide: " << Common::Instance()->currentKeyframe << std::endl;
 
-  simslides::Common::Instance()->Update();
+  Common::Instance()->Common::Instance()->Update();
 
-  this->KeyframeChanged(simslides::currentKeyframe,
-      simslides::keyframes.size()-1);
+  this->KeyframeChanged(Common::Instance()->currentKeyframe,
+      Common::Instance()->keyframes.size()-1);
 }
 
 /////////////////////////////////////////////////
@@ -186,9 +186,9 @@ void PresentMode::OnSeekLog(std::chrono::steady_clock::duration _time)
 }
 
 /////////////////////////////////////////////////
-ignition::math::Pose3d PresentMode::OnInitialCameraPose()
+void PresentMode::OnResetCameraPose()
 {
-  return this->dataPtr->camera->InitialPose();
+  this->OnMoveCamera(this->dataPtr->camera->InitialPose());
 }
 
 /////////////////////////////////////////////////

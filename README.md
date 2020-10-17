@@ -1,12 +1,8 @@
-TODO
 
-* Move global vars to Common
-* Document all API
 
 Future
 
 * Text dialog
-* F6 to camera initial pose
 * Log seek
 
 

@@ -18,7 +18,7 @@
 
 namespace simslides
 {
-  /// \brief Spawn slide models into the world based on simslides::slidePath.
+  /// \brief Spawn slide models into the world based on simslides::Common::slidePath.
   /// This is used after slides are generated and if the option to load slides
   /// is chosen, but not if slides are loaded from a world.
   void SpawnSlides();

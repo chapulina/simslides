@@ -25,7 +25,7 @@
 /////////////////////////////////////////////////
 void simslides::SpawnSlides()
 {
-  if (simslides::slidePath.empty())
+  if (Common::Instance()->slidePath.empty())
   {
     gzerr << "Missing slide path." << std::endl;
     return;
@@ -39,7 +39,8 @@ void simslides::SpawnSlides()
 
   int countX= 0;
   int countY= 0;
-  for (const auto & dir : std::filesystem::directory_iterator(simslides::slidePath))
+  for (const auto & dir : std::filesystem::directory_iterator(
+      Common::Instance()->slidePath))
   {
     if (!dir.is_directory())
       continue;

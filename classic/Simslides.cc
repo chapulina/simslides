@@ -161,9 +161,9 @@ Simslides::Simslides()
 /////////////////////////////////////////////////
 void Simslides::Load(const sdf::ElementPtr _sdf)
 {
-  simslides::LoadPluginSDF(_sdf);
+  Common::Instance()->LoadPluginSDF(_sdf);
 
-  if (!std::isnan(simslides::farClip) && !std::isnan(simslides::nearClip))
+  if (!std::isnan(Common::Instance()->farClip) && !std::isnan(Common::Instance()->nearClip))
   {
     auto camera = gazebo::gui::get_active_camera();
     if (nullptr == camera)
@@ -173,7 +173,7 @@ void Simslides::Load(const sdf::ElementPtr _sdf)
     }
     else
     {
-      camera->SetClipDist(simslides::nearClip, simslides::farClip);
+      camera->SetClipDist(Common::Instance()->nearClip, Common::Instance()->farClip);
     }
   }
 }
@@ -217,7 +217,7 @@ void Simslides::OnPresent()
       SLOT(OnKeyframeChanged(int)));
 
   this->presentMode->InitTransport();
-  this->OnKeyframeChanged(simslides::currentKeyframe,
-      simslides::keyframes.size()-1);
+  this->OnKeyframeChanged(Common::Instance()->currentKeyframe,
+      Common::Instance()->keyframes.size()-1);
 }
 

@@ -98,13 +98,13 @@ void LoadDialog::CheckReady(QString)
   this->dataPtr->loadButton->setEnabled(
       !this->dataPtr->pathLabel->text().isEmpty());
 
-  simslides::slidePath = this->dataPtr->pathLabel->text().toStdString();
+  Common::Instance()->slidePath = this->dataPtr->pathLabel->text().toStdString();
 }
 
 /////////////////////////////////////////////////
 void LoadDialog::Load()
 {
-  simslides::slidePath = this->dataPtr->pathLabel->text().toStdString();
+  Common::Instance()->slidePath = this->dataPtr->pathLabel->text().toStdString();
 
   simslides::SpawnSlides();
 

@@ -20,31 +20,18 @@
 
 simslides::Common *simslides::Common::instance = nullptr;
 
-std::string simslides::slidePath;
-std::vector<simslides::Keyframe *> simslides::keyframes;
-double simslides::nearClip{std::numeric_limits<double>::quiet_NaN()};
-double simslides::farClip{std::numeric_limits<double>::quiet_NaN()};
-int simslides::currentKeyframe{-1};
-int simslides::slideCount{-1};
-const double simslides::kEyeOffsetX{0.0};
-const double simslides::kEyeOffsetY{-3.0};
-const double simslides::kEyeOffsetZ{0.0};
-const double simslides::kEyeOffsetRoll{0.0};
-const double simslides::kEyeOffsetPitch{0.0};
-const double simslides::kEyeOffsetYaw{IGN_PI_2};
-
 /////////////////////////////////////////////////
-void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)
+void simslides::Common::LoadPluginSDF(const sdf::ElementPtr _sdf)
 {
   if (_sdf->HasElement("far_clip") && _sdf->HasElement("near_clip"))
   {
-    simslides::farClip = _sdf->Get<double>("far_clip");
-    simslides::nearClip = _sdf->Get<double>("near_clip");
+    this->farClip = _sdf->Get<double>("far_clip");
+    this->nearClip = _sdf->Get<double>("near_clip");
   }
   else
   {
-    simslides::farClip = std::nan("");
-    simslides::nearClip = std::nan("");
+    this->farClip = std::nan("");
+    this->nearClip = std::nan("");
   }
 
   if (_sdf->HasElement("keyframe"))
@@ -52,34 +39,34 @@ void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)
     auto keyframeElem = _sdf->GetElement("keyframe");
     while (keyframeElem)
     {
-      simslides::keyframes.push_back(new Keyframe(keyframeElem));
+      this->keyframes.push_back(new Keyframe(keyframeElem));
       keyframeElem = keyframeElem->GetNextElement("keyframe");
     }
   }
 
-  if (simslides::keyframes.size() == 0)
+  if (this->keyframes.size() == 0)
   {
     std::cerr << "No keyframes were loaded." << std::endl;
   }
 }
 
 /////////////////////////////////////////////////
-void simslides::HandleKeyPress(int _key)
+void simslides::Common::HandleKeyPress(int _key)
 {
-  if (simslides::keyframes.empty())
+  if (this->keyframes.empty())
     return;
 
   // Next (right arrow on keyboard or presenter)
   if ((_key == 16777236 || _key == 16777239) &&
-      simslides::currentKeyframe + 1 < simslides::keyframes.size())
+      this->currentKeyframe + 1 < this->keyframes.size())
   {
-    simslides::currentKeyframe++;
+    this->currentKeyframe++;
   }
   // Previous (left arrow on keyboard or presenter)
   else if ((_key == 16777234 || _key == 16777238) &&
-      simslides::currentKeyframe >= 1)
+      this->currentKeyframe >= 1)
   {
-    simslides::currentKeyframe--;
+    this->currentKeyframe--;
   }
   // Current (F1)
   else if (_key == 16777264)
@@ -88,53 +75,51 @@ void simslides::HandleKeyPress(int _key)
   // Home (F6)
   else if (_key == 16777269)
   {
-    simslides::currentKeyframe = -1;
+    this->currentKeyframe = -1;
   }
   else
     return;
 }
 
 /////////////////////////////////////////////////
-void simslides::ChangeKeyframe(int _keyframe)
+void simslides::Common::ChangeKeyframe(int _keyframe)
 {
-  if (simslides::keyframes.empty())
+  if (this->keyframes.empty())
     return;
 
-  if (_keyframe > simslides::keyframes.size())
-    simslides::currentKeyframe = simslides::keyframes.size() - 1;
+  if (_keyframe > this->keyframes.size())
+    this->currentKeyframe = this->keyframes.size() - 1;
   else
-    simslides::currentKeyframe = _keyframe;
+    this->currentKeyframe = _keyframe;
 }
 
 /////////////////////////////////////////////////
 void simslides::Common::Update()
 {
   // Reset presentation
-  if (simslides::currentKeyframe < 0)
+  if (this->currentKeyframe < 0)
   {
-    auto initialPose = simslides::Common::Instance()->initialCameraPose();
-    if (!std::isnan(initialPose.Pos().X()))
-      simslides::Common::Instance()->moveCamera(initialPose);
+    this->Common::Instance()->ResetCameraPose();
     return;
   }
 
-  auto keyframe = simslides::keyframes[simslides::currentKeyframe];
+  auto keyframe = this->keyframes[this->currentKeyframe];
 
   // Set text
-  simslides::Common::Instance()->SetText(keyframe->Text());
+  this->Common::Instance()->SetText(keyframe->Text());
 
   // Log seek
   if (keyframe->GetType() == KeyframeType::LOG_SEEK)
   {
-    simslides::Common::Instance()->moveCamera(keyframe->CamPose());
-    simslides::Common::Instance()->seekLog(keyframe->LogSeek());
+    this->Common::Instance()->MoveCamera(keyframe->CamPose());
+    this->Common::Instance()->SeekLog(keyframe->LogSeek());
     return;
   }
 
   // Cam pose
   if (keyframe->GetType() == KeyframeType::CAM_POSE)
   {
-    simslides::Common::Instance()->moveCamera(keyframe->CamPose());
+    this->Common::Instance()->MoveCamera(keyframe->CamPose());
     return;
   }
 
@@ -143,7 +128,7 @@ void simslides::Common::Update()
       keyframe->GetType() == KeyframeType::STACK)
   {
     // Target in world frame
-    auto origin = simslides::Common::Instance()->visualPose(keyframe->Visual());
+    auto origin = this->Common::Instance()->VisualPose(keyframe->Visual());
 
     auto bbPos = origin.Pos() + ignition::math::Vector3d(0, 0, 0.5);
     auto targetWorld = ignition::math::Matrix4d(ignition::math::Pose3d(
@@ -153,13 +138,7 @@ void simslides::Common::Update()
     auto offset = keyframe->EyeOffset();
     if (offset == ignition::math::Pose3d::Zero)
     {
-      offset = ignition::math::Pose3d(
-               simslides::kEyeOffsetX,
-               simslides::kEyeOffsetY,
-               simslides::kEyeOffsetZ,
-               simslides::kEyeOffsetRoll,
-               simslides::kEyeOffsetPitch,
-               simslides::kEyeOffsetYaw);
+      offset = this->kEyeOffset;
     }
     ignition::math::Matrix4d eyeTarget(offset);
 
@@ -170,22 +149,22 @@ void simslides::Common::Update()
     auto mat = ignition::math::Matrix4d::LookAt(eyeWorld.Translation(),
         targetWorld.Translation());
 
-    simslides::Common::Instance()->moveCamera(mat.Pose());
+    this->MoveCamera(mat.Pose());
   }
 
   // Set stack visibility
   if (keyframe->GetType() == KeyframeType::STACK)
   {
-    auto frontKeyframe = simslides::currentKeyframe;
+    auto frontKeyframe = this->currentKeyframe;
     while (frontKeyframe > 0 &&
-        simslides::keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
+        this->keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
     {
       frontKeyframe--;
     }
 
-    auto backKeyframe = simslides::currentKeyframe;
-    while (backKeyframe + 1 < simslides::keyframes.size() &&
-        simslides::keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK)
+    auto backKeyframe = this->currentKeyframe;
+    while (backKeyframe + 1 < this->keyframes.size() &&
+        this->keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK)
     {
       backKeyframe++;
     }
@@ -195,9 +174,8 @@ void simslides::Common::Update()
 
     for (int i = frontKeyframe; i <= backKeyframe; ++i)
     {
-      auto name = simslides::keyframes[i]->Visual();
-      simslides::Common::Instance()->setVisualVisible(name,
-          name == keyframe->Visual());
+      auto name = this->keyframes[i]->Visual();
+      this->SetVisualVisible(name, name == keyframe->Visual());
     }
   }
 

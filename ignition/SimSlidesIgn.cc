@@ -76,7 +76,7 @@ void SimSlidesIgn::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
     return;
   }
 
-  simslides::LoadPluginSDF(pluginElem);
+  Common::Instance()->LoadPluginSDF(pluginElem);
 
   this->node.Subscribe("/keyboard/keypress", &SimSlidesIgn::OnKeyPress, this);
 
@@ -86,30 +86,30 @@ void SimSlidesIgn::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
   ignition::gui::App()->findChild<ignition::gui::MainWindow *>
       ()->installEventFilter(this);
 
-  simslides::Common::Instance()->moveCamera =
+  simslides::Common::Instance()->MoveCamera =
       std::bind(&SimSlidesIgn::OnMoveCamera, this, std::placeholders::_1);
 
-  simslides::Common::Instance()->setVisualVisible =
+  simslides::Common::Instance()->SetVisualVisible =
       std::bind(&SimSlidesIgn::OnSetVisualVisible, this, std::placeholders::_1,
       std::placeholders::_2);
 
-  simslides::Common::Instance()->seekLog =
+  simslides::Common::Instance()->SeekLog =
       std::bind(&SimSlidesIgn::OnSeekLog, this, std::placeholders::_1);
 
-  simslides::Common::Instance()->initialCameraPose =
-      std::bind(&SimSlidesIgn::OnInitialCameraPose, this);
+  simslides::Common::Instance()->ResetCameraPose =
+      std::bind(&SimSlidesIgn::OnResetCameraPose, this);
 
-  simslides::Common::Instance()->visualPose =
+  simslides::Common::Instance()->VisualPose =
       std::bind(&SimSlidesIgn::OnVisualPose, this, std::placeholders::_1);
 
   simslides::Common::Instance()->SetText =
       std::bind(&SimSlidesIgn::OnSetText, this, std::placeholders::_1);
 
-  ignmsg << "Start presentation. Total of [" << simslides::keyframes.size()
+  ignmsg << "Start presentation. Total of [" << Common::Instance()->keyframes.size()
         << "] keyframes" << std::endl;
 
   // Trigger first slide
-  simslides::currentKeyframe = 0;
+  Common::Instance()->currentKeyframe = 0;
   this->pendingCommand = true;
 }
 
@@ -173,10 +173,10 @@ void SimSlidesIgn::LoadScene()
     {
       this->camera = cam;
 
-      if (!std::isnan(simslides::farClip) && !std::isnan(simslides::nearClip))
+      if (!std::isnan(Common::Instance()->farClip) && !std::isnan(Common::Instance()->nearClip))
       {
-        camera->SetNearClipPlane(simslides::nearClip);
-        camera->SetFarClipPlane(simslides::farClip);
+        camera->SetNearClipPlane(Common::Instance()->nearClip);
+        camera->SetFarClipPlane(Common::Instance()->farClip);
       }
       break;
     }
@@ -186,7 +186,7 @@ void SimSlidesIgn::LoadScene()
 /////////////////////////////////////////////////
 void SimSlidesIgn::OnKeyframeChanged(int _keyframe)
 {
-  simslides::ChangeKeyframe(_keyframe);
+  Common::Instance()->ChangeKeyframe(_keyframe);
   this->pendingCommand = true;
 }
 
@@ -198,24 +198,18 @@ void SimSlidesIgn::ProcessCommands()
 
   this->pendingCommand = false;
 
-  if (simslides::currentKeyframe < 0 || simslides::currentKeyframe >= simslides::keyframes.size())
-  {
-    ignerr << "Keyframe [" << simslides::currentKeyframe << "] not found" << std::endl;
-    return;
-  }
-
-  ignmsg << "Changing to slide [" << simslides::currentKeyframe << "]"
+  ignmsg << "Changing to slide [" << Common::Instance()->currentKeyframe << "]"
          << std::endl;
 
   simslides::Common::Instance()->Update();
 
-  this->updateGUI(simslides::currentKeyframe, simslides::keyframes.size() - 1);
+  this->updateGUI(Common::Instance()->currentKeyframe, Common::Instance()->keyframes.size() - 1);
 }
 
 /////////////////////////////////////////////////
 void SimSlidesIgn::OnKeyPress(const ignition::msgs::Int32 &_msg)
 {
-  simslides::HandleKeyPress(_msg.data());
+  Common::Instance()->HandleKeyPress(_msg.data());
   this->pendingCommand = true;
 }
 
@@ -283,17 +277,24 @@ void SimSlidesIgn::OnSeekLog(std::chrono::steady_clock::duration _time)
 }
 
 /////////////////////////////////////////////////
-ignition::math::Pose3d SimSlidesIgn::OnInitialCameraPose()
+void SimSlidesIgn::OnResetCameraPose()
 {
-  // TODO(louise) Support initial camera pose
-  return {
-    std::numeric_limits<double>::quiet_NaN(),
-    std::numeric_limits<double>::quiet_NaN(),
-    std::numeric_limits<double>::quiet_NaN(),
-    std::numeric_limits<double>::quiet_NaN(),
-    std::numeric_limits<double>::quiet_NaN(),
-    std::numeric_limits<double>::quiet_NaN()
+  ignition::msgs::Vector3d req;
+
+  std::function<void(const ignition::msgs::Boolean &, const bool)> cb =
+      [](const ignition::msgs::Boolean &_res, const bool _result)
+  {
+    if (!_result)
+    {
+      ignerr << "Timed out requesting to reset camera" << std::endl;
+    }
+    if (!_res.data())
+    {
+      ignerr << "Failed to reset camera" << std::endl;
+    }
   };
+
+  this->node.Request("/gui/view_angle", req, cb);
 }
 
 /////////////////////////////////////////////////

@@ -37,61 +37,70 @@ namespace simslides
        return instance;
      }
 
+     /// \brief Update the state according to current keyframe.
      public: void Update();
 
-     public: std::function<void(const ignition::math::Pose3d &)> moveCamera;
-     public: std::function<void(const std::string &, bool)> setVisualVisible;
-     public: std::function<void(std::chrono::steady_clock::duration)> seekLog;
-     public: std::function<ignition::math::Pose3d()> initialCameraPose;
+     /// \brief Load <gui><plugin> tag for libsimslides.
+     /// \param[in] _sdf SDF element.
+     public: void LoadPluginSDF(const sdf::ElementPtr _sdf);
+
+     /// \brief Handle an incoming key press from the user
+     /// \param[in] _key Key as an integer
+     public: void HandleKeyPress(int _key);
+
+     /// \brief Change to the given keyframe.
+     /// If -1, go back to initial pose.
+     /// If larger than total of keyframes, go to last keyframe.
+     /// \param[in] _keyframe Index of keyframe to go to.
+     public: void ChangeKeyframe(int _keyframe);
+
+     /// \brief Function called to move camera, containing the target pose.
+     public: std::function<void(const ignition::math::Pose3d &)> MoveCamera;
+
+     /// \brief Function called to move camera, containing the target pose.
+     public: std::function<void(const std::string &, bool)> SetVisualVisible;
+
+     /// \brief Function called to seek a log, containing the target time.
+     public: std::function<void(std::chrono::steady_clock::duration)> SeekLog;
+
+     /// \brief Function called to set the camera back to initial pose.
+     public: std::function<void()> ResetCameraPose;
+
+     /// \brief Function called to get a visual's pose according to its scoped
+     /// name.
      public: std::function<ignition::math::Pose3d(const std::string &)>
-         visualPose;
+         VisualPose;
+
+     /// \brief Function called to set text, containing the the text.
      public: std::function<void(const std::string &)> SetText;
 
+     /// \brief Path where to save / find slide models
+     public: std::string slidePath;
+
+     /// \brief Vector of keyframes loaded for presentation
+     public: std::vector<Keyframe *> keyframes;
+
+     /// \brief User camera far clip as set by the user.
+     public: double farClip{std::numeric_limits<double>::quiet_NaN()};
+
+     /// \brief User camera near clip as set by the user.
+     public: double nearClip{std::numeric_limits<double>::quiet_NaN()};
+
+     /// \brief Keep track of current keyframe index.
+     /// -1 means the "home" camera pose.
+     /// 0 is the first keyframe.
+     public: int currentKeyframe{-1};
+
+     /// \brief Total number of keyframes.
+     /// -1 means not presenting.
+     public: int slideCount{-1};
+
+     public: const ignition::math::Pose3d kEyeOffset
+         {0.0, -3.0, 0.0, 0.0, 0.0, IGN_PI_2};
+
      /// \brief Static instance
-     static Common *instance;
+     private: static Common *instance;
   };
-
-  /// \brief Path where to save / find slide models
-  extern std::string slidePath;
-
-  /// \brief Vector of keyframes loaded for presentation
-  extern std::vector<Keyframe *> keyframes;
-
-  /// \brief User camera far clip as set by the user.
-  extern double farClip;
-
-  /// \brief User camera near clip as set by the user.
-  extern double nearClip;
-
-  /// \brief Keep track of current keyframe index.
-  /// -1 means the "home" camera pose.
-  /// 0 is the first keyframe.
-  extern int currentKeyframe;
-
-  /// \brief Total number of keyframes.
-  /// -1 means not presenting.
-  extern int slideCount;
-
-  extern const double kEyeOffsetX;
-  extern const double kEyeOffsetY;
-  extern const double kEyeOffsetZ;
-  extern const double kEyeOffsetRoll;
-  extern const double kEyeOffsetPitch;
-  extern const double kEyeOffsetYaw;
-
-  /// \brief Load <gui><plugin> tag for libsimslides.
-  /// \param[in] _sdf SDF element.
-  void LoadPluginSDF(const sdf::ElementPtr _sdf);
-
-  /// \brief Handle an incoming key press from the user
-  /// \param[in] _key Key as an integer
-  void HandleKeyPress(int _key);
-
-  /// \brief Change to the given keyframe.
-  /// If -1, go back to initial pose.
-  /// If larger than total of keyframes, go to last keyframe.
-  /// \param[in] _keyframe Index of keyframe to go to.
-  void ChangeKeyframe(int _keyframe);
 }
 
 #endif

@@ -54,7 +54,7 @@ namespace simslides
 
     private: void OnSeekLog(std::chrono::steady_clock::duration _time);
 
-    private: ignition::math::Pose3d OnInitialCameraPose();
+    private: void OnResetCameraPose();
 
     private: ignition::math::Pose3d OnVisualPose(const std::string &_name);
 
