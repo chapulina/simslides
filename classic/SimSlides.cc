@@ -22,19 +22,19 @@
 #include "InsertActorDialog.hh"
 #include "LoadDialog.hh"
 #include "PresentMode.hh"
-#include "Simslides.hh"
+#include "SimSlides.hh"
 
 using namespace simslides;
 
 // Register this plugin with the simulator
-GZ_REGISTER_GUI_PLUGIN(Simslides)
+GZ_REGISTER_GUI_PLUGIN(SimSlides)
 
 /////////////////////////////////////////////////
-Simslides::Simslides()
+SimSlides::SimSlides()
   : gazebo::GUIPlugin()
 {
   // Menu item
-  auto menu = new QMenu("Simslides");
+  auto menu = new QMenu("SimSlides");
 
   // Import dialog
   auto newSlideDialog = new ImportDialog();
@@ -159,7 +159,7 @@ Simslides::Simslides()
 }
 
 /////////////////////////////////////////////////
-void Simslides::Load(const sdf::ElementPtr _sdf)
+void SimSlides::Load(const sdf::ElementPtr _sdf)
 {
   Common::Instance()->LoadPluginSDF(_sdf);
 
@@ -179,7 +179,7 @@ void Simslides::Load(const sdf::ElementPtr _sdf)
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnKeyframeChanged(const int _keyframe, const int _total)
+void SimSlides::OnKeyframeChanged(const int _keyframe, const int _total)
 {
   this->currentSpin->blockSignals(true);
   this->currentSpin->setValue(_keyframe);
@@ -189,7 +189,7 @@ void Simslides::OnKeyframeChanged(const int _keyframe, const int _total)
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnTextChanged(QString _text)
+void SimSlides::OnTextChanged(QString _text)
 {
   // FIXME Setting plain text so it's possible to display XML. Ideally we'd
   // support rich text with links
@@ -197,13 +197,13 @@ void Simslides::OnTextChanged(QString _text)
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnCurrentChanged()
+void SimSlides::OnCurrentChanged()
 {
   this->CurrentChanged(this->currentSpin->value());
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnPresent()
+void SimSlides::OnPresent()
 {
   if (nullptr != this->presentMode)
     delete this->presentMode;

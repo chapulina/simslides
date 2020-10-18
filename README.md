@@ -1,17 +1,3 @@
-
-
-Future
-
-* Text dialog
-* Log seek
-
-
-
-
-
-
-
-
 # SimSlides
 
 Import PDF files into robot simulation and present flying from slide to slide.
@@ -21,8 +7,8 @@ Import PDF files into robot simulation and present flying from slide to slide.
 ## Features
 
 SimSlides consists of plugins for two simulators:
-[Gazebo (classic)](http://gazebosim.org/) and
-[Ignition](https://ignitionrobotics.org/). There are different features for
+[Gazebo Classic](http://gazebosim.org/) and
+[Ignition Gazebo](https://ignitionrobotics.org/). There are different features for
 each simulator.
 
 ### Gazebo classic
@@ -55,11 +41,11 @@ want to setup keyboard triggers? Control a robot using
 
 ## Install
 
-SimSlides' main branch supports both Gazebo-classic and Ignition. It's ok if
+SimSlides' main branch supports both Gazebo Classic and Ignition. It's ok if
 you don't have both simulators installed, only the plugin for the simulator
 present will be compiled.
 
-### Gazebo classic
+### Gazebo Classic
 
 The main branch has been tested on Gazebo version 11.
 
@@ -132,7 +118,7 @@ You can generate your own presentation as follows:
 
 ![Generate demo](images/SimSlides_importPDF.gif)
 
-1. On the top menu, choose `Simslides -> Import` PDF (or press `F2`)
+1. On the top menu, choose `SimSlides -> Import` PDF (or press `F2`)
 
 1. Choose a PDF file from your computer
 

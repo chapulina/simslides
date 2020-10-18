@@ -103,6 +103,12 @@ void simslides::Common::Update()
     return;
   }
 
+  // Do nothing
+  if (this->currentKeyframe >= this->keyframes.size())
+  {
+    return;
+  }
+
   auto keyframe = this->keyframes[this->currentKeyframe];
 
   // Set text

@@ -4,14 +4,14 @@
 
     <gui>
 
-      <!-------------------- classic ---------------------------->
+      <!-------------------- Classic ---------------------------->
 
       <camera name='user_camera'>
         <!-- Press F6 to come back to this pose -->
         <pose>-5.18 -4.14 0.68 0 0.03 0.38</pose>
       </camera>
 
-      <plugin name='SimSlides' filename='libsimslides.so'>
+      <plugin name='SimSlides' filename='libSimSlidesClassic.so'>
 
         <!-- optionally, set camera's near and far clip distances -->
         <near_clip>0.1</near_clip>
@@ -50,7 +50,7 @@
       <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'>
       </plugin>
 
-      <!-------------------- ignition ---------------------------->
+      <!-------------------- Ignition ---------------------------->
 
       <!-- 3D scene -->
       <plugin filename="GzScene3D" name="3D View">
@@ -132,6 +132,16 @@
       <plugin name="SimSlides" filename="SimSlidesIgn">
         <ignition-gui>
           <title>SimSlides</title>
+          <property type="bool" key="showTitleBar">false</property>
+          <property type="bool" key="resizable">false</property>
+          <property type="double" key="height">50</property>
+          <property type="double" key="width">200</property>
+          <property type="string" key="cardBackground">#44000022</property>
+          <property type="string" key="state">floating</property>
+          <anchors target="3D View">
+            <line own="left" target="left"/>
+            <line own="top" target="top"/>
+          </anchors>
         </ignition-gui>
 
         <!-- optionally, set camera's near and far clip distances -->

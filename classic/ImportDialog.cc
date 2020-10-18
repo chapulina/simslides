@@ -435,7 +435,7 @@ void ImportDialog::AddGUI(std::string & _worldSdf)
 
   // <plugin>
   std::string pluginStr = "\
-      <plugin name='simslides' filename='libsimslides.so'>\n";
+      <plugin name='simslides' filename='libSimSlidesClassic.so'>\n";
 
   if (this->dataPtr->buttonGroups.size() != this->dataPtr->count)
   {

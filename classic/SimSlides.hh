@@ -21,12 +21,12 @@
 
 namespace simslides
 {
-  class Simslides : public gazebo::GUIPlugin
+  class SimSlides : public gazebo::GUIPlugin
   {
     Q_OBJECT
 
     /// \brief Constructor
-    public: Simslides();
+    public: SimSlides();
 
     /// \brief Load SDF element.
     /// \param[in] _sdf SDF containing plugin configuration.

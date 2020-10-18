@@ -10,24 +10,25 @@ include_directories(SYSTEM
 )
 link_directories(${SDFormat_LIBRARY_DIRS})
 
-add_library(simslides_common SHARED
+set (LIB_NAME SimSlidesCommon)
+add_library(${LIB_NAME} SHARED
   ${common_src}
 )
 
-target_include_directories(simslides_common
+target_include_directories(${LIB_NAME}
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
-target_compile_features(simslides_common PRIVATE cxx_std_17)
+target_compile_features(${LIB_NAME} PRIVATE cxx_std_17)
 
-target_link_libraries(simslides_common
+target_link_libraries(${LIB_NAME}
   PUBLIC
     ${SDFormat_LIBRARIES}
 )
 
 include(GNUInstallDirs)
-install(TARGETS simslides_common
+install(TARGETS ${LIB_NAME}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )

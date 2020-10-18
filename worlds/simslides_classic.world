@@ -3,7 +3,7 @@
   <world name="default">
 
     <gui>
-      <plugin name="simslides" filename="libsimslides.so">
+      <plugin name="simslides" filename="libSimSlidesClassic.so">
       </plugin>
       <plugin name="keyboard" filename="libKeyboardGUIPlugin.so">
       </plugin>

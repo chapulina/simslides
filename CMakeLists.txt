@@ -58,4 +58,3 @@ install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/share/setup.sh
   DESTINATION share/${PROJECT_NAME}
 )
-

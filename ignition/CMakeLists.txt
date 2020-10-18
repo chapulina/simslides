@@ -29,7 +29,7 @@ add_library(${library_name} SHARED
 
 target_link_libraries(${library_name}
   stdc++fs
-  simslides_common
+  SimSlidesCommon
   ignition-common${IGN_COMMON_VER}::ignition-common${IGN_COMMON_VER}
   ignition-gazebo${IGN_GAZEBO_VER}::ignition-gazebo${IGN_GAZEBO_VER}
   ignition-gui${IGN_GUI_VER}::ignition-gui${IGN_GUI_VER}
