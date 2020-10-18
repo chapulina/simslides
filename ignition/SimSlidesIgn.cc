@@ -178,6 +178,9 @@ void SimSlidesIgn::LoadScene()
         camera->SetNearClipPlane(Common::Instance()->nearClip);
         camera->SetFarClipPlane(Common::Instance()->farClip);
       }
+
+      // Match Gazebo Classic's user camera FOV so the "zoom" looks the same
+      camera->SetHFOV(IGN_DTOR(60));
       break;
     }
   }

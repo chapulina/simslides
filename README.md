@@ -11,7 +11,20 @@ SimSlides consists of plugins for two simulators:
 [Ignition Gazebo](https://ignitionrobotics.org/). There are different features for
 each simulator.
 
+### Ignition
+
+![SimSlides Ignition](images/SimSlides_Ignition.gif)
+
+* Navigate through keyframes using **mouse**, **keyboard** or wireless **presenter**
+* Keyframes can:
+    * Look at a **slide** (even if it has moved)
+    * **Move camera** to a specific pose
+    * Go through slides **stacked** on the same pose
+* ... plus all **Ignition** features!
+
 ### Gazebo classic
+
+![Generate demo](images/SimSlides_importPDF.gif)
 
 * Import **PDF** files into simulation through the GUI
 * Navigate through keyframes using **mouse**, **keyboard** or wireless **presenter**
@@ -22,15 +35,6 @@ each simulator.
     * Go through slides **stacked** on the same pose
     * Write copiable HTML **text** to a dialog
 * ... plus all **Gazebo** features!
-
-### Ignition
-
-* Navigate through keyframes using **mouse**, **keyboard** or wireless **presenter**
-* Keyframes can:
-    * Look at a **slide** (even if it has moved)
-    * **Move camera** to a specific pose
-    * Go through slides **stacked** on the same pose
-* ... plus all **Ignition** features!
 
 ---
 
@@ -45,6 +49,12 @@ SimSlides' main branch supports both Gazebo Classic and Ignition. It's ok if
 you don't have both simulators installed, only the plugin for the simulator
 present will be compiled.
 
+### Ignition
+
+The main branch has been tested on Ignition Citadel.
+
+Follow the official install [instructions](https://ignitionrobotics.org/docs/citadel/install).
+
 ### Gazebo Classic
 
 The main branch has been tested on Gazebo version 11.
@@ -58,12 +68,6 @@ Extra dependencies:
 > It's also recommended that you make sure ImageMagick can convert PDFs, see
 > [this](https://stackoverflow.com/questions/42928765/convertnot-authorized-aaaa-error-constitute-c-readimage-453?answertab=active#tab-top).
 
-### Ignition
-
-The main branch has been tested on Ignition Citadel.
-
-Follow the official install [instructions](https://ignitionrobotics.org/docs/citadel/install).
-
 ## Build SimSlides
 
     mkdir build
@@ -74,6 +78,12 @@ Follow the official install [instructions](https://ignitionrobotics.org/docs/cit
     cd ..
 
 ## Run SimSlides
+
+### Ignition
+
+Run simslides:
+
+    simslides_ignition
 
 ### Gazebo classic
 
@@ -87,12 +97,6 @@ Run simslides:
     simslides_classic
 
 This starts SimSlides in an empty world. You're ready to create your own presentation!
-
-### Ignition
-
-Run simslides:
-
-    simslides_ignition
 
 ## Demo
 

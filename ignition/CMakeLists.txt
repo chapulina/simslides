@@ -38,7 +38,7 @@ target_link_libraries(${library_name}
 
 include(GNUInstallDirs)
 install(TARGETS ${library_name}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/${PROJECT_NAME}/ign-gui/
 )
 
 configure_file(
