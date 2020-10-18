@@ -15,7 +15,11 @@
 */
 #include <gazebo/common/CommonIface.hh>
 #include <gazebo/common/Console.hh>
-#include "Common.hh"
+#include <gazebo/common/SystemPaths.hh>
+#include <gazebo/gui/SaveEntityDialog.hh>
+#include <sdf/Root.hh>
+#include <simslides/common/Common.hh>
+#include "Helpers.hh"
 #include "ImportDialog.hh"
 
 using namespace simslides;
@@ -56,6 +60,9 @@ class simslides::ImportDialogPrivate
 
   /// \brief Total number of slides
   public: int count;
+
+  /// \brief Prefix to be used for all generated models
+  public: std::string modelPrefix;
 
   /// \brief External process to convert PDF into images
   public: QProcess * convertProcess{nullptr};
@@ -262,7 +269,7 @@ void ImportDialog::CheckReady(QString)
       this->dataPtr->scaleZSpin->value() != 0 &&
       !this->dataPtr->dirEdit->text().isEmpty());
 
-  simslides::slidePrefix = this->dataPtr->nameEdit->text().toStdString();
+  this->dataPtr->modelPrefix = this->dataPtr->nameEdit->text().toStdString();
 }
 
 /////////////////////////////////////////////////
@@ -409,11 +416,11 @@ void ImportDialog::OnNext2()
 /////////////////////////////////////////////////
 void ImportDialog::OnGenerate()
 {
-  // Generate and save world and models, load simslides::keyframes
+  // Generate and save world and models, load Common::Instance()->keyframes
   this->GenerateWorld();
 
   // Insert models
-  simslides::LoadSlides();
+  simslides::SpawnSlides();
 
   // Close dialog
   this->dataPtr->stackedStepLayout->removeItem(
@@ -428,8 +435,7 @@ void ImportDialog::AddGUI(std::string & _worldSdf)
 
   // <plugin>
   std::string pluginStr = "\
-      <plugin name='simslides' filename='libsimslides.so'>\n\
-        <slide_prefix>" + simslides::slidePrefix + "</slide_prefix>\n";
+      <plugin name='simslides' filename='libSimSlidesClassic.so'>\n";
 
   if (this->dataPtr->buttonGroups.size() != this->dataPtr->count)
   {
@@ -441,15 +447,16 @@ void ImportDialog::AddGUI(std::string & _worldSdf)
 
   for (int i = 0; i < this->dataPtr->count; ++i)
   {
+    auto visualName = this->dataPtr->modelPrefix + "-" + std::to_string(i);
     if (this->dataPtr->buttonGroups[i]->checkedId() == 0)
     {
       pluginStr +=
-        "        <keyframe type='lookat' number='" + std::to_string(i) + "'/>\n";
+        "        <keyframe type='lookat' visual='" + visualName + "'/>\n";
     }
     else if (this->dataPtr->buttonGroups[i]->checkedId() == 1)
     {
       pluginStr +=
-          "        <keyframe type='stack' number='" + std::to_string(i) + "'/>\n";
+          "        <keyframe type='stack' visual='" + visualName + "'/>\n";
     }
     else
       gzerr << "Invalid button [" << i << "]" << std::endl;
@@ -472,7 +479,7 @@ void ImportDialog::AddGUI(std::string & _worldSdf)
   sdf::SDFPtr pluginSdf(new sdf::SDF);
   pluginSdf->SetFromString(sdfStr);
   auto pluginElem = pluginSdf->Root()->GetElement("world")->GetElement("plugin");
-  simslides::LoadPluginSDF(pluginElem);
+  Common::Instance()->LoadPluginSDF(pluginElem);
 
   // <gui>
   std::string guiStr = "\
@@ -494,22 +501,21 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
   auto height = std::to_string(this->dataPtr->scaleZSpin->value() * 0.5);
 
   // Save each model and add it to the world
-  simslides::slidePath = this->dataPtr->dirEdit->text().toStdString();
+  Common::Instance()->slidePath = this->dataPtr->dirEdit->text().toStdString();
   auto saveDialog = new gazebo::gui::SaveEntityDialog(
       gazebo::gui::SaveEntityDialog::MODEL);
 
   for (int i = 0; i < this->dataPtr->count; ++i)
   {
-    std::string modelName(simslides::slidePrefix + "-" +
-        std::to_string(i));
+    std::string modelName(this->dataPtr->modelPrefix + "-" + std::to_string(i));
     saveDialog->SetModelName(modelName);
-    saveDialog->SetSaveLocation(simslides::slidePath + "/" + modelName);
+    saveDialog->SetSaveLocation(Common::Instance()->slidePath + "/" + modelName);
 
     // TODO(louise) Use QDir
     // Create dir
     {
       boost::filesystem::path path;
-      path = path / (simslides::slidePath + "/" + modelName);
+      path = path / (Common::Instance()->slidePath + "/" + modelName);
 
       if (!boost::filesystem::create_directories(path))
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
@@ -542,7 +548,7 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
                   <script>\
                     <uri>model://" + modelName + "/materials/scripts</uri>\
                     <uri>model://" + modelName + "/materials/textures</uri>\
-                    <name>Slides/" + simslides::slidePrefix + "_" + std::to_string(i) + "</name>\
+                    <name>Slides/" + this->dataPtr->modelPrefix + "_" + std::to_string(i) + "</name>\
                   </script>\
                 </material>\
               </visual>\
@@ -559,26 +565,26 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
     // Create materials dirs
     {
       boost::filesystem::path path;
-      path = path / (simslides::slidePath + "/" + modelName + "/materials/scripts");
+      path = path / (Common::Instance()->slidePath + "/" + modelName + "/materials/scripts");
 
       if (!boost::filesystem::create_directories(path))
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
     }
     {
       boost::filesystem::path path;
-      path = path / (simslides::slidePath + "/" + modelName + "/materials/textures");
+      path = path / (Common::Instance()->slidePath + "/" + modelName + "/materials/textures");
 
       if (!boost::filesystem::create_directories(path))
         gzerr << "Couldn't create folder [" << path << "]" << std::endl;
     }
 
     // Save material script
-    std::ofstream materialFile(simslides::slidePath + "/" + modelName +
+    std::ofstream materialFile(Common::Instance()->slidePath + "/" + modelName +
         "/materials/scripts/script.material");
     if (materialFile.is_open())
     {
       materialFile <<
-        "material Slides/" + simslides::slidePrefix + "_" << std::to_string(i) << "\n\
+        "material Slides/" + this->dataPtr->modelPrefix + "_" << std::to_string(i) << "\n\
         {\n\
           receive_shadows off\n\
           technique\n\
@@ -608,7 +614,7 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
       "/tmpPng-" +
       std::to_string(i) +
       ".png",
-      simslides::slidePath +
+      Common::Instance()->slidePath +
       "/" + modelName + "/materials/textures/" + modelName + ".png");
 
     // Add model to world
@@ -621,14 +627,14 @@ void ImportDialog::AddSlides(std::string & _worldSdf)
   }
 
   // Add to path and wait to be added
-  saveDialog->AddDirToModelPaths(simslides::slidePath + "/" + "dummy");
+  saveDialog->AddDirToModelPaths(Common::Instance()->slidePath + "/" + "dummy");
   bool found = false;
   while (!found)
   {
     auto modelPaths = gazebo::common::SystemPaths::Instance()->GetModelPaths();
     for (auto it : modelPaths)
     {
-      if (it.compare(simslides::slidePath) == 0)
+      if (it.compare(Common::Instance()->slidePath) == 0)
       {
         found = true;
         break;
@@ -663,7 +669,7 @@ void ImportDialog::GenerateWorld()
   worldSdf+= "</world>\n\
     </sdf>";
   std::string worldFile =
-      simslides::slidePath + "/" + simslides::slidePrefix + ".world";
+      Common::Instance()->slidePath + "/" + this->dataPtr->modelPrefix + ".world";
   std::ofstream saveWorld(worldFile, std::ios::out);
   if (!saveWorld)
   {

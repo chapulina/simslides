@@ -17,17 +17,29 @@
 #include <regex>
 #include <string>
 
-#include "Keyframe.hh"
+#include "include/simslides/common/Keyframe.hh"
 
 using namespace simslides;
 
 class simslides::KeyframePrivate
 {
+  /// \brief Print keyframe info
+  public: void Print() const;
+
+  /// \brief Get type as string
+  public: std::string TypeToStr(KeyframeType _type) const;
+
+  /// \brief Get type as enum
+  public: KeyframeType StrToType(const std::string &_type) const;
+
   /// \brief Type of this keyframe
   public: KeyframeType type;
 
   /// \brief Number of slide model
   public: int slideNumber = -1;
+
+  /// \brief Name of visual that this keyframe is attached to
+  public: std::string visual;
 
   /// \brief Camera offset in LOOKAT slide frame
   public: ignition::math::Pose3d eyeOffset;
@@ -36,7 +48,7 @@ class simslides::KeyframePrivate
   public: ignition::math::Pose3d camPose;
 
   /// \brief Log time to seek to
-  public: gazebo::common::Time logSeek;
+  public: std::chrono::steady_clock::duration logSeek;
 
   /// \brief Text to display on dialog
   public: std::string text;
@@ -49,6 +61,8 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
     return;
 
   auto type = _sdf->Get<std::string>("type");
+  this->dataPtr->type = this->dataPtr->StrToType(type);
+
   if (_sdf->HasAttribute("eye_offset"))
   {
     this->dataPtr->eyeOffset = _sdf->Get<ignition::math::Pose3d>("eye_offset");
@@ -67,41 +81,31 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
   }
   if (type == "stack")
   {
-    this->dataPtr->type = KeyframeType::STACK;
     this->dataPtr->slideNumber = _sdf->Get<int>("number");
+    this->dataPtr->visual = _sdf->Get<std::string>("visual");
   }
   else if (type == "lookat")
   {
-    this->dataPtr->type = KeyframeType::LOOKAT;
     this->dataPtr->slideNumber = _sdf->Get<int>("number");
+    this->dataPtr->visual = _sdf->Get<std::string>("visual");
   }
   else if (type == "log_seek")
   {
     this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("cam_pose");
     auto logSeek = _sdf->Get<sdf::Time>("time");
-    this->dataPtr->logSeek.sec = logSeek.sec;
-    this->dataPtr->logSeek.nsec = logSeek.nsec;
-    this->dataPtr->type = KeyframeType::LOG_SEEK;
+    this->dataPtr->logSeek = std::chrono::seconds(logSeek.sec) +
+       std::chrono::nanoseconds(logSeek.nsec);
   }
   else if (type == "cam_pose")
   {
-    this->dataPtr->type = KeyframeType::CAM_POSE;
     this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("pose");
   }
   else
   {
-    gzerr << "Unsupported type [" << type << "]" << std::endl;
+    std::cerr << "Unsupported type [" << type << "]" << std::endl;
   }
 
-  if (this->dataPtr->slideNumber >= 0)
-  {
-    gzmsg << "Loading [" << type << "] keyframe tied to slide ["
-          << this->dataPtr->slideNumber << "]" << std::endl;
-  }
-  else
-  {
-    gzmsg << "Loading [" << type << "] keyframe" << std::endl;
-  }
+  this->dataPtr->Print();
 }
 
 /////////////////////////////////////////////////
@@ -122,6 +126,12 @@ unsigned int Keyframe::SlideNumber() const
 }
 
 //////////////////////////////////////////////////
+std::string Keyframe::Visual() const
+{
+  return this->dataPtr->visual;
+}
+
+//////////////////////////////////////////////////
 ignition::math::Pose3d Keyframe::CamPose() const
 {
   return this->dataPtr->camPose;
@@ -134,7 +144,7 @@ ignition::math::Pose3d Keyframe::EyeOffset() const
 }
 
 //////////////////////////////////////////////////
-gazebo::common::Time Keyframe::LogSeek() const
+std::chrono::steady_clock::duration Keyframe::LogSeek() const
 {
   return this->dataPtr->logSeek;
 }
@@ -143,5 +153,53 @@ gazebo::common::Time Keyframe::LogSeek() const
 std::string Keyframe::Text() const
 {
   return this->dataPtr->text;
+}
+
+/////////////////////////////////////////////////
+void KeyframePrivate::Print() const
+{
+  std::cout << "- Keyframe " << std::endl;
+  std::cout << "    Type : " << this->TypeToStr(this->type) << std::endl;
+  std::cout << "    Visual : " << this->visual << std::endl;
+  std::cout << "    Eye offset : " << this->eyeOffset << std::endl;
+  std::cout << "    Cam pose : " << this->camPose << std::endl;
+  std::cout << "    Log seek : " << this->logSeek.count() << std::endl;
+  std::cout << "    Text : " << this->text << std::endl;
+}
+
+/////////////////////////////////////////////////
+std::string KeyframePrivate::TypeToStr(KeyframeType _type) const
+{
+  if (_type == KeyframeType::LOOKAT)
+    return "lookat";
+
+  if (_type == KeyframeType::STACK)
+    return "stack";
+
+  if (_type == KeyframeType::LOG_SEEK)
+    return "log_seek";
+
+  if (_type == KeyframeType::CAM_POSE)
+    return "cam_pose";
+
+  return std::string();
+}
+
+/////////////////////////////////////////////////
+KeyframeType KeyframePrivate::StrToType(const std::string &_type) const
+{
+  if (_type == "lookat")
+    return KeyframeType::LOOKAT;
+
+  if (_type == "stack")
+    return KeyframeType::STACK;
+
+  if (_type == "log_seek")
+    return KeyframeType::LOG_SEEK;
+
+  if (_type == "cam_pose")
+    return KeyframeType::CAM_POSE;
+
+  return KeyframeType::NONE;
 }
 

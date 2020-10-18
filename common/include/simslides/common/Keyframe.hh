@@ -16,12 +16,11 @@
 #ifndef SIMSLIDES_KEYFRAME_HH_
 #define SIMSLIDES_KEYFRAME_HH_
 
+#include <chrono>
 #include <memory>
 #include <string>
-#include <sdf/sdf.hh>
+#include <sdf/Element.hh>
 #include <ignition/math/Pose3.hh>
-
-#include <gazebo/gui/gui.hh>
 
 namespace simslides
 {
@@ -30,6 +29,9 @@ namespace simslides
   /// \brief Keyframe types
   enum KeyframeType
   {
+    /// \brief No type
+    NONE,
+
     /// \brief Move the camera to look at a given slide
     LOOKAT,
 
@@ -61,6 +63,10 @@ namespace simslides
     /// \return Slide number.
     public: unsigned int SlideNumber() const;
 
+    /// \brief Name of the visual that this keyframe is attached to.
+    /// \return Visual name.
+    public: std::string Visual() const;
+
     /// \brief For LOG_SEEK and CAM_POSE
     /// \return Camera pose in the world
     public: ignition::math::Pose3d CamPose() const;
@@ -71,7 +77,7 @@ namespace simslides
 
     /// \brief Log time to seek to
     /// \return Log time
-    public: gazebo::common::Time LogSeek() const;
+    public: std::chrono::steady_clock::duration LogSeek() const;
 
     /// \brief Text to display
     /// \return The text.

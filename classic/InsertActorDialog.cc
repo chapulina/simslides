@@ -16,7 +16,7 @@
 #include <gazebo/common/CommonIface.hh>
 #include <gazebo/transport/Node.hh>
 #include <gazebo/gui/ConfigWidget.hh>
-#include "Common.hh"
+#include <simslides/common/Common.hh>
 #include "InsertActorDialog.hh"
 
 using namespace simslides;

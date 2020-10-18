@@ -1,11 +1,10 @@
 set (client_src
-  Common.cc
+  Helpers.cc
   ImportDialog.cc
   InsertActorDialog.cc
-  Keyframe.cc
   LoadDialog.cc
   PresentMode.cc
-  Simslides.cc
+  SimSlides.cc
 )
 
 set (qt_headers
@@ -13,16 +12,37 @@ set (qt_headers
   InsertActorDialog.hh
   LoadDialog.hh
   PresentMode.hh
-  Simslides.hh
+  SimSlides.hh
 )
+
+find_package(Qt5
+  COMPONENTS
+    Core
+    Widgets
+  REQUIRED
+)
+
+add_definitions(${QT_DEFINITIONS})
+
+include_directories(SYSTEM
+  ${GAZEBO_INCLUDE_DIRS}
+  ${Qt5Core_INCLUDE_DIRS}
+)
+link_directories(${GAZEBO_LIBRARY_DIRS})
+
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS} -std=c++17 -lstdc++fs")
 
 QT5_WRAP_CPP(headers_MOC ${qt_headers})
 
-add_library(simslides SHARED
+set (LIB_NAME SimSlidesClassic)
+
+add_library(${LIB_NAME} SHARED
   ${client_src}
   ${headers_MOC}
 )
-target_link_libraries(simslides
+target_link_libraries(${LIB_NAME}
+  stdc++fs
+  SimSlidesCommon
   ${GAZEBO_LIBRARIES}
   ${Qt5Core_LIBRARIES}
   ${Qt5Test_LIBRARIES}
@@ -30,7 +50,18 @@ target_link_libraries(simslides
   ${PROTOBUF_LIBRARIES}
 )
 
-install(TARGETS simslides
-  DESTINATION lib
+include(GNUInstallDirs)
+install(TARGETS ${LIB_NAME}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+configure_file(
+  "simslides_classic.sh.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/share/simslides_classic" @ONLY
+)
+
+install(PROGRAMS
+  ${CMAKE_CURRENT_BINARY_DIR}/share/simslides_classic
+  DESTINATION bin
 )
 
