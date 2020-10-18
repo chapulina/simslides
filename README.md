@@ -16,9 +16,9 @@ Import PDF files into robot simulation and present slides flying from slide to s
     * Write copiable HTML **text** to a dialog
 * ... plus all **Gazebo** features!
 
-## Install Gazebo
+## Install Gazebo classic
 
-The main branch supports Gazebo version 9.
+The main branch supports Gazebo version 11.
 
 Follow the official install [instructions](http://gazebosim.org/tutorials?cat=install).
 
@@ -52,7 +52,7 @@ Gazebo installation:
 
 Run simslides:
 
-    simslides
+    simslides_classic
 
 This starts SimSlides in an empty world. You're ready to create your own presentation!
 
@@ -80,7 +80,7 @@ You can generate your own presentation as follows:
 
 ![Generate demo](images/SimSlides_importPDF.gif)
 
-1. On the top menu, choose `Simslides -> Import` PDF (or press `F2`)
+1. On the top menu, choose `SimSlides -> Import` PDF (or press `F2`)
 
 1. Choose a PDF file from your computer
 
@@ -95,20 +95,7 @@ an open issue.
 
 1. When it's done, all slides will show up on the world in a grid.
 
-### Load previously generated slide models
-
-If you already generated slide models with the step above, and now just
-want to spawn them into the world:
-
-1. On the top menu, choose `Simslides -> Load Models` (or press `F3`)
-
-1. Choose the path of the directory which includes all the slides
-
-1. Type in the model name prefix
-
-1. Load
-
-1. When it's done, all slides will show up on the world in a grid.
+1. A world file is also created, so you can reload that any time.
 
 ### Presentation mode
 

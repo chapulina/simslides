@@ -13,85 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
 */
-#include <boost/filesystem.hpp>
-#include <gazebo/common/Console.hh>
-#include <gazebo/rendering/UserCamera.hh>
-#include <gazebo/transport/Node.hh>
 
-#include "Common.hh"
+#include <limits>
 
-std::string simslides::slidePrefix;
-std::string simslides::slidePath;
-std::vector<simslides::Keyframe *> simslides::keyframes;
+#include "include/simslides/common/Common.hh"
+
+simslides::Common *simslides::Common::instance = nullptr;
 
 /////////////////////////////////////////////////
-void simslides::LoadSlides()
+void simslides::Common::LoadPluginSDF(const sdf::ElementPtr _sdf)
 {
-  if (simslides::slidePrefix.empty() || simslides::slidePath.empty())
-  {
-    gzerr << "Missing slide prefix or path." << std::endl;
-    return;
-  }
-
-  // Count number of models in path
-  int count = QDir(QString::fromStdString(simslides::slidePath))
-     .entryList(QStringList("*"), QDir::Files | QDir::NoSymLinks).size();
-
-  // Setup transport
-  auto node = gazebo::transport::NodePtr(new gazebo::transport::Node());
-  node->Init();
-  auto factoryPub =
-       node->Advertise<gazebo::msgs::Factory>("/gazebo/default/factory");
-
-  int countX= 0;
-  int countY= 0;
-  for (int i = 0; i < count; ++i)
-  {
-    gazebo::msgs::Factory msg;
-
-    std::string filename("file://" + simslides::slidePath + "/" +
-        simslides::slidePrefix + "-" + std::to_string(i));
-    msg.set_sdf_filename(filename);
-
-    gazebo::msgs::Set(msg.mutable_pose(),
-        ignition::math::Pose3d(countX, countY, 0, 0, 0, 0));
-
-    factoryPub->Publish(msg);
-
-    if (countX > 30)
-    {
-      countX = 0;
-      countY = countY + 10;
-    }
-    else
-    {
-      countX = countX + 10;
-    }
-  }
-
-  factoryPub.reset();
-  node->Fini();
-}
-
-/////////////////////////////////////////////////
-void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)
-{
-  if (_sdf->HasElement("slide_prefix"))
-  {
-    simslides::slidePrefix = _sdf->Get<std::string>("slide_prefix");
-  }
-
   if (_sdf->HasElement("far_clip") && _sdf->HasElement("near_clip"))
   {
-    auto camera = gazebo::gui::get_active_camera();
-    if (nullptr == camera)
-    {
-      gzwarn << "No user camera, can't set near and far clip distances" << std::endl;
-    }
-    else
-    {
-      camera->SetClipDist(_sdf->Get<double>("near_clip"), _sdf->Get<double>("far_clip"));
-    }
+    this->farClip = _sdf->Get<double>("far_clip");
+    this->nearClip = _sdf->Get<double>("near_clip");
+  }
+  else
+  {
+    this->farClip = std::nan("");
+    this->nearClip = std::nan("");
   }
 
   if (_sdf->HasElement("keyframe"))
@@ -99,8 +39,150 @@ void simslides::LoadPluginSDF(const sdf::ElementPtr _sdf)
     auto keyframeElem = _sdf->GetElement("keyframe");
     while (keyframeElem)
     {
-      simslides::keyframes.push_back(new Keyframe(keyframeElem));
+      this->keyframes.push_back(new Keyframe(keyframeElem));
       keyframeElem = keyframeElem->GetNextElement("keyframe");
     }
   }
+
+  if (this->keyframes.size() == 0)
+  {
+    std::cerr << "No keyframes were loaded." << std::endl;
+  }
+}
+
+/////////////////////////////////////////////////
+void simslides::Common::HandleKeyPress(int _key)
+{
+  if (this->keyframes.empty())
+    return;
+
+  // Next (right arrow on keyboard or presenter)
+  if ((_key == 16777236 || _key == 16777239) &&
+      this->currentKeyframe + 1 < this->keyframes.size())
+  {
+    this->currentKeyframe++;
+  }
+  // Previous (left arrow on keyboard or presenter)
+  else if ((_key == 16777234 || _key == 16777238) &&
+      this->currentKeyframe >= 1)
+  {
+    this->currentKeyframe--;
+  }
+  // Current (F1)
+  else if (_key == 16777264)
+  {
+  }
+  // Home (F6)
+  else if (_key == 16777269)
+  {
+    this->currentKeyframe = -1;
+  }
+  else
+    return;
+}
+
+/////////////////////////////////////////////////
+void simslides::Common::ChangeKeyframe(int _keyframe)
+{
+  if (this->keyframes.empty())
+    return;
+
+  if (_keyframe > this->keyframes.size())
+    this->currentKeyframe = this->keyframes.size() - 1;
+  else
+    this->currentKeyframe = _keyframe;
+}
+
+/////////////////////////////////////////////////
+void simslides::Common::Update()
+{
+  // Reset presentation
+  if (this->currentKeyframe < 0)
+  {
+    this->Common::Instance()->ResetCameraPose();
+    return;
+  }
+
+  // Do nothing
+  if (this->currentKeyframe >= this->keyframes.size())
+  {
+    return;
+  }
+
+  auto keyframe = this->keyframes[this->currentKeyframe];
+
+  // Set text
+  this->Common::Instance()->SetText(keyframe->Text());
+
+  // Log seek
+  if (keyframe->GetType() == KeyframeType::LOG_SEEK)
+  {
+    this->Common::Instance()->MoveCamera(keyframe->CamPose());
+    this->Common::Instance()->SeekLog(keyframe->LogSeek());
+    return;
+  }
+
+  // Cam pose
+  if (keyframe->GetType() == KeyframeType::CAM_POSE)
+  {
+    this->Common::Instance()->MoveCamera(keyframe->CamPose());
+    return;
+  }
+
+  // Look at
+  if (keyframe->GetType() == KeyframeType::LOOKAT ||
+      keyframe->GetType() == KeyframeType::STACK)
+  {
+    // Target in world frame
+    auto origin = this->Common::Instance()->VisualPose(keyframe->Visual());
+
+    auto bbPos = origin.Pos() + ignition::math::Vector3d(0, 0, 0.5);
+    auto targetWorld = ignition::math::Matrix4d(ignition::math::Pose3d(
+        bbPos, origin.Rot()));
+
+    // Eye in target frame
+    auto offset = keyframe->EyeOffset();
+    if (offset == ignition::math::Pose3d::Zero)
+    {
+      offset = this->kEyeOffset;
+    }
+    ignition::math::Matrix4d eyeTarget(offset);
+
+    // Eye in world frame
+    auto eyeWorld = targetWorld * eyeTarget;
+
+    // Look At
+    auto mat = ignition::math::Matrix4d::LookAt(eyeWorld.Translation(),
+        targetWorld.Translation());
+
+    this->MoveCamera(mat.Pose());
+  }
+
+  // Set stack visibility
+  if (keyframe->GetType() == KeyframeType::STACK)
+  {
+    auto frontKeyframe = this->currentKeyframe;
+    while (frontKeyframe > 0 &&
+        this->keyframes[frontKeyframe-1]->GetType() == KeyframeType::STACK)
+    {
+      frontKeyframe--;
+    }
+
+    auto backKeyframe = this->currentKeyframe;
+    while (backKeyframe + 1 < this->keyframes.size() &&
+        this->keyframes[backKeyframe+1]->GetType() == KeyframeType::STACK)
+    {
+      backKeyframe++;
+    }
+
+    std::cout << "Stack front [" << frontKeyframe << "], back [" << backKeyframe
+              << "]" << std::endl;
+
+    for (int i = frontKeyframe; i <= backKeyframe; ++i)
+    {
+      auto name = this->keyframes[i]->Visual();
+      this->SetVisualVisible(name, name == keyframe->Visual());
+    }
+  }
+
 }

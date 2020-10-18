@@ -1,0 +1,108 @@
+<?xml version='1.0' ?>
+<sdf version='1.5'>
+  <world name='simslides'>
+
+    <gui>
+
+      <camera name='user_camera'>
+        <!-- Press F6 to come back to this pose -->
+        <pose>-5.18 -4.14 0.68 0 0.03 0.38</pose>
+      </camera>
+
+      <plugin name='SimSlides' filename='libSimSlidesClassic.so'>
+
+        <!-- optionally, set camera's near and far clip distances -->
+        <near_clip>0.1</near_clip>
+        <far_clip>100</far_clip>
+
+        <!-- Move camera to face slide "demo_slide-0" -->
+        <keyframe type='lookat' visual='demo_slide-0'/>
+
+        <!-- Keep camera in place and iterate through slides on the stack  -->
+        <keyframe type='stack' visual='demo_slide-1'/>
+        <keyframe type='stack' visual='demo_slide-2'/>
+        <keyframe type='stack' visual='demo_slide-3'/>
+        <keyframe type='stack' visual='demo_slide-4'/>
+
+        <!-- Move camera to face "demo_slide-5" with a custom offset -->
+        <keyframe type='lookat' visual='demo_slide-5' eye_offset='0 -2 -0.5 0 0 0'/>
+
+        <!-- Add HTML to a dialog -->
+        <!-- Escape < as << and > as >>. -->
+        <keyframe type='lookat' visual='demo_slide-6'
+            text='<a style="color: blue; font-size: 20px" href="https://github.com/chapulina/simslides">github.com/chapulina/simslides</a>
+
+<p>Display embedded XML:</p>
+
+<pre style="color: #222277; font-family: monospace;">
+<<model name="awesome_slide">>
+  ...
+<</model>>
+</pre>
+'/>
+
+        <!-- Move camera to a given pose -->
+        <keyframe type='cam_pose' pose='41.9 -31.9 12.7 0 0.26 2.13'/>
+      </plugin>
+
+      <plugin name='keyboard' filename='libKeyboardGUIPlugin.so'>
+      </plugin>
+
+    </gui>
+
+    <include>
+      <uri>
+        https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Sun
+      </uri>
+    </include>
+
+    <include>
+      <uri>
+        https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Ground Plane
+      </uri>
+    </include>
+
+    <include>
+      <pose>20 1 0 0 0 -1.57</pose>
+      <uri>
+        https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Double pendulum with base
+      </uri>
+    </include>
+
+    <include>
+      <name>demo_slide-0</name>
+    <pose>0 0 0 0 0 0</pose>
+    <uri>model://demo_slide-0</uri>
+     </include>
+     <include>
+       <name>demo_slide-1</name>
+       <pose>10 0 0 0 0 0</pose>
+       <uri>model://demo_slide-1</uri>
+     </include>
+     <include>
+       <name>demo_slide-2</name>
+       <pose>10 0 0 0 0 0</pose>
+       <uri>model://demo_slide-2</uri>
+     </include>
+     <include>
+       <name>demo_slide-3</name>
+       <pose>10 0 0 0 0 0</pose>
+       <uri>model://demo_slide-3</uri>
+     </include>
+     <include>
+       <name>demo_slide-4</name>
+       <pose>10 0 0 0 0 0</pose>
+       <uri>model://demo_slide-4</uri>
+     </include>
+     <include>
+       <name>demo_slide-5</name>
+       <pose>20 0 0 0 0 0</pose>
+       <uri>model://demo_slide-5</uri>
+     </include>
+     <include>
+       <name>demo_slide-6</name>
+       <pose>30 0 0 0 0 0</pose>
+       <uri>model://demo_slide-6</uri>
+     </include>
+  </world>
+</sdf>

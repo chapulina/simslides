@@ -36,19 +36,42 @@ namespace simslides
     /// \brief Destructor.
     public: ~PresentMode();
 
-    /// \brief Callback when user starts / stops present mode.
-    /// \param[in] _checked True to run, false to stop.
-    private slots: void OnToggled(const bool _checked);
-
-    /// \brief Start presenting.
-    private: void Start();
-
-    /// \brief Stop presenting.
-    private: void Stop();
+    /// \brief Subscribing to key presses from the constructor makes the
+    /// Node::Subscribe function crash with
+    ///
+    /// terminate called after throwing an instance of 'std::bad_function_call'                                                               ///  what():  bad_function_call
+    ///
+    /// So we initialize it later
+    public: void InitTransport();
 
     /// \brief Callback when user presses a key.
     /// \param[in] _msg Message containing key.
     private: void OnKeyPress(ConstAnyPtr &_msg);
+
+    /// \brief Callback to move camera.
+    /// \param[in] _pose Pose to move to.
+    private: void OnMoveCamera(const ignition::math::Pose3d &_pose);
+
+    /// \brief Callback to show / hide a visual
+    /// \param[in] _name Visual's scoped name
+    /// \param[in] _visible True to show
+    private: void OnSetVisualVisible(const std::string &_name, bool _visible);
+
+    /// \brief Callback to seek a log file.
+    /// \param[in] _time Time to seek to.
+    private: void OnSeekLog(std::chrono::steady_clock::duration _time);
+
+    /// \brief Callback to reset the camera pose.
+    private: void OnResetCameraPose();
+
+    /// \brief Callback to get a visual's pose
+    /// \param[in] _name Visual's scoped name
+    /// \return Visual's pose in world frame
+    private: ignition::math::Pose3d OnVisualPose(const std::string &_name);
+
+    /// \brief Callback to set the text on the dialog.
+    /// \param[in] _text Text to set.
+    private: void OnSetText(const std::string &_text);
 
     /// \brief Callback when Gazebo says the window mode has changed.
     /// \param[in] _mode New mode, usually "simulation" or "LogPlayback".
@@ -56,17 +79,20 @@ namespace simslides
 
     /// \brief Performs the slide change, based on the current index which was
     /// previously set.
-    private: void ChangeSlide();
+    private: void ChangeKeyframe();
 
     /// \brief Callback when the user requested a new keyframe.
     /// \oaram[in] _slide New slide index.
-    private slots: void OnSlideChanged(int _slide);
+    private slots: void OnKeyframeChanged(int _slide);
 
     /// \brief Notifies that the slide index has changed,
     /// \param[in] _currentIndex Current keyframe index.
     /// \param[in] _slideCount Total number of keyframes.
+    signals: void KeyframeChanged(int _currentIndex, int _slideCount);
+
+    /// \brief Notifies that the slide text has changed,
     /// \param[in] _text Slide text.
-    signals: void SlideChanged(int _currentIndex, int _slideCount, QString _text);
+    signals: void TextChanged(QString _text);
 
     /// \internal
     /// \brief Pointer to private data.

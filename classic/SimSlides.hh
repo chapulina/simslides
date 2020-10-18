@@ -17,44 +17,53 @@
 #define SIMSLIDES_SIMSLIDES_HH_
 
 #include <gazebo/gui/GuiPlugin.hh>
+#include "PresentMode.hh"
 
 namespace simslides
 {
-  class Simslides : public gazebo::GUIPlugin
+  class SimSlides : public gazebo::GUIPlugin
   {
     Q_OBJECT
 
     /// \brief Constructor
-    public: Simslides();
+    public: SimSlides();
 
     /// \brief Load SDF element.
     /// \param[in] _sdf SDF containing plugin configuration.
     public: void Load(const sdf::ElementPtr _sdf) override;
 
-    /// \brief Callback when the user requests to change slides.
-    /// \param[in] _slide Current slide number.
-    /// \param[in] _total Total number of slides.
-    /// \param[in] _text Text for dialog.
-    private slots: void OnSlideChanged(const int _slide, const int _total,
-        QString _text);
+    /// \brief Callback when the user requests to change keyframes.
+    /// \param[in] _keyframe Current keyframe number.
+    /// \param[in] _total Total number of keyframes.
+    private slots: void OnKeyframeChanged(const int _keyframe, const int _total);
 
-    /// \brief Callback when the slide number is changed. This is only called
+    /// \brief Callback when the user requests to change text.
+    /// \param[in] _text Text for dialog.
+    private slots: void OnTextChanged(QString _text);
+
+    /// \brief Callback when the keyframe number is changed. This is only called
     /// whent the widget loses focus or the user presses enter.
     private slots: void OnCurrentChanged();
 
-    /// \brief Notifies that the slide spin has changed
-    /// \param[in] _current Number of current slide.
+    /// \brief Callback when the user starts presenting.
+    private slots: void OnPresent();
+
+    /// \brief Notifies that the keyframe spin has changed
+    /// \param[in] _current Number of current keyframe.
     Q_SIGNALS: void CurrentChanged(const int _current);
 
-    /// \brief Set total number of slides.
-    /// \param[in] _total Total number of slides.
+    /// \brief Set total number of keyframes.
+    /// \param[in] _total Total number of keyframes.
     Q_SIGNALS: void SetTotal(const QString _total);
 
-    /// \brief Spin box holding current slide.
+    /// \brief Spin box holding current keyframe.
     private: QSpinBox * currentSpin{nullptr};
 
-    /// \brief Holds text for slides.
+    /// \brief Holds text for keyframes.
     private: QTextBrowser * text{nullptr};
+
+    /// \brief Present mode helper
+    private: PresentMode * presentMode{nullptr};
   };
 }
 #endif

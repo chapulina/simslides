@@ -15,25 +15,26 @@
  *
 */
 #include <sstream>
+#include <gazebo/rendering/UserCamera.hh>
+#include <simslides/common/Common.hh>
 
-#include "Common.hh"
 #include "ImportDialog.hh"
 #include "InsertActorDialog.hh"
 #include "LoadDialog.hh"
 #include "PresentMode.hh"
-#include "Simslides.hh"
+#include "SimSlides.hh"
 
 using namespace simslides;
 
 // Register this plugin with the simulator
-GZ_REGISTER_GUI_PLUGIN(Simslides)
+GZ_REGISTER_GUI_PLUGIN(SimSlides)
 
 /////////////////////////////////////////////////
-Simslides::Simslides()
+SimSlides::SimSlides()
   : gazebo::GUIPlugin()
 {
   // Menu item
-  auto menu = new QMenu("Simslides");
+  auto menu = new QMenu("SimSlides");
 
   // Import dialog
   auto newSlideDialog = new ImportDialog();
@@ -43,34 +44,29 @@ Simslides::Simslides()
   this->connect(newAct, SIGNAL(triggered()), newSlideDialog, SLOT(open()));
   menu->addAction(newAct);
 
-  // Load slides
+  // Load keyframes
+  // TODO(louise) Support loading any keyframes, not just spawning slides
+/*
   auto loadDialog = new LoadDialog();
 
   auto loadAct = new QAction(tr("Load models"), menu);
   loadAct->setShortcut(Qt::Key_F3);
   this->connect(loadAct, SIGNAL(triggered()), loadDialog, SLOT(open()));
   menu->addAction(loadAct);
+*/
 /*
-  // InsertActor slides
+  // InsertActor keyframes
   auto importActorDialog = new InsertActorDialog();
 
   auto importActorAct = new QAction(tr("Insert actor"), menu);
   this->connect(importActorAct, SIGNAL(triggered()), importActorDialog, SLOT(open()));
   menu->addAction(importActorAct);
 */
-  // Presentation mode
-  auto presentMode = new PresentMode();
-  this->connect(presentMode, SIGNAL(SlideChanged(int, int, QString)), this,
-      SLOT(OnSlideChanged(int, int, QString)));
-  this->connect(this, SIGNAL(CurrentChanged(int)), presentMode,
-      SLOT(OnSlideChanged(int)));
 
   auto presentAct = new QAction(QIcon(":/images/play.png"),
       tr("Presentation mode"), menu);
   presentAct->setShortcut(Qt::Key_F5);
-  presentAct->setCheckable(true);
-  this->connect(presentAct, SIGNAL(toggled(bool)), presentMode,
-      SLOT(OnToggled(bool)));
+  this->connect(presentAct, SIGNAL(triggered()), this, SLOT(OnPresent()));
   menu->addAction(presentAct);
 
   // Add to main window
@@ -163,28 +159,65 @@ Simslides::Simslides()
 }
 
 /////////////////////////////////////////////////
-void Simslides::Load(const sdf::ElementPtr _sdf)
+void SimSlides::Load(const sdf::ElementPtr _sdf)
 {
-  simslides::LoadPluginSDF(_sdf);
+  Common::Instance()->LoadPluginSDF(_sdf);
+
+  if (!std::isnan(Common::Instance()->farClip) && !std::isnan(Common::Instance()->nearClip))
+  {
+    auto camera = gazebo::gui::get_active_camera();
+    if (nullptr == camera)
+    {
+      gzwarn << "No user camera, can't set near and far clip distances"
+             << std::endl;
+    }
+    else
+    {
+      camera->SetClipDist(Common::Instance()->nearClip, Common::Instance()->farClip);
+    }
+  }
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnSlideChanged(const int _slide, const int _total, QString _text)
+void SimSlides::OnKeyframeChanged(const int _keyframe, const int _total)
 {
   this->currentSpin->blockSignals(true);
-  this->currentSpin->setValue(_slide);
+  this->currentSpin->setValue(_keyframe);
   this->currentSpin->blockSignals(false);
 
   this->SetTotal(QString::number(_total));
+}
 
+/////////////////////////////////////////////////
+void SimSlides::OnTextChanged(QString _text)
+{
   // FIXME Setting plain text so it's possible to display XML. Ideally we'd
   // support rich text with links
   this->text->setHtml(_text);
 }
 
 /////////////////////////////////////////////////
-void Simslides::OnCurrentChanged()
+void SimSlides::OnCurrentChanged()
 {
   this->CurrentChanged(this->currentSpin->value());
+}
+
+/////////////////////////////////////////////////
+void SimSlides::OnPresent()
+{
+  if (nullptr != this->presentMode)
+    delete this->presentMode;
+
+  this->presentMode = new PresentMode();
+  this->connect(presentMode, SIGNAL(KeyframeChanged(int, int)), this,
+      SLOT(OnKeyframeChanged(int, int)));
+  this->connect(presentMode, SIGNAL(TextChanged(QString)), this,
+      SLOT(OnTextChanged(QString)));
+  this->connect(this, SIGNAL(CurrentChanged(int)), presentMode,
+      SLOT(OnKeyframeChanged(int)));
+
+  this->presentMode->InitTransport();
+  this->OnKeyframeChanged(Common::Instance()->currentKeyframe,
+      Common::Instance()->keyframes.size()-1);
 }
 
