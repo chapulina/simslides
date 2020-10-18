@@ -100,19 +100,23 @@ This starts SimSlides in an empty world. You're ready to create your own present
 
 ## Demo
 
-You can find a demo presentation inside the `worlds` directory. Run it as follows:
+You can find a demo presentation inside the `worlds` directory.
+The same demo works for both simulators.
+
+Run it as follows:
 
 1. Move to the simslides clone directory
 
         cd <path to> simslides
 
-1. Source Gazebo
+1. (Only for Gazebo classic) Source Gazebo
 
         source /usr/share/gazebo/setup.sh
 
 1. Load the world
 
-        simslides worlds/demo_slide.world
+        simslides_ignition worlds/demo_slide.sdf
+        simslides_classic worlds/demo_slide.sdf
 
 ## Your own presentation
 

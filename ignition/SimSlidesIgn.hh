@@ -55,20 +55,36 @@ class SimSlidesIgn : public ignition::gui::Plugin
   /// \param[in] _keyframeCount Total number of keyframes.
   signals: void updateGUI(int _currentKeyframe, int _keyframeCount);
 
+  /// \brief Get the scene and user camera
   private: void LoadScene();
 
+  /// \brief Callback when user presses a key.
+  /// \param[in] _msg Message containing key.
   private: void OnKeyPress(const ignition::msgs::Int32 &_msg);
 
+  /// \brief Callback to move camera.
+  /// \param[in] _pose Pose to move to.
   private: void OnMoveCamera(const ignition::math::Pose3d &_pose);
 
+  /// \brief Callback to show / hide a visual
+  /// \param[in] _name Visual's scoped name
+  /// \param[in] _visible True to show
   private: void OnSetVisualVisible(const std::string &_name, bool _visible);
 
+  /// \brief Callback to seek a log file.
+  /// \param[in] _time Time to seek to.
   private: void OnSeekLog(std::chrono::steady_clock::duration _time);
 
+  /// \brief Callback to reset the camera pose.
   private: void OnResetCameraPose();
 
+  /// \brief Callback to get a visual's pose
+  /// \param[in] _name Visual's scoped name
+  /// \return Visual's pose in world frame
   private: ignition::math::Pose3d OnVisualPose(const std::string &_name);
 
+  /// \brief Callback to set the text on the dialog.
+  /// \param[in] _text Text to set.
   private: void OnSetText(const std::string &_text);
 
   /// \brief True when there's a pending command.
