@@ -1,3 +1,7 @@
+## This branch only works with Ignition Dome. For Gazebo 11 and Ignition Citadel, see the `main` branch.
+
+---
+
 # SimSlides
 
 Import PDF files into robot simulation and present flying from slide to slide.
