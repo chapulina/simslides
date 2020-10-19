@@ -2,42 +2,23 @@ cmake_minimum_required(VERSION 3.5.1 FATAL_ERROR)
 
 project(simslides)
 
-find_package(gazebo QUIET)
-find_package(ignition-gui3 QUIET)
-find_package(sdformat9 REQUIRED)
-find_package(Protobuf REQUIRED)
+find_package(ignition-common3 REQUIRED)
+set(IGN_COMMON_VER ${ignition-common3_VERSION_MAJOR})
 
-# Common
+find_package(ignition-gazebo4 REQUIRED COMPONENTS gui)
+set(IGN_GAZEBO_VER ${ignition-gazebo4_VERSION_MAJOR})
+
+find_package(ignition-rendering4 REQUIRED)
+set(IGN_RENDERING_VER ${ignition-rendering4_VERSION_MAJOR})
+
+find_package(ignition-gui4 REQUIRED)
+set(IGN_GUI_VER ${ignition-gui4_VERSION_MAJOR})
+
+find_package(sdformat10 REQUIRED)
+set(SDF_VER ${sdformat10_VERSION_MAJOR})
+
 add_subdirectory(common)
-
-# Gazebo-classic
-if (${gazebo_FOUND})
-  message (STATUS "Gazebo classic found")
-  add_subdirectory(classic)
-else()
-  message (STATUS "Gazebo classic not found, skipping this simulator")
-endif()
-
-# Ignition
-if (${ignition-gui3_FOUND})
-  message (STATUS "Ignition found")
-
-  find_package(ignition-common3 REQUIRED)
-  set(IGN_COMMON_VER ${ignition-common3_VERSION_MAJOR})
-
-  find_package(ignition-gazebo3 REQUIRED COMPONENTS gui)
-  set(IGN_GAZEBO_VER ${ignition-gazebo3_VERSION_MAJOR})
-
-  find_package(ignition-rendering3 REQUIRED)
-  set(IGN_RENDERING_VER ${ignition-rendering3_VERSION_MAJOR})
-
-  set(IGN_GUI_VER ${ignition-gui3_VERSION_MAJOR})
-
-  add_subdirectory(ignition)
-else()
-  message (STATUS "Ignition not found, skipping this simulator")
-endif()
-
+add_subdirectory(ignition)
 
 install(DIRECTORY
   models
