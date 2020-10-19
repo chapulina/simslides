@@ -38,6 +38,7 @@ RowLayout {
     id: keyframeSpin
     from: 0
     to: simSlides.lastKeyframe
+    editable: true
     ToolTip.text: "Current slide"
     ToolTip.visible: hovered
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
