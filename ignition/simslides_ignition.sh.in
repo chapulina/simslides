@@ -2,12 +2,12 @@
 
 source @CMAKE_INSTALL_PREFIX@/share/@PROJECT_NAME@/setup.sh
 
-WORLD=$1
+ARGS=$@
 
-if [ -z "$WORLD" ]; then
-  WORLD=simslides_ignition.sdf
+if [ -z "$ARGS" ]; then
+  ARGS=simslides_ignition.sdf
 fi
 
-echo -e "\e[34mSimSlides loading world [$WORLD]\e[0m"
+echo -e "\e[34mSimSlides loading world [$ARGS]\e[0m"
 
-ign gazebo $WORLD -v 4
+ign gazebo $ARGS
