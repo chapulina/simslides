@@ -70,12 +70,22 @@ Extra dependencies:
 
 ## Build SimSlides
 
+SimSlides can be built with a basic cmake workflow, for example:
+
     mkdir build
     cd build
     cmake ..
     make
     sudo make install
     cd ..
+
+Be sure to add your `CMAKE_PREFIX_PATH` to `LD_LIBRARY_PATH`, for example,
+when following the steps above, you should do this before running:
+
+    export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+
+It's also possible to build SimSlides inside a
+[colcon](https://colcon.readthedocs.io/en/released/) workspace.
 
 ## Run SimSlides
 
