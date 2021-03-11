@@ -70,7 +70,7 @@ Extra dependencies:
 
 ## Build SimSlides
 
-SimSlides can be build with a basic cmake workflow, for example:
+SimSlides can be built with a basic cmake workflow, for example:
 
     mkdir build
     cd build
