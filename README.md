@@ -1,4 +1,4 @@
-## This branch only works with Ignition Dome. For Gazebo 11 and Ignition Citadel, see the `main` branch.
+## This branch only works with Ignition Edifice. For Gazebo 11 and Ignition Citadel, see the `main` branch.
 
 ---
 
