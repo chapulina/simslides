@@ -209,10 +209,13 @@ but each presentation may take some massaging to work years later.
 
 ### Since mid 2019
 
-See each repository:
+See each repository / world:
 
-* [ROSConJP 2019](https://github.com/chapulina/rosconjp_2019)
-* [ROSCon 2019](https://github.com/chapulina/roscon_gz_ros2/)
+* [ROSConJP 2019](https://github.com/chapulina/rosconjp_2019) ([video](https://vimeo.com/370247782))
+* [ROSCon 2019](https://github.com/chapulina/roscon_gz_ros2/) ([video](https://vimeo.com/378683414))
+* ROS-Industrial Conference 2019: ([video](https://www.youtube.com/watch?v=QAi6bORqQno))
+* [All Things Open 2020](https://github.com/chapulina/ATO2020_Ignition) ([video](https://www.youtube.com/watch?v=FheYuaMYJHg))
+* [Open Source 101 2021](https://app.ignitionrobotics.org/chapulina/fuel/worlds/Open%20Source%20101) ([video](https://www.youtube.com/watch?v=VHffp5kYLEg))
 
 ## History
 
