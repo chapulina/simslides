@@ -1,4 +1,4 @@
-## This branch only works with Ignition Edifice. For Gazebo 11 and Ignition Citadel, see the `main` branch.
+## This branch only works with Ignition Fortress. For Gazebo 11 and Ignition Citadel, see the `main` branch.
 
 ---
 
@@ -55,22 +55,11 @@ present will be compiled.
 
 ### Ignition
 
-The main branch has been tested on Ignition Citadel.
+The main branch has been tested on Ignition Fortress.
 
-Follow the official install [instructions](https://ignitionrobotics.org/docs/citadel/install).
+Follow the official install [instructions](https://ignitionrobotics.org/docs/fortress/install).
 
-### Gazebo Classic
-
-The main branch has been tested on Gazebo version 11.
-
-Follow the official install [instructions](http://gazebosim.org/tutorials?cat=install).
-
-Extra dependencies:
-
-    sudo apt install imagemagick
-
-> It's also recommended that you make sure ImageMagick can convert PDFs, see
-> [this](https://stackoverflow.com/questions/42928765/convertnot-authorized-aaaa-error-constitute-c-readimage-453?answertab=active#tab-top).
+### Gazebo Classic (doesn't work on this branch)
 
 ## Build SimSlides
 
@@ -89,18 +78,7 @@ Run simslides:
 
     simslides_ignition
 
-### Gazebo classic
-
-*Important*: Source Gazebo, this may be in a different place depending on your
-Gazebo installation:
-
-    source /usr/share/gazebo/setup.sh
-
-Run simslides:
-
-    simslides_classic
-
-This starts SimSlides in an empty world. You're ready to create your own presentation!
+### Gazebo Classic (doesn't work on this branch)
 
 ## Demo
 
@@ -113,14 +91,9 @@ Run it as follows:
 
         cd <path to> simslides
 
-1. (Only for Gazebo classic) Source Gazebo
-
-        source /usr/share/gazebo/setup.sh
-
 1. Load the world
 
         simslides_ignition worlds/demo_slide.sdf
-        simslides_classic worlds/demo_slide.sdf
 
 ## Your own presentation
 

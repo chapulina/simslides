@@ -23,8 +23,8 @@
 #include <tinyxml2.h>
 
 #include <ignition/common/Console.hh>
-#include <ignition/gazebo/gui/GuiEvents.hh>
 #include <ignition/gui/Application.hh>
+#include <ignition/gui/GuiEvents.hh>
 #include <ignition/gui/MainWindow.hh>
 #include <ignition/math/Pose3.hh>
 #include <ignition/plugin/Register.hh>
@@ -116,7 +116,7 @@ void SimSlidesIgn::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
 /////////////////////////////////////////////////
 bool SimSlidesIgn::eventFilter(QObject *_obj, QEvent *_event)
 {
-  if (_event->type() == ignition::gazebo::gui::events::Render::kType)
+  if (_event->type() == ignition::gui::events::Render::kType)
   {
     this->LoadScene();
     this->ProcessCommands();
@@ -130,40 +130,9 @@ void SimSlidesIgn::LoadScene()
   if (nullptr != this->scene)
     return;
 
-  auto loadedEngNames = ignition::rendering::loadedEngines();
-  if (loadedEngNames.empty())
+  this->scene = ignition::rendering::sceneFromFirstRenderEngine();
+  if (nullptr == this->scene)
     return;
-
-  auto engineName = loadedEngNames[0];
-  if (loadedEngNames.size() > 1)
-  {
-    igndbg << "More than one engine is available. "
-      << "Using engine [" << engineName << "]" << std::endl;
-  }
-  auto engine = ignition::rendering::engine(engineName);
-  if (!engine)
-  {
-    ignerr << "Internal error: failed to load engine [" << engineName
-      << "]." << std::endl;
-    return;
-  }
-
-  if (engine->SceneCount() == 0)
-    return;
-
-  // assume there is only one scene
-  auto scene = engine->SceneByIndex(0);
-  if (!scene)
-  {
-    ignerr << "Internal error: scene is null." << std::endl;
-    return;
-  }
-
-  if (!scene->IsInitialized() || scene->VisualCount() == 0)
-  {
-    return;
-  }
-  this->scene = scene;
 
   for (int i = 0; i < this->scene->NodeCount(); ++i)
   {
@@ -181,8 +150,16 @@ void SimSlidesIgn::LoadScene()
 
       // Match Gazebo Classic's user camera FOV so the "zoom" looks the same
       camera->SetHFOV(IGN_DTOR(60));
+
+      igndbg << "SimSlides attached to camera ["
+             << this->camera->Name() << "]" << std::endl;
       break;
     }
+  }
+
+  if (!this->camera)
+  {
+    ignerr << "Camera is not available" << std::endl;
   }
 }
 
@@ -219,6 +196,12 @@ void SimSlidesIgn::OnKeyPress(const ignition::msgs::Int32 &_msg)
 /////////////////////////////////////////////////
 void SimSlidesIgn::OnMoveCamera(const ignition::math::Pose3d &_pose)
 {
+  if (nullptr == this->camera)
+  {
+    ignerr << "No camera, failed to move camera." << std::endl;
+    return;
+  }
+
   // Don't bother moving just a mm
   if ((this->camera->WorldPose().Pos() - _pose.Pos()).Length() < 0.001)
     return;
@@ -245,6 +228,12 @@ void SimSlidesIgn::OnMoveCamera(const ignition::math::Pose3d &_pose)
 /////////////////////////////////////////////////
 void SimSlidesIgn::OnSetVisualVisible(const std::string &_name, bool _visible)
 {
+  if (nullptr == this->camera)
+  {
+    ignerr << "No scene, failed to set visual visibility." << std::endl;
+    return;
+  }
+
   auto vis = this->scene->VisualByName(_name);
 
   if (!vis)
@@ -303,6 +292,19 @@ void SimSlidesIgn::OnResetCameraPose()
 /////////////////////////////////////////////////
 ignition::math::Pose3d SimSlidesIgn::OnVisualPose(const std::string &_name)
 {
+  if (nullptr == this->camera)
+  {
+    ignerr << "No camera, failed to get visual pose." << std::endl;
+    return {
+      std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::quiet_NaN(),
+      std::numeric_limits<double>::quiet_NaN()
+    };
+  }
+
   auto vis = this->camera->Scene()->VisualByName(_name);
   if (!vis)
   {

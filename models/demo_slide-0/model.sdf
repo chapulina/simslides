@@ -6,6 +6,7 @@
     <pose>0 0 0.45 0 -0 0</pose>
     <visual name='visual'>
       <cast_shadows>0</cast_shadows>
+      <transparency>0.01</transparency>
       <geometry>
         <box>
           <size>1.7 0.001 0.9</size>
@@ -25,6 +26,7 @@
           <metal>
             <albedo_map>model://demo_slide-0/materials/textures/demo_slide-0.png</albedo_map>
             <emissive_map>model://demo_slide-0/materials/textures/demo_slide-0.png</emissive_map>
+            <roughness>0</roughness>
           </metal>
         </pbr>
       </material>
