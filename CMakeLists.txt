@@ -2,10 +2,80 @@ cmake_minimum_required(VERSION 3.5.1 FATAL_ERROR)
 
 project(simslides)
 
-find_package(gazebo QUIET)
-find_package(ignition-gui3 QUIET)
-find_package(sdformat9 REQUIRED)
-find_package(Protobuf REQUIRED)
+# If Fortress is chosen, skip Gazebo classic and require Fortress
+if("$ENV{IGNITION_VERSION}" STREQUAL "fortress")
+
+  set(IGN_GUI_VER 6)
+  find_package(ignition-gui${IGN_GUI_VER} REQUIRED)
+
+  set(SDFORMAT_VER 12)
+  find_package(sdformat${SDFORMAT_VER} REQUIRED)
+
+  set(IGN_COMMON_VER 4)
+  find_package(ignition-common${IGN_COMMON_VER} REQUIRED)
+
+  set(IGN_GAZEBO_VER 6)
+  find_package(ignition-gazebo${IGN_GAZEBO_VER} REQUIRED COMPONENTS gui)
+
+  set(IGN_RENDERING_VER 6)
+  find_package(ignition-rendering${IGN_RENDERING_VER} REQUIRED)
+
+  set(IGNITION_FOUND true)
+  message(STATUS "Compiling against Ignition Fortress")
+
+# If Edifice is chosen, skip Gazebo classic and require Edifice
+elseif("$ENV{IGNITION_VERSION}" STREQUAL "edifice")
+
+  set(IGN_GUI_VER 5)
+  find_package(ignition-gui${IGN_GUI_VER} REQUIRED)
+
+  set(SDFORMAT_VER 11)
+  find_package(sdformat${SDFORMAT_VER} REQUIRED)
+
+  set(IGN_COMMON_VER 4)
+  find_package(ignition-common${IGN_COMMON_VER} REQUIRED)
+
+  set(IGN_GAZEBO_VER 5)
+  find_package(ignition-gazebo${IGN_GAZEBO_VER} REQUIRED COMPONENTS gui)
+
+  set(IGN_RENDERING_VER 5)
+  find_package(ignition-rendering${IGN_RENDERING_VER} REQUIRED)
+
+  set(IGNITION_FOUND true)
+  message(STATUS "Compiling against Ignition Edifice")
+
+# Default to Citadel + Gazebo 11
+# If one simulator isn't found, only use the other
+else()
+
+  find_package(gazebo QUIET)
+  find_package(Protobuf REQUIRED)
+
+  set(IGN_GUI_VER 3)
+  find_package(ignition-gui${IGN_GUI_VER} QUIET)
+
+  set(SDFORMAT_VER 9)
+  find_package(sdformat${SDFORMAT_VER} REQUIRED)
+
+  if (${ignition-gui${IGN_GUI_VER}_FOUND})
+
+    set(IGN_COMMON_VER 3)
+    find_package(ignition-common${IGN_COMMON_VER} REQUIRED)
+
+    set(IGN_GAZEBO_VER 3)
+    find_package(ignition-gazebo${IGN_GAZEBO_VER} REQUIRED COMPONENTS gui)
+
+    set(IGN_RENDERING_VER 3)
+    find_package(ignition-rendering${IGN_RENDERING_VER} REQUIRED)
+
+    set(IGNITION_FOUND true)
+    message(STATUS "Compiling against Ignition Citadel")
+
+  else()
+    message (STATUS "Ignition not found, skipping this simulator")
+  endif()
+
+endif()
 
 # Common
 add_subdirectory(common)
@@ -19,25 +89,12 @@ else()
 endif()
 
 # Ignition
-if (${ignition-gui3_FOUND})
+if (${IGNITION_FOUND})
   message (STATUS "Ignition found")
-
-  find_package(ignition-common3 REQUIRED)
-  set(IGN_COMMON_VER ${ignition-common3_VERSION_MAJOR})
-
-  find_package(ignition-gazebo3 REQUIRED COMPONENTS gui)
-  set(IGN_GAZEBO_VER ${ignition-gazebo3_VERSION_MAJOR})
-
-  find_package(ignition-rendering3 REQUIRED)
-  set(IGN_RENDERING_VER ${ignition-rendering3_VERSION_MAJOR})
-
-  set(IGN_GUI_VER ${ignition-gui3_VERSION_MAJOR})
-
   add_subdirectory(ignition)
 else()
   message (STATUS "Ignition not found, skipping this simulator")
 endif()
-
 
 install(DIRECTORY
   models
