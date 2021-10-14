@@ -51,10 +51,10 @@ void simslides::Common::LoadPluginSDF(const sdf::ElementPtr _sdf)
 }
 
 /////////////////////////////////////////////////
-void simslides::Common::HandleKeyPress(int _key)
+bool simslides::Common::HandleKeyPress(int _key)
 {
   if (this->keyframes.empty())
-    return;
+    return false;
 
   // Next (right arrow on keyboard or presenter)
   if ((_key == 16777236 || _key == 16777239) &&
@@ -69,16 +69,19 @@ void simslides::Common::HandleKeyPress(int _key)
     this->currentKeyframe--;
   }
   // Current (F1)
-  else if (_key == 16777264)
+  else if (_key == 16777264 || _key == 16777304)
   {
+    // replay current frame
   }
   // Home (F6)
-  else if (_key == 16777269)
+  else if (_key == 16777269 || _key == 16777422)
   {
     this->currentKeyframe = -1;
   }
   else
-    return;
+    return false;
+
+  return true;
 }
 
 /////////////////////////////////////////////////

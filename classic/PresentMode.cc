@@ -115,8 +115,8 @@ void PresentMode::OnWindowMode(const std::string &_mode)
 /////////////////////////////////////////////////
 void PresentMode::OnKeyPress(ConstAnyPtr &_msg)
 {
-  Common::Instance()->HandleKeyPress(_msg->int_value());
-  this->ChangeKeyframe();
+  if (Common::Instance()->HandleKeyPress(_msg->int_value()))
+    this->ChangeKeyframe();
 }
 
 /////////////////////////////////////////////////
