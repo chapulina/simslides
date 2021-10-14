@@ -74,7 +74,7 @@ else()
 
     set(IGNITION_FOUND true)
 
-  else()
+  endif()
 
 endif()
 
