@@ -5,6 +5,8 @@ project(simslides)
 # If Fortress is chosen, skip Gazebo classic and require Fortress
 if("$ENV{IGNITION_VERSION}" STREQUAL "fortress")
 
+  message(STATUS "Looking for Ignition Fortress...")
+
   set(IGN_GUI_VER 6)
   find_package(ignition-gui${IGN_GUI_VER} REQUIRED)
 
@@ -21,10 +23,11 @@ if("$ENV{IGNITION_VERSION}" STREQUAL "fortress")
   find_package(ignition-rendering${IGN_RENDERING_VER} REQUIRED)
 
   set(IGNITION_FOUND true)
-  message(STATUS "Compiling against Ignition Fortress")
 
 # If Edifice is chosen, skip Gazebo classic and require Edifice
 elseif("$ENV{IGNITION_VERSION}" STREQUAL "edifice")
+
+  message(STATUS "Looking for Ignition Edifice...")
 
   set(IGN_GUI_VER 5)
   find_package(ignition-gui${IGN_GUI_VER} REQUIRED)
@@ -42,11 +45,12 @@ elseif("$ENV{IGNITION_VERSION}" STREQUAL "edifice")
   find_package(ignition-rendering${IGN_RENDERING_VER} REQUIRED)
 
   set(IGNITION_FOUND true)
-  message(STATUS "Compiling against Ignition Edifice")
 
 # Default to Citadel + Gazebo 11
 # If one simulator isn't found, only use the other
 else()
+
+  message(STATUS "Looking for Gazebo 11 and Ignition Citadel...")
 
   find_package(gazebo QUIET)
   find_package(Protobuf REQUIRED)
@@ -69,11 +73,8 @@ else()
     find_package(ignition-rendering${IGN_RENDERING_VER} REQUIRED)
 
     set(IGNITION_FOUND true)
-    message(STATUS "Compiling against Ignition Citadel")
 
   else()
-    message (STATUS "Ignition not found, skipping this simulator")
-  endif()
 
 endif()
 
