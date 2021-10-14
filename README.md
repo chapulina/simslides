@@ -51,9 +51,9 @@ present will be compiled.
 
 ### Ignition
 
-The main branch has been tested on Ignition Citadel.
+The main branch supports Ignition Citadel, Edifice and Fortress.
 
-Follow the official install [instructions](https://ignitionrobotics.org/docs/citadel/install).
+Follow the official install [instructions](https://ignitionrobotics.org/docs/fortress/install).
 
 ### Gazebo Classic
 
@@ -69,6 +69,14 @@ Extra dependencies:
 > [this](https://stackoverflow.com/questions/42928765/convertnot-authorized-aaaa-error-constitute-c-readimage-453?answertab=active#tab-top).
 
 ## Build SimSlides
+
+By default, SimSlides will try to build against Ignition Citadel and Gazebo 11.
+For other Ignition versions, set the `IGNITION_VERSION` environment variable
+before building. For example:
+
+```
+export IGNITION_VERSION=fortress
+```
 
 SimSlides can be built with a basic cmake workflow, for example:
 
