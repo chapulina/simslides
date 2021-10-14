@@ -189,8 +189,8 @@ void SimSlidesIgn::ProcessCommands()
 /////////////////////////////////////////////////
 void SimSlidesIgn::OnKeyPress(const ignition::msgs::Int32 &_msg)
 {
-  Common::Instance()->HandleKeyPress(_msg.data());
-  this->pendingCommand = true;
+  if (Common::Instance()->HandleKeyPress(_msg.data()))
+    this->pendingCommand = true;
 }
 
 /////////////////////////////////////////////////

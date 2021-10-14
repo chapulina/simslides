@@ -46,7 +46,8 @@ namespace simslides
 
      /// \brief Handle an incoming key press from the user
      /// \param[in] _key Key as an integer
-     public: void HandleKeyPress(int _key);
+     /// \return True if key is handled, false if key should be ignored
+     public: bool HandleKeyPress(int _key);
 
      /// \brief Change to the given keyframe.
      /// If -1, go back to initial pose.
