@@ -5,9 +5,9 @@ source @CMAKE_INSTALL_PREFIX@/share/@PROJECT_NAME@/setup.sh
 ARGS=$@
 
 if [ -z "$ARGS" ]; then
-  ARGS=simslides_ignition.sdf
+  ARGS=simslides_gazebo.sdf
 fi
 
 echo -e "\e[34mSimSlides loading world [$ARGS]\e[0m"
 
-ign gazebo $ARGS
+gz sim $ARGS

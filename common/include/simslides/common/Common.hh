@@ -55,7 +55,7 @@ namespace simslides
      public: void ChangeKeyframe(int _keyframe);
 
      /// \brief Function called to move camera, containing the target pose.
-     public: std::function<void(const ignition::math::Pose3d &)> MoveCamera;
+     public: std::function<void(const gz::math::Pose3d &)> MoveCamera;
 
      /// \brief Function called to move camera, containing the target pose.
      public: std::function<void(const std::string &, bool)> SetVisualVisible;
@@ -68,7 +68,7 @@ namespace simslides
 
      /// \brief Function called to get a visual's pose according to its scoped
      /// name.
-     public: std::function<ignition::math::Pose3d(const std::string &)>
+     public: std::function<gz::math::Pose3d(const std::string &)>
          VisualPose;
 
      /// \brief Function called to set text, containing the the text.
@@ -95,8 +95,8 @@ namespace simslides
      /// -1 means not presenting.
      public: int slideCount{-1};
 
-     public: const ignition::math::Pose3d kEyeOffset
-         {0.0, -3.0, 0.0, 0.0, 0.0, IGN_PI_2};
+     public: const gz::math::Pose3d kEyeOffset
+         {0.0, -3.0, 0.0, 0.0, 0.0, GZ_PI_2};
 
      /// \brief Static instance
      private: static Common *instance;

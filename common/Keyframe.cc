@@ -42,10 +42,10 @@ class simslides::KeyframePrivate
   public: std::string visual;
 
   /// \brief Camera offset in LOOKAT slide frame
-  public: ignition::math::Pose3d eyeOffset;
+  public: gz::math::Pose3d eyeOffset;
 
   /// \brief Camera pose in world frame
-  public: ignition::math::Pose3d camPose;
+  public: gz::math::Pose3d camPose;
 
   /// \brief Log time to seek to
   public: std::chrono::steady_clock::duration logSeek;
@@ -65,7 +65,7 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
 
   if (_sdf->HasAttribute("eye_offset"))
   {
-    this->dataPtr->eyeOffset = _sdf->Get<ignition::math::Pose3d>("eye_offset");
+    this->dataPtr->eyeOffset = _sdf->Get<gz::math::Pose3d>("eye_offset");
   }
   if (_sdf->HasAttribute("text"))
   {
@@ -91,14 +91,14 @@ Keyframe::Keyframe(sdf::ElementPtr _sdf) : dataPtr(new KeyframePrivate)
   }
   else if (type == "log_seek")
   {
-    this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("cam_pose");
+    this->dataPtr->camPose = _sdf->Get<gz::math::Pose3d>("cam_pose");
     auto logSeek = _sdf->Get<sdf::Time>("time");
     this->dataPtr->logSeek = std::chrono::seconds(logSeek.sec) +
        std::chrono::nanoseconds(logSeek.nsec);
   }
   else if (type == "cam_pose")
   {
-    this->dataPtr->camPose = _sdf->Get<ignition::math::Pose3d>("pose");
+    this->dataPtr->camPose = _sdf->Get<gz::math::Pose3d>("pose");
   }
   else
   {
@@ -132,13 +132,13 @@ std::string Keyframe::Visual() const
 }
 
 //////////////////////////////////////////////////
-ignition::math::Pose3d Keyframe::CamPose() const
+gz::math::Pose3d Keyframe::CamPose() const
 {
   return this->dataPtr->camPose;
 }
 
 //////////////////////////////////////////////////
-ignition::math::Pose3d Keyframe::EyeOffset() const
+gz::math::Pose3d Keyframe::EyeOffset() const
 {
   return this->dataPtr->eyeOffset;
 }
@@ -202,4 +202,3 @@ KeyframeType KeyframePrivate::StrToType(const std::string &_type) const
 
   return KeyframeType::NONE;
 }
-

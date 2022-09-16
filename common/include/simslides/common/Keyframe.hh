@@ -20,7 +20,7 @@
 #include <memory>
 #include <string>
 #include <sdf/Element.hh>
-#include <ignition/math/Pose3.hh>
+#include <gz/math/Pose3.hh>
 
 namespace simslides
 {
@@ -69,11 +69,11 @@ namespace simslides
 
     /// \brief For LOG_SEEK and CAM_POSE
     /// \return Camera pose in the world
-    public: ignition::math::Pose3d CamPose() const;
+    public: gz::math::Pose3d CamPose() const;
 
     /// \brief For LOOKAT
     /// \return Offset from target slide origin.
-    public: ignition::math::Pose3d EyeOffset() const;
+    public: gz::math::Pose3d EyeOffset() const;
 
     /// \brief Log time to seek to
     /// \return Log time

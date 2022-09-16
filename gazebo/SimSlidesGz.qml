@@ -27,7 +27,7 @@ RowLayout {
   property int lastKeyframe: 10;
 
   Connections {
-    target: SimSlidesIgn
+    target: SimSlidesGz
     onUpdateGUI: {
       keyframeSpin.value = _currentKeyframe;
       simSlides.lastKeyframe = _keyframeCount;
@@ -43,7 +43,7 @@ RowLayout {
     ToolTip.visible: hovered
     ToolTip.delay: Qt.styleHints.mousePressAndHoldInterval
     onValueModified: {
-      SimSlidesIgn.OnKeyframeChanged(keyframeSpin.value);
+      SimSlidesGz.OnKeyframeChanged(keyframeSpin.value);
     }
   }
 }
