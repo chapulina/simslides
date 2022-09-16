@@ -2,23 +2,23 @@ cmake_minimum_required(VERSION 3.5.1 FATAL_ERROR)
 
 project(simslides)
 
-find_package(ignition-common4 REQUIRED)
-set(IGN_COMMON_VER ${ignition-common4_VERSION_MAJOR})
+find_package(gz-common5 REQUIRED)
+set(GZ_COMMON_VER ${gz-common5_VERSION_MAJOR})
 
-find_package(ignition-gazebo6 REQUIRED COMPONENTS gui)
-set(IGN_GAZEBO_VER ${ignition-gazebo6_VERSION_MAJOR})
+find_package(gz-sim7 REQUIRED COMPONENTS gui)
+set(GZ_SIM_VER ${gz-sim7_VERSION_MAJOR})
 
-find_package(ignition-rendering6 REQUIRED)
-set(IGN_RENDERING_VER ${ignition-rendering6_VERSION_MAJOR})
+find_package(gz-rendering7 REQUIRED)
+set(GZ_RENDERING_VER ${gz-rendering7_VERSION_MAJOR})
 
-find_package(ignition-gui6 REQUIRED)
-set(IGN_GUI_VER ${ignition-gui6_VERSION_MAJOR})
+find_package(gz-gui7 REQUIRED)
+set(GZ_GUI_VER ${gz-gui7_VERSION_MAJOR})
 
-find_package(sdformat12 REQUIRED)
-set(SDF_VER ${sdformat12_VERSION_MAJOR})
+find_package(sdformat13 REQUIRED)
+set(SDF_VER ${sdformat13_VERSION_MAJOR})
 
 add_subdirectory(common)
-add_subdirectory(ignition)
+add_subdirectory(gazebo)
 
 install(DIRECTORY
   models

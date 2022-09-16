@@ -15,6 +15,7 @@
 */
 
 #include <limits>
+#include <gz/math/Matrix4.hh>
 
 #include "include/simslides/common/Common.hh"
 
@@ -136,23 +137,23 @@ void simslides::Common::Update()
     // Target in world frame
     auto origin = this->Common::Instance()->VisualPose(keyframe->Visual());
 
-    auto bbPos = origin.Pos() + ignition::math::Vector3d(0, 0, 0.5);
-    auto targetWorld = ignition::math::Matrix4d(ignition::math::Pose3d(
+    auto bbPos = origin.Pos() + gz::math::Vector3d(0, 0, 0.5);
+    auto targetWorld = gz::math::Matrix4d(gz::math::Pose3d(
         bbPos, origin.Rot()));
 
     // Eye in target frame
     auto offset = keyframe->EyeOffset();
-    if (offset == ignition::math::Pose3d::Zero)
+    if (offset == gz::math::Pose3d::Zero)
     {
       offset = this->kEyeOffset;
     }
-    ignition::math::Matrix4d eyeTarget(offset);
+    gz::math::Matrix4d eyeTarget(offset);
 
     // Eye in world frame
     auto eyeWorld = targetWorld * eyeTarget;
 
     // Look At
-    auto mat = ignition::math::Matrix4d::LookAt(eyeWorld.Translation(),
+    auto mat = gz::math::Matrix4d::LookAt(eyeWorld.Translation(),
         targetWorld.Translation());
 
     this->MoveCamera(mat.Pose());

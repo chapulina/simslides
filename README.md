@@ -1,4 +1,4 @@
-## This branch only works with Ignition Fortress. For Gazebo 11 and Ignition Citadel, see the `main` branch.
+## This branch only works with Gazebo Garden. For Gazebo 11 and Gazebo Citadel, see the `main` branch.
 
 ---
 
@@ -11,20 +11,20 @@ Import PDF files into robot simulation and present flying from slide to slide.
 ## Features
 
 SimSlides consists of plugins for two simulators:
-[Gazebo Classic](http://gazebosim.org/) and
-[Ignition Gazebo](https://ignitionrobotics.org/). There are different features for
+[Gazebo Classic](http://classic.gazebosim.org/) and
+[Gazebo](https://gazebosim.org/). There are different features for
 each simulator.
 
-### Ignition
+### Gazebo
 
-![SimSlides Ignition](images/SimSlides_Ignition.gif)
+![SimSlides Gazebo](images/SimSlides_Gazebo.gif)
 
 * Navigate through keyframes using **mouse**, **keyboard** or wireless **presenter**
 * Keyframes can:
     * Look at a **slide** (even if it has moved)
     * **Move camera** to a specific pose
     * Go through slides **stacked** on the same pose
-* ... plus all **Ignition** features!
+* ... plus all **Gazebo** features!
 
 ### Gazebo classic
 
@@ -49,15 +49,15 @@ want to setup keyboard triggers? Control a robot using
 
 ## Install
 
-SimSlides' main branch supports both Gazebo Classic and Ignition. It's ok if
+SimSlides' `main` branch supports both Gazebo Classic and Gazebo. It's ok if
 you don't have both simulators installed, only the plugin for the simulator
 present will be compiled.
 
-### Ignition
+### Gazebo
 
-The main branch has been tested on Ignition Fortress.
+The `garden` branch has been tested on Gazebo Garden.
 
-Follow the official install [instructions](https://ignitionrobotics.org/docs/fortress/install).
+Follow the official install [instructions](https://gazebosim.org/docs/garden/install).
 
 ### Gazebo Classic (doesn't work on this branch)
 
@@ -72,11 +72,11 @@ Follow the official install [instructions](https://ignitionrobotics.org/docs/for
 
 ## Run SimSlides
 
-### Ignition
+### Gazebo
 
 Run simslides:
 
-    simslides_ignition
+    simslides_gazebo
 
 ### Gazebo Classic (doesn't work on this branch)
 
@@ -93,7 +93,7 @@ Run it as follows:
 
 1. Load the world
 
-        simslides_ignition worlds/demo_slide.sdf
+        simslides_gazebo worlds/demo_slide.sdf
 
 ## Your own presentation
 
@@ -191,4 +191,3 @@ gaining more features for each presentation.
 
 The repository was ported to GitHub + Git in August 2019, when BitBucket
 dropped Mercurial support.
-

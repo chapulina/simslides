@@ -15,27 +15,28 @@
  *
 */
 
-#ifndef SIMSLIDES_IGNITION_SIMSLIDESIGN_HH_
-#define SIMSLIDES_IGNITION_SIMSLIDESIGN_HH_
+#ifndef SIMSLIDES_GAZEBO_SIMSLIDESGZ_HH_
+#define SIMSLIDES_GAZEBO_SIMSLIDESGZ_HH_
 
-#include <ignition/gui/qt.h>
-#include <ignition/msgs/int64.pb.h>
-#include <ignition/gui/Plugin.hh>
-#include <ignition/rendering/Camera.hh>
-#include <ignition/rendering/Scene.hh>
-#include <ignition/transport/Node.hh>
+#include <gz/gui/qt.h>
+#include <gz/msgs/int32.pb.h>
+#include <gz/msgs/Utility.hh>
+#include <gz/gui/Plugin.hh>
+#include <gz/rendering/Camera.hh>
+#include <gz/rendering/Scene.hh>
+#include <gz/transport/Node.hh>
 
 namespace simslides
 {
-class SimSlidesIgn : public ignition::gui::Plugin
+class SimSlidesGz : public gz::gui::Plugin
 {
   Q_OBJECT
 
   /// \brief Constructor
-  public: SimSlidesIgn();
+  public: SimSlidesGz();
 
   /// \brief Destructor
-  public: virtual ~SimSlidesIgn();
+  public: virtual ~SimSlidesGz();
 
   // Documentation inherited
   public: void LoadConfig(const tinyxml2::XMLElement *_pluginElem) override;
@@ -60,11 +61,11 @@ class SimSlidesIgn : public ignition::gui::Plugin
 
   /// \brief Callback when user presses a key.
   /// \param[in] _msg Message containing key.
-  private: void OnKeyPress(const ignition::msgs::Int32 &_msg);
+  private: void OnKeyPress(const gz::msgs::Int32 &_msg);
 
   /// \brief Callback to move camera.
   /// \param[in] _pose Pose to move to.
-  private: void OnMoveCamera(const ignition::math::Pose3d &_pose);
+  private: void OnMoveCamera(const gz::math::Pose3d &_pose);
 
   /// \brief Callback to show / hide a visual
   /// \param[in] _name Visual's scoped name
@@ -81,7 +82,7 @@ class SimSlidesIgn : public ignition::gui::Plugin
   /// \brief Callback to get a visual's pose
   /// \param[in] _name Visual's scoped name
   /// \return Visual's pose in world frame
-  private: ignition::math::Pose3d OnVisualPose(const std::string &_name);
+  private: gz::math::Pose3d OnVisualPose(const std::string &_name);
 
   /// \brief Callback to set the text on the dialog.
   /// \param[in] _text Text to set.
@@ -91,16 +92,16 @@ class SimSlidesIgn : public ignition::gui::Plugin
   private: bool pendingCommand;
 
   /// \brief Node used for communication.
-  private: ignition::transport::Node node;
+  private: gz::transport::Node node;
 
   /// \brief Keep pointer to camera so we can move it.
-  private: ignition::rendering::CameraPtr camera;
+  private: gz::rendering::CameraPtr camera;
 
   /// \brief Keep pointer to scene so we can get visuals.
-  private: ignition::rendering::ScenePtr scene;
+  private: gz::rendering::ScenePtr scene;
 
 //  /// \brief Used to start, stop, and step simulation.
-//  private: ignition::transport::Publisher logPlaybackControlPub;
+//  private: gz::transport::Publisher logPlaybackControlPub;
 };
 }
 

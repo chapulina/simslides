@@ -18,38 +18,38 @@
 #include <iostream>
 #include <limits>
 
-#include <ignition/msgs/gui_camera.pb.h>
-#include <ignition/msgs/boolean.pb.h>
+#include <gz/msgs/gui_camera.pb.h>
+#include <gz/msgs/boolean.pb.h>
 #include <tinyxml2.h>
 
-#include <ignition/common/Console.hh>
-#include <ignition/gui/Application.hh>
-#include <ignition/gui/GuiEvents.hh>
-#include <ignition/gui/MainWindow.hh>
-#include <ignition/math/Pose3.hh>
-#include <ignition/plugin/Register.hh>
-#include <ignition/rendering/RenderEngine.hh>
-#include <ignition/rendering/RenderingIface.hh>
+#include <gz/common/Console.hh>
+#include <gz/gui/Application.hh>
+#include <gz/gui/GuiEvents.hh>
+#include <gz/gui/MainWindow.hh>
+#include <gz/math/Pose3.hh>
+#include <gz/plugin/Register.hh>
+#include <gz/rendering/RenderEngine.hh>
+#include <gz/rendering/RenderingIface.hh>
 #include <simslides/common/Common.hh>
 #include <sdf/parser.hh>
 
-#include "SimSlidesIgn.hh"
+#include "SimSlidesGz.hh"
 
 using namespace simslides;
 
 /////////////////////////////////////////////////
-SimSlidesIgn::SimSlidesIgn()
+SimSlidesGz::SimSlidesGz()
   : Plugin()
 {
 }
 
 /////////////////////////////////////////////////
-SimSlidesIgn::~SimSlidesIgn()
+SimSlidesGz::~SimSlidesGz()
 {
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
+void SimSlidesGz::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
 {
   if (this->title.empty())
     this->title = "SimSlides";
@@ -71,41 +71,41 @@ void SimSlidesIgn::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
   auto pluginElem = sdfParsed->Root()->GetElement("plugin");
   if (nullptr == pluginElem)
   {
-    ignerr << "Error getting plugin element from:" << std::endl << stream.str()
+    gzerr << "Error getting plugin element from:" << std::endl << stream.str()
            << std::endl;
     return;
   }
 
   Common::Instance()->LoadPluginSDF(pluginElem);
 
-  this->node.Subscribe("/keyboard/keypress", &SimSlidesIgn::OnKeyPress, this);
+  this->node.Subscribe("/keyboard/keypress", &SimSlidesGz::OnKeyPress, this);
 
 //      this->logPlaybackControlPub = this->node->
 //          Advertise<gazebo::msgs::LogPlaybackControl>("~/playback_control");
 
-  ignition::gui::App()->findChild<ignition::gui::MainWindow *>
+  gz::gui::App()->findChild<gz::gui::MainWindow *>
       ()->installEventFilter(this);
 
   simslides::Common::Instance()->MoveCamera =
-      std::bind(&SimSlidesIgn::OnMoveCamera, this, std::placeholders::_1);
+      std::bind(&SimSlidesGz::OnMoveCamera, this, std::placeholders::_1);
 
   simslides::Common::Instance()->SetVisualVisible =
-      std::bind(&SimSlidesIgn::OnSetVisualVisible, this, std::placeholders::_1,
+      std::bind(&SimSlidesGz::OnSetVisualVisible, this, std::placeholders::_1,
       std::placeholders::_2);
 
   simslides::Common::Instance()->SeekLog =
-      std::bind(&SimSlidesIgn::OnSeekLog, this, std::placeholders::_1);
+      std::bind(&SimSlidesGz::OnSeekLog, this, std::placeholders::_1);
 
   simslides::Common::Instance()->ResetCameraPose =
-      std::bind(&SimSlidesIgn::OnResetCameraPose, this);
+      std::bind(&SimSlidesGz::OnResetCameraPose, this);
 
   simslides::Common::Instance()->VisualPose =
-      std::bind(&SimSlidesIgn::OnVisualPose, this, std::placeholders::_1);
+      std::bind(&SimSlidesGz::OnVisualPose, this, std::placeholders::_1);
 
   simslides::Common::Instance()->SetText =
-      std::bind(&SimSlidesIgn::OnSetText, this, std::placeholders::_1);
+      std::bind(&SimSlidesGz::OnSetText, this, std::placeholders::_1);
 
-  ignmsg << "Start presentation. Total of [" << Common::Instance()->keyframes.size()
+  gzmsg << "Start presentation. Total of [" << Common::Instance()->keyframes.size()
         << "] keyframes" << std::endl;
 
   // Trigger first slide
@@ -114,9 +114,9 @@ void SimSlidesIgn::LoadConfig(const tinyxml2::XMLElement *_pluginXml)
 }
 
 /////////////////////////////////////////////////
-bool SimSlidesIgn::eventFilter(QObject *_obj, QEvent *_event)
+bool SimSlidesGz::eventFilter(QObject *_obj, QEvent *_event)
 {
-  if (_event->type() == ignition::gui::events::Render::kType)
+  if (_event->type() == gz::gui::events::Render::kType)
   {
     this->LoadScene();
     this->ProcessCommands();
@@ -125,18 +125,18 @@ bool SimSlidesIgn::eventFilter(QObject *_obj, QEvent *_event)
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::LoadScene()
+void SimSlidesGz::LoadScene()
 {
   if (nullptr != this->scene)
     return;
 
-  this->scene = ignition::rendering::sceneFromFirstRenderEngine();
+  this->scene = gz::rendering::sceneFromFirstRenderEngine();
   if (nullptr == this->scene)
     return;
 
   for (int i = 0; i < this->scene->NodeCount(); ++i)
   {
-    auto cam = std::dynamic_pointer_cast<ignition::rendering::Camera>(
+    auto cam = std::dynamic_pointer_cast<gz::rendering::Camera>(
         this->scene->NodeByIndex(i));
     if (nullptr != cam)
     {
@@ -149,9 +149,9 @@ void SimSlidesIgn::LoadScene()
       }
 
       // Match Gazebo Classic's user camera FOV so the "zoom" looks the same
-      camera->SetHFOV(IGN_DTOR(60));
+      camera->SetHFOV(GZ_DTOR(60));
 
-      igndbg << "SimSlides attached to camera ["
+      gzdbg << "SimSlides attached to camera ["
              << this->camera->Name() << "]" << std::endl;
       break;
     }
@@ -159,26 +159,26 @@ void SimSlidesIgn::LoadScene()
 
   if (!this->camera)
   {
-    ignerr << "Camera is not available" << std::endl;
+    gzerr << "Camera is not available" << std::endl;
   }
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::OnKeyframeChanged(int _keyframe)
+void SimSlidesGz::OnKeyframeChanged(int _keyframe)
 {
   Common::Instance()->ChangeKeyframe(_keyframe);
   this->pendingCommand = true;
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::ProcessCommands()
+void SimSlidesGz::ProcessCommands()
 {
   if (!this->pendingCommand)
     return;
 
   this->pendingCommand = false;
 
-  ignmsg << "Changing to slide [" << Common::Instance()->currentKeyframe << "]"
+  gzmsg << "Changing to slide [" << Common::Instance()->currentKeyframe << "]"
          << std::endl;
 
   simslides::Common::Instance()->Update();
@@ -187,18 +187,18 @@ void SimSlidesIgn::ProcessCommands()
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::OnKeyPress(const ignition::msgs::Int32 &_msg)
+void SimSlidesGz::OnKeyPress(const gz::msgs::Int32 &_msg)
 {
   Common::Instance()->HandleKeyPress(_msg.data());
   this->pendingCommand = true;
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::OnMoveCamera(const ignition::math::Pose3d &_pose)
+void SimSlidesGz::OnMoveCamera(const gz::math::Pose3d &_pose)
 {
   if (nullptr == this->camera)
   {
-    ignerr << "No camera, failed to move camera." << std::endl;
+    gzerr << "No camera, failed to move camera." << std::endl;
     return;
   }
 
@@ -206,19 +206,19 @@ void SimSlidesIgn::OnMoveCamera(const ignition::math::Pose3d &_pose)
   if ((this->camera->WorldPose().Pos() - _pose.Pos()).Length() < 0.001)
     return;
 
-  ignition::msgs::GUICamera req;
-  ignition::msgs::Set(req.mutable_pose(), _pose);
+  gz::msgs::GUICamera req;
+  gz::msgs::Set(req.mutable_pose(), _pose);
 
-  std::function<void(const ignition::msgs::Boolean &, const bool)> cb =
-      [](const ignition::msgs::Boolean &_res, const bool _result)
+  std::function<void(const gz::msgs::Boolean &, const bool)> cb =
+      [](const gz::msgs::Boolean &_res, const bool _result)
   {
     if (!_result)
     {
-      ignerr << "Timed out requesting to move camera" << std::endl;
+      gzerr << "Timed out requesting to move camera" << std::endl;
     }
     if (!_res.data())
     {
-      ignerr << "Failed to move camera" << std::endl;
+      gzerr << "Failed to move camera" << std::endl;
     }
   };
 
@@ -226,11 +226,11 @@ void SimSlidesIgn::OnMoveCamera(const ignition::math::Pose3d &_pose)
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::OnSetVisualVisible(const std::string &_name, bool _visible)
+void SimSlidesGz::OnSetVisualVisible(const std::string &_name, bool _visible)
 {
   if (nullptr == this->camera)
   {
-    ignerr << "No scene, failed to set visual visibility." << std::endl;
+    gzerr << "No scene, failed to set visual visibility." << std::endl;
     return;
   }
 
@@ -238,7 +238,7 @@ void SimSlidesIgn::OnSetVisualVisible(const std::string &_name, bool _visible)
 
   if (!vis)
   {
-    ignerr << "Couldn't find visual [" << _name << "]" << std::endl;
+    gzerr << "Couldn't find visual [" << _name << "]" << std::endl;
     return;
   }
 
@@ -246,7 +246,7 @@ void SimSlidesIgn::OnSetVisualVisible(const std::string &_name, bool _visible)
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::OnSeekLog(std::chrono::steady_clock::duration _time)
+void SimSlidesGz::OnSeekLog(std::chrono::steady_clock::duration _time)
 {
   std::cout << "Log seek not supported yet" << std::endl;
   // if (!this->logPlaybackControlPub)
@@ -269,20 +269,20 @@ void SimSlidesIgn::OnSeekLog(std::chrono::steady_clock::duration _time)
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::OnResetCameraPose()
+void SimSlidesGz::OnResetCameraPose()
 {
-  ignition::msgs::Vector3d req;
+  gz::msgs::Vector3d req;
 
-  std::function<void(const ignition::msgs::Boolean &, const bool)> cb =
-      [](const ignition::msgs::Boolean &_res, const bool _result)
+  std::function<void(const gz::msgs::Boolean &, const bool)> cb =
+      [](const gz::msgs::Boolean &_res, const bool _result)
   {
     if (!_result)
     {
-      ignerr << "Timed out requesting to reset camera" << std::endl;
+      gzerr << "Timed out requesting to reset camera" << std::endl;
     }
     if (!_res.data())
     {
-      ignerr << "Failed to reset camera" << std::endl;
+      gzerr << "Failed to reset camera" << std::endl;
     }
   };
 
@@ -290,11 +290,11 @@ void SimSlidesIgn::OnResetCameraPose()
 }
 
 /////////////////////////////////////////////////
-ignition::math::Pose3d SimSlidesIgn::OnVisualPose(const std::string &_name)
+gz::math::Pose3d SimSlidesGz::OnVisualPose(const std::string &_name)
 {
   if (nullptr == this->camera)
   {
-    ignerr << "No camera, failed to get visual pose." << std::endl;
+    gzerr << "No camera, failed to get visual pose." << std::endl;
     return {
       std::numeric_limits<double>::quiet_NaN(),
       std::numeric_limits<double>::quiet_NaN(),
@@ -308,7 +308,7 @@ ignition::math::Pose3d SimSlidesIgn::OnVisualPose(const std::string &_name)
   auto vis = this->camera->Scene()->VisualByName(_name);
   if (!vis)
   {
-    ignerr << "Failed to find visual [" << _name << "]" << std::endl;
+    gzerr << "Failed to find visual [" << _name << "]" << std::endl;
     return {
       std::numeric_limits<double>::quiet_NaN(),
       std::numeric_limits<double>::quiet_NaN(),
@@ -324,11 +324,11 @@ ignition::math::Pose3d SimSlidesIgn::OnVisualPose(const std::string &_name)
 }
 
 /////////////////////////////////////////////////
-void SimSlidesIgn::OnSetText(const std::string &_name)
+void SimSlidesGz::OnSetText(const std::string &_name)
 {
   // TODO(louise) Support setting text
 }
 
 // Register this plugin
-IGNITION_ADD_PLUGIN(simslides::SimSlidesIgn,
-                    ignition::gui::Plugin);
+GZ_ADD_PLUGIN(simslides::SimSlidesGz,
+                    gz::gui::Plugin);
